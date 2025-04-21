@@ -1,0 +1,2040 @@
+{
+	"Nadir": {
+		"name": "Nadir - Nef Tir",
+		"types": [
+			"Helms"
+		],
+		"option": [
+			"+50% Enhanced Defense",
+			"+10 Defense",
+			"+30 Defense vs. Missile",
+			"+5 Strength",
+			"+[2-4] to Mana after each Kill",
+			"-33% Extra Gold from Monsters",
+			"-3 to Light Radius",
+			"Level 13 Cloak of Shadows (9 Charges)"
+		],
+		"level": "13"
+	},
+	"Radiance": {
+		"name": "Radiance - Nef Sol Ith",
+		"types": [
+			"Helms"
+		],
+		"option": [
+			"+[20-40]% Enhanced Damage",
+			"+75% Enhanced Defense",
+			"+30 Defense vs. Missile",
+			"+10 to Vitality",
+			"+10 to Energy",
+			"+33 to Mana",
+			"Physical Damage Taken Reduced by 7",
+			"15% Damage Taken Gained as Mana when Hit",
+			"+5 to Light Radius"
+		],
+		"level": "27"
+	},
+	"Lore": {
+		"name": "Lore - Ort Sol",
+		"types": [
+			"Helms"
+		],
+		"option": [
+			"+1 to All Skills",
+			"+[5-10] to Energy",
+			"Lightning Resist +30%",
+			"Physical Damage Taken Reduced by 7",
+			"+[1-2] to Mana after each Kill",
+			"+2 to Light Radius"
+		],
+		"level": "27"
+	},
+	"Wisdom": {
+		"name": "Wisdom - Pul Ith Eld",
+		"types": [
+			"Helms"
+		],
+		"option": [
+			"+33% Chance to Pierce",
+			"[15-25]% Bonus to Attack Rating",
+			"[4-8]% Mana Stolen per Hit",
+			"+30% Enhanced Defense",
+			"+10 to Energy",
+			"15% Slower Stamina Drain",
+			"Cannot Be Frozen",
+			"+5 to Mana after each Kill",
+			"15% Damage Gained as Mana when Hit"
+		],
+		"level": "45"
+	},
+	"Delirium": {
+		"name": "Delirium - Lem Ist Io",
+		"types": [
+			"Helms"
+		],
+		"option": [
+			"11% Chance to Cast Level 18 Confuse on Striking",
+			"6% Chance to Cast Level 14 Mind Blast when Struck",
+			"14% Chance to Cast Level 13 Terror when Struck",
+			"+2 to All Skills",
+			"+261 Defense",
+			"+10 to Vitality",
+			"50% Extra Gold from Monsters",
+			"30% Better Chance of Getting Magic Items",
+			"Level 17 Attract (60 Charges)"
+		],
+		"level": "Required Level: 51"
+	},
+	"Flickering": {
+		"name": "Flickering Flame - Nef Pul Vex",
+		"types": [
+			"Helms"
+		],
+		"option": [
+			"Level [1-6] Resist Fire Aura when Equipped",
+			"+2 to Fire Skills",
+			"-[5-10]% to Enemy Fire Resistance",
+			"+30% Enhanced Defense",
+			"+30 Defense vs. Missile",
+			"+[65-75] to Mana",
+			"+4% to Maximum Fire Resist",
+			"Half Freeze Duration "
+		],
+		"level": "55"
+	},
+	"Dream": [
+		{
+			"name": "Dream - Io Jah Pul",
+			"types": [
+				"Helms"
+			],
+			"option": [
+				"10% Chance to Cast Level 15 Confuse when Struck",
+				"Level 13 Holy Shock Aura when Equipped",
+				"+[20-30]% Faster Hit Recovery",
+				"+30% Enhanced Defense",
+				"+[150-220] Defense",
+				"+10 to Vitality",
+				"Increase Maximum Life 5%",
+				"+[0-61] to Mana (+0.625 per Character Level)",
+				"All Resistances +[10-20] ",
+				"[20-30]% Better Chance of Getting Magic Items"
+			],
+			"level": "65"
+		},
+		{
+			"name": "Dream - Io Jah Pul",
+			"types": [
+				"Shield"
+			],
+			"option": [
+				"10% Chance to Cast Level 15 Confuse when Struck",
+				"Level 13 Holy Shock Aura when Equipped",
+				"+[20-30]% Faster Hit Recovery",
+				"+30% Enhanced Defense",
+				"+[150-220] Defense",
+				"+10 to Vitality",
+				"+75 to Life ",
+				"+[0-61] to Mana (+0.625 per Character Level)",
+				"All Resistances +[10-20] ",
+				"[20-30]% Better Chance of Getting Magic Items"
+			],
+			"level": "65"
+		}
+	],
+	"Ferocity": {
+		"name": "Ferocity - Zod Cham Shael",
+		"types": [
+			"Helms"
+		],
+		"option": [
+			"12% Chance to Cast Level 10 Taunt on Striking",
+			"Indestructible",
+			"+20% Faster Hit Recovery",
+			"[10-12]% Life Stolen per Hit",
+			"+18 to Zeal",
+			"+[150-200]% Enhanced Defense",
+			"Magic Damage Taken Reduced by [6-12]",
+			"Cannot Be Frozen",
+			"Attacker Takes Damage of [200-250]"
+		],
+		"level": "69"
+	},
+	"Stealth": {
+		"name": "Stealth - Tal Eth",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"+10% Faster Run/Walk ",
+			"+20% Faster Cast Rate ",
+			"+20% Faster Hit Recovery ",
+			"+6 to Dexterity ",
+			"Regenerate Mana 15% ",
+			"+15 Maximum Stamina ",
+			"Poison Resist +30% ",
+			"Magic Damage Taken Reduced by 3 "
+		],
+		"level": "17"
+	},
+	"Peace": {
+		"name": "Peace - Shael Thul Amn",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"You May Summon 1 Additional Valkyrie ",
+			"8% Chance to Cast Level 12 Slow Movement when Struck ",
+			"+1 to Amazon Skills ",
+			"+20% Faster Hit Recovery ",
+			"+2 to Critical Strike ",
+			"Cold Resist +30% ",
+			"Attacker Takes Damage of 14 "
+		],
+		"level": "29"
+	},
+	"Myth": {
+		"name": "Myth - Hel Amn Nef",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"5% Chance to Cast Level 1 Taunt on Striking ",
+			"3% Chance to Cast Level 1 Howl when Struck ",
+			"+[1-2] to Barbarian Skills ",
+			"+30 Defense vs. Missile ",
+			"Replenish Life +10 ",
+			"+[3-4] to Mana after each Kill ",
+			"Attacker Takes Damage of 14 ",
+			"Attacker Takes Damage of [2-297] ([2-3] per Character Level) ",
+			"Requirements -15% "
+		],
+		"level": "25"
+	},
+	"Smoke": {
+		"name": "Smoke - Nef Lum",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"+20% Faster Hit Recovery ",
+			"+75% Enhanced Defense ",
+			"+280 Defense vs. Missile ",
+			"+10 to Energy ",
+			"All Resistances +[30-50] ",
+			"-1 to Light Radius ",
+			"Level 6 Weaken (18 Charges) "
+		],
+		"level": "37"
+	},
+	"Hustle": {
+		"name": "Hustle - Shael Ko Eld",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"Level 6 Burst of Speed When Equipped ",
+			"+20% Increased Attack Speed ",
+			"+20% Faster Hit Recovery ",
+			"+10 to Dexterity ",
+			"50% Slower Stamina Drain ",
+			"All Resistances +10 ",
+			"Half Freeze Duration "
+		],
+		"level": "39"
+	},
+	"Lionheart": {
+		"name": "Lionheart - Hel Lum Fal",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"+[80-110]% Enhanced Damage ",
+			"+[10-25] to Strength ",
+			"+[10-15] to Dexterity ",
+			"+[10-20] to Vitality ",
+			"+10 to Energy ",
+			"+50 to Life ",
+			"All Resistances +[20-30] ",
+			"Requirements -15% "
+		],
+		"level": "41"
+	},
+	"Treachery": {
+		"name": "Treachery - Shael Thul Amn",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"25% Chance to Cast Level 15 Venom on Striking ",
+			"15% Chance to Cast Level 21 Mind Blast when Struck ",
+			"+2 to Assassin Skills ",
+			"+45% Increased Attack Speed ",
+			"+20% Faster Hit Recovery ",
+			"Cold Resist +30% ",
+			"50% Extra Gold from Monsters "
+		],
+		"level": "43"
+	},
+	"Wealth": {
+		"name": "Wealth - Lem Ko Tir",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"+10 to Dexterity ",
+			"+4 to Mana after each Kill ",
+			"300% Extra Gold from Monsters ",
+			"100% Better Chance of Getting Magic Items "
+		],
+		"level": "43"
+	},
+	"Enlightenment": {
+		"name": "Enlightenment - Pul Ral Sol",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"25% Chance to Cast Level 28 Fire Ball on Casting ",
+			"35% Chance to Cast Level 25 Blaze when Struck ",
+			"+2 to Sorceress Skills ",
+			"+20% Faster Cast Rate ",
+			"+[5-8] to Warmth ",
+			"+30% Enhanced Defense ",
+			"Fire Resist +30% ",
+			"Physical Damage Taken Reduced by 7 "
+		],
+		"level": "45"
+	},
+	"Duress": {
+		"name": "Duress - Shael Um Thul",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"+40% Faster Hit Recovery ",
+			"+[40-80]% Enhanced Damage ",
+			"Adds 37-133 Cold Damage ",
+			"15% Chance of Crushing Blow ",
+			"33% Chance of Open Wounds ",
+			"+[150-200]% Enhanced Defense ",
+			"-20% Slower Stamina Drain ",
+			"Cold Resist +45% ",
+			"Lightning Resist +15% ",
+			"Fire Resist +15% ",
+			"Poison Resist +15% "
+		],
+		"level": "47"
+	},
+	"Stone": {
+		"name": "Stone - Shael Um Pul Lum",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"Indestructible",
+			"+1 to All Skills ",
+			"+60% Faster Hit Recovery ",
+			"+[230-320]% Enhanced Defense ",
+			" +[10-16] to Strength ",
+			" +[10-16] to Vitality ",
+			"+10 to Energy ",
+			"All Resistances +15 ",
+			"Level 16 Clay Golem (36 Charges) ",
+			"Replenish 1 Charge in 3 Seconds "
+		],
+		"level": "47"
+	},
+	"Gloom": {
+		"name": "Gloom - Fal Um Pul",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"15% Chance to Cast Level 9 Dim Vision when Struck ",
+			"+[20-40]% Faster Hit Recovery ",
+			"+[200-260]% Enhanced Defense ",
+			"+10 to Strength ",
+			"All Resistances +45 ",
+			"+20% Curse Resistance ",
+			"Half Freeze Duration ",
+			"5% Damage Taken Gained as Mana when Hit "
+		],
+		"level": "47"
+	},
+	"Bone": {
+		"name": "Bone - Sol Um Um",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"30% Chance to Cast Level 25 Bone Spear on Striking ",
+			"10% Chance to Cast Level 15 Bone Armor when Struck ",
+			"+2 to Necromancer Skills ",
+			"+[100-150] to Mana ",
+			"All Resistances +30 ",
+			"Physical Damage Taken Reduced by 7 "
+		],
+		"level": "47"
+	},
+	"Prudence": {
+		"name": "Prudence - Mal Tir",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"+40% Faster Cast Rate ",
+			"+25% Faster Hit Recovery ",
+			"+[140-170]% Enhanced Defense ",
+			"All Resistances +[25-35] ",
+			"Physical Damage Taken Reduced by [5-13] ",
+			"Magic Damage Taken Reduced by [13-17] ",
+			"+2 to Mana after each Kill ",
+			"Repairs 1 Durability in 4 Seconds "
+		],
+		"level": "49"
+	},
+	"Rain": {
+		"name": "Rain - Ort Mal Ith",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"20% Chance to Cast Level 25 Twister on Striking ",
+			"8% Chance to Cast Level 15 Cyclone Armor when Struck ",
+			"+2 to Druid Skills ",
+			"+[100-150] to Mana ",
+			"Lightning Resist +30% ",
+			"Magic Damage Taken Reduced by 7 ",
+			"15% Damage Taken Gained as Mana when Hit "
+		],
+		"level": "49"
+	},
+	"Principle": {
+		"name": "Principle - Ral Gul Eld",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"50% Chance to Cast Level 25 Holy Bolt on Striking ",
+			"+2 to Paladin Skills ",
+			"+[50-80]% Damage to Demons ",
+			"+[50-80]% Damage to Undead ",
+			"+[50-100] to Life ",
+			"15% Slower Stamina Drain ",
+			"+4% to Maximum Poison Resist ",
+			"Fire Resist +30% "
+		],
+		"level": "53"
+	},
+	"Fortitude": [
+		{
+			"name": "Fortitude - El Sol Dol Lo",
+			"types": [
+				"Body Armor"
+			],
+			"option": [
+				"+25% Faster Cast Rate ",
+				"+[250-300]% Enhanced Damage ",
+				"+200% Enhanced Defense ",
+				"+15 Defense ",
+				"+[1-148] to Life (+[1-1.5] per Character Level) ",
+				"Replenish Life +10 ",
+				"+4% to Maximum Lightning Resist ",
+				"All Resistances +[25-30] ",
+				"Physical Damage Taken Reduced by 7 ",
+				"12% Damage Taken Gained as Mana when Hit ",
+				"+1 to Light Radius "
+			],
+			"level": "59"
+		},
+		{
+			"name": "Fortitude - El Sol Dol Lo",
+			"types": [
+				"Weapon"
+			],
+			"option": [
+				"+25% Faster Cast Rate ",
+				"+[250-300]% Enhanced Damage ",
+				"+9 to Minimum Damage ",
+				"+50 to Attack Rating ",
+				"20% Deadly Strike ",
+				"+200% Enhanced Defense ",
+				"+[1-148] to Life (+[1-1.5] per Character Level)",
+				"All Resistances +[25-30] ",
+				"12% Damage Taken Gained as Mana when Hit ",
+				"+1 to Light Radius "
+			],
+			"level": "59"
+		}
+	],
+	"Bramble": {
+		"name": "Bramble - Ral Ohm Sur Eth",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"Level [18-21] Thorns Aura when Equipped ",
+			"+50% Faster Hit Recovery ",
+			"+[40-50]% to Poison Skill Damage ",
+			"+300 Defense ",
+			"Increase Maximum Mana 5% ",
+			"Regenerate Mana 15% ",
+			"+4% to Maximum Cold Resist ",
+			"Fire Resist +30% ",
+			"Poison Resist +100% ",
+			"+[4-6] Life after each Kill ",
+			"Level 13 Spirit of Barbs (33 Charges) "
+		],
+		"level": "61"
+	},
+	"Dragon": [
+		{
+			"name": "Dragon - Sur Lo Sol",
+			"types": [
+				"Body Armor"
+			],
+			"option": [
+				"You May Summon 1 Additional Hydra ",
+				"12% Chance to Cast Level 28 Hydra on Striking ",
+				"20% Chance to Cast Level 18 Venom when Struck ",
+				"Level 12 Holy Fire Aura when Equipped ",
+				"+360 Defense ",
+				"+230 Defense vs. Missile ",
+				"+[0-37] to Strength (+0.375 per Character Level) ",
+				"Increase Maximum Mana 5% ",
+				"+4% to Maximum Lightning Resist ",
+				"Physical Damage Taken Reduced by 7 "
+			],
+			"level": "61"
+		},
+		{
+			"name": "Dragon - Sur Lo Sol",
+			"types": [
+				"Shield"
+			],
+			"option": [
+				"You May Summon 1 Additional Hydra ",
+				"12% Chance to Cast Level 28 Hydra on Striking ",
+				"20% Chance to Cast Level 18 Venom when Struck ",
+				"Level 12 Holy Fire Aura when Equipped ",
+				"+360 Defense ",
+				"+230 Defense vs. Missile ",
+				"+[0-37] to Strength (+0.375 per Character Level) ",
+				"+50 to Mana ",
+				"+4% to Maximum Lightning Resist ",
+				"Physical Damage Taken Reduced by 7 "
+			],
+			"level": "61"
+		}
+	],
+	"coh": {
+		"name": "Chains of Honor - Dol Um Ber Ist",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"+2 to All Skills ",
+			"+200% Damage to Demons ",
+			"+100% Damage to Undead ",
+			"8% Life Stolen per Hit ",
+			"+70% Enhanced Defense ",
+			"+20 to Strength ",
+			"Replenish Life +10 ",
+			"All Resistances +[50-60] ",
+			"Physical Damage Taken Reduced by 5% ",
+			"30% Better Chance of Getting Magic Items "
+		],
+		"level": "63"
+	},
+	"Enigma": {
+		"name": "Enigma - Jah Ith Ber",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"+2 to All Skills ",
+			"+25% Faster Run/Walk ",
+			"Level 1 Blink (5 Charges) ",
+			" Replenish 1 Charge in 3 Seconds ",
+			"+[500-775] Defense ",
+			"+[0-74] to Strength (+[0.5-0.75] per Character Level) ",
+			"Increase Maximum Life 5% ",
+			"Physical Damage Taken Reduced by 5% ",
+			"15% Damage Taken Gained as Mana when Hit ",
+			"[0-74]% Better Chance of Getting Magic Items ([0.5-0.75]% per Character Level) "
+		],
+		"level": "65"
+	},
+	"Innocence": {
+		"name": "Innocence - Gul Lem Zod Hel",
+		"types": [
+			"Body Armor"
+		],
+		"option": [
+			"Indestructible",
+			"Level [8-12] Blade Shield When Equipped ",
+			"+2 to All Skills ",
+			"20% Chance of Crushing Blow ",
+			"+[200-275]% Enhanced Defense ",
+			"+4% to Maximum Poison Resist ",
+			"Poison Length Reduced by 50% ",
+			"Attacker Takes Damage of [600-800] ",
+			"50% Extra Gold from Monsters ",
+			"Requirements -25% "
+		],
+		"level": "59"
+	},
+	"Ancient": {
+		"name": "Ancient's Pledge - Ral Ort Tal",
+		"types": [
+			"Shield"
+		],
+		"option": [
+			"+50% Enhanced Defense ",
+			"Cold Resist +43% ",
+			"Lightning Resist +48% ",
+			"Fire Resist +48% ",
+			"Poison Resist +48% ",
+			"10% Damage Taken Gained as Mana when Hit "
+		],
+		"level": "21"
+	},
+	"Spirit": [
+		{
+			"name": "Spirit - Tal Thul Ort Amn",
+			"types": [
+				"Shield"
+			],
+			"option": [
+				"+1 to All Skills ",
+				"+[25-35]% Faster Cast Rate ",
+				"+25% Faster Hit Recovery ",
+				"+[11-22] to Vitality ",
+				"+[59-82] to Mana ",
+				"Cold Resist +35% ",
+				"Lightning Resist +35% ",
+				"Poison Resist +35% ",
+				"+[3-8] Magic Absorb ",
+				"Attacker Takes Damage of 14 ",
+				"Requirements -15% "
+			],
+			"level": "25"
+		},
+		{
+			"name": "Spirit - Tal Thul Ort Amn",
+			"types": [
+				"Sword",
+				"Staves"
+			],
+			"option": [
+				"+1 to All Skills (Non-Staves Only) ",
+				"+2 to All Skills (Staves Only) ",
+				"+[25-35]% Faster Cast Rate ",
+				"+25% Faster Hit Recovery (Non-Staves Only) ",
+				"+55% Faster Hit Recovery (Staves Only) ",
+				"Adds 1-50 Lightning Damage ",
+				"Adds 3-14 Cold Damage ",
+				"+75 Poison Damage over 5 Seconds ",
+				"7% Life Stolen per Hit ",
+				"+[11-22] to Vitality ",
+				"+[59-82] to Mana ",
+				"+[3-8] Magic Absorb ",
+				"Requirements -15% "
+			],
+			"level": "25"
+		}
+	],
+	"Rhyme": {
+		"name": "Rhyme - Shael Eth",
+		"types": [
+			"Shield"
+		],
+		"option": [
+			"+40% Faster Block Rate ",
+			"20% Increased Chance of Blocking ",
+			"Regenerate Mana 15% ",
+			"All Resistances +25 ",
+			"Cannot Be Frozen ",
+			"50% Extra Gold from Monsters ",
+			"25% Better Chance of Getting Magic Items "
+		],
+		"level": "29"
+	},
+	"Splendor": {
+		"name": "Splendor - Eth Lum",
+		"types": [
+			"Shield"
+		],
+		"option": [
+			"+1 to All Skills ",
+			"+[20-35]% Faster Cast Rate ",
+			"+20% Faster Block Rate ",
+			"+[60-100]% Enhanced Defense ",
+			"+10 to Energy ",
+			"Regenerate Mana 15% ",
+			"50% Extra Gold from Monsters ",
+			"[20-30]% Better Chance of Getting Magic Items ",
+			"+3 to Light Radius ",
+			""
+		],
+		"level": "37"
+	},
+	"Sanctuary": {
+		"name": "Sanctuary - Ko Ko Mal",
+		"types": [
+			"Shield"
+		],
+		"option": [
+			"+20% Faster Hit Recovery ",
+			"+20% Faster Block Rate ",
+			"20% Increased Chance of Blocking ",
+			"+[130-160]% Enhanced Defense ",
+			"+20 to Dexterity ",
+			"All Resistances +[40-50] ",
+			"Magic Damage Taken Reduced by 7 ",
+			"Cannot Be Frozen ",
+			"Level 12 Slow Movement (60 Charges) ",
+			""
+		],
+		"level": "49"
+	},
+	"Exile": {
+		"name": "Exile - Vex Ohm Ist Dol",
+		"types": [
+			"Shield"
+		],
+		"option": [
+			"25% Chance to Cast level 18 Decrepify on Striking ",
+			"Level [13-16] Defiance Aura when Equipped ",
+			"+2 to Offensive Auras (Paladin Only) ",
+			"+30% Faster Block Rate ",
+			"Freezes Target ",
+			"+[220-260]% Enhanced Defense ",
+			"Replenish Life +10 ",
+			"+4% to Maximum Cold Resist ",
+			"+4% to Maximum Fire Resist ",
+			"30% Better Chance of Getting Magic Items ",
+			"Repairs 1 Durability Every 4 Seconds "
+		],
+		"level": "57"
+	},
+	"Phoenix": [
+		{
+			"name": "Phoenix - Vex Vex Lo Jah",
+			"types": [
+				"Shield"
+			],
+			"option": [
+				"20% Chance to Cast Level 40 Firestorm on Striking ",
+				"100% Chance to Cast Level 40 Blaze when you Level-Up ",
+				"Level [10-12] Redemption Aura when Equipped ",
+				"+[250-300]% Enhanced Damage ",
+				"-28% to Enemy Fire Resistance ",
+				"+[350-400] Defense vs. Missile ",
+				"+75 to Life ",
+				"+4% to Maximum Lightning Resist ",
+				"+8% to Maximum Fire Resist ",
+				""
+			],
+			"level": "65"
+		},
+		{
+			"name": "Phoenix - Vex Vex Lo Jah",
+			"types": [
+				"Weapon"
+			],
+			"option": [
+				"20% Chance to Cast Level 40 Firestorm on Striking (Non-Staves Only) ",
+				"20% Chance to Cast Level 40 Firestorm on Casting (Staves Only) ",
+				"100% Chance to Cast Level 40 Blaze when you Level-Up ",
+				"Level [10-12] Redemption Aura when Equipped ",
+				"+[400-450]% Enhanced Damage ",
+				"Ignore Target's Defense ",
+				"14% Mana Stolen per Hit ",
+				"-28% to Enemy Fire Resistance ",
+				"20% Deadly Strike ",
+				"+[350-400] Defense vs. Missile ",
+				"+[15-21] Fire Absorb "
+			],
+			"level": "65"
+		}
+	],
+	"Shattered": {
+		"name": "Shattered Wall - Zod Jah Ral Cham",
+		"types": [
+			"Paladin Shield"
+		],
+		"option": [
+			"Indestructible",
+			"Level 16 Holy Freeze Aura when Equipped ",
+			"+60% Faster Block Rate ",
+			"Adds 200-250 Cold Damage ",
+			"+[160-200]% Enhanced Defense ",
+			"+[125-175] to Life ",
+			"Fire Resist +35% ",
+			"Cannot Be Frozen ",
+			"+5 to Mana after each Kill ",
+			""
+		],
+		"level": "69"
+	},
+	"Steel": {
+		"name": "Tir El",
+		"types": [
+			"Swords",
+			"Axes",
+			"Tipped Maces",
+			"Claws"
+		],
+		"option": [
+			"+25% Increased Attack Speed ",
+			"+20% Enhanced Damage ",
+			"+3 to Minimum Damage ",
+			"+3 to Maximum Damage ",
+			"+50 to Attack Rating ",
+			"50% Chance of Open Wounds ",
+			"+2 to Mana after each Kill ",
+			"+1 to Light Radius ",
+			"",
+			""
+		],
+		"level": "13"
+	},
+	"Malice": {
+		"name": "Malice - Ith El Eth",
+		"types": [
+			"Melee Weapons"
+		],
+		"option": [
+			"+33% Enhanced Damage ",
+			"+9 to Maximum Damage ",
+			"-25% Target Defense ",
+			"+50 to Attack Rating ",
+			"100% Chance of Open Wounds ",
+			"+6 Open Wounds Damage per Second ",
+			"Prevent Monster Heal ",
+			"-100 to Monster Defense per Hit ",
+			"Drain Life -5 ",
+			""
+		],
+		"level": "15"
+	},
+	"Leaf": {
+		"name": "Leaf - Tir Ral",
+		"types": [
+			"Staves"
+		],
+		"option": [
+			"+3 to Fire Skills ",
+			"Adds 5-30 Fire Damage ",
+			"+[1-2] to Inferno (Sorceress Only) ",
+			"+3 to Warmth (Sorceress Only) ",
+			"+3 to Fire Bolt (Sorceress Only) ",
+			"+[2-198] Defense (+2 per Character Level) ",
+			"Cold Resist +33% ",
+			"+2 to Mana after each Kill ",
+			"",
+			""
+		],
+		"level": "19"
+	},
+	"Pattern": {
+		"name": "Pattern - Tal Ort Tir",
+		"types": [
+			"Claws"
+		],
+		"option": [
+			"+30% Faster Block Rate ",
+			"+[80-120]% Enhanced Damage ",
+			"10% Bonus to Attack Rating ",
+			"Adds 12-32 Fire Damage ",
+			"Adds 1-50 Lightning Damage ",
+			"+75 Poison Damage over 5 Seconds ",
+			"+6 to Strength ",
+			"+6 to Dexterity ",
+			"All Resistances +15 ",
+			"+2 to Mana after each Kill "
+		],
+		"level": "21"
+	},
+	"Zephyr": {
+		"name": "Zephyr - Ort Eth",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"7% Chance to Cast Level 10 Twister when Struck ",
+			"+25% Faster Run/Walk ",
+			"+25% Increased Attack Speed ",
+			"+[33-66]% Enhanced Damage ",
+			"-25% Target Defense ",
+			"+66 to Attack Rating ",
+			"Adds 1-50 Lightning Damage ",
+			"+25 Defense ",
+			"",
+			""
+		],
+		"level": "21"
+	},
+	"Holy Thunder": {
+		"name": "Holy Thunder - Eth Ral Ort Tal",
+		"types": [
+			"Scepters"
+		],
+		"option": [
+			"+60% Enhanced Damage ",
+			"+10 to Maximum Damage ",
+			"-25% Target Defense ",
+			"Adds 5-30 Fire Damage ",
+			"Adds 21-110 Lightning Damage ",
+			"+75 Poison Damage over 5 Seconds ",
+			"+3 to Holy Shock (Paladin Only) ",
+			"+5% to Maximum Lightning Resist ",
+			"Lightning Resist +60% ",
+			"Level 7 Chain Lightning (60 Charges) "
+		],
+		"level": "21"
+	},
+	"Neophyte": {
+		"name": "Neophyte - Thul Tir",
+		"types": [
+			"Orbs",
+			"Claws",
+			"Scepters",
+			"Clubs",
+			"Staves"
+		],
+		"option": [
+			"+30% Faster Cast Rate (Non-Staves Only) ",
+			"+40% Faster Cast Rate (Staves Only) ",
+			"Adds 3-14 Cold Damage ",
+			"Physical Damage Taken Reduced by [2-4] ",
+			"Half Freeze Duration ",
+			"Poison length Reduced by 25% ",
+			"+2 to Mana after each Kill ",
+			"",
+			"",
+			""
+		],
+		"level": "23"
+	},
+	"Strength": {
+		"name": "Strength - Amn Tir",
+		"types": [
+			"Melee Weapons"
+		],
+		"option": [
+			"+[65-95]% Enhanced Damage ",
+			"7% Life Stolen per Hit ",
+			"25% Chance of Crushing Blow ",
+			"+20 to Strength ",
+			"+10 to Vitality ",
+			"+2 to Mana after each Kill ",
+			"",
+			"",
+			"",
+			""
+		],
+		"level": "25"
+	},
+	"Edge": {
+		"name": "Edge - Tir Tal Amn",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"Level 15 Thorns Aura when Equipped ",
+			"+35% Increased Attack Speed ",
+			"+[320-380]% Damage to Demons ",
+			"+280% Damage to Undead ",
+			"+75 Poison Damage over 5 Seconds ",
+			"7% Life Stolen per Hit ",
+			"Prevent Monster Heal ",
+			"+[5-10] to All Attributes ",
+			"+2 to Mana after each Kill ",
+			"Reduces All Vendor Prices 15% "
+		],
+		"level": "25"
+	},
+	"Grace": {
+		"name": "King's Grace - Amn Ral Thul",
+		"types": [
+			"Scepters",
+			"Swords",
+			"Claws"
+		],
+		"option": [
+			"+100% Enhanced Damage ",
+			"+150 to Attack Rating ",
+			"+100% Damage to Demons ",
+			"+100 to Attack Rating against Demons ",
+			"+50% Damage to Undead ",
+			"+100 to Attack Rating against Undead ",
+			"Adds 50-80 Fire Damage ",
+			"Adds 3-14 Cold Damage ",
+			"7% Life Stolen per Hit ",
+			""
+		],
+		"level": "25"
+	},
+	"Purity": {
+		"name": "Purity - Amn Eth Thul",
+		"types": [
+			"Polearms",
+			"Spears",
+			"Staves",
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"Level [10-12] Prayer Aura when Equipped ",
+			"+45% Increased Attack Speed ",
+			"+[110-145]% Enhanced Damage ",
+			"-25% Target Defense ",
+			"+[80-120]% Damage to Demons ",
+			"+200 to Attack Rating against Demons ",
+			"30% Reduced Curse Duration ",
+			"Adds 3-14 Cold Damage ",
+			"7% Life Stolen per Hit ",
+			""
+		],
+		"level": "25"
+	},
+	"Insight": {
+		"name": "Insight - Ral Tir Tal Sol",
+		"types": [
+			"Staves",
+			"Polearms",
+			"Spears",
+			"Scepters"
+		],
+		"option": [
+			"Level [12-17] Meditation Aura when Equipped ",
+			"+35% Faster Cast Rate ",
+			"+[140-180]% Enhanced Damage ",
+			"+9 to Minimum Damage ",
+			"[180-250]% Bonus to Attack Rating ",
+			"Adds 5-30 Fire Damage ",
+			"+75 Poison Damage over 5 Seconds ",
+			"+[1-6] to Critical Strike ",
+			"+[10-20] to All Attributes ",
+			"+2 to Mana after each Kill ",
+			"23% Better Chance of Getting Magic Items "
+		],
+		"level": "27"
+	},
+	"Honor": {
+		"name": "Honor - Amn El Ith Tir Sol",
+		"types": [
+			"Melee Weapons"
+		],
+		"option": [
+			"+1 to All Skills ",
+			"+[160-200]% Enhanced Damage ",
+			"+9 to Minimum Damage ",
+			"+9 to Maximum Damage ",
+			"+250 to Attack Rating ",
+			"7% Life Stolen per Hit ",
+			"25% Deadly Strike ",
+			"+10 to Strength ",
+			"Replenish Life +10 ",
+			"+2 to Mana after each Kill ",
+			"+1 to Light Radius "
+		],
+		"level": "27"
+	},
+	"Rampage": {
+		"name": "Rampage - Shael El Ith Eth",
+		"types": [
+			"Polearms",
+			"Spears",
+			"Staves"
+		],
+		"option": [
+			"+65% Increased Attack Speed ",
+			"+20% Faster Hit Recovery ",
+			"+[120-145]% Enhanced Damage ",
+			"+9 to Maximum Damage ",
+			"-25% Target Defense ",
+			"+50 to Attack Rating ",
+			"Fire Resist +25% ",
+			"+1 to Light Radius ",
+			"",
+			""
+		],
+		"level": "29"
+	},
+	"Black": {
+		"name": "Black - Thul Io Nef",
+		"types": [
+			"Clubs",
+			"Hammers",
+			"Tipped Maces",
+			"Claws"
+		],
+		"option": [
+			"+15% Increased Attack Speed ",
+			"+100% Enhanced Damage ",
+			"Damage +[20-30] ",
+			"+200 to Attack Rating ",
+			"Adds 3-14 Cold Damage ",
+			"40% Chance of Crushing Blow ",
+			"Knockback",
+			"+10 to Vitality ",
+			"Magic Damage Taken Reduced by 2 ",
+			"Level 4 Corpse Explosion (12 Charges) "
+		],
+		"level": "35"
+	},
+	"White": {
+		"name": "White - Dol Io",
+		"types": [
+			"Wands"
+		],
+		"option": [
+			"+2 to Poison and Bone Skills (Necromancer Only) ",
+			"+20% Faster Cast Rate ",
+			"+4 to Skeleton Mastery (Necromancer Only) ",
+			"+[2-3] to Bone Armor (Necromancer Only) ",
+			"+20% Enhanced Damage ",
+			"+10 to Vitality ",
+			"+13 to Mana ",
+			"Magic Damage Taken Reduced by 4 ",
+			"",
+			""
+		],
+		"level": "35"
+	},
+	"Memory": {
+		"name": "Memory - Lum Io Sol Eth",
+		"types": [
+			"Staves"
+		],
+		"option": [
+			"+3 to Sorceress Skills ",
+			"+33% Faster Cast Rate ",
+			"+9 to Minimum Damage ",
+			"-25% Target Defense ",
+			"+3 to Energy Shield (Sorceress Only) ",
+			"+2 to Static Field (Sorceress Only) ",
+			"+50% Enhanced Defense ",
+			"+10 to Vitality ",
+			"+10 to Energy ",
+			"Increase Maximum Mana [20-40]% ",
+			"Magic Damage Taken Reduced by 7 "
+		],
+		"level": "37"
+	},
+	"Harmony": {
+		"name": "Harmony Tir Ith Sol Ko",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"Level 10 Vigor Aura when Equipped ",
+			"+[200-275]% Enhanced Damage ",
+			"+9 to Minimum Damage ",
+			"+9 to Maximum Damage ",
+			"Adds 55-160 Fire Damage ",
+			"Adds 55-160 Lightning Damage ",
+			"Adds 55-160 Cold Damage ",
+			"+[3-6] to Valkyrie (Amazon Only) ",
+			"+10 to Dexterity ",
+			"Regenerate Mana 20% ",
+			"+2 to Mana after each Kill ",
+			"+2 to Light Radius ",
+			"Level 20 Revive (25 Charges) "
+		],
+		"level": "39"
+	},
+	"Melody": {
+		"name": "Melody - Shael Ko Nef",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"+3 to Bow and Crossbow Skills (Amazon Only) ",
+			"+20% Increased Attack Speed ",
+			"+[100-150]% Enhanced Damage ",
+			"+300% Damage to Undead ",
+			"+3 to Slow Movement (Amazon Only) ",
+			"+3 to Dodge (Amazon Only) ",
+			"+3 to Critical Strike (Amazon Only) ",
+			"Knockback",
+			"+10 to Dexterity ",
+			""
+		],
+		"level": "39"
+	},
+	"Unbending": {
+		"name": "Unbending Will - Fal Io Ith Eld El Hel",
+		"types": [
+			"Swords"
+		],
+		"option": [
+			"8% Chance to Cast Level 18 Taunt on Striking ",
+			"+3 to Combat Skills (Barbarian Only) ",
+			"+[20-30]% Increased Attack Speed ",
+			"+[300-350]% Enhanced Damage ",
+			"+9 to Maximum Damage ",
+			"+50 to Attack Rating ",
+			"+75% Damage to Undead ",
+			"+50 to Attack Rating against Undead ",
+			"[8-10]% Life Stolen per Hit ",
+			"+10 to Strength ",
+			"+10 to Vitality ",
+			"Physical Damage Taken Reduced by 8 ",
+			"+1 to Light Radius ",
+			"Requirements -20% "
+		],
+		"level": "41"
+	},
+	"Obedience": {
+		"name": "Obedience - Hel Ko Thul Eth Fal",
+		"types": [
+			"Polearms",
+			"Spears",
+			"Hammers"
+		],
+		"option": [
+			"30% Chance to Cast Level 21 Enchant Fire when you Kill an Enemy ",
+			"+40% Faster Hit Recovery ",
+			"+[280-320]% Enhanced Damage ",
+			"-25% Target Defense ",
+			"Adds 3-14 Cold Damage ",
+			"-25% to Enemy Fire Resistance ",
+			"40% Chance of Crushing Blow ",
+			"+[200-300] Defense ",
+			"+10 to Strength ",
+			"+10 to Dexterity ",
+			"All Resistances +[20-30] ",
+			"Requirements -20% "
+		],
+		"level": "41"
+	},
+	"Passion": {
+		"name": "Passion - Dol Ort Eld Lem",
+		"types": [
+			"Weapons"
+		],
+		"option": [
+			"+25% Increased Attack Speed ",
+			"+[180-230]% Enhanced Damage ",
+			"[50-80]% Bonus to Attack Rating ",
+			"+75% Damage to Undead ",
+			"+50 to Attack Rating against Undead ",
+			"Adds 1-50 Lightning Damage ",
+			"+1 to Concentrate ",
+			"+1 to Zeal ",
+			"Hit Blinds Target +10 ",
+			"75% Extra Gold from Monsters ",
+			"Level 8 Heart of Wolverine (36 Charges) "
+		],
+		"level": "43"
+	},
+	"Voice": {
+		"name": "Voice of Reason - Lem Ko El Eld",
+		"types": [
+			"Swords",
+			"Tipped Maces",
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"15% Chance to Cast Level 16 Frozen Orb on Striking ",
+			"18% Chance to Cast Level 20 Ice Blast on Striking ",
+			"+50 to Attack Rating ",
+			"+[240-300]% Damage to Demons ",
+			"+[280-325]% Damage to Undead ",
+			"+50 to Attack Rating against Undead ",
+			"Adds 200-320 Cold Damage ",
+			"-24% to Enemy Cold Resistance ",
+			"+10 to Dexterity ",
+			"Cannot Be Frozen ",
+			"75% Extra Gold from Monsters ",
+			"+1 to Light Radius "
+		],
+		"level": "43"
+	},
+	"Lawbringer": {
+		"name": "Lawbringer - Amn Lem Ko",
+		"types": [
+			"Hammers",
+			"Scepters",
+			"Swords",
+			"Claws"
+		],
+		"option": [
+			"20% Chance to Cast Level 15 Decrepify on Striking ",
+			"+[150-200]% Enhanced Damage ",
+			"-50% Target Defense ",
+			"Adds 150-210 Fire Damage ",
+			"Adds 130-180 Cold Damage ",
+			"7% Life Stolen per Hit ",
+			"Slain Monsters Rest in Peace ",
+			"+[200-250] Defense vs. Missile ",
+			"+10 to Dexterity ",
+			"75% Extra Gold from Monsters "
+		],
+		"level": "43"
+	},
+	"Crescent": {
+		"name": "Crescent Moon - Shael Um Tir",
+		"types": [
+			"Axes",
+			"Swords",
+			"Polearms",
+			"Spears",
+			"Claws"
+		],
+		"option": [
+			"10% Chance to Cast Level 27 Lightning on Striking ",
+			"12% Chance to Cast Level 13 Static Field on Striking (Axes/Swords/Claws Only) ",
+			"24% Chance to Cast Level 13 Static Field on Striking (Polearms/Spears Only) ",
+			"+20% Increased Attack Speed ",
+			"+[180-220]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"-[10-15]% to Enemy Lightning Resistance ",
+			"10% Chance of Open Wounds ",
+			"+120 Open Wounds Damage per Second ",
+			"+[3-5] Magic Absorb ",
+			"+2 to Mana after each Kill ",
+			"Level 18 Summon Spirit Wolf (30 Charges) "
+		],
+		"level": "47"
+	},
+	"Venom": {
+		"name": "Venom - Tal Dol Mal",
+		"types": [
+			"Weapons"
+		],
+		"option": [
+			"20% Chance to Cast Level 28 Poison Nova on Striking ",
+			"Ignore Target's Defense ",
+			"+400 Poison Damage over 3 Seconds ",
+			"7% Mana Stolen per Hit ",
+			"-[20-30]% to Enemy Poison Resistance ",
+			"+6 to Poison Strike ",
+			"Prevent Monster Heal ",
+			"+20% Enhanced Damage ",
+			"Level 15 Desecrate (27 Charges) ",
+			""
+		],
+		"level": "49"
+	},
+	"Oath": {
+		"name": "Oath - Shael Pul Mal Lum",
+		"types": [
+			"Swords",
+			"Aces",
+			"Tipped Maces"
+		],
+		"option": [
+			"30% Chance to Cast Level 20 Bone Spirit on Striking ",
+			"Indestructible",
+			"+50% Increased Attack Speed ",
+			"+[210-340]% Enhanced Damage ",
+			"+75% Damage to Demons ",
+			"+100 to Attack Rating against Demons ",
+			"Prevent Monster Heal ",
+			"+10 to Energy ",
+			"+[10-15] Magic Absorb ",
+			"Level 16 Heart of Wolverine (20 Charges)",
+			"Replenish 1 Charge in 3 Seconds "
+		],
+		"level": "49"
+	},
+	"Rift": {
+		"name": "Rift",
+		"types": [
+			"Scepters",
+			"Polearms",
+			"Spears",
+			"Swords"
+		],
+		"option": [
+			"20% Chance to Cast Level 30 Tornado on Striking ",
+			"20% Chance to Cast Level 25 Frozen Orb on Attack ",
+			"+60% Increased Attack Speed ",
+			"20% Bonus to Attack Rating ",
+			"Adds 160-250 Magic Damage ",
+			"Adds 60-180 Fire Damage ",
+			"+[15-20] to Strength ",
+			"+[25-30] to Dexterity ",
+			"+[15-20] to Vitality ",
+			"+[15-20] to Energy ",
+			"38% Damage Taken Gained as Mana when Hit ",
+			"75% Extra Gold from Monsters ",
+			"Requirements -20% "
+		],
+		"level": "53"
+	},
+	"Kingslayer": {
+		"name": "Kingslayer - Mal Um Gul Fal",
+		"types": [
+			"Swords",
+			"Axes"
+		],
+		"option": [
+			"+30% Increased Attack Speed ",
+			"+[230-270]% Enhanced Damage ",
+			"-25% Target Defense ",
+			"20% Bonus to Attack Rating ",
+			"Adds 250-500 Cold Damage ",
+			"33% Chance of Crushing Blow ",
+			"10% Chance of Open Wounds ",
+			"+120 Open Wounds Damage per Second ",
+			"Prevent Monster Heal ",
+			"+10 to Vengeance ",
+			"+10 to Strength ",
+			"Repairs 1 Durability in 10 Seconds "
+		],
+		"level": "53"
+	},
+	"Hoto": {
+		"name": "Heart of the Oak - Ko Vex Pul Thul",
+		"types": [
+			"Staves",
+			"Tipped Maces"
+		],
+		"option": [
+			"+3 to All Skills ",
+			"+30% Faster Cast Rate ",
+			"+75% Damage to Demons ",
+			"+100 to Attack Rating against Demons ",
+			"Adds 3-14 Cold Damage ",
+			"7% Mana Stolen per Hit ",
+			"+10 to Dexterity ",
+			"Replenish Life +20 ",
+			"Increase Maximum Mana 15% ",
+			"All Resistances +[20-30] ",
+			"Level 4 Oak Sage (25 Charges) ",
+			"Level 14 Raven (60 Charges) "
+		],
+		"level": "55"
+	},
+	"Silence": {
+		"name": "Silence - Dol Eld Hel Ist Tir Vex",
+		"types": [
+			"Weapons"
+		],
+		"option": [
+			"Level [23-25] Thorns Aura when Equipped ",
+			"+2 to All Skills ",
+			"+20% Increased Attack Speed ",
+			"+20% Faster Hit Recovery ",
+			"+[295-395]% Enhanced Damage ",
+			"+75% Damage to Undead ",
+			"+50 to Attack Rating against Undead ",
+			"11% Mana Stolen per Hit ",
+			"Hit Blinds Target +33 ",
+			"All Resistances +50 ",
+			"+2 to Mana after each Kill ",
+			"30% Better Chance of Getting Magic Items ",
+			"Requirements -20% "
+		],
+		"level": "55"
+	},
+	"Death": {
+		"name": "Death - Hel El Vex Ort Gul",
+		"types": [
+			"Swords",
+			"Axes"
+		],
+		"option": [
+			"Indestructible",
+			"25% Chance to Cast Level 18 Glacial Spike on Attack ",
+			"100% Chance to Cast Level 44 Chain Lightning when you Die ",
+			"+[275-320]% Enhanced Damage ",
+			"20% Bonus to Attack Rating ",
+			"+50 to Attack Rating ",
+			"Adds 1-50 Lightning Damage ",
+			"7% Mana Stolen per Hit ",
+			"50% Chance of Crushing Blow ",
+			"[0-24]% Deadly Strike (0.25 per Character Level) ",
+			"+1 to Light Radius ",
+			"+18 to Blood Golem ",
+			"Requirements -20% "
+		],
+		"level": "55"
+	},
+	"Chaos": {
+		"name": "Chaos - Fal Ohm Um",
+		"types": [
+			"Claws"
+		],
+		"option": [
+			"20% Chance to Cast Level 30 Frozen Orb on Striking ",
+			"18% Chance to Cast Level 40 Charged Bolt on Striking ",
+			"Indestructible",
+			"+[245-295]% Enhanced Damage ",
+			"Adds 200-400 Magic Damage ",
+			"10% Chance of Open Wounds ",
+			"+120 Open Wounds Damage per Second ",
+			"+2 to Blade Dance ",
+			"+10 to Strength ",
+			"+15 Life after each Demon Kill "
+		],
+		"level": "57"
+	},
+	"cta": {
+		"name": "Call to Arms - Amn Ral Mal Ist Ohm",
+		"types": [
+			"Weapons"
+		],
+		"option": [
+			"+1 to All Skills ",
+			"+40% Increased Attack Speed ",
+			"+[245-285]% Enhanced Damage ",
+			"Adds 5-30 Fire Damage ",
+			"7% Life Stolen per Hit ",
+			"Prevent Monster Heal ",
+			"+[2-6] to Battle Command ",
+			"+[2-6] to Battle Orders ",
+			"+[1-3] to Battle Cry ",
+			"Replenish Life +12 ",
+			"30% Better Chance of Getting Magic Items "
+		],
+		"level": "57"
+	},
+	"Grief": {
+		"name": "Grief - Eth Tir Lo Mal Ral",
+		"types": [
+			"Swords",
+			"Axes"
+		],
+		"option": [
+			"35% Chance to Cast Level 15 Venom on Striking ",
+			"+[30-40]% Increased Attack Speed ",
+			"Adds 280 to [320-360] Damage ",
+			"-25% Target Defense ",
+			"+[1-185]% Damage to Demons (+1.875% per Character Level) ",
+			"Adds 5-30 Fire Damage ",
+			"-[15-20]% to Enemy Poison Resistance ",
+			"20% Deadly Strike ",
+			"Prevent Monster Heal ",
+			"+2 to Mana after each Kill ",
+			"+[10-15] Life after each Kill "
+		],
+		"level": "59"
+	},
+	"Wind": {
+		"name": "Wind -  Sur El",
+		"types": [
+			"Melee Weapons"
+		],
+		"option": [
+			"18% Chance to Cast Level 35 Tornado on Striking (Non-Staves Only) ",
+			"18% Chance to Cast Level 35 Tornado on Casting (Staves Only) ",
+			"18% Chance to Cast Level 35 Twister on Striking (Non-Staves Only) ",
+			"18% Chance to Cast Level 35 Twister on Casting (Staves Only) ",
+			"5% Chance to Cast Level 9 Cyclone Armor when Struck (Non-Staves Only) ",
+			"5% Chance to Cast Level 9 Cyclone Armor when Casting (Staves Only) ",
+			"+[20-30]% Faster Run/Walk ",
+			"+40% Increased Attack Speed ",
+			"+[320-380]% Enhanced Damage ",
+			"-50% Target Defense ",
+			"+50 to Attack Rating ",
+			"+4 Life after each Kill ",
+			"+1 to Light Radius ",
+			""
+		],
+		"level": "61"
+	},
+	"Wrath": {
+		"name": "Wrath - Pul Lum Ber Mal",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"60% Chance to Cast Level 31 Amplify Damage on Striking ",
+			"+[30-45]% Increased Attack Speed ",
+			"+375% Damage to Demons ",
+			"+100 to Attack Rating against Demons ",
+			"+[250-300]% Damage to Undead ",
+			"Adds 85-120 Magic Damage ",
+			"Adds 41-240 Lightning Damage ",
+			"20% Chance of Crushing Blow ",
+			"Prevent Monster Heal ",
+			"+10 to Energy ",
+			"Cannot Be Frozen "
+		],
+		"level": "63"
+	},
+	"Beast": {
+		"name": "Beast - Ber Tir Um Mal Lum",
+		"types": [
+			"Axes",
+			"Scepters",
+			"Hammers",
+			"Staves"
+		],
+		"option": [
+			"Level [8-10] Fanaticism Aura when Equipped ",
+			"+40% Increased Attack Speed ",
+			"+[260-290]% Enhanced Damage ",
+			"20% Chance of Crushing Blow ",
+			"10% Chance of Open Wounds ",
+			"+120 Open Wounds Damage per Second ",
+			"Prevent Monster Heal ",
+			"+6 to Hunger ",
+			"+6 to Maul ",
+			"+6 to Werebear ",
+			"+10 to Energy ",
+			"+2 to Mana after each Kill ",
+			"Level 13 Summon Grizzly (35 Charges) "
+		],
+		"level": "63"
+	},
+	"Eternity": {
+		"name": "Eternity - Amn Ber Ist Sol Sur",
+		"types": [
+			"Melee Weapons"
+		],
+		"option": [
+			"Indestructible",
+			"+[260-310]% Enhanced Damage ",
+			"7% Life Stolen per Hit ",
+			"20% Chance of Crushing Blow ",
+			"+4 Life after each Kill ",
+			"+4 to Revive ",
+			"You May Now Summon 6 Additional Revives ",
+			"10% Reanimate As: Wraith ",
+			"Cannot Be Frozen ",
+			"30% Better Chance of Getting Magic Items "
+		],
+		"level": "63"
+	},
+	"Infinity": {
+		"name": "Infinity - Ber Mal Ber Ist",
+		"types": [
+			"Polearms",
+			"Spears",
+			"Staves"
+		],
+		"option": [
+			"25% Chance to Cast Level 20 Chain Lightning on Striking (Non-Staves Only) ",
+			"15% Chance to Cast Level 20 Chain Lightning on Casting (Staves Only) ",
+			"Level 12 Conviction Aura when Equipped ",
+			"+35% Faster Run/Walk ",
+			"+35% Faster Cast Rate (Staves Only) ",
+			"+[255-325]% Enhanced Damage ",
+			"-[45-55]% to Enemy Lightning Resistance ",
+			"40% Chance of Crushing Blow ",
+			"Prevent Monster Heal ",
+			"+[0-49] to Vitality (+0.5 per Character Level) ",
+			"30% Better Chance of Getting Magic Items ",
+			"+3 to Cyclone Armor (Non-Staves Only) ",
+			"2% Chance to Cast Level 15 Cyclone Armor on Casting (Staves Only) "
+		],
+		"level": "63"
+	},
+	"Fury": {
+		"name": "Fury - Jah Gul Eth",
+		"types": [
+			"Melee Weapons"
+		],
+		"option": [
+			"Indestructible",
+			"+40% Increased Attack Speed ",
+			"+[239-299]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"-25% Target Defense ",
+			"20% Bonus to Attack Rating ",
+			"6% Life Stolen per Hit ",
+			"[33-66]% Deadly Strike ",
+			"+5 to Deep Wounds (Barbarian Only) ",
+			"+5 to Frenzy (Barbarian Only) "
+		],
+		"level": "65"
+	},
+	"Famine": {
+		"name": "Famine - Fal Ohm Ort Jah",
+		"types": [
+			"Axes",
+			"Hammers",
+			"Swords"
+		],
+		"option": [
+			"+30% Increased Attack Speed ",
+			"+[325-375]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"Adds 125-250 Fire Damage ",
+			"Adds 101-275 Lightning Damage ",
+			"Adds 100-225 Cold Damage ",
+			"-[10-15]% to Enemy Fire Resistance ",
+			"-[10-15]% to Enemy Lightning Resistance ",
+			"-[10-15]% to Enemy Cold Resistance ",
+			"+10 to Strength "
+		],
+		"level": "65"
+	},
+	"Faith": {
+		"name": "Faith - Ohm Jah Lem Eld",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"Level [12-15] Fanaticism Aura when Equipped ",
+			"+[255-305]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"300% Bonus to Attack Rating ",
+			"+75% Damage to Undead ",
+			"+50 to Attack Rating against Undead ",
+			"+120 Fire Damage ",
+			"All Resistances +15 ",
+			"[6-8]% Reanimate As: Returned ",
+			"75% Extra Gold from Monsters "
+		],
+		"level": "65"
+	},
+	"Ice": {
+		"name": "Ice - Amm Shael Jah Lo",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"20% Chance to Cast Level 32 Frost Nova on Striking ",
+			"100% Chance to Cast Level 40 Blizzard when you Level-Up ",
+			"Level 18 Holy Freeze Aura when Equipped ",
+			"+20% Increased Attack Speed ",
+			"+[140-210]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"7% Life Stolen per Hit ",
+			"+[25-30]% to Cold Skill Damage ",
+			"-20% to Enemy Cold Resistance ",
+			"20% Deadly Strike ",
+			"[3-309]% Extra Gold from Monsters (3.125 per Character Level) "
+		],
+		"level": "65"
+	},
+	"Brand": {
+		"name": "Brand - Jah Lo Mal Gul",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"50% Chance to Cast Level 45 Bone Spear on Striking ",
+			"65% Chance to Cast Level 31 Amplify Damage when Struck ",
+			"You May Summon 8 Additional Skeleton Archers ",
+			"Fires Explosive Arrows or Bolts (Level 15) ",
+			"+[260-340]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"20% Bonus to Attack Rating ",
+			"+[280-330]% Damage to Demons ",
+			"20% Deadly Strike ",
+			"Prevent Monster Heal ",
+			"Knockback"
+		],
+		"level": "65"
+	},
+	"Destruction": {
+		"name": "Destruction - Vex Lo Ber Jah Ko",
+		"types": [
+			"Swords",
+			"Polearms",
+			"Spears",
+			"Staves"
+		],
+		"option": [
+			"8% Chance to Cast Level 35 Molten Boulder on Striking (Non-Staves Only) ",
+			"8% Chance to Cast Level 35 Molten Boulder on Casting (Staves Only) ",
+			"15% Chance to Cast Level 45 Meteor on Striking (Non-Staves Only) ",
+			"15% Chance to Cast Level 45 Meteor on Casting (Staves Only) ",
+			"20% Chance to Cast Level 35 Frost Nova on Striking (Non-Staves Only) ",
+			"20% Chance to Cast Level 35 Frost Nova on Casting (Staves Only) ",
+			"15% Chance to Cast Level 40 Nova on Attack (Non-Staves Only) ",
+			"15% Chance to Cast Level 40 Nova on Casting (Staves Only) ",
+			"+[30-40]% Increased Attack Speed ",
+			"+300% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"7% Mana Stolen per Hit ",
+			"20% Chance of Crushing Blow ",
+			"20% Deadly Strike ",
+			"+10 to Dexterity ",
+			""
+		],
+		"level": "65"
+	},
+	"Last Wish": {
+		"name": "Last Wish - Jah Mal Jah Sur Jah Ber",
+		"types": [
+			"Axes",
+			"Hammers",
+			"Swords",
+			"Staves"
+		],
+		"option": [
+			"10% Chance to Cast Level 11 Life Tap on Striking ",
+			"60% Chance to Cast Level 40 Charged Bolt on Attack ",
+			"6% Chance to Cast Level 11 Fade when Struck ",
+			"Level 17 Might Aura when Equipped ",
+			"+[330-375]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"[60-70]% Chance of Crushing Blow ",
+			"Prevent Monster Heal ",
+			"+4 Life after each Kill ",
+			"[0-49]% Better Chance of Getting Magic Items (0.5% per Character Level) "
+		],
+		"level": "65"
+	},
+	"Rapture": {
+		"name": "Rapture - Vex Jah Lo Ral Ko Mal",
+		"types": [
+			"Hammers"
+		],
+		"option": [
+			"14% Chance to Cast Level 46 Fissure on Striking ",
+			"30% Chance to Cast Level 35 Lower Resist on Striking ",
+			"20% Increased Attack Speed ",
+			"+[240-280]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"Adds 5-30 Fire Damage ",
+			"7% Mana Stolen per Hit ",
+			"40% Deadly Strike ",
+			"Prevent Monster Heal ",
+			"+10 to Dexterity ",
+			"Cold Resist +[40-60]% ",
+			"[80-120]% Extra Gold from Monsters "
+		],
+		"level": "65"
+	},
+	"Plague": {
+		"name": "Plague - Cham Fal Um",
+		"types": [
+			"Weapons"
+		],
+		"option": [
+			"25% Chance to Cast Level 35 Poison Nova on Striking ",
+			"30% Chance to Cast Level 35 Lower Resist when Struck ",
+			"Level [15-17] Cleansing Aura when Equipped ",
+			"+[1-2] to All Skills ",
+			"+20% Faster Cast Rate ",
+			"+[340-380]% Damage to Demons ",
+			"-20% to Enemy Poison Resistance ",
+			"[0-37]% Deadly Strike (0.375% per Character Level) ",
+			"10% Chance of Open Wounds ",
+			"+120 Open Wounds Damage per Second ",
+			"Freezes Target +3 ",
+			"+10 to Strength "
+		],
+		"level": "67"
+	},
+	"Mist": {
+		"name": "Mist - Cham Shael Gul Thul Ith",
+		"types": [
+			"Bows",
+			"Crossbows"
+		],
+		"option": [
+			"Level [8-12] Concentration Aura when Equipped ",
+			"+2 to All Skills ",
+			"+20% Increased Attack Speed ",
+			"+100% Chance to Pierce ",
+			"+[325-375]% Enhanced Damage ",
+			"+9 to Minimum Damage ",
+			"20% Bonus to Attack Rating ",
+			"Adds 3-14 Cold Damage ",
+			"Freezes Target +3 ",
+			"+[20-30] to Vitality ",
+			"All Resistances +40 "
+		],
+		"level": "67"
+	},
+	"Dominion": {
+		"name": "Dominion - Cham Ohm",
+		"types": [
+			"Wands"
+		],
+		"option": [
+			"You May Summon 1 Additional Golem ",
+			"+2 to Necromancer Skills ",
+			"+25% Faster Cast Rate ",
+			"+45% Enhanced Damage ",
+			"+[2-3] to Golem Mastery (Necromancer Only) ",
+			"Freezes Target +3 ",
+			"+[300-450] Defense ",
+			"Cold Resist +30% ",
+			"Physical Damage Taken Reduced by [5-7] ",
+			"+50% Damage to Undead "
+		],
+		"level": "67"
+	},
+	"Doom": {
+		"name": "Doom -  Hel Ohm Um Lo Cham",
+		"types": [
+			"Axes",
+			"Hammers",
+			"Polearms",
+			"Spears",
+			"Staves",
+			"Scepters",
+			"Swords"
+		],
+		"option": [
+			"10% Chance to Cast Level 18 Molten Boulder on Striking (Non-Staves Only) ",
+			"10% Chance to Cast Level 28 Molten Boulder on Casting (Staves Only) ",
+			"Level 16 Holy Freeze Aura when Equipped ",
+			"+2 to All Skills ",
+			"+45% Increased Attack Speed ",
+			"+[335-375]% Enhanced Damage ",
+			"-[30-50]% to Enemy Cold Resistance ",
+			"20% Deadly Strike ",
+			"10% Chance of Open Wounds ",
+			"+120 Open Wounds Damage per Second ",
+			"Prevent Monster Heal (Non-Staves Only) ",
+			"+30% Faster Cast Rate (Staves Only) ",
+			"Freezes Target +3 ",
+			"Requirements -20% "
+		],
+		"level": "67"
+	},
+	"hoj": {
+		"name": "Hand of Justice - Sur Cham Amn Lo",
+		"types": [
+			"Weapons"
+		],
+		"option": [
+			"100% Chance to Cast Level 36 Blaze when you Level-Up ",
+			"100% Chance to Cast Level 48 Meteor when you Die ",
+			"Level 12 Holy Fire Aura when Equipped ",
+			"+33% Increased Attack Speed ",
+			"+[280-330]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"7% Life Stolen per Hit ",
+			"-[10-20]% to Enemy Fire Resistance ",
+			"20% Deadly Strike ",
+			"+4 Life after each Kill ",
+			"Freezes Target +3 "
+		],
+		"level": "67"
+	},
+	"Pride": {
+		"name": "Pride - Cham Sur Io Lo",
+		"types": [
+			"Polearms",
+			"Spears",
+			"Staves"
+		],
+		"option": [
+			"25% Chance to Cast Level 30 Fire Wall when Struck ",
+			"Level [18-20] Concentration Aura when Equipped ",
+			"[260-300]% Bonus to Attack Rating ",
+			"+[4-396]% Enhanced Maximum Damage (+4% per Character Level) ",
+			"Adds 50-280 Lightning Damage ",
+			"20% Deadly Strike ",
+			"+4 Life after each Kill ",
+			"Freezes Target +3 ",
+			"+10 to Vitality ",
+			"Replenish Life +8 ",
+			"[1-185]% Extra Gold from Monsters (1.875% per Character Level) "
+		],
+		"level": "67"
+	},
+	"Asylum": {
+		"name": "Asylum - Gul Cham Hel Jah Dol Um",
+		"types": [
+			"Hammers",
+			"2h Swords",
+			"Polearms",
+			"Spears",
+			"Staves",
+			"Bows",
+			"Crossbows",
+			"all 2h weapon except axes"
+		],
+		"option": [
+			"25% Chance to cast level 40 Fist of the Heavens on Striking (Non-Staves Only) ",
+			"25% Chance to cast level 40 Fist of the Heavens on Casting (Staves Only) ",
+			"Level [17-20] Sanctuary Aura when Equipped ",
+			"+2 to All Skills ",
+			"+[285-335]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"20% Bonus to Attack Rating ",
+			"30% Chance of Open Wounds ",
+			"Freezes Target +3 ",
+			"+20 to Dexterity ",
+			"100% Extra Gold from Monsters ",
+			"Requirements -20% "
+		],
+		"level": "67"
+	},
+	"Obsession": {
+		"name": "Obsession - Zod Ist Lem Lum Io Nef",
+		"types": [
+			"Staves"
+		],
+		"option": [
+			"24% Chance to Cast Level 18 Weaken on Casting ",
+			"Indestructible",
+			"+4 to All Skills ",
+			"+15% Faster Cast Rate ",
+			"+60% Faster Hit Recovery ",
+			"Knockback",
+			"+10 to Vitality ",
+			"+10 to Energy ",
+			"Increase Maximum Life [15-25]% ",
+			"Regenerate Mana [15-30]% ",
+			"All Resistances +[60-70] ",
+			"75% Extra Gold from Monsters ",
+			"30% Better Chance of Getting Magic Items "
+		],
+		"level": "69"
+	},
+	"botd": {
+		"name": "Breath of the Dying - Vex Hel El Eld Zod Eth",
+		"types": [
+			"Weapons"
+		],
+		"option": [
+			"35% Chance to Cast Level 40 Poison Nova on Striking ",
+			"Indestructible",
+			"+60% Increased Attack Speed ",
+			"+[350-400]% Enhanced Damage ",
+			"-25% Target Defense ",
+			"+50 to Attack Rating ",
+			"+200% Damage to Undead ",
+			"+50 to Attack Rating against Undead ",
+			"7% Mana Stolen per Hit ",
+			"[8-12]% Life Stolen per Hit ",
+			"Prevent Monster Heal ",
+			"+30 to All Attributes ",
+			"+1 to Light Radius ",
+			"Requirements -20% "
+		],
+		"level": "69"
+	},
+	"Zenith": {
+		"name": "Zenith - Jah Zod Ort Thul Ral",
+		"types": [
+			"Polearms",
+			"Spears",
+			"Staves",
+			"Bows",
+			"Crossbows",
+			"2h Swords"
+		],
+		"option": [
+			"Indestructible",
+			"Level [10-12] Salvation Aura when Equipped ",
+			"+2 to All Skills ",
+			"+20% Faster Run/Walk ",
+			"+40% Increased Attack Speed ",
+			"+[225-300]% Enhanced Damage ",
+			"Ignore Target's Defense ",
+			"Adds 305-380 Fire Damage ",
+			"Adds 301-400 Lightning Damage ",
+			"Adds 258-364 Cold Damage "
+		],
+		"level": "69"
+	}
+}
