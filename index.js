@@ -79,6 +79,15 @@ client.on('messageCreate', async (message) => {
     });
   }
 });
+// Tạo web server đơn giản
+const express = require('express');
+const app = express();
+app.get('/', (req, res) => res.send('Bot đang chạy'));
+app.listen(3000, () => console.log('Keep-alive server started'));
 
+// Ping định kỳ (mỗi 5 phút)
+setInterval(() => {
+  fetch('https://your-repl-url.repl.co').catch(console.error);
+}, 5 * 60 * 1000);
 // Thay YOUR_BOT_TOKEN bằng token của bạn
 client.login(process.env.DISCORD_TOKEN);
