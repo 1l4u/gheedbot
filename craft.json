@@ -1,0 +1,588 @@
+{
+  "blood": [
+    {
+      "type": "Amulet",
+      "name": "Amn + P.Ruby + Jewel",
+      "option": [
+        "+10% Faster Run/Walk",
+        "+[3-6] Life after each Kill ",
+        " +[10-20] to Life "
+      ]
+    },
+    {
+      "type": "Ring",
+      "name": "Sol + P.Ruby + Jewel",
+      "option": [
+        " +[5-10] to Strength ",
+        " [1-3]% Life Stolen per Hit ",
+        " +[10-20] to Life "
+      ]
+    },
+    {
+      "type": "Belt",
+      "name": "Tal + P.Ruby + Jewel",
+      "option": [
+        " [10-20]% Chance of Open Wounds ",
+        " [3-6]% Life Stolen per Hit ",
+        " +[10-20] to Life "
+      ]
+    },
+    {
+      "type": "Gloves",
+      "name": "Nef + P.Ruby + Jewel",
+      "option": [
+        " [5-10]% Chance of Crushing Blow ",
+        " [2-4]% Life Stolen per Hit ",
+        " +[10-20] to Life "
+      ]
+    },
+    {
+      "type": "Boots",
+      "name": "Eth + P.Ruby + Jewel",
+      "option": [
+        " Replenish Life +[15-30] ",
+        " [2-4]% Life Stolen per Hit ",
+        " +[10-20] to Life "
+      ]
+    },
+    {
+      "type": "Helm",
+      "name": "Ral + P.Ruby + Jewel",
+      "option": [
+        " [10-20]% Chance of Crushing Blow ",
+        " [2-4]% Life Stolen per Hit ",
+        " +[10-20] to Life "
+      ]
+    },
+    {
+      "type": "Chest",
+      "name": "Thul + P.Ruby + Jewel",
+      "option": [
+        " +[3-6] Life after each Kill ",
+        " [3-6]% Life Stolen per Hit ",
+        " +[20-40] to Life "
+      ]
+    },
+    {
+      "type": "Shield",
+      "name": "Ith + P.Ruby + Jewel",
+      "option": [
+        " [10-20]% Increased Chance of Blocking ",
+        " [3-6]% Life Stolen per Hit ",
+        " +[10-20] to Life "
+      ]
+    },
+    {
+      "type": "Weapon",
+      "name": "Ort + P.Ruby + Jewel",
+      "option": [
+        " +[50-80]% Enhanced Damage ",
+        " [3-6]% Life Stolen per Hit ",
+        " +[10-20] to Life "
+      ]
+    }
+  ],
+  "caster": [
+    {
+      "type": "Amulet",
+      "name": "Ral + P.Amethyst + Jewel",
+      "option": [
+        " +[5-10]% Faster Cast Rate ",
+        " Regenerate Mana [4-10]% ",
+        " +[10-20] to Mana "
+      ]
+    },
+    {
+      "type": "Ring",
+      "name": "Amn + P.Amethyst + Jewel",
+      "option": [
+        " +[5-10] to Energy ",
+        " +[1-2] to Mana after each Kill ",
+        " +[10-20] to Mana "
+      ]
+    },
+    {
+      "type": "Belt",
+      "name": "Ith + P.Amethyst + Jewel",
+      "option": [
+        " +10% Faster Cast Rate ",
+        " Regenerate Mana [4-10]% ",
+        " +[10-20] to Mana "
+      ]
+    },
+    {
+      "type": "Gloves",
+      "name": "Ort + P.Amethyst + Jewel",
+      "option": [
+        " +[5-10]% Faster Cast Rate ",
+        " +[1-3] to Mana after each Kill ",
+        " +[10-20] to Mana "
+      ]
+    },
+    {
+      "type": "Boots",
+      "name": "Thul + P.Amethyst + Jewel",
+      "option": [
+        " Increase Maximum Mana [10-15]% ",
+        " Regenerate Mana [4-10]% ",
+        " +[10-20] to Mana "
+      ]
+    },
+    {
+      "type": "Helm",
+      "name": "Nef + P.Amethyst + Jewel",
+      "option": [
+        " +[5-10]% Faster Cast Rate ",
+        " Regenerate Mana [4-10]% ",
+        " +[10-20] to Mana "
+      ]
+    },
+    {
+      "type": "Chest",
+      "name": "Tal + P.Amethyst + Jewel",
+      "option": [
+        " +[5-10]% Faster Cast Rate ",
+        " +[3-6] to Mana after each Kill ",
+        " +[20-30] to Mana "
+      ]
+    },
+    {
+      "type": "Shield",
+      "name": "Eth + P.Amethyst + Jewel",
+      "option": [
+        " [10-20]% Increased Chance of Blocking ",
+        " +[5-10]% Faster Cast Rate ",
+        " +[20-30] to Mana "
+      ]
+    },
+    {
+      "type": "Weapon",
+      "name": "Tir + P.Amethyst + Jewel",
+      "option": [
+        " +1 to All Skills ",
+        " +[10-20]% Faster Cast Rate ",
+        " +[10-20] to Mana "
+      ]
+    }
+  ],
+  "hitpower": [
+    {
+      "type": "Amulet",
+      "name": "Thul + P.Sapphire + Jewel",
+      "option": [
+        " +[150-250] to Attack Rating ",
+        " +[10-20]% Faster Hit Recovery ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    },
+    {
+      "type": "Ring",
+      "name": "Amn + P.Sapphire + Jewel",
+      "option": [
+        " +[5-10] to Dexterity ",
+        " +[2-4] to Maximum Damage ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    },
+    {
+      "type": "Belt",
+      "name": "Tal + P.Sapphire + Jewel",
+      "option": [
+        " [5-10]% Damage Taken Gained as Mana when Hit ",
+        " +[10-20]% Faster Hit Recovery ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    },
+    {
+      "type": "Gloves",
+      "name": "Ort + P.Sapphire + Jewel",
+      "option": [
+        "Knockback ",
+        " -[10-20]% Target Defense ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    },
+    {
+      "type": "Boots",
+      "name": "Ral + P.Sapphire + Jewel",
+      "option": [
+        " +[60-120] Defense vs. Melee ",
+        " +[10-20]% Faster Hit Recovery ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    },
+    {
+      "type": "Helm",
+      "name": "Ith + P.Sapphire + Jewel",
+      "option": [
+        " +[100-200] to Attack Rating ",
+        " +[10-20]% Faster Hit Recovery ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    },
+    {
+      "type": "Chest",
+      "name": "Nef + P.Sapphire + Jewel",
+      "option": [
+        " +[25-50]% Enhanced Defense ",
+        " +[20-40]% Faster Hit Recovery ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    },
+    {
+      "type": "Shield",
+      "name": "Eth + P.Sapphire + Jewel",
+      "option": [
+        " [10-20]% Increased Chance of Blocking ",
+        " +[20-30]% Faster Block Rate ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    },
+    {
+      "type": "Weapon",
+      "name": "Tir + P.Sapphire + Jewel",
+      "option": [
+        " +[50-80]% Enhanced Damage ",
+        " -[10-20]% Target Defense ",
+        " 5% Chance to Cast Level 4 Frost Nova when Struck "
+      ]
+    }
+  ],
+  "safety": [
+    {
+      "type": "Amulet",
+      "name": "Thul + P.Emerald + Jewel",
+      "option": [
+        " 10% Increased Chance of Blocking ",
+        " Magic Damage Taken Reduced by [4-7] ",
+        " Physical Damage Taken Reduced by [4-7] "
+      ]
+    },
+    {
+      "type": "Ring",
+      "name": "Amn + P.Emerald + Jewel",
+      "option": [
+        " +[5-10] to Vitality ",
+        " Magic Damage Taken Reduced by [2-5] ",
+        " Physical Damage Taken Reduced by [2-5] "
+      ]
+    },
+    {
+      "type": "Belt",
+      "name": "Tal + P.Emerald + Jewel",
+      "option": [
+        " +[10-30]% Enhanced Defense ",
+        " Poison Resist +[10-20]% ",
+        " Magic Damage Taken Reduced by [2-5] ",
+        " Physical Damage Taken Reduced by [2-5] "
+      ]
+    },
+    {
+      "type": "Gloves",
+      "name": "Ral + P.Emerald + Jewel",
+      "option": [
+        " +[10-30]% Enhanced Defense ",
+        " Cold Resist +[10-20]% ",
+        " Magic Damage Taken Reduced by [2-5] ",
+        " Physical Damage Taken Reduced by [2-5] "
+      ]
+    },
+    {
+      "type": "Boots",
+      "name": "Ort + P.Emerald + Jewel",
+      "option": [
+        " +[20-60]% Enhanced Defense ",
+        " Fire Resist +[10-20]% ",
+        " Magic Damage Taken Reduced by [2-5] ",
+        " Physical Damage Taken Reduced by [2-5] "
+      ]
+    },
+    {
+      "type": "Helm",
+      "name": "Ith + P.Emerald + Jewel",
+      "option": [
+        " +[20-60]% Enhanced Defense ",
+        " Lightning Resist +[10-20]% ",
+        " Physical Damage Taken Reduced by [5-10]% "
+      ]
+    },
+    {
+      "type": "Chest",
+      "name": "Eth + P.Emerald + Jewel",
+      "option": [
+        " +[20-60]% Enhanced Defense ",
+        " +[100-150] Defense vs. Melee ",
+        " Physical Damage Taken Reduced by [5-10]% "
+      ]
+    },
+    {
+      "type": "Shield",
+      "name": "Nef + P.Emerald ",
+      "option": [
+        " +[20-60]% Enhanced Defense ",
+        " +[100-150] Defense vs. Melee ",
+        " Physical Damage Taken Reduced by [5-10]% "
+      ]
+    },
+    {
+      "type": "Weapon",
+      "name": "Sol + P.Emerald + Jewel",
+      "option": [
+        " +[50-80]% Enhanced Damage ",
+        "Knockback ",
+        " Magic Damage Taken Reduced by [2-5] ",
+        " Physical Damage Taken Reduced by [2-5] "
+      ]
+    }
+  ],
+  "vampiric": [
+    {
+      "type": "Amulet",
+      "name": "Dol + P.Skull + Jewel",
+      "option": [
+        " [5-10]% Curse Duration Reduction ",
+        " [3-6]% Mana Stolen per Hit ",
+        " Replenish Life +[5-10] "
+      ]
+    },
+    {
+      "type": "Ring",
+      "name": "Hel + P.Skull + Jewel",
+      "option": [
+        " [10-20]% Poison Length Reduction ",
+        " [1-3]% Mana Stolen per Hit ",
+        " Replenish Life +[5-10] "
+      ]
+    },
+    {
+      "type": "Belt",
+      "name": "Eld + P.Skull + Jewel",
+      "option": [
+        " [10-20]% Damage Taken Gained as Mana when Hit ",
+        " [3-6]% Mana Stolen per Hit ",
+        " Replenish Life +[5-10] "
+      ]
+    },
+    {
+      "type": "Gloves",
+      "name": "Io + P.Skull + Jewel",
+      "option": [
+        " [5-10]% Deadly Strike ",
+        " [2-4]% Mana Stolen per Hit ",
+        " Replenish Life +[5-10] "
+      ]
+    },
+    {
+      "type": "Boots",
+      "name": "El + P.Skull + Jewel",
+      "option": [
+        " [10-20]% Poison Length Reduction ",
+        " [2-4]% Mana Stolen per Hit ",
+        " Replenish Life +[5-10] "
+      ]
+    },
+    {
+      "type": "Helm",
+      "name": "Lum + P.Skull + Jewel",
+      "option": [
+        " [10-20]% Deadly Strike ",
+        " [2-4]% Mana Stolen per Hit ",
+        " Replenish Life +[5-10] "
+      ]
+    },
+    {
+      "type": "Chest",
+      "name": "Tir + P.Skull + Jewel",
+      "option": [
+        " [3-6]% Mana Stolen per Hit ",
+        " Replenish Life +[5-10] ",
+        " Requirements -[20-30]% "
+      ]
+    },
+    {
+      "type": "Shield",
+      "name": "Sol + P.Skull + Jewel",
+      "option": [
+        " [10-20]% Increased Chance of Blocking ",
+        " [3-6]% Mana Stolen per Hit ",
+        " Requirements -[20-30]% "
+      ]
+    },
+    {
+      "type": "Weapon",
+      "name": "Shael + P.Skull + Jewel",
+      "option": [
+        " +[100-140]% Damage to Demons ",
+        " +[100-140]% Damage to Undead ",
+        " [3-6]% Mana Stolen per Hit ",
+        " Replenish Life +[10-15] "
+      ]
+    }
+  ],
+  "bountiful": [
+    {
+      "type": "Amulet",
+      "name": "Ko + P.Topaz + Jewel",
+      "option": [
+        " +[10-20] to Vitality ",
+        " [20-30]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    },
+    {
+      "type": "Ring",
+      "name": "Lum + P.Topaz + Jewel",
+      "option": [
+        " +[5-10] to Vitality ",
+        " [10-20]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    },
+    {
+      "type": "Belt",
+      "name": "El + P.Topaz + Jewel",
+      "option": [
+        " +[25-50]% Enhanced Defense ",
+        " [20-30]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    },
+    {
+      "type": "Gloves",
+      "name": "Hel + P.Topaz + Jewel",
+      "option": [
+        " +[25-50]% Enhanced Defense ",
+        " [15-25]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    },
+    {
+      "type": "Boots",
+      "name": "Io + P.Topaz + Jewel",
+      "option": [
+        " +[25-50]% Enhanced Defense ",
+        " [15-25]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    },
+    {
+      "type": "Helm",
+      "name": "Tir + P.Topaz + Jewel",
+      "option": [
+        " +[25-50]% Enhanced Defense ",
+        " [20-30]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    },
+    {
+      "type": "Chest",
+      "name": "Eld + P.Topaz + Jewel",
+      "option": [
+        " +[25-50]% Enhanced Defense ",
+        " [20-30]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    },
+    {
+      "type": "Shield",
+      "name": "Dol + P.Topaz + Jewel",
+      "option": [
+        " [10-20]% Increased Chance of Blocking ",
+        " [20-30]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    },
+    {
+      "type": "Weapon",
+      "name": "Shael + P.Topaz + Jewel",
+      "option": [
+        " +[50-80]% Enhanced Damage ",
+        " [20-30]% Better Chance of Getting Magic Items ",
+        " +[1-3] to Light Radius "
+      ]
+    }
+  ],
+  "brilliant": [
+    {
+      "type": "Amulet",
+      "name": "Tal + P.Diamond + Jewel",
+      "option": [
+        " +[100-150] Defense vs. Missile ",
+        " +[4-8] to All Attributes ",
+        " All Resistances +[5-10] "
+      ]
+    },
+    {
+      "type": "Ring",
+      "name": "Hel + P.Ruby + Jewel",
+      "option": [
+        " +[50-100] Defense vs. Missile ",
+        " All Resistances +[3-5] ",
+        " Half Freeze Duration "
+      ]
+    },
+    {
+      "type": "Helm",
+      "name": "Eld + P.Diamond + Jewel",
+      "option": [
+        " +[5-10]% Increased Attack Speed ",
+        " +[25-50]% Enhanced Defense ",
+        " Half Freeze Duration "
+      ]
+    },
+    {
+      "type": "Belt",
+      "name": "Io + P.Diamond + Jewel",
+      "option": [
+        " +[5-10]% Increased Attack Speed ",
+        " +[25-50]% Enhanced Defense ",
+        " Half Freeze Duration "
+      ]
+    },
+    {
+      "type": "Gloves",
+      "name": "Shael + P.Diamond + Jewel",
+      "option": [
+        " +[5-10]% Increased Attack Speed ",
+        " [10-20]% Bonus to Attack Rating ",
+        " +[25-50]% Enhanced Defense "
+      ]
+    },
+    {
+      "type": "Boots",
+      "name": "Ko + P.Diamond + Jewel",
+      "option": [
+        " +[5-10]% Faster Run/Walk ",
+        " +[100-150] Defense vs. Missile ",
+        " Half Freeze Duration "
+      ]
+    },
+    {
+      "type": "Chest",
+      "name": "El + P.Diamond + Jewel",
+      "option": [
+        " +[5-10]% Increased Attack Speed ",
+        " +[25-50]% Enhanced Defense ",
+        " All Resistances +[5-10] "
+      ]
+    },
+    {
+      "type": "Shield",
+      "name": "Ort + P.Diamond + Jewel",
+      "option": [
+        " [10-20]% Increased Chance of Blocking ",
+        " All Resistances +[5-10] ",
+        " Half Freeze Duration "
+      ]
+    },
+    {
+      "type": "Weapon",
+      "name": "Sol + P.Diamond + Jewel",
+      "option": [
+        " +20% Increased Attack Speed ",
+        " +[20-40]% Enhanced Damage ",
+        " +[50-100] to Attack Rating "
+      ]
+    }
+  ]
+}
