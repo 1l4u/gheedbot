@@ -13,7 +13,7 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log(
-    `Bot đã sẵn sàng: ${client.user.tag} ${process.env.REPL_SLUG}.${process.env.REPL_OWNER}`,
+    `Bot đã sẵn sàng: ${client.user.tag}`,
   );
 });
 
@@ -132,20 +132,7 @@ client.on("messageCreate", async (message) => {
   // Xử lý cả trường hợp item là array hoặc object
   const itemsToDisplay = Array.isArray(item) ? item : [item];
 
-  //try {
-  // Gửi từng embed cho mỗi phiên bản
-  // for (const craft of itemsToDisplay) {
-  //    const formattedText = `
-  //   \`\`\`
-  //   \n${searchTerm} ${craft.type || foundKey}
-  //   \nCông thức: ${craft.name}
-  //   ${craft.option?.map((opt) => `\n${opt}`).join("") || "N/A"}
-  //   \`\`\``.trim();
-  //   await message.channel.send(formattedText);
-  // }
-  // } catch (error) {
-  //  console.error("Lỗi khi gửi embed:", error);
-  //  message.channel.send("```🐺 ẳng ẳng ẳng!``");
+
 
   let combinedContent = `\`\`\`\nCraft ${searchTerm}\n`;
 
