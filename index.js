@@ -111,7 +111,7 @@ client.on("messageCreate", async (message) => {
     );
   if (message.content.toLowerCase() === "!cb")
     return message.channel.send(
-      "```Crushing Blow (cb) giảm một phần máu hiện tại của mục tiêu, do đó hiệu quả hơn với những mục tiêu có nhiều máu, và kém hiệu quả hơn khi mục tiêu yếu máu.\nĐòn tấn công có thể có tối đa 100% cơ hội gây Crushing Blow — mọi phần trăm vượt quá sẽ không có tác dụng thêm.\nCrushing Blow giờ bị giảm hiệu lực mạnh hơn đối với boss (boss act, boss map, Uber boss...). Lượng máu bị giảm bởi đòn cận chiến giờ đã bằng với đòn tấn công tầm xa.\nBảng tỉ lệ giảm máu theo loại mục tiêu:\n     Hầu hết mục tiêu*	1/8\n     Super Uniques	    1/8\n     Boss	             1/80**\n     Players,Mercenary	1/10\n* 'Hầu hết mục tiêu' bao gồm normal, minion, Champion, and Unique.\n** Tác động bởi giảm dần hiệu quả (diminishing returns) theo công thức: 1 / (80 + (missing hp%)^2)```",
+      "```Crushing Blow (cb) giảm một phần máu hiện tại của mục tiêu, do đó hiệu quả hơn với những mục tiêu có nhiều máu, và kém hiệu quả hơn khi mục tiêu yếu máu.\nĐòn tấn công có thể có tối đa 100% cơ hội gây Crushing Blow — mọi phần trăm vượt quá sẽ không có tác dụng thêm.\nCrushing Blow giờ bị giảm hiệu lực mạnh hơn đối với boss (boss act, boss map, Uber boss...). Lượng máu bị giảm bởi đòn cận chiến giờ đã bằng với đòn tấn công tầm xa.\nBảng tỉ lệ giảm máu theo loại mục tiêu:\n     Hầu hết mục tiêu*	1/8\n     Super Uniques	    1/8\n     Boss	             1/80**\n     Players,Mercenary	1/10\n* 'Hầu hết mục tiêu' bao gồm normal, minion, Champion, and Unique.\n** Hiệu ứng cb giảm dàn hiệu quả (diminishing returns) theo công thức: 80 + (missing hp%)^2```",
     );
   if (message.content.toLowerCase() === "!cmd")
     return message.channel.send(
