@@ -1,9 +1,7 @@
 {
 	"Nadir": {
 		"name": "Nadir - Nef Tir",
-		"types": [
-			"Helms"
-		],
+		"types": ["Helms"],
 		"option": [
 			"+50% Enhanced Defense",
 			"+10 Defense",
@@ -18,9 +16,7 @@
 	},
 	"Radiance": {
 		"name": "Radiance - Nef Sol Ith",
-		"types": [
-			"Helms"
-		],
+		"types": ["Helms"],
 		"option": [
 			"+[20-40]% Enhanced Damage",
 			"+75% Enhanced Defense",
@@ -36,9 +32,7 @@
 	},
 	"Lore": {
 		"name": "Lore - Ort Sol",
-		"types": [
-			"Helms"
-		],
+		"types": ["Helms"],
 		"option": [
 			"+1 to All Skills",
 			"+[5-10] to Energy",
@@ -51,9 +45,7 @@
 	},
 	"Wisdom": {
 		"name": "Wisdom - Pul Ith Eld",
-		"types": [
-			"Helms"
-		],
+		"types": ["Helms"],
 		"option": [
 			"+33% Chance to Pierce",
 			"[15-25]% Bonus to Attack Rating",
@@ -69,9 +61,7 @@
 	},
 	"Delirium": {
 		"name": "Delirium - Lem Ist Io",
-		"types": [
-			"Helms"
-		],
+		"types": ["Helms"],
 		"option": [
 			"11% Chance to Cast Level 18 Confuse on Striking",
 			"6% Chance to Cast Level 14 Mind Blast when Struck",
@@ -85,11 +75,9 @@
 		],
 		"level": "Required Level: 51"
 	},
-	"Flickering": {
+	"Flickering Flame": {
 		"name": "Flickering Flame - Nef Pul Vex",
-		"types": [
-			"Helms"
-		],
+		"types": ["Helms"],
 		"option": [
 			"Level [1-6] Resist Fire Aura when Equipped",
 			"+2 to Fire Skills",
@@ -105,9 +93,7 @@
 	"Dream": [
 		{
 			"name": "Dream - Io Jah Pul",
-			"types": [
-				"Helms"
-			],
+			"types": ["Helms"],
 			"option": [
 				"10% Chance to Cast Level 15 Confuse when Struck",
 				"Level 13 Holy Shock Aura when Equipped",
@@ -124,9 +110,7 @@
 		},
 		{
 			"name": "Dream - Io Jah Pul",
-			"types": [
-				"Shield"
-			],
+			"types": ["Shield"],
 			"option": [
 				"10% Chance to Cast Level 15 Confuse when Struck",
 				"Level 13 Holy Shock Aura when Equipped",
@@ -144,9 +128,7 @@
 	],
 	"Ferocity": {
 		"name": "Ferocity - Zod Cham Shael",
-		"types": [
-			"Helms"
-		],
+		"types": ["Helms"],
 		"option": [
 			"12% Chance to Cast Level 10 Taunt on Striking",
 			"Indestructible",
@@ -162,9 +144,7 @@
 	},
 	"Stealth": {
 		"name": "Stealth - Tal Eth",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"+10% Faster Run/Walk ",
 			"+20% Faster Cast Rate ",
@@ -179,9 +159,7 @@
 	},
 	"Peace": {
 		"name": "Peace - Shael Thul Amn",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"You May Summon 1 Additional Valkyrie ",
 			"8% Chance to Cast Level 12 Slow Movement when Struck ",
@@ -195,9 +173,7 @@
 	},
 	"Myth": {
 		"name": "Myth - Hel Amn Nef",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"5% Chance to Cast Level 1 Taunt on Striking ",
 			"3% Chance to Cast Level 1 Howl when Struck ",
@@ -213,9 +189,7 @@
 	},
 	"Smoke": {
 		"name": "Smoke - Nef Lum",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"+20% Faster Hit Recovery ",
 			"+75% Enhanced Defense ",
@@ -229,9 +203,7 @@
 	},
 	"Hustle": {
 		"name": "Hustle - Shael Ko Eld",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"Level 6 Burst of Speed When Equipped ",
 			"+20% Increased Attack Speed ",
@@ -245,9 +217,7 @@
 	},
 	"Lionheart": {
 		"name": "Lionheart - Hel Lum Fal",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"+[80-110]% Enhanced Damage ",
 			"+[10-25] to Strength ",
@@ -262,9 +232,7 @@
 	},
 	"Treachery": {
 		"name": "Treachery - Shael Thul Amn",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"25% Chance to Cast Level 15 Venom on Striking ",
 			"15% Chance to Cast Level 21 Mind Blast when Struck ",
@@ -278,9 +246,7 @@
 	},
 	"Wealth": {
 		"name": "Wealth - Lem Ko Tir",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"+10 to Dexterity ",
 			"+4 to Mana after each Kill ",
@@ -291,9 +257,7 @@
 	},
 	"Enlightenment": {
 		"name": "Enlightenment - Pul Ral Sol",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"25% Chance to Cast Level 28 Fire Ball on Casting ",
 			"35% Chance to Cast Level 25 Blaze when Struck ",
@@ -308,9 +272,7 @@
 	},
 	"Duress": {
 		"name": "Duress - Shael Um Thul",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"+40% Faster Hit Recovery ",
 			"+[40-80]% Enhanced Damage ",
@@ -328,9 +290,7 @@
 	},
 	"Stone": {
 		"name": "Stone - Shael Um Pul Lum",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"Indestructible",
 			"+1 to All Skills ",
@@ -347,9 +307,7 @@
 	},
 	"Gloom": {
 		"name": "Gloom - Fal Um Pul",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"15% Chance to Cast Level 9 Dim Vision when Struck ",
 			"+[20-40]% Faster Hit Recovery ",
@@ -364,9 +322,7 @@
 	},
 	"Bone": {
 		"name": "Bone - Sol Um Um",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"30% Chance to Cast Level 25 Bone Spear on Striking ",
 			"10% Chance to Cast Level 15 Bone Armor when Struck ",
@@ -379,9 +335,7 @@
 	},
 	"Prudence": {
 		"name": "Prudence - Mal Tir",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"+40% Faster Cast Rate ",
 			"+25% Faster Hit Recovery ",
@@ -396,9 +350,7 @@
 	},
 	"Rain": {
 		"name": "Rain - Ort Mal Ith",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"20% Chance to Cast Level 25 Twister on Striking ",
 			"8% Chance to Cast Level 15 Cyclone Armor when Struck ",
@@ -412,9 +364,7 @@
 	},
 	"Principle": {
 		"name": "Principle - Ral Gul Eld",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"50% Chance to Cast Level 25 Holy Bolt on Striking ",
 			"+2 to Paladin Skills ",
@@ -430,9 +380,7 @@
 	"Fortitude": [
 		{
 			"name": "Fortitude - El Sol Dol Lo",
-			"types": [
-				"Body Armor"
-			],
+			"types": ["Body Armor"],
 			"option": [
 				"+25% Faster Cast Rate ",
 				"+[250-300]% Enhanced Damage ",
@@ -450,9 +398,7 @@
 		},
 		{
 			"name": "Fortitude - El Sol Dol Lo",
-			"types": [
-				"Weapon"
-			],
+			"types": ["Weapon"],
 			"option": [
 				"+25% Faster Cast Rate ",
 				"+[250-300]% Enhanced Damage ",
@@ -470,9 +416,7 @@
 	],
 	"Bramble": {
 		"name": "Bramble - Ral Ohm Sur Eth",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"Level [18-21] Thorns Aura when Equipped ",
 			"+50% Faster Hit Recovery ",
@@ -491,9 +435,7 @@
 	"Dragon": [
 		{
 			"name": "Dragon - Sur Lo Sol",
-			"types": [
-				"Body Armor"
-			],
+			"types": ["Body Armor"],
 			"option": [
 				"You May Summon 1 Additional Hydra ",
 				"12% Chance to Cast Level 28 Hydra on Striking ",
@@ -510,9 +452,7 @@
 		},
 		{
 			"name": "Dragon - Sur Lo Sol",
-			"types": [
-				"Shield"
-			],
+			"types": ["Shield"],
 			"option": [
 				"You May Summon 1 Additional Hydra ",
 				"12% Chance to Cast Level 28 Hydra on Striking ",
@@ -530,9 +470,7 @@
 	],
 	"coh": {
 		"name": "Chains of Honor - Dol Um Ber Ist",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"+2 to All Skills ",
 			"+200% Damage to Demons ",
@@ -549,9 +487,7 @@
 	},
 	"Enigma": {
 		"name": "Enigma - Jah Ith Ber",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"+2 to All Skills ",
 			"+25% Faster Run/Walk ",
@@ -568,9 +504,7 @@
 	},
 	"Innocence": {
 		"name": "Innocence - Gul Lem Zod Hel",
-		"types": [
-			"Body Armor"
-		],
+		"types": ["Body Armor"],
 		"option": [
 			"Indestructible",
 			"Level [8-12] Blade Shield When Equipped ",
@@ -585,11 +519,9 @@
 		],
 		"level": "59"
 	},
-	"Ancient": {
+	"Pledge": {
 		"name": "Ancient's Pledge - Ral Ort Tal",
-		"types": [
-			"Shield"
-		],
+		"types": ["Shield"],
 		"option": [
 			"+50% Enhanced Defense ",
 			"Cold Resist +43% ",
@@ -603,9 +535,7 @@
 	"Spirit": [
 		{
 			"name": "Spirit - Tal Thul Ort Amn",
-			"types": [
-				"Shield"
-			],
+			"types": ["Shield"],
 			"option": [
 				"+1 to All Skills ",
 				"+[25-35]% Faster Cast Rate ",
@@ -623,10 +553,7 @@
 		},
 		{
 			"name": "Spirit - Tal Thul Ort Amn",
-			"types": [
-				"Sword",
-				"Staves"
-			],
+			"types": ["Sword", "Staves"],
 			"option": [
 				"+1 to All Skills (Non-Staves Only) ",
 				"+2 to All Skills (Staves Only) ",
@@ -647,9 +574,7 @@
 	],
 	"Rhyme": {
 		"name": "Rhyme - Shael Eth",
-		"types": [
-			"Shield"
-		],
+		"types": ["Shield"],
 		"option": [
 			"+40% Faster Block Rate ",
 			"20% Increased Chance of Blocking ",
@@ -663,9 +588,7 @@
 	},
 	"Splendor": {
 		"name": "Splendor - Eth Lum",
-		"types": [
-			"Shield"
-		],
+		"types": ["Shield"],
 		"option": [
 			"+1 to All Skills ",
 			"+[20-35]% Faster Cast Rate ",
@@ -675,16 +598,13 @@
 			"Regenerate Mana 15% ",
 			"50% Extra Gold from Monsters ",
 			"[20-30]% Better Chance of Getting Magic Items ",
-			"+3 to Light Radius ",
-			""
+			"+3 to Light Radius "
 		],
 		"level": "37"
 	},
 	"Sanctuary": {
 		"name": "Sanctuary - Ko Ko Mal",
-		"types": [
-			"Shield"
-		],
+		"types": ["Shield"],
 		"option": [
 			"+20% Faster Hit Recovery ",
 			"+20% Faster Block Rate ",
@@ -694,16 +614,13 @@
 			"All Resistances +[40-50] ",
 			"Magic Damage Taken Reduced by 7 ",
 			"Cannot Be Frozen ",
-			"Level 12 Slow Movement (60 Charges) ",
-			""
+			"Level 12 Slow Movement (60 Charges) "
 		],
 		"level": "49"
 	},
 	"Exile": {
 		"name": "Exile - Vex Ohm Ist Dol",
-		"types": [
-			"Shield"
-		],
+		"types": ["Shield"],
 		"option": [
 			"25% Chance to Cast level 18 Decrepify on Striking ",
 			"Level [13-16] Defiance Aura when Equipped ",
@@ -722,9 +639,7 @@
 	"Phoenix": [
 		{
 			"name": "Phoenix - Vex Vex Lo Jah",
-			"types": [
-				"Shield"
-			],
+			"types": ["Shield"],
 			"option": [
 				"20% Chance to Cast Level 40 Firestorm on Striking ",
 				"100% Chance to Cast Level 40 Blaze when you Level-Up ",
@@ -734,16 +649,13 @@
 				"+[350-400] Defense vs. Missile ",
 				"+75 to Life ",
 				"+4% to Maximum Lightning Resist ",
-				"+8% to Maximum Fire Resist ",
-				""
+				"+8% to Maximum Fire Resist "
 			],
 			"level": "65"
 		},
 		{
 			"name": "Phoenix - Vex Vex Lo Jah",
-			"types": [
-				"Weapon"
-			],
+			"types": ["Weapon"],
 			"option": [
 				"20% Chance to Cast Level 40 Firestorm on Striking (Non-Staves Only) ",
 				"20% Chance to Cast Level 40 Firestorm on Casting (Staves Only) ",
@@ -762,9 +674,7 @@
 	],
 	"Shattered": {
 		"name": "Shattered Wall - Zod Jah Ral Cham",
-		"types": [
-			"Paladin Shield"
-		],
+		"types": ["Paladin Shield"],
 		"option": [
 			"Indestructible",
 			"Level 16 Holy Freeze Aura when Equipped ",
@@ -774,19 +684,13 @@
 			"+[125-175] to Life ",
 			"Fire Resist +35% ",
 			"Cannot Be Frozen ",
-			"+5 to Mana after each Kill ",
-			""
+			"+5 to Mana after each Kill "
 		],
 		"level": "69"
 	},
 	"Steel": {
 		"name": "Tir El",
-		"types": [
-			"Swords",
-			"Axes",
-			"Tipped Maces",
-			"Claws"
-		],
+		"types": ["Swords", "Axes", "Tipped Maces", "Claws"],
 		"option": [
 			"+25% Increased Attack Speed ",
 			"+20% Enhanced Damage ",
@@ -795,17 +699,13 @@
 			"+50 to Attack Rating ",
 			"50% Chance of Open Wounds ",
 			"+2 to Mana after each Kill ",
-			"+1 to Light Radius ",
-			"",
-			""
+			"+1 to Light Radius "
 		],
 		"level": "13"
 	},
 	"Malice": {
 		"name": "Malice - Ith El Eth",
-		"types": [
-			"Melee Weapons"
-		],
+		"types": ["Melee Weapons"],
 		"option": [
 			"+33% Enhanced Damage ",
 			"+9 to Maximum Damage ",
@@ -815,16 +715,13 @@
 			"+6 Open Wounds Damage per Second ",
 			"Prevent Monster Heal ",
 			"-100 to Monster Defense per Hit ",
-			"Drain Life -5 ",
-			""
+			"Drain Life -5 "
 		],
 		"level": "15"
 	},
 	"Leaf": {
 		"name": "Leaf - Tir Ral",
-		"types": [
-			"Staves"
-		],
+		"types": ["Staves"],
 		"option": [
 			"+3 to Fire Skills ",
 			"Adds 5-30 Fire Damage ",
@@ -833,17 +730,13 @@
 			"+3 to Fire Bolt (Sorceress Only) ",
 			"+[2-198] Defense (+2 per Character Level) ",
 			"Cold Resist +33% ",
-			"+2 to Mana after each Kill ",
-			"",
-			""
+			"+2 to Mana after each Kill "
 		],
 		"level": "19"
 	},
 	"Pattern": {
 		"name": "Pattern - Tal Ort Tir",
-		"types": [
-			"Claws"
-		],
+		"types": ["Claws"],
 		"option": [
 			"+30% Faster Block Rate ",
 			"+[80-120]% Enhanced Damage ",
@@ -860,10 +753,7 @@
 	},
 	"Zephyr": {
 		"name": "Zephyr - Ort Eth",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"7% Chance to Cast Level 10 Twister when Struck ",
 			"+25% Faster Run/Walk ",
@@ -872,17 +762,13 @@
 			"-25% Target Defense ",
 			"+66 to Attack Rating ",
 			"Adds 1-50 Lightning Damage ",
-			"+25 Defense ",
-			"",
-			""
+			"+25 Defense "
 		],
 		"level": "21"
 	},
 	"Holy Thunder": {
 		"name": "Holy Thunder - Eth Ral Ort Tal",
-		"types": [
-			"Scepters"
-		],
+		"types": ["Scepters"],
 		"option": [
 			"+60% Enhanced Damage ",
 			"+10 to Maximum Damage ",
@@ -899,13 +785,7 @@
 	},
 	"Neophyte": {
 		"name": "Neophyte - Thul Tir",
-		"types": [
-			"Orbs",
-			"Claws",
-			"Scepters",
-			"Clubs",
-			"Staves"
-		],
+		"types": ["Orbs", "Claws", "Scepters", "Clubs", "Staves"],
 		"option": [
 			"+30% Faster Cast Rate (Non-Staves Only) ",
 			"+40% Faster Cast Rate (Staves Only) ",
@@ -913,38 +793,26 @@
 			"Physical Damage Taken Reduced by [2-4] ",
 			"Half Freeze Duration ",
 			"Poison length Reduced by 25% ",
-			"+2 to Mana after each Kill ",
-			"",
-			"",
-			""
+			"+2 to Mana after each Kill "
 		],
 		"level": "23"
 	},
 	"Strength": {
 		"name": "Strength - Amn Tir",
-		"types": [
-			"Melee Weapons"
-		],
+		"types": ["Melee Weapons"],
 		"option": [
 			"+[65-95]% Enhanced Damage ",
 			"7% Life Stolen per Hit ",
 			"25% Chance of Crushing Blow ",
 			"+20 to Strength ",
 			"+10 to Vitality ",
-			"+2 to Mana after each Kill ",
-			"",
-			"",
-			"",
-			""
+			"+2 to Mana after each Kill "
 		],
 		"level": "25"
 	},
 	"Edge": {
 		"name": "Edge - Tir Tal Amn",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"Level 15 Thorns Aura when Equipped ",
 			"+35% Increased Attack Speed ",
@@ -961,11 +829,7 @@
 	},
 	"Grace": {
 		"name": "King's Grace - Amn Ral Thul",
-		"types": [
-			"Scepters",
-			"Swords",
-			"Claws"
-		],
+		"types": ["Scepters", "Swords", "Claws"],
 		"option": [
 			"+100% Enhanced Damage ",
 			"+150 to Attack Rating ",
@@ -975,20 +839,13 @@
 			"+100 to Attack Rating against Undead ",
 			"Adds 50-80 Fire Damage ",
 			"Adds 3-14 Cold Damage ",
-			"7% Life Stolen per Hit ",
-			""
+			"7% Life Stolen per Hit "
 		],
 		"level": "25"
 	},
 	"Purity": {
 		"name": "Purity - Amn Eth Thul",
-		"types": [
-			"Polearms",
-			"Spears",
-			"Staves",
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Polearms", "Spears", "Staves", "Bows", "Crossbows"],
 		"option": [
 			"Level [10-12] Prayer Aura when Equipped ",
 			"+45% Increased Attack Speed ",
@@ -998,19 +855,13 @@
 			"+200 to Attack Rating against Demons ",
 			"30% Reduced Curse Duration ",
 			"Adds 3-14 Cold Damage ",
-			"7% Life Stolen per Hit ",
-			""
+			"7% Life Stolen per Hit "
 		],
 		"level": "25"
 	},
 	"Insight": {
 		"name": "Insight - Ral Tir Tal Sol",
-		"types": [
-			"Staves",
-			"Polearms",
-			"Spears",
-			"Scepters"
-		],
+		"types": ["Staves", "Polearms", "Spears", "Scepters"],
 		"option": [
 			"Level [12-17] Meditation Aura when Equipped ",
 			"+35% Faster Cast Rate ",
@@ -1028,9 +879,7 @@
 	},
 	"Honor": {
 		"name": "Honor - Amn El Ith Tir Sol",
-		"types": [
-			"Melee Weapons"
-		],
+		"types": ["Melee Weapons"],
 		"option": [
 			"+1 to All Skills ",
 			"+[160-200]% Enhanced Damage ",
@@ -1048,11 +897,7 @@
 	},
 	"Rampage": {
 		"name": "Rampage - Shael El Ith Eth",
-		"types": [
-			"Polearms",
-			"Spears",
-			"Staves"
-		],
+		"types": ["Polearms", "Spears", "Staves"],
 		"option": [
 			"+65% Increased Attack Speed ",
 			"+20% Faster Hit Recovery ",
@@ -1061,20 +906,13 @@
 			"-25% Target Defense ",
 			"+50 to Attack Rating ",
 			"Fire Resist +25% ",
-			"+1 to Light Radius ",
-			"",
-			""
+			"+1 to Light Radius "
 		],
 		"level": "29"
 	},
 	"Black": {
 		"name": "Black - Thul Io Nef",
-		"types": [
-			"Clubs",
-			"Hammers",
-			"Tipped Maces",
-			"Claws"
-		],
+		"types": ["Clubs", "Hammers", "Tipped Maces", "Claws"],
 		"option": [
 			"+15% Increased Attack Speed ",
 			"+100% Enhanced Damage ",
@@ -1091,9 +929,7 @@
 	},
 	"White": {
 		"name": "White - Dol Io",
-		"types": [
-			"Wands"
-		],
+		"types": ["Wands"],
 		"option": [
 			"+2 to Poison and Bone Skills (Necromancer Only) ",
 			"+20% Faster Cast Rate ",
@@ -1102,17 +938,13 @@
 			"+20% Enhanced Damage ",
 			"+10 to Vitality ",
 			"+13 to Mana ",
-			"Magic Damage Taken Reduced by 4 ",
-			"",
-			""
+			"Magic Damage Taken Reduced by 4 "
 		],
 		"level": "35"
 	},
 	"Memory": {
 		"name": "Memory - Lum Io Sol Eth",
-		"types": [
-			"Staves"
-		],
+		"types": ["Staves"],
 		"option": [
 			"+3 to Sorceress Skills ",
 			"+33% Faster Cast Rate ",
@@ -1130,10 +962,7 @@
 	},
 	"Harmony": {
 		"name": "Harmony Tir Ith Sol Ko",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"Level 10 Vigor Aura when Equipped ",
 			"+[200-275]% Enhanced Damage ",
@@ -1153,10 +982,7 @@
 	},
 	"Melody": {
 		"name": "Melody - Shael Ko Nef",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"+3 to Bow and Crossbow Skills (Amazon Only) ",
 			"+20% Increased Attack Speed ",
@@ -1166,16 +992,13 @@
 			"+3 to Dodge (Amazon Only) ",
 			"+3 to Critical Strike (Amazon Only) ",
 			"Knockback",
-			"+10 to Dexterity ",
-			""
+			"+10 to Dexterity "
 		],
 		"level": "39"
 	},
 	"Unbending": {
 		"name": "Unbending Will - Fal Io Ith Eld El Hel",
-		"types": [
-			"Swords"
-		],
+		"types": ["Swords"],
 		"option": [
 			"8% Chance to Cast Level 18 Taunt on Striking ",
 			"+3 to Combat Skills (Barbarian Only) ",
@@ -1196,11 +1019,7 @@
 	},
 	"Obedience": {
 		"name": "Obedience - Hel Ko Thul Eth Fal",
-		"types": [
-			"Polearms",
-			"Spears",
-			"Hammers"
-		],
+		"types": ["Polearms", "Spears", "Hammers"],
 		"option": [
 			"30% Chance to Cast Level 21 Enchant Fire when you Kill an Enemy ",
 			"+40% Faster Hit Recovery ",
@@ -1219,9 +1038,7 @@
 	},
 	"Passion": {
 		"name": "Passion - Dol Ort Eld Lem",
-		"types": [
-			"Weapons"
-		],
+		"types": ["Weapons"],
 		"option": [
 			"+25% Increased Attack Speed ",
 			"+[180-230]% Enhanced Damage ",
@@ -1239,12 +1056,7 @@
 	},
 	"Voice": {
 		"name": "Voice of Reason - Lem Ko El Eld",
-		"types": [
-			"Swords",
-			"Tipped Maces",
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Swords", "Tipped Maces", "Bows", "Crossbows"],
 		"option": [
 			"15% Chance to Cast Level 16 Frozen Orb on Striking ",
 			"18% Chance to Cast Level 20 Ice Blast on Striking ",
@@ -1263,12 +1075,7 @@
 	},
 	"Lawbringer": {
 		"name": "Lawbringer - Amn Lem Ko",
-		"types": [
-			"Hammers",
-			"Scepters",
-			"Swords",
-			"Claws"
-		],
+		"types": ["Hammers", "Scepters", "Swords", "Claws"],
 		"option": [
 			"20% Chance to Cast Level 15 Decrepify on Striking ",
 			"+[150-200]% Enhanced Damage ",
@@ -1285,13 +1092,7 @@
 	},
 	"Crescent": {
 		"name": "Crescent Moon - Shael Um Tir",
-		"types": [
-			"Axes",
-			"Swords",
-			"Polearms",
-			"Spears",
-			"Claws"
-		],
+		"types": ["Axes", "Swords", "Polearms", "Spears", "Claws"],
 		"option": [
 			"10% Chance to Cast Level 27 Lightning on Striking ",
 			"12% Chance to Cast Level 13 Static Field on Striking (Axes/Swords/Claws Only) ",
@@ -1310,9 +1111,7 @@
 	},
 	"Venom": {
 		"name": "Venom - Tal Dol Mal",
-		"types": [
-			"Weapons"
-		],
+		"types": ["Weapons"],
 		"option": [
 			"20% Chance to Cast Level 28 Poison Nova on Striking ",
 			"Ignore Target's Defense ",
@@ -1322,18 +1121,13 @@
 			"+6 to Poison Strike ",
 			"Prevent Monster Heal ",
 			"+20% Enhanced Damage ",
-			"Level 15 Desecrate (27 Charges) ",
-			""
+			"Level 15 Desecrate (27 Charges) "
 		],
 		"level": "49"
 	},
 	"Oath": {
 		"name": "Oath - Shael Pul Mal Lum",
-		"types": [
-			"Swords",
-			"Aces",
-			"Tipped Maces"
-		],
+		"types": ["Swords", "Aces", "Tipped Maces"],
 		"option": [
 			"30% Chance to Cast Level 20 Bone Spirit on Striking ",
 			"Indestructible",
@@ -1351,12 +1145,7 @@
 	},
 	"Rift": {
 		"name": "Rift",
-		"types": [
-			"Scepters",
-			"Polearms",
-			"Spears",
-			"Swords"
-		],
+		"types": ["Scepters", "Polearms", "Spears", "Swords"],
 		"option": [
 			"20% Chance to Cast Level 30 Tornado on Striking ",
 			"20% Chance to Cast Level 25 Frozen Orb on Attack ",
@@ -1376,10 +1165,7 @@
 	},
 	"Kingslayer": {
 		"name": "Kingslayer - Mal Um Gul Fal",
-		"types": [
-			"Swords",
-			"Axes"
-		],
+		"types": ["Swords", "Axes"],
 		"option": [
 			"+30% Increased Attack Speed ",
 			"+[230-270]% Enhanced Damage ",
@@ -1398,10 +1184,7 @@
 	},
 	"Hoto": {
 		"name": "Heart of the Oak - Ko Vex Pul Thul",
-		"types": [
-			"Staves",
-			"Tipped Maces"
-		],
+		"types": ["Staves", "Tipped Maces"],
 		"option": [
 			"+3 to All Skills ",
 			"+30% Faster Cast Rate ",
@@ -1420,9 +1203,7 @@
 	},
 	"Silence": {
 		"name": "Silence - Dol Eld Hel Ist Tir Vex",
-		"types": [
-			"Weapons"
-		],
+		"types": ["Weapons"],
 		"option": [
 			"Level [23-25] Thorns Aura when Equipped ",
 			"+2 to All Skills ",
@@ -1442,10 +1223,7 @@
 	},
 	"Death": {
 		"name": "Death - Hel El Vex Ort Gul",
-		"types": [
-			"Swords",
-			"Axes"
-		],
+		"types": ["Swords", "Axes"],
 		"option": [
 			"Indestructible",
 			"25% Chance to Cast Level 18 Glacial Spike on Attack ",
@@ -1465,9 +1243,7 @@
 	},
 	"Chaos": {
 		"name": "Chaos - Fal Ohm Um",
-		"types": [
-			"Claws"
-		],
+		"types": ["Claws"],
 		"option": [
 			"20% Chance to Cast Level 30 Frozen Orb on Striking ",
 			"18% Chance to Cast Level 40 Charged Bolt on Striking ",
@@ -1484,9 +1260,7 @@
 	},
 	"cta": {
 		"name": "Call to Arms - Amn Ral Mal Ist Ohm",
-		"types": [
-			"Weapons"
-		],
+		"types": ["Weapons"],
 		"option": [
 			"+1 to All Skills ",
 			"+40% Increased Attack Speed ",
@@ -1504,10 +1278,7 @@
 	},
 	"Grief": {
 		"name": "Grief - Eth Tir Lo Mal Ral",
-		"types": [
-			"Swords",
-			"Axes"
-		],
+		"types": ["Swords", "Axes"],
 		"option": [
 			"35% Chance to Cast Level 15 Venom on Striking ",
 			"+[30-40]% Increased Attack Speed ",
@@ -1525,9 +1296,7 @@
 	},
 	"Wind": {
 		"name": "Wind -  Sur El",
-		"types": [
-			"Melee Weapons"
-		],
+		"types": ["Melee Weapons"],
 		"option": [
 			"18% Chance to Cast Level 35 Tornado on Striking (Non-Staves Only) ",
 			"18% Chance to Cast Level 35 Tornado on Casting (Staves Only) ",
@@ -1541,17 +1310,13 @@
 			"-50% Target Defense ",
 			"+50 to Attack Rating ",
 			"+4 Life after each Kill ",
-			"+1 to Light Radius ",
-			""
+			"+1 to Light Radius "
 		],
 		"level": "61"
 	},
 	"Wrath": {
 		"name": "Wrath - Pul Lum Ber Mal",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"60% Chance to Cast Level 31 Amplify Damage on Striking ",
 			"+[30-45]% Increased Attack Speed ",
@@ -1569,12 +1334,7 @@
 	},
 	"Beast": {
 		"name": "Beast - Ber Tir Um Mal Lum",
-		"types": [
-			"Axes",
-			"Scepters",
-			"Hammers",
-			"Staves"
-		],
+		"types": ["Axes", "Scepters", "Hammers", "Staves"],
 		"option": [
 			"Level [8-10] Fanaticism Aura when Equipped ",
 			"+40% Increased Attack Speed ",
@@ -1594,9 +1354,7 @@
 	},
 	"Eternity": {
 		"name": "Eternity - Amn Ber Ist Sol Sur",
-		"types": [
-			"Melee Weapons"
-		],
+		"types": ["Melee Weapons"],
 		"option": [
 			"Indestructible",
 			"+[260-310]% Enhanced Damage ",
@@ -1613,11 +1371,7 @@
 	},
 	"Infinity": {
 		"name": "Infinity - Ber Mal Ber Ist",
-		"types": [
-			"Polearms",
-			"Spears",
-			"Staves"
-		],
+		"types": ["Polearms", "Spears", "Staves"],
 		"option": [
 			"25% Chance to Cast Level 20 Chain Lightning on Striking (Non-Staves Only) ",
 			"15% Chance to Cast Level 20 Chain Lightning on Casting (Staves Only) ",
@@ -1637,9 +1391,7 @@
 	},
 	"Fury": {
 		"name": "Fury - Jah Gul Eth",
-		"types": [
-			"Melee Weapons"
-		],
+		"types": ["Melee Weapons"],
 		"option": [
 			"Indestructible",
 			"+40% Increased Attack Speed ",
@@ -1656,11 +1408,7 @@
 	},
 	"Famine": {
 		"name": "Famine - Fal Ohm Ort Jah",
-		"types": [
-			"Axes",
-			"Hammers",
-			"Swords"
-		],
+		"types": ["Axes", "Hammers", "Swords"],
 		"option": [
 			"+30% Increased Attack Speed ",
 			"+[325-375]% Enhanced Damage ",
@@ -1677,10 +1425,7 @@
 	},
 	"Faith": {
 		"name": "Faith - Ohm Jah Lem Eld",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"Level [12-15] Fanaticism Aura when Equipped ",
 			"+[255-305]% Enhanced Damage ",
@@ -1697,10 +1442,7 @@
 	},
 	"Ice": {
 		"name": "Ice - Amm Shael Jah Lo",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"20% Chance to Cast Level 32 Frost Nova on Striking ",
 			"100% Chance to Cast Level 40 Blizzard when you Level-Up ",
@@ -1718,10 +1460,7 @@
 	},
 	"Brand": {
 		"name": "Brand - Jah Lo Mal Gul",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"50% Chance to Cast Level 45 Bone Spear on Striking ",
 			"65% Chance to Cast Level 31 Amplify Damage when Struck ",
@@ -1739,12 +1478,7 @@
 	},
 	"Destruction": {
 		"name": "Destruction - Vex Lo Ber Jah Ko",
-		"types": [
-			"Swords",
-			"Polearms",
-			"Spears",
-			"Staves"
-		],
+		"types": ["Swords", "Polearms", "Spears", "Staves"],
 		"option": [
 			"8% Chance to Cast Level 35 Molten Boulder on Striking (Non-Staves Only) ",
 			"8% Chance to Cast Level 35 Molten Boulder on Casting (Staves Only) ",
@@ -1760,19 +1494,13 @@
 			"7% Mana Stolen per Hit ",
 			"20% Chance of Crushing Blow ",
 			"20% Deadly Strike ",
-			"+10 to Dexterity ",
-			""
+			"+10 to Dexterity "
 		],
 		"level": "65"
 	},
 	"Last Wish": {
 		"name": "Last Wish - Jah Mal Jah Sur Jah Ber",
-		"types": [
-			"Axes",
-			"Hammers",
-			"Swords",
-			"Staves"
-		],
+		"types": ["Axes", "Hammers", "Swords", "Staves"],
 		"option": [
 			"10% Chance to Cast Level 11 Life Tap on Striking ",
 			"60% Chance to Cast Level 40 Charged Bolt on Attack ",
@@ -1789,9 +1517,7 @@
 	},
 	"Rapture": {
 		"name": "Rapture - Vex Jah Lo Ral Ko Mal",
-		"types": [
-			"Hammers"
-		],
+		"types": ["Hammers"],
 		"option": [
 			"14% Chance to Cast Level 46 Fissure on Striking ",
 			"30% Chance to Cast Level 35 Lower Resist on Striking ",
@@ -1810,9 +1536,7 @@
 	},
 	"Plague": {
 		"name": "Plague - Cham Fal Um",
-		"types": [
-			"Weapons"
-		],
+		"types": ["Weapons"],
 		"option": [
 			"25% Chance to Cast Level 35 Poison Nova on Striking ",
 			"30% Chance to Cast Level 35 Lower Resist when Struck ",
@@ -1831,10 +1555,7 @@
 	},
 	"Mist": {
 		"name": "Mist - Cham Shael Gul Thul Ith",
-		"types": [
-			"Bows",
-			"Crossbows"
-		],
+		"types": ["Bows", "Crossbows"],
 		"option": [
 			"Level [8-12] Concentration Aura when Equipped ",
 			"+2 to All Skills ",
@@ -1852,9 +1573,7 @@
 	},
 	"Dominion": {
 		"name": "Dominion - Cham Ohm",
-		"types": [
-			"Wands"
-		],
+		"types": ["Wands"],
 		"option": [
 			"You May Summon 1 Additional Golem ",
 			"+2 to Necromancer Skills ",
@@ -1900,9 +1619,7 @@
 	},
 	"hoj": {
 		"name": "Hand of Justice - Sur Cham Amn Lo",
-		"types": [
-			"Weapons"
-		],
+		"types": ["Weapons"],
 		"option": [
 			"100% Chance to Cast Level 36 Blaze when you Level-Up ",
 			"100% Chance to Cast Level 48 Meteor when you Die ",
@@ -1920,11 +1637,7 @@
 	},
 	"Pride": {
 		"name": "Pride - Cham Sur Io Lo",
-		"types": [
-			"Polearms",
-			"Spears",
-			"Staves"
-		],
+		"types": ["Polearms", "Spears", "Staves"],
 		"option": [
 			"25% Chance to Cast Level 30 Fire Wall when Struck ",
 			"Level [18-20] Concentration Aura when Equipped ",
@@ -1941,7 +1654,7 @@
 		"level": "67"
 	},
 	"Asylum": {
-		"name": "Asylum - Gul Cham Hel Jah Dol Um",
+		"name": "Asylum - Gul CHam Hel Jah Dol Um",
 		"types": [
 			"Hammers",
 			"2h Swords",
@@ -1970,9 +1683,7 @@
 	},
 	"Obsession": {
 		"name": "Obsession - Zod Ist Lem Lum Io Nef",
-		"types": [
-			"Staves"
-		],
+		"types": ["Staves"],
 		"option": [
 			"24% Chance to Cast Level 18 Weaken on Casting ",
 			"Indestructible",
@@ -1992,9 +1703,7 @@
 	},
 	"botd": {
 		"name": "Breath of the Dying - Vex Hel El Eld Zod Eth",
-		"types": [
-			"Weapons"
-		],
+		"types": ["Weapons"],
 		"option": [
 			"35% Chance to Cast Level 40 Poison Nova on Striking ",
 			"Indestructible",
@@ -2015,14 +1724,7 @@
 	},
 	"Zenith": {
 		"name": "Zenith - Jah Zod Ort Thul Ral",
-		"types": [
-			"Polearms",
-			"Spears",
-			"Staves",
-			"Bows",
-			"Crossbows",
-			"2h Swords"
-		],
+		"types": ["Polearms", "Spears", "Staves", "Bows", "Crossbows", "2h Swords"],
 		"option": [
 			"Indestructible",
 			"Level [10-12] Salvation Aura when Equipped ",
