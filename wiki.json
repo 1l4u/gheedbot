@@ -26,4 +26,8 @@
   "cb":{
     "text": "```Crushing Blow (cb) giảm một phần máu hiện tại của mục tiêu, do đó hiệu quả hơn với những mục tiêu có nhiều máu, và kém hiệu quả hơn khi mục tiêu yếu máu.\nĐòn tấn công có thể có tối đa 100% cơ hội gây Crushing Blow — mọi phần trăm vượt quá sẽ không có tác dụng thêm.\nCrushing Blow giờ bị giảm hiệu lực mạnh hơn đối với boss (boss act, boss map, Uber boss...). Lượng máu bị giảm bởi đòn cận chiến giờ đã bằng với đòn tấn công tầm xa.\nBảng tỉ lệ giảm máu theo loại mục tiêu:\n     Hầu hết mục tiêu*\t1/8\n     Super Uniques\t    1/8\n     Boss\t             1/80**\n     Players,Mercenary\t1/10\n* 'Hầu hết mục tiêu' bao gồm normal, minion, Champion, and Unique.\n** Hiệu ứng cb giảm dàn hiệu quả (diminishing returns) theo công thức: 80 + (missing hp%)^2```"
   }
+  "cmd":{
+	  "text" : "!rw botd // tra cứu runeword\n!craft blood // tra cứu craft\n!wiki crafting //tra cứu wiki\n\nCác lệnh !craft: blood, safety, hitpower, caster, vampiric, bountiful, brilliant\n\nCác lệnh !wiki: crafting, ar, itd, ias, bp, affix, cs, ow, cb, cmd .v.v"
+  }
+	  
 }
