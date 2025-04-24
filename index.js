@@ -8,8 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Tạo một route đơn giản để giữ app "alive"
-app.get("/", (req, res) => {
-  res.send("Bot is running!");
+app.get("/ping", (req, res) => {
+  res.send("Pong!");
 });
 
 app.listen(PORT, () => {
