@@ -107,7 +107,7 @@ client.on("messageCreate", async (message) => {
     );
   if (message.content.toLowerCase() === "!ow")
     return message.channel.send(
-      "```Open Wounds gây sát thương vật lý theo thời gian. Lượng sát thương phụ thuộc vào cấp độ của nhân vật gây ra hiệu ứng này\nSát thương giờ đây chịu ảnh hưởng bởi thuộc tính mới: '+X Open Wounds Damage per Second', thường đi kèm với hiệu ứng 'X% Chance of Open Wounds'.\nSát thương OW giờ cũng bị ảnh hưởng bởi by Physical Damage Reduction(giảm sát thương vật lý) ví dụ như các kỹ năng: Battle Cry, Amplify Damage, Defiance, v.v.\nSát thương OW không bị ảnh hưởng bởi các bộ tăng sát thương khác.\nHiệu ứng OW giờ cũng được kích hoạt bởi 'Attacker Takes Damage of X', ngoài các đòn tấn công thông thường.\nThời gian hiệu lực của OW giờ là 5 giây (trước đây là 8 giây) và có thể chồng tối đa 3 lần trên mỗi mục tiêu.\nOW giờ chịu giảm hiệu lực còn 1/4 khi áp dụng lên pets và mercenary.\nOW không còn bị giảm một nửa sát thương khi áp dụng lên các kẻ địch mạnh (champions, uniques, super uniques, bosses, prime evils).\n\n\nCharacter Level 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	21 	22 	23 	24 	25\nDamage per Second 	3 	4 	5 	6 	7 	8 	9 	10 	10 	11 	12 	13 	14 	15 	16 	17 	19 	21 	23 	25 	26 	28 	30 	32 	33\nCharacter Level 	26 	27 	28 	29 	30 	31 	32 	33 	34 	35 	36 	37 	38 	39 	40 	41 	42 	43 	44 	45 	46 	47 	48 	49 	50\nDamage per Second 	35 	37 	39 	40 	42 	45 	47 	50 	53 	55 	58 	61 	63 	66 	68 	71 	74 	76 	79 	82 	85 	89 	92 	96 	99\nCharacter Level 	51 	52 	53 	54 	55 	56 	57 	58 	59 	60 	61 	62 	63 	64 	65 	66 	67 	68 	69 	70 	71 	72 	73 	74 	75\nDamage per Second 	103 	106 	110 	113 	117 	120 	124 	127 	131 	134 	139 	143 	148 	152 	156 	161 	165 	170 	174 	178 	183 	187 	191 	196 	200\nCharacter Level 	76 	77 	78 	79 	80 	81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	91 	92 	93 	94 	95 	96 	97 	98 	99\nDamage per Second 	205 	209 	213 	218 	222 	227 	231 	235 	240 	244 	249 	253 	257 	262 	266 	271 	275 	279 	284 	288 	293 	297 	301 	306```",
+      "```Open Wounds gây sát thương vật lý theo thời gian. Lượng sát thương phụ thuộc vào cấp độ của nhân vật gây ra hiệu ứng này\nSát thương giờ đây chịu ảnh hưởng bởi thuộc tính mới: '+X Open Wounds Damage per Second', thường đi kèm với hiệu ứng 'X% Chance of Open Wounds'.\nSát thương OW giờ cũng bị ảnh hưởng bởi by Physical Damage Reduction(giảm sát thương vật lý) ví dụ như các kỹ năng: Battle Cry, Amplify Damage, Defiance, v.v.\nSát thương OW không bị ảnh hưởng bởi các bộ tăng sát thương khác.\nHiệu ứng OW giờ cũng được kích hoạt bởi 'Attacker Takes Damage of X', ngoài các đòn tấn công thông thường.\nThời gian hiệu lực của OW giờ là 5 giây (trước đây là 8 giây) và có thể chồng tối đa 3 lần trên mỗi mục tiêu.\nOW giờ chịu giảm hiệu lực còn 1/4 khi áp dụng lên pets và mercenary.\nOW không còn bị giảm một nửa sát thương khi áp dụng lên các kẻ địch mạnh (champions, uniques, super uniques, bosses, prime evils).```",
     );
   if (message.content.toLowerCase() === "!cb")
     return message.channel.send(
@@ -115,7 +115,7 @@ client.on("messageCreate", async (message) => {
     );
   if (message.content.toLowerCase() === "!cmd")
     return message.channel.send(
-      "```!rw botd\n!ct blood\n!ias\n!itd\n!ar\n!affix\n!bp\n!crafting\n!tung\n!cs\n!cb```",
+      "```!rw botd\n!ct blood\n!ias\n!itd\n!ar\n!affix\n!bp\n!crafting\n!tung\n!cs\n!cb\n!ow```",
     );
 });
 
