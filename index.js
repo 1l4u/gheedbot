@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Client, GatewayIntentBits } = require("discord.js");
 const runewords = require("./runeword.json"); // File JSON của bạn
 const crafts = require("./craft.json"); // File JSON của bạn
+const express = require("express");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
