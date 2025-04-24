@@ -3,6 +3,18 @@ const { Client, GatewayIntentBits } = require("discord.js");
 const runewords = require("./runeword.json"); // File JSON của bạn
 const crafts = require("./craft.json"); // File JSON của bạn
 
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Tạo một route đơn giản để giữ app "alive"
+app.get("/", (req, res) => {
+  res.send("Bot is running!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Web server is running on port ${PORT}`);
+});
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
