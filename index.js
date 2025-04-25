@@ -29,13 +29,7 @@ const client = new Client({
 const AUTO_MESSAGE_INTERVAL = 6 * 60 * 60 * 1000; // 6 giờ (đổi thành mili giây)
 
 // Tin nhắn hướng dẫn
-const HELP_MESSAGE = ```
-**Hướng dẫn sử dụng lệnh:**
-!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)
-!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)
-!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)
-!help Gõ lệnh để xem chi tiết!
-```;
+const HELP_MESSAGE = "```**Hướng dẫn sử dụng lệnh:**\n!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)\n!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)\n!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)\n!help Gõ lệnh để xem chi tiết!```";
 
 client.on("ready", () => {
   console.log(`✅ Bot đã sẵn sàng: ${client.user.tag}`);
