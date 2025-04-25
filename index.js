@@ -29,13 +29,12 @@ const client = new Client({
 const AUTO_MESSAGE_INTERVAL = 6 * 60 * 60 * 1000; // 6 giờ (đổi thành mili giây)
 
 // Tin nhắn hướng dẫn
-const HELP_MESSAGE = "```**Hướng dẫn sử dụng lệnh:**\n!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)\n!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)\n!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)\n!help Gõ lệnh để xem chi tiết!```";
+const HELP_MESSAGE = "```** Tin nhắn tự động!!! ẳng ẳng ẳng!!! - Hướng dẫn sử dụng lệnh **\n!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)\n!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)\n!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)\n!hotkey các phím tắt trong game\n!help Gõ lệnh để xem chi tiết!```";
+
+const STACK_MESSAGE = "```1. Khi cầm nguyên Stack (2+ vật phẩm trở lên):\n     Giữ chuột trái trên stack để di chuyển cả chồng stack đó.\n     Ctrl + Shift + Click vào ô trống: Tách ra 1 vật phẩm (vật phẩm này sẽ không stack nghĩa là không có dấu + trên vật phẩm, nếu là rune và gem thì có thể ép vào đồ).\n     Ctrl + Click vào ô trống: Tách ra 1 vật phẩm (vẫn giữ stack có dấu +, có thể gộp lại sau, nếu là rune và gem thì không thể ép vào đồ).\n\n2. Khi chỉ có 1 vật phẩm stack(hiển thị dấu +):\n     Thao tác như trên hoặc\n     Ctrl + Shift + Click: Chuyển đổi chế độ stack/không stack.\n\n     Shift + Left Click: Identify item\n     Shift + Right Click: Di chuyển giữa các thùng đồ(inventory <-> stash <-> cube)\n     Ctrl + Right Click: ném xuống đất\n     Ctrl + Shift + Right Click: Di chuyển vào cube(cube không được mở nếu không sẽ ném xuống đất)\n3. Khi cộng điểm skill hoặc stat:\n     Ctrl + Left Click: 5 điểm\n     Shift + Left Click: 20 điểm\n     Ctrl + Shift + Left Click: All```" + "https://imgur.com/wSctL3q";
 
 client.on("ready", () => {
   console.log(`✅ Bot đã sẵn sàng: ${client.user.tag}`);
-
-  // Gửi tin nhắn ngay khi bot khởi động
-  sendAutoMessage();
 
   // Thiết lập lặp lại mỗi X giờ
   setInterval(sendAutoMessage, AUTO_MESSAGE_INTERVAL);
@@ -71,6 +70,9 @@ async function sendAutoMessage() {
 client.on("messageCreate", async (message) => {
   if (message.content.toLowerCase() === "!help") {
     await message.channel.send(HELP_MESSAGE);
+  }
+  if (message.content.toLowerCase() === "!hotkey") {
+    await message.channel.send(STACK_MESSAGE);
   }
 });
 
