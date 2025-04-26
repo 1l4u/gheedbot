@@ -4,6 +4,7 @@ const runewords = require("./runeword.json"); // File JSON của bạn
 const crafts = require("./craft.json"); // File JSON của bạn
 const wiki = require("./wiki.json");
 const express = require("express");
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,7 +30,7 @@ const client = new Client({
 const AUTO_MESSAGE_INTERVAL = 6 * 60 * 60 * 1000; // 6 giờ (đổi thành mili giây)
 
 // Tin nhắn hướng dẫn
-const HELP_MESSAGE = "```** Tin nhắn tự động!!! ẳng ẳng ẳng!!! - Hướng dẫn sử dụng lệnh **\n!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)\n!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)\n!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)\n!hotkey các phím tắt trong game\n!help Gõ lệnh để xem chi tiết!```";
+const HELP_MESSAGE = "```** Tin nhắn tự động!!! ẳng ẳng ẳng!!! - Hướng dẫn sử dụng lệnh **\n!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)\n!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)\n!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)\n!hotkey các phím tắt trong game\n!search tìm kiếm rw theo types(loại) vd: !search armor\n!help Gõ lệnh để xem chi tiết!```";
 
 const STACK_MESSAGE = "```1. Khi cầm nguyên Stack (2+ vật phẩm trở lên):\n     Giữ chuột trái trên stack để di chuyển cả chồng stack đó.\n     Ctrl + Shift + Click vào ô trống: Tách ra 1 vật phẩm (vật phẩm này sẽ không stack nghĩa là không có dấu + trên vật phẩm, nếu là rune và gem thì có thể ép vào đồ).\n     Ctrl + Click vào ô trống: Tách ra 1 vật phẩm (vẫn giữ stack có dấu +, có thể gộp lại sau, nếu là rune và gem thì không thể ép vào đồ).\n\n2. Khi chỉ có 1 vật phẩm stack(hiển thị dấu +):\n     Thao tác như trên hoặc\n     Ctrl + Shift + Click: Chuyển đổi chế độ stack/không stack.\n\n     Shift + Left Click: Identify item\n     Shift + Right Click: Di chuyển giữa các thùng đồ(inventory <-> stash <-> cube)\n     Ctrl + Right Click: ném xuống đất\n     Ctrl + Shift + Right Click: Di chuyển vào cube(cube không được mở nếu không sẽ ném xuống đất)\n3. Khi cộng điểm skill hoặc stat:\n     Ctrl + Left Click: 5 điểm\n     Shift + Left Click: 20 điểm\n     Ctrl + Shift + Left Click: All```" + "https://imgur.com/wSctL3q";
 
@@ -197,8 +198,101 @@ client.on("messageCreate", async (message) => {
 
   // Gửi một lần duy nhất
   await message.channel.send(combinedContent);}
+
+  ///// search runeword
+  const prefixSearch = "!search";
+if (message.content.toLowerCase().startsWith(prefixSearch)) {
+    const searchType = message.content.slice(prefixSearch.length).trim().toLowerCase();
+    
+    if (!searchType) {
+        return message.channel.send("```🐺 Vui lòng nhập loại runeword cần tìm (vd: !search armor)```");
+    }
+
+    // Tìm tất cả runewords thuộc loại được chỉ định
+    const matchedRunewords = new Map();
+    
+    Object.entries(runewords).forEach(([name, data]) => {
+      const items = Array.isArray(data) ? data : [data];
+      items.forEach(rw => {
+          if (rw.types && rw.types.some(t => t.toLowerCase().includes(searchType))) {
+            const key = rw.name?.toLowerCase() || name.toLowerCase();
+              // Gộp các phiên bản trùng tên, chỉ giữ lại 1 entry
+              if (!matchedRunewords.has(key)) {
+                  matchedRunewords.set(key, {
+                      name: rw.name || name,
+                      types: [...new Set(rw.types)],
+                      variants:[]
+                  });
+              }
+              matchedRunewords.get(key).variants.push({
+                level:rw.level,
+                option:rw.option
+              });
+          }
+      });
+    });
+
+    if (matchedRunewords.length === 0) {
+        return message.channel.send(`\`\`\`\n🐺 Không tìm thấy runeword nào thuộc loại "${searchType}"\n\`\`\``);
+    } 
+    const uniqueRunewords = Array.from(matchedRunewords.values()).sort((a, b) => a.name.localeCompare(b.name));
+
+    // Format kết quả
+    let resultText = `\`\`\`\nRunewords thuộc loại "${searchType}" (${uniqueRunewords.length} kết quả):\n\n`;
+    
+    uniqueRunewords.forEach((rw, index) => {
+        resultText += `${index + 1}. ${rw.name}\n`;
+        resultText += "\n";
+    });
+
+    resultText += "```";
+    await message.channel.send(resultText);
+}
 });
 
+client.on('messageCreate', async (message) => {
+  if (message.content.startsWith('!pd2info')) {
+    const args = message.content.split(' ');
+    if (args.length < 3) {
+      return message.reply('Vui lòng nhập đúng cú pháp: `!pdlbinfo <softcore/hardcore> <tên nhân vật>`');
+    }
+
+    const gameMode = args[1].toLowerCase();
+    const charName = args.slice(2).join(' ');
+
+    if (!['softcore', 'hardcore'].includes(gameMode)) {
+      return message.reply('Chế độ game phải là `softcore` hoặc `hardcore`');
+    }
+
+    try {
+      const apiUrl = `https://api.costcosaletracker.com/api/character?gameMode=${gameMode}&name=${encodeURIComponent(charName)}`;
+      const response = await axios.get(apiUrl);
+      
+      // Lấy riêng phần lbinfo
+      const info = response.data.lbInfo || {};
+      
+      const status = response.data.status || {};
+      const ladder = status.is_ladder ? "Non-Ladder" : "Ladder";
+
+      // Format thông tin quan trọng
+      const embed = {
+        title: `${ladder} - ${info.name}`,
+        fields: [
+          { name: 'Class', value: info.class || 'N/A', inline: true },
+          { name: 'Level', value: info.level?.toString() || 'N/A', inline: true },
+          { name: 'Rank', value: info.rank?.toString() || 'N/A', inline: true }
+        ],
+        footer: { text: `Chế độ: ${gameMode}` },
+      };
+
+      message.channel.send({ embeds: [embed] });
+
+    } catch (error) {
+      console.error('Lỗi API:', error);
+      message.channel.send('Không thể lấy thông tin ladder. Vui lòng thử lại sau!');
+    }
+  }
+});
 
 
 // Luôn ưu tiên dùng process.env
