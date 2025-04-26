@@ -29,9 +29,11 @@ const client = new Client({
 const AUTO_MESSAGE_INTERVAL = 6 * 60 * 60 * 1000; // 6 giờ (đổi thành mili giây)
 
 // Tin nhắn hướng dẫn
-const HELP_MESSAGE = "```** Tin nhắn tự động!!! ẳng ẳng ẳng!!! - Hướng dẫn sử dụng lệnh **\n!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)\n!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)\n!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)\n!hotkey các phím tắt trong game\n!help Gõ lệnh để xem chi tiết!```";
+const HELP_MESSAGE = "```** Tin nhắn tự động!!! ẳng ẳng ẳng!!! - Hướng dẫn sử dụng lệnh **\n!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)\n!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)\n!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)\n!hotkey các phím tắt trong game\nwss thông tin về corrupt item\n!help Gõ lệnh để xem chi tiết!```";
 
 const STACK_MESSAGE = "```1. Khi cầm nguyên Stack (2+ vật phẩm trở lên):\n     Giữ chuột trái trên stack để di chuyển cả chồng stack đó.\n     Ctrl + Shift + Click vào ô trống: Tách ra 1 vật phẩm (vật phẩm này sẽ không stack nghĩa là không có dấu + trên vật phẩm, nếu là rune và gem thì có thể ép vào đồ).\n     Ctrl + Click vào ô trống: Tách ra 1 vật phẩm (vẫn giữ stack có dấu +, có thể gộp lại sau, nếu là rune và gem thì không thể ép vào đồ).\n\n2. Khi chỉ có 1 vật phẩm stack(hiển thị dấu +):\n     Thao tác như trên hoặc\n     Ctrl + Shift + Click: Chuyển đổi chế độ stack/không stack.\n\n     Shift + Left Click: Identify item\n     Shift + Right Click: Di chuyển giữa các thùng đồ(inventory <-> stash <-> cube)\n     Ctrl + Right Click: ném xuống đất\n     Ctrl + Shift + Right Click: Di chuyển vào cube(cube không được mở nếu không sẽ ném xuống đất)\n3. Khi cộng điểm skill hoặc stat:\n     Ctrl + Left Click: 5 điểm\n     Shift + Left Click: 20 điểm\n     Ctrl + Shift + Left Click: All```" + "https://imgur.com/wSctL3q";
+
+const WSS = "```1. Worldstone Shard (wss) là một vật phẩm mới có thể rơi ở bất kỳ đâu trong game. Wss dùng để làm biến đổi (Corrupted) trang bị:\n     - Thêm socket (nếu trang bị có thể có socket)\n     - Nhận mod đặc biệt (tăng thêm chỉ số ngẫu nhiên)\n     - Brick (trang bị có thể biến thành đồ rare ngẫu nhiên\n\n2. Corrupt trang bị (hay còn gọi là slam)\nA. Normal Item (không phải unique,set,runeword,magic,rare) không có socket :\n     - 50% thêm socket (số socket từ 1 đến tối đa theo từng loại trang bị)\n     - 50% biến thành đồ rare(brick)\nB Unique,Set,Rare,Magic Item:\n Nếu trang bị có thể thêm socket:\n     - 25% thêm socket (số lượng socket ngẫu nhiên, có thể 1 hoặc tối đa theo từng loại trang bị)\n     - 50% nhận thêm thuộc tính đặc biệt(có 3 loại thuộc tính là thấp, trung, cao)\n     - 25% biến thành đồ rare(brick)\n Nếu không thể thêm socket (vd: ring,amulet,gloves,belt,boots,throw,javelin...):\n     - 75% nhận option\n     - 25% thành rare\n\n3. Tỷ lệ số Socket khi slam thành công - tỷ lệ%(socket):\n     - Armor(Helm/Armor/Shield): 48%(1), 28%(2), 24%(3)\n     - Vũ khí 1 tay: 48%(2), 28%(3), 24%(4)\n     - Vũ khí 2 tay: 30%(3), 28%(4), 24%(5), 18%(6)```";
 
 client.on("ready", () => {
   console.log(`✅ Bot đã sẵn sàng: ${client.user.tag}`);
@@ -73,6 +75,9 @@ client.on("messageCreate", async (message) => {
   }
   if (message.content.toLowerCase() === "!hotkey") {
     await message.channel.send(STACK_MESSAGE);
+  }
+   if (message.content.toLowerCase() === "!wss") {
+    await message.channel.send(WSS);
   }
 });
 
