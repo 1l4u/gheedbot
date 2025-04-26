@@ -69,6 +69,7 @@ async function sendAutoMessage() {
 }
 
 client.on("messageCreate", async (message) => {
+  if (message.author.bot) return;
   if (message.content.toLowerCase() === "!help") {
     await message.channel.send(HELP_MESSAGE);
   }
@@ -145,12 +146,15 @@ client.on("messageCreate", async (message) => {
     for (const wiki of itemsToDisplay) {
       const formattedText = `\n${wiki.text}`.trim();
       await message.channel.send(formattedText);
+      return;
     }
   } catch (error) {
     console.error("Lỗi khi gửi embed:", error);
     message.channel.send("```🐺 ẳng ẳng ẳng!``");
+    return;
   }
   }
+  
   // craft
 
   const prefixcraft = "!craft";
