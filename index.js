@@ -142,20 +142,16 @@ client.on("messageCreate", async (message) => {
   // Xử lý cả trường hợp item là array hoặc object
   const itemsToDisplay = Array.isArray(item) ? item : [item];
 
-  try {
-    // Gửi từng embed cho mỗi phiên bản
-    for (const wiki of itemsToDisplay) {
-      const formattedText = `\n${wiki.text}`.trim();
-      await message.channel.send(formattedText);
-      return;
-    }
-  } catch (error) {
-    console.error("Lỗi khi gửi embed:", error);
-    message.channel.send("```🐺 ẳng ẳng ẳng!``");
-    return;
-  }
-  }
-  
+  let combinedContent = "";
+
+  itemsToDisplay.forEach((wiki, index) => {
+    combinedContent += `${wiki.text || foundKey}`;
+  });
+
+
+
+  await message.channel.send(combinedContent);
+}
   // craft
 
   const prefixcraft = "!craft";
@@ -197,7 +193,8 @@ client.on("messageCreate", async (message) => {
   combinedContent += "\n```";
 
   // Gửi một lần duy nhất
-  await message.channel.send(combinedContent);}
+  await message.channel.send(combinedContent);
+}
 
   ///// search runeword
   const prefixSearch = "!search";
