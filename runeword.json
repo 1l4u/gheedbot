@@ -706,7 +706,7 @@
 		"level": "69"
 	},
 	"Steel": {
-		"name": "Tir El",
+		"name": "Steel - Tir El",
 		"types": ["Swords", "Axes", "Maces", "Claws"],
 		"option": [
 			"+25% Increased Attack Speed ",
