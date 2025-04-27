@@ -36,7 +36,7 @@ const STACK_MESSAGE = "```1. Khi cầm nguyên Stack (2+ vật phẩm trở lên
 
 
 client.on("ready", () => {
-  console.log(`✅ Bot đã sẵn sàng: ${client.user.tag}`);
+  console.log(`Bot đã sẵn sàng: ${client.user.tag}`);
 
   // Thiết lập lặp lại mỗi X giờ
   setInterval(sendAutoMessage, AUTO_MESSAGE_INTERVAL);
@@ -57,15 +57,15 @@ async function sendAutoMessage() {
         ) {
           try {
             await channel.send(HELP_MESSAGE);
-            console.log(`✅ Đã gửi đến #${channel.name} (${guild.name})`);
+            console.log(`Đã gửi đến #${channel.name} (${guild.name})`);
           } catch (err) {
-            console.error(`❌ Lỗi khi gửi đến #${channel.name}: ${err.message}`);
+            console.error(`Lỗi khi gửi đến #${channel.name}: ${err.message}`);
           }
         }
       }
     }
   } catch (error) {
-    console.error('❌ Lỗi nghiêm trọng:', error);
+    console.error('Lỗi nghiêm trọng:', error);
   }
 }
 
