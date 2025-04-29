@@ -27,7 +27,7 @@ const client = new Client({
 });
 
 // Cấu hình tin nhắn tự động
-const AUTO_MESSAGE_INTERVAL = 6 * 60 * 60 * 1000; // 6 giờ (đổi thành mili giây)
+const AUTO_MESSAGE_INTERVAL = 24 * 60 * 60 * 1000; // 6 giờ (đổi thành mili giây)
 
 // Tin nhắn hướng dẫn
 const HELP_MESSAGE = "```** Tin nhắn tự động!!! ẳng ẳng ẳng!!! - Hướng dẫn sử dụng lệnh **\n!rw <tên runeword> - Tra cứu Runewords (Vd: !rw enigma)\n!craft <tên công thức> - Tra cứu Crafting (Vd: !craft blood, safety, hitpower, caster, vampiric, bountiful, brilliant)\n!wiki <tên công thức> - Tra cứu Wiki PD2 (Vd: !wiki crafting, ar, itd, ias, bp, affix, cs, ow, cb)\n!hotkey các phím tắt trong game\n!search tìm kiếm rw theo types(loại) vd: !search armor\n!help Gõ lệnh để xem chi tiết!```";
