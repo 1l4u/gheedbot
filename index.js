@@ -5,6 +5,7 @@ const crafts = require("./craft.json"); // File JSON của bạn
 const wiki = require("./wiki.json");
 const express = require("express");
 const axios = require('axios');
+const config = require('./config.json');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers
   ],
 });
 
@@ -71,12 +73,25 @@ async function sendAutoMessage() {
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
+  // Kiểm tra nếu kênh không nằm trong danh sách allowedChannels thì bỏ qua
+  if (config.allowedChannels_spam && !config.allowedChannels_spam.includes(message.channel.id)) {
+    return;
+  }
+  
+  // Kiểm tra nếu người dùng có role được phép thì bỏ qua
+  if (config.allowedRoles && message.member.roles.cache.some(role => config.allowedRoles.includes(role.id))) {
+    return;
+  }
+
+
   if (message.content.toLowerCase() === "!help") {
     await message.channel.send(HELP_MESSAGE);
   }
   if (message.content.toLowerCase() === "!hotkey") {
     await message.channel.send(STACK_MESSAGE);
   }
+
+
   // runeword
   const prefixrw = "!rw";
   if(message.content.toLowerCase().startsWith(prefixrw)){
@@ -247,49 +262,82 @@ if (message.content.toLowerCase().startsWith(prefixSearch)) {
 }
 });
 
-client.on('messageCreate', async (message) => {
-  if (message.content.startsWith('!pd2info')) {
-    const args = message.content.split(' ');
-    if (args.length < 3) {
-      return message.reply('Vui lòng nhập đúng cú pháp: `!pdlbinfo <softcore/hardcore> <tên nhân vật>`');
-    }
+// client.on('messageCreate', async (message) => {
+//   if (message.content.startsWith('!pd2info')) {
+//     const args = message.content.split(' ');
+//     if (args.length < 3) {
+//       return message.reply('Vui lòng nhập đúng cú pháp: `!pdlbinfo <softcore/hardcore> <tên nhân vật>`');
+//     }
 
-    const gameMode = args[1].toLowerCase();
-    const charName = args.slice(2).join(' ');
+//     const gameMode = args[1].toLowerCase();
+//     const charName = args.slice(2).join(' ');
 
-    if (!['softcore', 'hardcore'].includes(gameMode)) {
-      return message.reply('Chế độ game phải là `softcore` hoặc `hardcore`');
-    }
+//     if (!['softcore', 'hardcore'].includes(gameMode)) {
+//       return message.reply('Chế độ game phải là `softcore` hoặc `hardcore`');
+//     }
 
+//     try {
+//       const apiUrl = `https://api.costcosaletracker.com/api/character?gameMode=${gameMode}&name=${encodeURIComponent(charName)}`;
+//       const response = await axios.get(apiUrl);
+      
+//       // Lấy riêng phần lbinfo
+//       const info = response.data.lbInfo || {};
+      
+//       const status = response.data.status || {};
+//       const ladder = status.is_ladder ? "Non-Ladder" : "Ladder";
+
+//       // Format thông tin quan trọng
+//       const embed = {
+//         title: `${ladder} - ${info.name}`,
+//         fields: [
+//           { name: 'Class', value: info.class || 'N/A', inline: true },
+//           { name: 'Level', value: info.level?.toString() || 'N/A', inline: true },
+//           { name: 'Rank', value: info.rank?.toString() || 'N/A', inline: true }
+//         ],
+//         footer: { text: `Chế độ: ${gameMode}` },
+//       };
+
+//       message.channel.send({ embeds: [embed] });
+
+//     } catch (error) {
+//       console.error('Lỗi API:', error);
+//       message.channel.send('Không thể lấy thông tin ladder. Vui lòng thử lại sau!');
+//     }
+//   }
+// });
+
+
+
+client.on('messageCreate', async message => {
+  if (message.author.bot) return;
+  
+  // Kiểm tra nếu kênh không nằm trong danh sách allowedChannels thì bỏ qua
+  if (config.allowedChannels_show && !config.allowedChannels_show.includes(message.channel.id)) {
+    return;
+  }
+  
+  // Kiểm tra nếu người dùng có role được phép thì bỏ qua
+  if (config.allowedRoles && message.member.roles.cache.some(role => config.allowedRoles.includes(role.id))) {
+    return;
+  }
+
+  const hasImage = message.attachments.size > 0 && 
+    message.attachments.some(attach => 
+      config.imageExtensions.some(ext => attach.name.toLowerCase().endsWith(ext))
+    );
+
+  const hasImageEmbed = message.embeds.some(embed => embed.image || embed.thumbnail);
+
+  if (!hasImage && !hasImageEmbed) {
     try {
-      const apiUrl = `https://api.costcosaletracker.com/api/character?gameMode=${gameMode}&name=${encodeURIComponent(charName)}`;
-      const response = await axios.get(apiUrl);
-      
-      // Lấy riêng phần lbinfo
-      const info = response.data.lbInfo || {};
-      
-      const status = response.data.status || {};
-      const ladder = status.is_ladder ? "Non-Ladder" : "Ladder";
-
-      // Format thông tin quan trọng
-      const embed = {
-        title: `${ladder} - ${info.name}`,
-        fields: [
-          { name: 'Class', value: info.class || 'N/A', inline: true },
-          { name: 'Level', value: info.level?.toString() || 'N/A', inline: true },
-          { name: 'Rank', value: info.rank?.toString() || 'N/A', inline: true }
-        ],
-        footer: { text: `Chế độ: ${gameMode}` },
-      };
-
-      message.channel.send({ embeds: [embed] });
-
+      await message.delete();
+      setTimeout(() => warning.delete().catch(console.error), 5000);
     } catch (error) {
-      console.error('Lỗi API:', error);
-      message.channel.send('Không thể lấy thông tin ladder. Vui lòng thử lại sau!');
+      console.error('Lỗi xử lý tin nhắn:', error);
     }
   }
 });
+
 
 
 // Luôn ưu tiên dùng process.env
