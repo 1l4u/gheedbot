@@ -269,7 +269,7 @@ if (message.content.toLowerCase().startsWith(prefixSearch)) {
     const args = message.content.split(' ').slice(1);
     
     if (args.length !== 3) {
-      return message.reply('Sử dụng: !chance <DS%> <CS%> <WM%> (ví dụ: !chance 20 30 25)');
+      return message.reply('Sử dụng: !chance <DS%> <CS%> <WM%> (ví dụ: !chance 20 30 25)\nDS: Deadly Strike\nCS: Critical Strike\nWM: Weapon Mastery');
     }
     
     const ds = parseFloat(args[0]);
