@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits } = require("discord.js");
+const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 const runewords = require("./runeword.json"); // File JSON của bạn
 const crafts = require("./craft.json"); // File JSON của bạn
 const wiki = require("./wiki.json");
@@ -73,15 +73,16 @@ async function sendAutoMessage() {
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
+
   // Kiểm tra nếu kênh không nằm trong danh sách allowedChannels thì bỏ qua
-  if (config.allowedChannels_spam && !config.allowedChannels_spam.includes(message.channel.id)) {
-    return;
-  }
+  // if (config.allowedChannels_spam && !config.allowedChannels_spam.includes(message.channel.id)) {
+  //   return;
+  // }
   
-  // Kiểm tra nếu người dùng có role được phép thì bỏ qua
-  if (config.allowedRoles && message.member.roles.cache.some(role => config.allowedRoles.includes(role.id))) {
-    return;
-  }
+  // // Kiểm tra nếu người dùng có role được phép thì bỏ qua
+  // if (config.allowedRoles && message.member.roles.cache.some(role => config.allowedRoles.includes(role.id))) {
+  //   return;
+  // }
 
 
   if (message.content.toLowerCase() === "!help") {
@@ -259,7 +260,36 @@ if (message.content.toLowerCase().startsWith(prefixSearch)) {
 
     resultText += "```";
     await message.channel.send(resultText);
-}
+  }
+
+
+  // crit chance
+
+  if (message.content.startsWith('!chance')) {
+    const args = message.content.split(' ').slice(1);
+    
+    if (args.length !== 3) {
+      return message.reply('Sử dụng: !chance <DS%> <CS%> <WM%> (ví dụ: !chance 20 30 25)');
+    }
+    
+    const ds = parseFloat(args[0]);
+    const cs = parseFloat(args[1]);
+    const wm = parseFloat(args[2]);
+    
+    if (isNaN(ds) || isNaN(cs) || isNaN(wm)) {
+      return message.reply('Vui lòng nhập số hợp lệ!');
+    }
+    
+    if (ds < 0 || cs < 0 || wm < 0 || ds > 100 || cs > 75 || wm > 75) {
+      return message.reply('Giá trị phải từ 0% đến 75%!, DS có thể 100% nếu mang đồ tăng max DS');
+    }
+    
+    const totalCritChance = 1 - ((1 - ds/100) * (1 - cs/100) * (1 - wm/100));
+    const totalPercentage = (totalCritChance * 100).toFixed(2);
+    
+    message.reply(`Tổng Crit Chance: ${totalPercentage} (Giới hạn: 95%)`)
+
+  }
 });
 
 // client.on('messageCreate', async (message) => {

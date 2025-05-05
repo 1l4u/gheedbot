@@ -1,7 +1,7 @@
 {
-    "allowedChannels_spam": ["1361772596303237212"],
+    "allowedChannels_spam": ["1361772596303237212" ,"1362731156751126650"],
     "allowedChannels_show": ["1362684571182698616"],
     "allowedChannels": ["1362731156751126650"],
-    "allowedRoles": [1362362087501860954],
+    "allowedRoles": ["1362362087501860954","707632915466420305"],
     "imageExtensions": [".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp",".svg",".heic",".heif",".tiff",".tif","raw",".cr2",".nef",".arw","dng","ico",".psd",".ai",".indd",".eps",".jfif",".exr",".dds",".apng"]
   }

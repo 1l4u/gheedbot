@@ -707,7 +707,7 @@
 	},
 	"Steel": {
 		"name": "Steel - Tir El",
-		"types": ["Swords", "Axes", "Maces", "Claws"],
+		"types": ["Swords", "Axes", "Maces", "Claws", "Throws"],
 		"option": [
 			"+25% Increased Attack Speed ",
 			"+20% Enhanced Damage ",
@@ -722,7 +722,7 @@
 	},
 	"Malice": {
 		"name": "Malice - Ith El Eth",
-		"types": ["Melee Weapons"],
+		"types": ["Melee Weapons", "Throws"],
 		"option": [
 			"+33% Enhanced Damage ",
 			"+9 to Maximum Damage ",
@@ -770,7 +770,7 @@
 	},
 	"Zephyr": {
 		"name": "Zephyr - Ort Eth",
-		"types": ["Bows", "Crossbows"],
+		"types": ["Bows", "Crossbows", "Throws"],
 		"option": [
 			"7% Chance to Cast Level 10 Twister when Struck ",
 			"+25% Faster Run/Walk ",
@@ -816,7 +816,7 @@
 	},
 	"Strength": {
 		"name": "Strength - Amn Tir",
-		"types": ["Melee Weapons"],
+		"types": ["Melee Weapons", "Throws"],
 		"option": [
 			"+[65-95]% Enhanced Damage ",
 			"7% Life Stolen per Hit ",
@@ -846,7 +846,7 @@
 	},
 	"King's Grace": {
 		"name": "King's Grace - Amn Ral Thul",
-		"types": ["Scepters", "Swords", "Claws"],
+		"types": ["Scepters", "Swords", "Claws", "Throws"],
 		"option": [
 			"+100% Enhanced Damage ",
 			"+150 to Attack Rating ",
@@ -1092,7 +1092,7 @@
 	},
 	"Lawbringer": {
 		"name": "Lawbringer - Amn Lem Ko",
-		"types": ["Hammers", "Scepters", "Swords", "Claws"],
+		"types": ["Hammers", "Scepters", "Swords", "Claws", "Throws"],
 		"option": [
 			"20% Chance to Cast Level 15 Decrepify on Striking ",
 			"+[150-200]% Enhanced Damage ",
@@ -1109,7 +1109,7 @@
 	},
 	"Crescent Moon": {
 		"name": "Crescent Moon - Shael Um Tir",
-		"types": ["Axes", "Swords", "Polearms", "Spears", "Claws"],
+		"types": ["Axes", "Swords", "Polearms", "Spears", "Claws", "Throws"],
 		"option": [
 			"10% Chance to Cast Level 27 Lightning on Striking ",
 			"12% Chance to Cast Level 13 Static Field on Striking (Axes/Swords/Claws Only) ",
@@ -1128,7 +1128,7 @@
 	},
 	"Venom": {
 		"name": "Venom - Tal Dol Mal",
-		"types": ["Weapons"],
+		"types": ["Weapons","Throws"],
 		"option": [
 			"20% Chance to Cast Level 28 Poison Nova on Striking ",
 			"Ignore Target's Defense ",
@@ -1350,7 +1350,7 @@
 	},
 	"Wind": {
 		"name": "Wind -  Sur El",
-		"types": ["Melee Weapons"],
+		"types": ["Melee Weapons", "Throws"],
 		"option": [
 			"18% Chance to Cast Level 35 Tornado on Striking (Non-Staves Only) ",
 			"18% Chance to Cast Level 35 Tornado on Casting (Staves Only) ",
@@ -1360,7 +1360,8 @@
 			"5% Chance to Cast Level 9 Cyclone Armor when Casting (Staves Only) ",
 			"+[20-30]% Faster Run/Walk ",
 			"+40% Increased Attack Speed ",
-			"+[320-380]% Enhanced Damage ",
+			"+[320-380]% Enhanced Damage (Melee Weapons Only)",
+			"+220-280% enhanced damage (Throw Weapon Only)",
 			"-50% Target Defense ",
 			"+50 to Attack Rating ",
 			"+4 Life after each Kill ",
@@ -1445,7 +1446,7 @@
 	},
 	"Fury": {
 		"name": "Fury - Jah Gul Eth",
-		"types": ["Melee Weapons"],
+		"types": ["Melee Weapons", "Throws"],
 		"option": [
 			"Indestructible",
 			"+40% Increased Attack Speed ",
@@ -1590,7 +1591,7 @@
 	},
 	"Plague": {
 		"name": "Plague - Cham Fal Um",
-		"types": ["Weapons"],
+		"types": ["Weapons","Throws"],
 		"option": [
 			"25% Chance to Cast Level 35 Poison Nova on Striking ",
 			"30% Chance to Cast Level 35 Lower Resist when Struck ",
