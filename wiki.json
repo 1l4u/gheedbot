@@ -1,8 +1,5 @@
 	{
-	  "list" : {
-		"text" : "```crafting     thông tin về craft\nar     attack rating\nitd target defense\nias tốc độ đánh\nbp breakpoint\naffix\ncs critical,deadly strike\ncb crushing blow\now open wound\nmf magic find\nwss corrupt item\nimmunes\npoison poison damage\ndemon undead```"
-	  },
-	  "crafting":{
+		"crafting":{
 		"text" : "```Craft item sẽ nhận được các affix cố định(đọc trên wiki) cùng với tối đa 4 affix bổ sung.\nCác affix có thể nhận được phụ thuộc vào affix level(alvl), vốn phụ thuộc vào item level(ilvl). ilvl của vật phẩm craft được xác định bằng character level(clvl) và ilvl của phôi.\n- craft ilvl = clvl/2 + ilvl/2 (giá trị được làm tròn xuống)\n\nSố lượng affix bổ sung phụ thuộc vào ilvl:\n- ilvl 1-30 : 4 affix (20%), 3 affix (20%), 2 affix (20%), 1 affix (40%)\n- ilvl 31-50 : 4 affix (20%), 3 affix (20%), 2 affix (60%)\n- ilvl 51-70 : 4 affix (20%), 3 affix (80%)\n- ilvl 71+ : 4 affix (100%)\n+ Lưu ý rằng shop bán magic item(đồ xanh/blue) có ilvl = clvl+5, còn gamble có ilvl trong khoảng clvl-5 -> clvl+4. Ví dụ khi một nhân vật level 86 gamble amulet thì có thể nhận được một cái amulet có ilvl 90 và khi sử dụng amulet này để craft thì có cơ hội nhận được option +2 class skill(đây là một affix bổ sung). ilvl90 là tối tiểu để nhận được option trên```"
 	  },
 	  "ar":{
