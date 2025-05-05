@@ -305,9 +305,6 @@ function handleCommand(message) {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
   const params = args;
-
-  console.log(`Đã nhận lệnh: ${command}`, params);
-  // Thêm logic xử lý lệnh cụ thể ở đây
 }
 
 // Gửi cảnh báo tự xóa
