@@ -139,7 +139,8 @@ async function handleSearch(message) {
   Object.entries(runewords).forEach(([name, data]) => {
     const items = Array.isArray(data) ? data : [data];
     items.forEach(rw => {
-      if (rw.types?.some(t => t.toLowerCase().includes(searchType))) {
+      // Thay đổi tại đây - chỉ kiểm tra CHÍNH XÁC từ khóa
+      if (rw.types?.some(t => t.toLowerCase().split(/\s*,\s*/).includes(searchType))) {
         const key = rw.name?.toLowerCase() || name.toLowerCase();
         if (!matchedRunewords.has(key)) {
           matchedRunewords.set(key, {
@@ -157,7 +158,9 @@ async function handleSearch(message) {
   });
 
   if (matchedRunewords.size === 0) {
-    return message.channel.send(`\`\`\`\n🐺 Không tìm thấy runeword nào thuộc loại "${searchType}"\n\`\`\``);
+    return message.channel.send(
+      `\`\`\`\n🐺 Không tìm thấy runeword nào thuộc loại "${searchType}"\`\`\``
+    );
   }
 
   const resultText = `\`\`\`\nRunewords thuộc loại "${searchType}" (${matchedRunewords.size} kết quả):\n\n` +
