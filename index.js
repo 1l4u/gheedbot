@@ -164,9 +164,15 @@ client.on("messageCreate", async (message) => {
     combinedContent += `${wiki.text || foundKey}`;
   });
 
-
-
-  await message.channel.send(combinedContent);
+  if (combinedContent.length <= 2000) {
+    await message.channel.send(combinedContent);
+  }
+  if (combinedContent.length > 2000) {
+    const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .setDescription(combinedContent);
+    await message.channel.send({embeds : [embed]});
+  }
 }
   // craft
 
