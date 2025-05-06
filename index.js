@@ -29,6 +29,8 @@ const client = new Client({
 });
 const hotkey = "```1. Khi cầm nguyên Stack (2+ vật phẩm trở lên):\n     Giữ chuột trái trên stack để di chuyển cả chồng stack đó.\n     Ctrl + Shift + Click vào ô trống: Tách ra 1 vật phẩm (vật phẩm này sẽ không stack nghĩa là không có dấu + trên vật phẩm, nếu là rune và gem thì có thể ép vào đồ).\n     Ctrl + Click vào ô trống: Tách ra 1 vật phẩm (vẫn giữ stack có dấu +, có thể gộp lại sau, nếu là rune và gem thì không thể ép vào đồ).\n\n2. Khi chỉ có 1 vật phẩm stack(hiển thị dấu +):\nThao tác như trên hoặc\n     Ctrl + Shift + Click: Chuyển đổi chế độ stack/không stack.\n     Shift + Left Click: Identify item\n     Shift + Right Click: Di chuyển giữa các thùng đồ(inventory <-> stash <-> cube)\n     Ctrl + Right Click: ném xuống đất\n     Ctrl + Shift + Right Click: Di chuyển vào cube(cube không được mở nếu không sẽ ném xuống đất)\n\n3. Khi cộng điểm skill hoặc stat:\n     Ctrl + Left Click: 5 điểm\n     Shift + Left Click: 20 điểm\n     Ctrl + Shift + Left Click: All\n\n4. Currency Stash: Khi bạn đặt các vật phẩm vào stash, chúng sẽ tự động chuyển vào Currency Stash, cho phép xếp chồng Rejuv.\n     Left Click: Lấy 1 vật phẩm lên chuột\n     Right Click: Lấy một vật phẩm vào inventory\n     Ctrl + (Left / Right Click): Lấy 5 vật phẩm (chuột / inventory)\n     Shift + (Left / Right Click): Lấy 20 vật phẩm (chuột / inventory)\n     Ctrl + Shift + (Left / Right Click): Lấy 50 vật phẩm (chuột / inventory)```"
 
+const hardcore = "*Hardcore không phải là một lối chơi, mà là một cách sống... rất ngắn.*"
+
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
 
@@ -54,6 +56,9 @@ client.on("messageCreate", async (message) => {
 
   if (message.content.toLowerCase() === "!hotkey") 
     return message.channel.send(hotkey);
+
+  if (message.content.toLowerCase() === "!hardcore") 
+    return message.reply(hardcore);
 });
 
 
