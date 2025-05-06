@@ -40,6 +40,7 @@ client.on("messageCreate", async (message) => {
     '!wiki': handleWiki,
     '!search': handleSearch,
     '!chance': handleCritChance,
+    '!tas': handleTas,
   };
 
   for (const [prefix, handler] of Object.entries(commands)) {
@@ -73,9 +74,47 @@ client.on("messageCreate", async (message) => {
 
 });
 
-
-
 // Các hàm xử lý lệnh
+
+async function handleTas(message) {
+  const args = message.content.split(' ').slice(1);
+
+  // Kiểm tra số lượng tham số
+  if (args.length !== 3) {
+    return await message.reply({
+      content: '**Sai cú pháp!** Sử dụng: `!tas <IAS> <Skill_IAS> <WSM>`\n' +
+               'Ví dụ: `!tas 50 20 -10`',
+      allowedMentions: { repliedUser: true }
+    });
+  }
+
+  // Chuyển đổi và kiểm tra giá trị số
+  const [ias, skillIas, wsm] = args.map(Number);
+  if (args.some(val => isNaN(val))) {
+    return await message.reply({
+      content: '**Giá trị phải là số!** Ví dụ: `!tas 50 20 -10`',
+      allowedMentions: { repliedUser: true }
+    });
+  }
+
+  // Tính toán
+  const eias = Math.floor((120 * ias) / (120 + ias));
+  const tas = eias + skillIas - wsm;
+
+  // Tạo embed kết quả
+  const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .addFields(
+      { name: 'EIAS - Effective Item IAS', value: `${eias}%`, inline: false },
+      { name: 'TAS -  Total Attack Speed', value: `${tas}%`, inline: false },
+      { name: '', value: `- TAS = EIAS + Skill_IAS - WSM` },
+      { name: '',  value: `- EIAS = (120 * IAS) / (120 + IAS)`}
+    )
+    .setFooter({ text: `Yêu cầu bởi ${message.author.username}` });
+
+  await message.reply({ embeds: [embed] });
+}
+
 async function handleRuneword(message) {
   const searchTerm = message.content.slice(3).trim();
   if (!searchTerm) return message.channel.send("```🐺 ẳng ẳng ẳng!```");
@@ -286,8 +325,20 @@ client.on('messageCreate', async message => {
 });
 
 client.on('messageCreate', async (message) => {
-  // Bỏ qua nếu là bot hoặc không phải kênh bot
-  if (message.author.bot || config.allowedChannels_spam && !config.allowedChannels_spam.includes(message.channel.id)) return;
+    // Bỏ qua nếu là bot
+    if (message.author.bot) return;
+
+    // Kiểm tra kênh được phép (nếu có cấu hình)
+    if (config.allowedChannels_spam && config.allowedChannels_spam.length > 0) {
+      if (!config.allowedChannels_spam.includes(message.channel.id)) {
+        return; // Bỏ qua nếu không phải kênh được phép
+      }
+    }
+  
+    // Kiểm tra có được bỏ qua không
+    if (hasBypassPermission(message.member)) {
+      return;
+    }
 
   // Kiểm tra có được bỏ qua không
   if (hasBypassPermission(message.member)) return;
