@@ -156,14 +156,20 @@ async function handleWiki(message) {
   const items = Array.isArray(wiki[foundKey]) ? wiki[foundKey] : [wiki[foundKey]];
   const combinedContent = items.map(w => w.text || foundKey).join("");
 
-  if (combinedContent.length <= 2000) {
-    await message.channel.send(combinedContent);
-  } else {
-    const embed = new EmbedBuilder()
-      .setColor('#0099ff')
-      .setDescription(combinedContent);
-    await message.channel.send({ embeds: [embed] });
-  }
+
+  const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .setDescription(combinedContent);
+  await message.channel.send({ embeds: [embed] });
+
+  // if (combinedContent.length <= 2000) {
+  //   await message.channel.send(combinedContent);
+  // } else {
+  //   const embed = new EmbedBuilder()
+  //     .setColor('#0099ff')
+  //     .setDescription(combinedContent);
+  //   await message.channel.send({ embeds: [embed] });
+  // }
 }
 
 async function handleCraft(message) {
