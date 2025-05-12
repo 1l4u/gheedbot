@@ -27,6 +27,9 @@ const client = new Client({
   ],
 });
 
+const wikiKeys = Object.keys(wiki);
+const runewordKeys = Object.keys(runewords);
+
 // Đăng ký Slash Commands
 const commands = [
   new SlashCommandBuilder()
@@ -130,34 +133,30 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 client.on('interactionCreate', async interaction => {
     const { commandName, options } = interaction;
 if (interaction.isAutocomplete()) {
+  try { 
+      const focusedValue = interaction.options.getFocused().toLowerCase();
+      let filtered = [];
   if (interaction.commandName === 'wiki') {
-      const focusedValue = interaction.options.getFocused().toLowerCase();
-      const filtered = Object.keys(wiki).filter(key => 
-      key.toLowerCase().includes(focusedValue)
-      ).slice(0, 25); // Discord giới hạn 25 lựa chọn
-
-      await interaction.respond(
-      filtered.map(key => ({ name: key, value: key }))
-      );
+      filtered = wikiKeys.filter(key => 
+      key.toLowerCase().includes(focusedValue))
+      .slice(0, 25);
   }
-  if (interaction.commandName === 'rw') {
-    try {
-      const focusedValue = interaction.options.getFocused().toLowerCase();
-      const filtered = Object.keys(runewords).filter(key => 
+  else if (interaction.commandName === 'rw') {
+      filtered = runewordKeys.filter(key => 
         key.toLowerCase().includes(focusedValue)
-      ).slice(0, 25); // Giới hạn 25 lựa chọn
-
-      await interaction.respond(
-        filtered.map(key => ({ name: key, value: key }))
-      );
-    } catch (err) {
-      console.error('Lỗi xử lý lệnh rw:', err);
-      // chỉ nên gọi editReply nếu đã deferReply
-      if (interaction.deferred) {
-        await interaction.editReply({ content: '```🐺 Đã xảy ra lỗi!```' });
-      }
-    }
+      ).slice(0, 25).map(key => ({ name: key, value: key }));
   }
+  if (!interaction.responded) {
+        await interaction.respond(
+          filtered.map(key => ({ name: key, value: key }))
+        ).catch(err => {
+          if (err.code !== 10062) throw err; // Chỉ bỏ qua lỗi Unknown interaction
+          console.warn(`Autocomplete timeout cho ${interaction.commandName}`);
+        });
+      }
+    } catch (error) {
+      console.error('Lỗi autocomplete:', error);
+    }
   }
 
   if (interaction.isButton()) {
@@ -222,7 +221,8 @@ if (interaction.isAutocomplete()) {
       flags: 1 << 6
     });
   }}
-});
+}
+);
 
 // Các hàm xử lý Slash Command
 async function handleSlashRuneword(interaction) {
@@ -233,7 +233,7 @@ async function handleSlashRuneword(interaction) {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('show_rw_list')
-          .setLabel('📜 Xem toàn bộ danh sách')
+          .setLabel('Xem toàn bộ danh sách')
           .setStyle(ButtonStyle.Primary)
       );
 
@@ -323,12 +323,12 @@ async function handleSlashWiki(interaction) {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('show_wiki_list')
-          .setLabel('📜 Xem toàn bộ danh sách')
+          .setLabel('Xem toàn bộ danh sách')
           .setStyle(ButtonStyle.Primary)
       );
 
     await interaction.reply({
-      content: '🎮 **Hướng dẫn sử dụng**\n\n' +
+      content: '**Hướng dẫn sử dụng**\n\n' +
                '1. Gõ trực tiếp tên mục bạn muốn tìm\n' +
                '2. Hoặc nhấn nút bên dưới để xem toàn bộ danh sách',
       components: [button],
