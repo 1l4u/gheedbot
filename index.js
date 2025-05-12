@@ -151,7 +151,7 @@ if (interaction.isAutocomplete()) {
         filtered.map(key => ({ name: key, value: key }))
       );
     } catch (err) {
-      console.error('❌ Lỗi xử lý lệnh rw:', err);
+      console.error('Lỗi xử lý lệnh rw:', err);
       // chỉ nên gọi editReply nếu đã deferReply
       if (interaction.deferred) {
         await interaction.editReply({ content: '```🐺 Đã xảy ra lỗi!```' });
@@ -238,7 +238,7 @@ async function handleSlashRuneword(interaction) {
       );
 
     await interaction.reply({
-      content: '🎮 **Hướng dẫn sử dụng**\n\n' +
+      content: '**Hướng dẫn sử dụng**\n\n' +
                '1. Gõ trực tiếp tên mục bạn muốn tìm\n' +
                '2. Hoặc nhấn nút bên dưới để xem toàn bộ danh sách',
       components: [button],
@@ -374,7 +374,7 @@ async function handleSlashWiki(interaction) {
         .addComponents(
           new ButtonBuilder()
             .setCustomId('show_wiki_list')
-            .setLabel('📜 Xem toàn bộ danh sách')
+            .setLabel('Xem toàn bộ danh sách')
             .setStyle(ButtonStyle.Primary)
         );
 
@@ -628,42 +628,51 @@ async function handleSlashList(interaction) {
 }
 
 async function handleSlashClear(interaction) {
-  if (!interaction.isChatInputCommand()) return;
-
+  try {
     const member = interaction.member;
-    // ✅ Kiểm tra quyền
-    const hasRole = member.roles.cache.has(config.clear_role);
     const isAllowedUser = member.id === config.clear_member_id;
 
-    if (hasRole && isAllowedUser) {
-
-      await interaction.deferReply({ flags: 64 });
-
-      const channel = interaction.channel;
-    try {
-      let deletedCount = 0;
-      let fetched;
-      do {
-        fetched = await channel.messages.fetch({ limit: 100 });
-        const deletable = fetched.filter(msg => Date.now() - msg.createdTimestamp < 14 * 24 * 60 * 60 * 1000);
-        if (deletable.size > 0) {
-          await channel.bulkDelete(deletable, true);
-          deletedCount += deletable.size;
-        }
-      } while (fetched.size >= 2);
-
-      await interaction.editReply(`🧹 Đã xoá ${deletedCount} tin nhắn (chỉ những tin nhắn < 14 ngày).`);
-    } catch (err) {
-      console.error(err);
-      await interaction.editReply('❌ Đã xảy ra lỗi khi xoá.');
-    }
-  } else {
-      return interaction.reply({
-        content: '❌ Bạn không có quyền sử dụng lệnh này.',
-        flags: 64 // ephemeral
+    if (!isAllowedUser) {
+      return await interaction.editReply({
+        content: 'Bạn không có quyền sử dụng lệnh này.',
+        flags : 1 << 6
       });
     }
-    }
+
+    await interaction.editReply({
+      content: 'Đang xử lý xóa tin nhắn...',
+      flags : 1 << 6
+    });
+
+    const channel = interaction.channel;
+    let deletedCount = 0;
+    let fetched;
+    
+    do {
+      fetched = await channel.messages.fetch({ limit: 100 });
+      const deletable = fetched.filter(msg => 
+        Date.now() - msg.createdTimestamp < 14 * 24 * 60 * 60 * 1000
+      );
+      
+      if (deletable.size > 0) {
+        await channel.bulkDelete(deletable, true);
+        deletedCount += deletable.size;
+      }
+    } while (fetched.size >= 2);
+
+    await interaction.editReply({
+      content: ` Đã xoá ${deletedCount} tin nhắn (chỉ những tin nhắn < 14 ngày).`,
+      flags : 1 << 6
+    });
+
+  } catch (err) {
+    console.error('Lỗi khi xóa tin nhắn:', err);
+    await interaction.editReply({
+      content: ' Đã xảy ra lỗi khi xoá tin nhắn.',
+      flags : 1 << 6
+    });
+  }
+}
 
     
 async function handleRunewordList(interaction) {
@@ -676,7 +685,7 @@ async function handleRunewordList(interaction) {
   }
 
   const createEmbed = (page) => new EmbedBuilder()
-    .setTitle(`📜 Danh sách Runewords (Trang ${page}/${chunks.length})`)
+    .setTitle(`Danh sách Runewords (Trang ${page}/${chunks.length})`)
     .setDescription(chunks[page-1].map((rw, i) => `**${i+1}.** ${rw}`).join('\n'))
     .setColor('#0099ff');
 
