@@ -27,9 +27,6 @@ const client = new Client({
   ],
 });
 
-const wikiKeys = Object.keys(wiki);
-const runewordKeys = Object.keys(runewords);
-
 // Đăng ký Slash Commands
 const commands = [
   new SlashCommandBuilder()
@@ -108,10 +105,7 @@ const commands = [
     .setDescription('Hiển thị câu nói vui về Hardcore'),
   new SlashCommandBuilder()
     .setName('list')
-    .setDescription('Liệt kê tất cả các mục trong wiki'),
-  new SlashCommandBuilder()
-    .setName('botclear')
-    .setDescription('Xoá tin nhắn')
+    .setDescription('Liệt kê tất cả các mục trong wiki')
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -133,30 +127,34 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 client.on('interactionCreate', async interaction => {
     const { commandName, options } = interaction;
 if (interaction.isAutocomplete()) {
-  try { 
-      const focusedValue = interaction.options.getFocused().toLowerCase();
-      let filtered = [];
   if (interaction.commandName === 'wiki') {
-      filtered = wikiKeys.filter(key => 
-      key.toLowerCase().includes(focusedValue))
-      .slice(0, 25);
+      const focusedValue = interaction.options.getFocused().toLowerCase();
+      const filtered = Object.keys(wiki).filter(key => 
+      key.toLowerCase().includes(focusedValue)
+      ).slice(0, 25); // Discord giới hạn 25 lựa chọn
+
+      await interaction.respond(
+      filtered.map(key => ({ name: key, value: key }))
+      );
   }
-  else if (interaction.commandName === 'rw') {
-      filtered = runewordKeys.filter(key => 
+  if (interaction.commandName === 'rw') {
+    try {
+      const focusedValue = interaction.options.getFocused().toLowerCase();
+      const filtered = Object.keys(runewords).filter(key => 
         key.toLowerCase().includes(focusedValue)
-      ).slice(0, 25).map(key => ({ name: key, value: key }));
-  }
-  if (!interaction.responded) {
-        await interaction.respond(
-          filtered.map(key => ({ name: key, value: key }))
-        ).catch(err => {
-          if (err.code !== 10062) throw err; // Chỉ bỏ qua lỗi Unknown interaction
-          console.warn(`Autocomplete timeout cho ${interaction.commandName}`);
-        });
+      ).slice(0, 25); // Giới hạn 25 lựa chọn
+
+      await interaction.respond(
+        filtered.map(key => ({ name: key, value: key }))
+      );
+    } catch (err) {
+      console.error('Lỗi xử lý lệnh rw:', err);
+      // chỉ nên gọi editReply nếu đã deferReply
+      if (interaction.deferred) {
+        await interaction.editReply({ content: '```🐺 Đã xảy ra lỗi!```' });
       }
-    } catch (error) {
-      console.error('Lỗi autocomplete:', error);
     }
+  }
   }
 
   if (interaction.isButton()) {
@@ -204,9 +202,6 @@ if (interaction.isAutocomplete()) {
       case 'list':
         await handleSlashList(interaction);
         break;
-        case 'botclear' :
-          await handleSlashClear(interaction);
-          break;
       default:
         await interaction.reply({
           content: 'Lệnh không được hỗ trợ',
@@ -221,8 +216,7 @@ if (interaction.isAutocomplete()) {
       flags: 1 << 6
     });
   }}
-}
-);
+});
 
 // Các hàm xử lý Slash Command
 async function handleSlashRuneword(interaction) {
@@ -233,7 +227,7 @@ async function handleSlashRuneword(interaction) {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('show_rw_list')
-          .setLabel('Xem toàn bộ danh sách')
+          .setLabel('📜 Xem toàn bộ danh sách')
           .setStyle(ButtonStyle.Primary)
       );
 
@@ -301,7 +295,7 @@ async function handleSlashRuneword(interaction) {
 
     if (rw.option) {
       embed.addFields(
-        { name: 'Thông tin', value: rw.option.join("\n") }
+        { name: '', value: rw.option.join("\n") }
       );
     }
 
@@ -529,7 +523,7 @@ async function handleSlashList(interaction) {
     const items = allItems.slice(startIdx, endIdx);
 
     return new EmbedBuilder()
-      .setTitle(`📚 Danh sách Wiki (Trang ${page}/${totalPages})`)
+      .setTitle(`Danh sách Wiki (Trang ${page}/${totalPages})`)
       .setDescription(items.map((item, idx) => `**${startIdx + idx + 1}.** ${item}`).join('\n'))
       .setColor('#0099ff')
       .setFooter({ text: `Dùng "/wiki <tên mục>" để xem chi tiết` });
@@ -634,7 +628,7 @@ async function handleSlashClear(interaction) {
 
     if (!isAllowedUser) {
       return await interaction.editReply({
-        content: 'Bạn không có quyền sử dụng lệnh này.',
+        content: ' Bạn không có quyền sử dụng lệnh này.',
         flags : 1 << 6
       });
     }
@@ -830,7 +824,6 @@ async function sendWarning(message) {
 
   setTimeout(() => warning.delete().catch(() => {}), 10000);
 }
-
 // Luôn ưu tiên dùng process.env
 const token = process.env.DISCORD_TOKEN || "";
 
