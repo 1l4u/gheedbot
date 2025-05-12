@@ -225,16 +225,33 @@ async function handleSlashRuneword(interaction) {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('show_rw_list')
-          .setLabel('📜 Xem danh sách Runewords')
+          .setLabel('📜 Xem toàn bộ danh sách')
           .setStyle(ButtonStyle.Primary)
       );
 
-    return interaction.reply({
-      content: 'Nhập tên Runeword hoặc nhấn nút để xem danh sách',
+    await interaction.reply({
+      content: '🎮 **Hướng dẫn sử dụng**\n\n' +
+               '1. Gõ trực tiếp tên mục bạn muốn tìm\n' +
+               '2. Hoặc nhấn nút bên dưới để xem toàn bộ danh sách',
       components: [button],
-      flags : 1 << 6,
+      flags: 1 << 6,
       fetchReply: true
     });
+
+    // Xử lý khi người dùng nhấn button
+    const filter = i => i.customId === 'show_rw_list' && i.user.id === interaction.user.id;
+    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
+
+    collector.on('collect', async i => {
+      await i.deferUpdate(); // Ẩn "loading"
+      await handleRunewordList(i);
+    });
+
+    collector.on('end', () => {
+      interaction.editReply({ components: [] }).catch(console.error); // Xóa button sau 30s
+    });
+
+    return;
   }
 
   const foundKey = Object.keys(runewords).find(
