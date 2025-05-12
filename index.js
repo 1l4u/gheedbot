@@ -1,14 +1,13 @@
 require("dotenv").config();
-const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
-const runewords = require("./runeword.json"); // File JSON của bạn
-const crafts = require("./craft.json"); // File JSON của bạn
+const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder, Routes, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require("discord.js");
+const { REST } = require('@discordjs/rest');
+const runewords = require("./runeword.json");
 const wiki = require("./wiki.json");
 const express = require("express");
-const axios = require('axios');
 const config = require('./config.json');
-const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 
 // Tạo một route đơn giản để giữ app "alive"
 app.get("/ping", (req, res) => {
@@ -27,187 +26,314 @@ const client = new Client({
     GatewayIntentBits.GuildMembers
   ],
 });
-const hotkey = "```1. Khi cầm nguyên Stack (2+ vật phẩm trở lên):\n     Giữ chuột trái trên stack để di chuyển cả chồng stack đó.\n     Ctrl + Shift + Click vào ô trống: Tách ra 1 vật phẩm (vật phẩm này sẽ không stack nghĩa là không có dấu + trên vật phẩm, nếu là rune và gem thì có thể ép vào đồ).\n     Ctrl + Click vào ô trống: Tách ra 1 vật phẩm (vẫn giữ stack có dấu +, có thể gộp lại sau, nếu là rune và gem thì không thể ép vào đồ).\n\n2. Khi chỉ có 1 vật phẩm stack(hiển thị dấu +):\nThao tác như trên hoặc\n     Ctrl + Shift + Click: Chuyển đổi chế độ stack/không stack.\n     Shift + Left Click: Identify item\n     Shift + Right Click: Di chuyển giữa các thùng đồ(inventory <-> stash <-> cube)\n     Ctrl + Right Click: ném xuống đất\n     Ctrl + Shift + Right Click: Di chuyển vào cube(cube không được mở nếu không sẽ ném xuống đất)\n\n3. Khi cộng điểm skill hoặc stat:\n     Ctrl + Left Click: 5 điểm\n     Shift + Left Click: 20 điểm\n     Ctrl + Shift + Left Click: All\n\n4. Currency Stash: Khi bạn đặt các vật phẩm vào stash, chúng sẽ tự động chuyển vào Currency Stash, cho phép xếp chồng Rejuv.\n     Left Click: Lấy 1 vật phẩm lên chuột\n     Right Click: Lấy một vật phẩm vào inventory\n     Ctrl + (Left / Right Click): Lấy 5 vật phẩm (chuột / inventory)\n     Shift + (Left / Right Click): Lấy 20 vật phẩm (chuột / inventory)\n     Ctrl + Shift + (Left / Right Click): Lấy 50 vật phẩm (chuột / inventory)```"
 
-const hardcore = "*Hardcore không phải là một lối chơi, mà là một cách sống... rất ngắn.*" + "\n*Chơi Hardcore không phải để chứng tỏ bạn giỏi, mà để chứng tỏ bạn… chịu đựng giỏi.*"
+// Đăng ký Slash Commands
+const commands = [
+  new SlashCommandBuilder()
+    .setName('rw')
+    .setDescription('Tìm kiếm runeword')
+    .addStringOption(option =>
+      option.setName('name')
+        .setDescription('Tên runeword cần tìm')
+        .setRequired(true)),
+  new SlashCommandBuilder()
+    .setName('wiki')
+    .setDescription('Tìm kiếm thông tin wiki')
+    .addStringOption(option =>
+      option.setName('query')
+        .setDescription('Từ khóa cần tìm')
+        .setDescription('Từ khóa cần tìm (nhấn nút để xem danh sách)')
+        .setRequired(false)
+        .setAutocomplete(true)),
+  new SlashCommandBuilder()
+    .setName('search')
+    .setDescription('Tìm runeword theo loại')
+    .addStringOption(option =>
+      option.setName('type')
+        .setDescription('Loại runeword (armors, weapons, etc)')
+        .setRequired(true)),
+  new SlashCommandBuilder()
+    .setName('chance')
+    .setDescription('Tính tổng crit chance')
+    .addIntegerOption(option =>
+      option.setName('ds')
+        .setDescription('Deadly Strike %')
+        .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('cs')
+        .setDescription('Critical Strike %')
+        .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('wm')
+        .setDescription('Weapon Mastery %')
+        .setRequired(true)),
+  new SlashCommandBuilder()
+    .setName('tas')
+    .setDescription('Tính Total Attack Speed')
+    .addIntegerOption(option =>
+      option.setName('ias')
+        .setDescription('IAS %')
+        .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('skill_ias')
+        .setDescription('Skill IAS %')
+        .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('wsm')
+        .setDescription('Weapon Speed Modifier')
+        .setRequired(true)),
+  new SlashCommandBuilder()
+    .setName('ias')
+    .setDescription('Tính IAS cần thiết')
+    .addIntegerOption(option =>
+      option.setName('tas')
+        .setDescription('TAS %')
+        .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('skill_ias')
+        .setDescription('Skill IAS %')
+        .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('wsm')
+        .setDescription('Weapon Speed Modifier')
+        .setRequired(true)),
+  new SlashCommandBuilder()
+    .setName('hotkey')
+    .setDescription('Hiển thị các phím tắt trong game'),
+  new SlashCommandBuilder()
+    .setName('hardcore')
+    .setDescription('Hiển thị câu nói vui về Hardcore'),
+  new SlashCommandBuilder()
+    .setName('list')
+    .setDescription('Liệt kê tất cả các mục trong wiki')
+].map(command => command.toJSON());
 
-client.on("messageCreate", async (message) => {
-  if (message.author.bot) return;
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
-  const content = message.content.toLowerCase();
-  const commands = {
-    '!rw': handleRuneword,
-    '!wiki': handleWiki,
-    '!search': handleSearch,
-    '!chance': handleCritChance,
-    '!tas': handleTas,
-  };
-
-  for (const [prefix, handler] of Object.entries(commands)) {
-    if (content.startsWith(prefix)) {
-      try {
-        await handler(message);
-      } catch (error) {
-        console.error(`Lỗi khi xử lý lệnh ${prefix}:`, error);
-        message.channel.send("```🐺 Đã xảy ra lỗi!```");
-      }
-      return;
-    }
+(async () => {
+  try {
+    console.log('Đang đăng ký slash commands...');
+    await rest.put(
+      Routes.applicationCommands(process.env.CLIENT_ID),
+      { body: commands }
+    );
+    console.log('Đăng ký slash commands thành công!');
+  } catch (error) {
+    console.error('Lỗi khi đăng ký slash commands:', error);
   }
+})();
 
-  if (message.content.toLowerCase() === "!hotkey") 
-    return message.channel.send(hotkey);
+// Xử lý Slash Commands
+client.on('interactionCreate', async interaction => {
+    const { commandName, options } = interaction;
+if (interaction.isAutocomplete()) {
+if (interaction.commandName === 'wiki') {
+    const focusedValue = interaction.options.getFocused().toLowerCase();
+    const filtered = Object.keys(wiki).filter(key => 
+    key.toLowerCase().includes(focusedValue)
+    ).slice(0, 25); // Discord giới hạn 25 lựa chọn
 
-  if (message.content.toLowerCase() === "!hardcore") 
-    return message.reply(hardcore);
+    await interaction.respond(
+    filtered.map(key => ({ name: key, value: key }))
+    );
+}
+    }
+    if (interaction.isButton()) {
+    if (interaction.customId === 'show_wiki_list') {
+        await handleSlashList(interaction);
+    }
+    }
 
-  const data = JSON.parse(fs.readFileSync('wiki.json', 'utf8'));
-
-  if (message.content === '!list') {
-    // Lấy tất cả các key từ object chính
-    const keysList = Object.keys(data)
-      .map((key, index) => `${index + 1}. ${key}`)
-      .join('\n');
-    
-    message.channel.send(`\`\`\`${keysList}\`\`\``);
-  };
-
+  if (interaction.isCommand()){
+  try {
+    switch (commandName) {
+      case 'rw':
+        await handleSlashRuneword(interaction);
+        break;
+      case 'wiki':
+        await handleSlashWiki(interaction);
+        break;
+      case 'search':
+        await handleSlashSearch(interaction);
+        break;
+      case 'chance':
+        await handleSlashCritChance(interaction);
+        break;
+      case 'tas':
+        await handleSlashTas(interaction);
+        break;
+      case 'ias':
+        await handleSlashIas(interaction);
+        break;
+      case 'hotkey':
+        await interaction.reply({
+          content: getHotkeyText(),
+          flags: 1 << 6
+        });
+        break;
+      case 'hardcore':
+        await interaction.reply({
+          content: getHardcoreText(),
+          flags: 1 << 6
+        });
+        break;
+      case 'list':
+        await handleSlashList(interaction);
+        break;
+      default:
+        await interaction.reply({
+          content: 'Lệnh không được hỗ trợ',
+          flags: 1 << 6
+        });
+    }
+	
+  } catch (error) {
+    console.error(`Lỗi khi xử lý lệnh ${commandName}:`, error);
+    await interaction.reply({
+      content: '```🐺 Đã xảy ra lỗi!```',
+      flags: 1 << 6
+    });
+  }}
 });
 
-// Các hàm xử lý lệnh
-
-async function handleTas(message) {
-  const args = message.content.split(' ').slice(1);
-
-  // Kiểm tra số lượng tham số
-  if (args.length !== 3) {
-    return await message.reply({
-      content: '**Sai cú pháp!** Sử dụng: `!tas <IAS> <Skill_IAS> <WSM>`\n' +
-               'Ví dụ: `!tas 50 20 -10`',
-      allowedMentions: { repliedUser: true }
-    });
-  }
-
-  // Chuyển đổi và kiểm tra giá trị số
-  const [ias, skillIas, wsm] = args.map(Number);
-  if (args.some(val => isNaN(val))) {
-    return await message.reply({
-      content: '**Giá trị phải là số!** Ví dụ: `!tas 50 20 -10`',
-      allowedMentions: { repliedUser: true }
-    });
-  }
-
-  // Tính toán
-  const eias = Math.floor((120 * ias) / (120 + ias));
-  const tas = eias + skillIas - wsm;
-
-  // Tạo embed kết quả
-  const embed = new EmbedBuilder()
-    .setColor('#0099ff')
-    .addFields(
-      { name: 'EIAS - Effective Item IAS', value: `${eias}%`, inline: false },
-      { name: 'TAS -  Total Attack Speed', value: `${tas}%`, inline: false },
-      { name: '', value: `- TAS = EIAS + Skill_IAS - WSM` },
-      { name: '',  value: `- EIAS = (120 * IAS) / (120 + IAS)`}
-    )
-    .setFooter({ text: `Yêu cầu bởi ${message.author.username}` });
-
-  await message.reply({ embeds: [embed] });
-}
-
-async function handleRuneword(message) {
-  const searchTerm = message.content.slice(3).trim();
-  if (!searchTerm) return message.channel.send("```🐺 ẳng ẳng ẳng!```");
-
+// Các hàm xử lý Slash Command
+async function handleSlashRuneword(interaction) {
+  const searchTerm = interaction.options.getString('name');
   const foundKey = Object.keys(runewords).find(
     key => key.toLowerCase() === searchTerm.toLowerCase()
   );
 
   if (!foundKey) {
-    return message.channel.send(`\`\`\`\n🐺 ẳng ẳng ẳng!"${searchTerm}"\n\`\`\``);
+    return await interaction.reply({
+      content: `\`\`\`\n🐺 ẳng ẳng ẳng!"${searchTerm}"\n\`\`\``,
+      flags: 1 << 6
+    });
   }
 
   const items = Array.isArray(runewords[foundKey]) ? runewords[foundKey] : [runewords[foundKey]];
+  const embeds = [];
 
   for (const rw of items) {
-    const formattedText = `
-    \`\`\`
-    \nTên: ${rw.name || foundKey}
-    \nLoại: ${rw.types?.join(", ") || "N/A"}
-    \nYêu cầu cấp độ: ${rw.level || "N/A"}
-    ${rw.option?.map(opt => `\n${opt}`).join("") || "N/A"}
-    \`\`\``.trim();
-    await message.channel.send(formattedText);
+    const embed = new EmbedBuilder()
+      .setColor('#0099ff')
+      .setTitle(rw.name || foundKey)
+      .addFields(
+        { name: 'Loại', value: rw.types?.join(", ") || "N/A", inline: true },
+        { name: 'Yêu cầu cấp độ', value: rw.level?.toString() || "N/A", inline: true }
+      );
+
+    if (rw.option) {
+      embed.addFields(
+        { name: 'Thông tin', value: rw.option.join("\n") }
+      );
+    }
+
+    embeds.push(embed);
   }
+
+  await interaction.reply({
+    embeds: embeds,
+    flags: 1 << 6
+  });
 }
 
-async function handleWiki(message) {
-  const searchTerm = message.content.slice(5).trim();
-  if (!searchTerm) return message.channel.send("```🐺 ẳng ẳng ẳng!```");
+async function handleSlashWiki(interaction) {
+  const searchTerm = interaction.options.getString('query');
+  
+  // Trường hợp không nhập query
+  if (!searchTerm) {
+    const button = new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId('show_wiki_list')
+          .setLabel('📜 Xem toàn bộ danh sách')
+          .setStyle(ButtonStyle.Primary)
+      );
 
+    await interaction.reply({
+      content: '🎮 **Hướng dẫn sử dụng**\n\n' +
+               '1. Gõ trực tiếp tên mục bạn muốn tìm\n' +
+               '2. Hoặc nhấn nút bên dưới để xem toàn bộ danh sách',
+      components: [button],
+      flags: 1 << 6,
+      fetchReply: true
+    });
+
+    // Xử lý khi người dùng nhấn button
+    const filter = i => i.customId === 'show_wiki_list' && i.user.id === interaction.user.id;
+    const collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 });
+
+    collector.on('collect', async i => {
+      await i.deferUpdate(); // Ẩn "loading"
+      await handleSlashList(i);
+    });
+
+    collector.on('end', () => {
+      interaction.editReply({ components: [] }).catch(console.error); // Xóa button sau 30s
+    });
+
+    return;
+  }
+
+  // Phần xử lý tìm kiếm wiki bình thường
   const foundKey = Object.keys(wiki).find(
     key => key.toLowerCase() === searchTerm.toLowerCase()
   );
 
   if (!foundKey) {
-    return message.channel.send(`\`\`\`\n🐺 ẳng ẳng ẳng!"${searchTerm}"\n\`\`\``);
+    // Tìm các từ khóa gần đúng
+    const similarKeys = Object.keys(wiki).filter(key => 
+      key.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      searchTerm.toLowerCase().includes(key.toLowerCase())
+    ).slice(0, 5); // Giới hạn 5 gợi ý
+
+    if (similarKeys.length > 0) {
+      const embed = new EmbedBuilder()
+        .setColor('#FFA500')
+        .setTitle(`Không tìm thấy "${searchTerm}"`)
+        .setDescription(`Có thể bạn đang tìm kiếm:\n${similarKeys.map(k => `- ${k}`).join('\n')}\n\nNhấn nút bên dưới để xem toàn bộ danh sách`);
+
+      const button = new ActionRowBuilder()
+        .addComponents(
+          new ButtonBuilder()
+            .setCustomId('show_wiki_list')
+            .setLabel('📜 Xem toàn bộ danh sách')
+            .setStyle(ButtonStyle.Primary)
+        );
+
+      return await interaction.reply({
+        embeds: [embed],
+        components: [button],
+        flags: 1 << 6
+      });
+    }
+
+    return await interaction.reply({
+      content: `\`\`\`\n🐺 Không tìm thấy "${searchTerm}"\nSử dụng /list để xem toàn bộ danh sách\`\`\``,
+      flags: 1 << 6
+    });
   }
 
   const items = Array.isArray(wiki[foundKey]) ? wiki[foundKey] : [wiki[foundKey]];
   const combinedContent = items.map(w => w.text || foundKey).join("");
 
-
   const embed = new EmbedBuilder()
     .setColor('#0099ff')
     .setDescription(combinedContent);
-  await message.channel.send({ embeds: [embed] });
 
-  // if (combinedContent.length <= 2000) {
-  //   await message.channel.send(combinedContent);
-  // } else {
-  //   const embed = new EmbedBuilder()
-  //     .setColor('#0099ff')
-  //     .setDescription(combinedContent);
-  //   await message.channel.send({ embeds: [embed] });
-  // }
-}
-
-async function handleCraft(message) {
-  const searchTerm = message.content.slice(6).trim();
-  if (!searchTerm) return message.channel.send("```🐺 ẳng ẳng ẳng!```");
-
-  const foundKey = Object.keys(crafts).find(
-    key => key.toLowerCase() === searchTerm.toLowerCase()
-  );
-
-  if (!foundKey) {
-    return message.channel.send(`\`\`\`\n🐺 ẳng ẳng ẳng! "${searchTerm}"\n\`\`\``);
-  }
-
-  const items = Array.isArray(crafts[foundKey]) ? crafts[foundKey] : [crafts[foundKey]];
-  let combinedContent = `\`\`\`\nCraft ${searchTerm}\n`;
-
-  items.forEach(craft => {
-    combinedContent += `\n------- ${craft.type || foundKey} -------`;
-    combinedContent += `\n\nCông thức: ${craft.name}\n`;
-    combinedContent += `\n${craft.option?.map(opt => `${opt}`).join("\n") || "N/A"}\n`;
+  await interaction.reply({
+    embeds: [embed],
+    flags: 1 << 6
   });
-
-  await message.channel.send(combinedContent + "\n```");
 }
 
-async function handleSearch(message) {
-  const searchType = message.content.slice(7).trim().toLowerCase();
-  if (!searchType) {
-    return message.channel.send("```🐺 Vui lòng nhập loại runeword cần tìm (vd: !search armor)```");
-  }
-
+async function handleSlashSearch(interaction) {
+  const searchType = interaction.options.getString('type').toLowerCase();
   const matchedRunewords = new Map();
   
   Object.entries(runewords).forEach(([name, data]) => {
     const items = Array.isArray(data) ? data : [data];
     items.forEach(rw => {
-      // Thay đổi tại đây - chỉ kiểm tra CHÍNH XÁC từ khóa
       if (rw.types?.some(t => t.toLowerCase().split(/\s*,\s*/).includes(searchType))) {
         const key = rw.name?.toLowerCase() || name.toLowerCase();
         if (!matchedRunewords.has(key)) {
@@ -226,9 +352,10 @@ async function handleSearch(message) {
   });
 
   if (matchedRunewords.size === 0) {
-    return message.channel.send(
-      `\`\`\`\n🐺 Không tìm thấy runeword nào thuộc loại "${searchType}"\`\`\``
-    );
+    return await interaction.reply({
+      content: `\`\`\`\n🐺 Không tìm thấy runeword nào thuộc loại "${searchType}"\`\`\``,
+      flags: 1 << 6
+    });
   }
 
   const resultText = `\`\`\`\nRunewords thuộc loại "${searchType}" (${matchedRunewords.size} kết quả):\n\n` +
@@ -237,131 +364,254 @@ async function handleSearch(message) {
       .map((rw, i) => `${i + 1}. ${rw.name}`)
       .join("\n") + "\n```";
   
-  await message.channel.send(resultText);
+  await interaction.reply({
+    content: resultText,
+    flags: 1 << 6
+  });
 }
 
-async function handleCritChance(message) {
-  const args = message.content.split(' ').slice(1);
-  if (args.length !== 3) {
-    return message.reply('Sử dụng: !chance <DS%> <CS%> <WM%> (ví dụ: !chance 20 30 25)\nDS: Deadly Strike\nCS: Critical Strike\nWM: Weapon Mastery');
-  }
+async function handleSlashCritChance(interaction) {
+  const ds = interaction.options.getInteger('ds');
+  const cs = interaction.options.getInteger('cs');
+  const wm = interaction.options.getInteger('wm');
 
-  const [ds, cs, wm] = args.map(Number);
-  if (args.some(isNaN) || ds < 0 || cs < 0 || wm < 0 || cs > 75 || wm > 75) {
-    return message.reply('Giá trị phải từ 0% đến 75%! (DS có thể 100% nếu mang đồ tăng max DS)');
+  if (ds < 0 || cs < 0 || wm < 0 || cs > 75 || wm > 75) {
+    return await interaction.reply({
+      content: 'Giá trị phải từ 0% đến 75%! (DS có thể 100% nếu mang đồ tăng max DS)',
+      flags: 1 << 6
+    });
   }
 
   const totalCritChance = 1 - ((1 - ds/100) * (1 - cs/100) * (1 - wm/100));
-  message.reply(`Tổng Crit Chance: ${(totalCritChance * 100).toFixed(2)}% (Giới hạn: 95%)`);
+  await interaction.reply({
+    content: `Tổng Crit Chance: ${(totalCritChance * 100).toFixed(2)}% (Giới hạn: 95%)`,
+    flags: 1 << 6
+  });
 }
 
-// client.on('messageCreate', async (message) => {
-//   if (message.content.startsWith('!pd2info')) {
-//     const args = message.content.split(' ');
-//     if (args.length < 3) {
-//       return message.reply('Vui lòng nhập đúng cú pháp: `!pdlbinfo <softcore/hardcore> <tên nhân vật>`');
-//     }
+async function handleSlashTas(interaction) {
+  const ias = interaction.options.getInteger('ias');
+  const skillIas = interaction.options.getInteger('skill_ias');
+  const wsm = interaction.options.getInteger('wsm');
 
-//     const gameMode = args[1].toLowerCase();
-//     const charName = args.slice(2).join(' ');
+  const eias = Math.floor((120 * ias) / (120 + ias));
+  const tas = eias + skillIas - wsm;
 
-//     if (!['softcore', 'hardcore'].includes(gameMode)) {
-//       return message.reply('Chế độ game phải là `softcore` hoặc `hardcore`');
-//     }
+  const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .addFields(
+      { name: 'EIAS - Effective Item IAS', value: `${eias}%`, inline: false },
+      { name: 'TAS - Total Attack Speed', value: `${tas}%`, inline: false },
+      { name: 'Công thức', value: `- TAS = EIAS + Skill_IAS - WSM\n- EIAS = (120 * IAS) / (120 + IAS)` }
+    )
+    .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
-//     try {
-//       const apiUrl = `https://api.costcosaletracker.com/api/character?gameMode=${gameMode}&name=${encodeURIComponent(charName)}`;
-//       const response = await axios.get(apiUrl);
-      
-//       // Lấy riêng phần lbinfo
-//       const info = response.data.lbInfo || {};
-      
-//       const status = response.data.status || {};
-//       const ladder = status.is_ladder ? "Non-Ladder" : "Ladder";
+  await interaction.reply({
+    embeds: [embed],
+    flags: 1 << 6
+  });
+}
 
-//       // Format thông tin quan trọng
-//       const embed = {
-//         title: `${ladder} - ${info.name}`,
-//         fields: [
-//           { name: 'Class', value: info.class || 'N/A', inline: true },
-//           { name: 'Level', value: info.level?.toString() || 'N/A', inline: true },
-//           { name: 'Rank', value: info.rank?.toString() || 'N/A', inline: true }
-//         ],
-//         footer: { text: `Chế độ: ${gameMode}` },
-//       };
+async function handleSlashIas(interaction) {
+  const tas = interaction.options.getInteger('tas');
+  const skillIas = interaction.options.getInteger('skill_ias');
+  const wsm = interaction.options.getInteger('wsm');
 
-//       message.channel.send({ embeds: [embed] });
+  const eias = tas - skillIas + wsm;
+  const ias = (120 * eias) / (120 - eias);
 
-//     } catch (error) {
-//       console.error('Lỗi API:', error);
-//       message.channel.send('Không thể lấy thông tin ladder. Vui lòng thử lại sau!');
-//     }
-//   }
-// });
+  const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .addFields(
+      { name: 'IAS cần thiết', value: `${ias.toFixed(2)}%`, inline: true }
+    )
+    .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
+
+  await interaction.reply({
+    embeds: [embed],
+    flags: 1 << 6
+  });
+}
+
+
+async function handleSlashList(interaction) {
+  // Xử lý defer cho button interaction
+  const isButton = interaction.isButton();
+  if (isButton) {
+    await interaction.deferUpdate();
+  }
+
+  const allItems = Object.keys(wiki).sort();
+  const chunkSize = 20;
+  const totalPages = Math.ceil(allItems.length / chunkSize);
+
+  // Hàm tạo embed cho từng trang
+  const createListEmbed = (page) => {
+    const startIdx = (page - 1) * chunkSize;
+    const endIdx = startIdx + chunkSize;
+    const items = allItems.slice(startIdx, endIdx);
+
+    return new EmbedBuilder()
+      .setTitle(`📚 Danh sách Wiki (Trang ${page}/${totalPages})`)
+      .setDescription(items.map((item, idx) => `**${startIdx + idx + 1}.** ${item}`).join('\n'))
+      .setColor('#0099ff')
+      .setFooter({ text: `Dùng "/wiki <tên mục>" để xem chi tiết` });
+  };
+
+  // Tạo action row với các nút phân trang
+  const createActionRow = (currentPage) => {
+    return new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId('prev_page')
+        .setLabel('◀')
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(currentPage <= 1),
+      new ButtonBuilder()
+        .setCustomId('next_page')
+        .setLabel('▶')
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(currentPage >= totalPages)
+    );
+  };
+
+  let currentPage = 1;
+  const initialEmbed = createListEmbed(currentPage);
+  const initialRow = createActionRow(currentPage);
+
+  try {
+    // Xử lý reply khác nhau cho button và slash command
+    if (isButton) {
+      // Gửi dưới dạng followUp cho button interaction
+      const message = await interaction.followUp({
+        embeds: [initialEmbed],
+        components: [initialRow],
+        flags: 1 << 6,
+        fetchReply: true
+      });
+
+      // Tạo collector cho phân trang
+      const collector = message.createMessageComponentCollector({ time: 60000 });
+
+      collector.on('collect', async i => {
+        if (i.customId === 'prev_page') currentPage--;
+        if (i.customId === 'next_page') currentPage++;
+
+        await i.deferUpdate();
+        await i.editReply({
+          embeds: [createListEmbed(currentPage)],
+          components: [createActionRow(currentPage)]
+        });
+      });
+
+      collector.on('end', () => {
+        interaction.editReply({ components: [] }).catch(console.error);
+      });
+
+    } else {
+      // Gửi dưới dạng reply cho slash command
+      const message = await interaction.reply({
+        embeds: [initialEmbed],
+        components: [initialRow],
+        flags: 1 << 6,
+        fetchReply: true
+      });
+
+      // Tạo collector cho phân trang
+      const collector = message.createMessageComponentCollector({ time: 60000 });
+
+      collector.on('collect', async i => {
+        if (i.customId === 'prev_page') currentPage--;
+        if (i.customId === 'next_page') currentPage++;
+
+        await i.deferUpdate();
+        await i.editReply({
+          embeds: [createListEmbed(currentPage)],
+          components: [createActionRow(currentPage)]
+        });
+      });
+
+      collector.on('end', () => {
+        interaction.editReply({ components: [] }).catch(console.error);
+      });
+    }
+  } catch (error) {
+    console.error('Lỗi khi xử lý handleSlashList:', error);
+    if (isButton) {
+      await interaction.followUp({
+        content: 'Đã xảy ra lỗi khi tải danh sách',
+        flags: 1 << 6
+      });
+    } else {
+      await interaction.reply({
+        content: 'Đã xảy ra lỗi khi tải danh sách',
+        flags: 1 << 6
+      });
+    }
+  }
+}
+
+// Các hàm tiện ích
+function getHotkeyText() {
+  return "```1. Khi cầm nguyên Stack (2+ vật phẩm trở lên):\n     Giữ chuột trái trên stack để di chuyển cả chồng stack đó.\n     Ctrl + Shift + Click vào ô trống: Tách ra 1 vật phẩm (vật phẩm này sẽ không stack nghĩa là không có dấu + trên vật phẩm, nếu là rune và gem thì có thể ép vào đồ).\n     Ctrl + Click vào ô trống: Tách ra 1 vật phẩm (vẫn giữ stack có dấu +, có thể gộp lại sau, nếu là rune và gem thì không thể ép vào đồ).\n\n2. Khi chỉ có 1 vật phẩm stack(hiển thị dấu +):\nThao tác như trên hoặc\n     Ctrl + Shift + Click: Chuyển đổi chế độ stack/không stack.\n     Shift + Left Click: Identify item\n     Shift + Right Click: Di chuyển giữa các thùng đồ(inventory <-> stash <-> cube)\n     Ctrl + Right Click: ném xuống đất\n     Ctrl + Shift + Right Click: Di chuyển vào cube(cube không được mở nếu không sẽ ném xuống đất)\n\n3. Khi cộng điểm skill hoặc stat:\n     Ctrl + Left Click: 5 điểm\n     Shift + Left Click: 20 điểm\n     Ctrl + Shift + Left Click: All\n\n4. Currency Stash: Khi bạn đặt các vật phẩm vào stash, chúng sẽ tự động chuyển vào Currency Stash, cho phép xếp chồng Rejuv.\n     Left Click: Lấy 1 vật phẩm lên chuột\n     Right Click: Lấy một vật phẩm vào inventory\n     Ctrl + (Left / Right Click): Lấy 5 vật phẩm (chuột / inventory)\n     Shift + (Left / Right Click): Lấy 20 vật phẩm (chuột / inventory)\n     Ctrl + Shift + (Left / Right Click): Lấy 50 vật phẩm (chuột / inventory)```";
+}
+
+function getHardcoreText() {
+  return "*Hardcore không phải là một lối chơi, mà là một cách sống... rất ngắn.*" + "\n*Chơi Hardcore không phải để chứng tỏ bạn giỏi, mà để chứng tỏ bạn… chịu đựng giỏi.*";
+}
 
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
-  
-  // Kiểm tra nếu kênh không nằm trong danh sách allowedChannels thì bỏ qua
-  if (config.allowedChannels_show && !config.allowedChannels_show.includes(message.channel.id)) {
-    return;
-  }
-  
-  // Kiểm tra nếu người dùng có role được phép thì bỏ qua
-  if (config.allowedRoles && message.member.roles.cache.some(role => config.allowedRoles.includes(role.id))) {
-    return;
-  }
 
-  const hasImage = message.attachments.size > 0 && 
-    message.attachments.some(attach => 
-      config.imageExtensions.some(ext => attach.name.toLowerCase().endsWith(ext))
-    );
-
-  const hasImageEmbed = message.embeds.some(embed => embed.image || embed.thumbnail);
-
-  if (!hasImage && !hasImageEmbed) {
-    try {
-      await message.delete();
-      setTimeout(() => warning.delete().catch(console.error), 5000);
-    } catch (error) {
-      console.error('Lỗi xử lý tin nhắn:', error);
-    }
-  }
-
-});
-
-client.on('messageCreate', async (message) => {
-    // Bỏ qua nếu là bot
-    if (message.author.bot) return;
-
-    // Kiểm tra kênh được phép (nếu có cấu hình)
-    if (config.allowedChannels_spam && config.allowedChannels_spam.length > 0) {
-      if (!config.allowedChannels_spam.includes(message.channel.id)) {
-        return; // Bỏ qua nếu không phải kênh được phép
-      }
-    }
-  
-    // Kiểm tra có được bỏ qua không
-    if (hasBypassPermission(message.member)) {
-      return;
-    }
-
-  // Kiểm tra có được bỏ qua không
+  // Kiểm tra bypass
   if (hasBypassPermission(message.member)) return;
 
-  // Kiểm tra lệnh hợp lệ
-  if (isValidCommand(message.content)) {
-    return handleCommand(message); // Xử lý lệnh
+  const isSpamChannel = config.allowedChannels_spam?.includes(message.channel.id);
+  const isShowChannel = config.allowedChannels_show?.includes(message.channel.id);
+  
+  // --- Xử lý cho spam channel ---
+  if (isSpamChannel) {
+    if (isValidCommand(message.content)) return handleCommand(message);
+
+    try {
+      // Xoá tin nhắn người dùng
+      await message.delete().catch(err => {
+        if (err.code !== 10008) throw err;
+        console.warn(`Tin nhắn đã bị xoá trước đó (spam channel):`, err.message);
+      });
+
+      // Gửi cảnh báo
+      await sendWarning(message);
+    } catch (err) {
+      console.error('Lỗi xóa tin nhắn spam:', err);
+    }
+    return;
   }
 
-  // Xóa tin nhắn không phải lệnh
-  try {
-    await message.delete();
-    await sendWarning(message);
-  } catch (error) {
-    console.error('Lỗi xử lý tin nhắn:', error);
+  // --- Xử lý cho show channel ---
+  if (isShowChannel) {
+    const hasImage = message.attachments.some(attach =>
+      config.imageExtensions.some(ext => attach.name?.toLowerCase().endsWith(ext))
+    );
+
+    const hasImageEmbed = message.embeds.some(embed => embed.image || embed.thumbnail);
+
+    if (!hasImage && !hasImageEmbed) {
+      try {
+        await message.delete().catch(err => {
+          if (err.code !== 10008) throw err;
+          console.warn(`Tin nhắn đã bị xoá trước đó (show channel):`, err.message);
+        });
+
+        const warning = await message.channel.send(`${message.author}, chỉ gửi hình ở đây!`);
+        setTimeout(() => warning.delete().catch(() => {}), 5000);
+      } catch (err) {
+        console.error('Lỗi xử lý tin nhắn không hình:', err);
+      }
+    }
+    return;
   }
 });
+
 
 // --- Các hàm hỗ trợ --- //
 
@@ -397,7 +647,6 @@ async function sendWarning(message) {
 
   setTimeout(() => warning.delete().catch(() => {}), 10000);
 }
-
 
 // Luôn ưu tiên dùng process.env
 const token = process.env.DISCORD_TOKEN || "";
