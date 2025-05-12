@@ -35,13 +35,13 @@ const commands = [
     .addStringOption(option =>
       option.setName('name')
         .setDescription('Tên runeword cần tìm')
-        .setRequired(true)),
+        .setRequired(true)
+        .setAutocomplete(true)),
   new SlashCommandBuilder()
     .setName('wiki')
     .setDescription('Tìm kiếm thông tin wiki')
     .addStringOption(option =>
       option.setName('query')
-        .setDescription('Từ khóa cần tìm')
         .setDescription('Từ khóa cần tìm (nhấn nút để xem danh sách)')
         .setRequired(false)
         .setAutocomplete(true)),
@@ -105,7 +105,10 @@ const commands = [
     .setDescription('Hiển thị câu nói vui về Hardcore'),
   new SlashCommandBuilder()
     .setName('list')
-    .setDescription('Liệt kê tất cả các mục trong wiki')
+    .setDescription('Liệt kê tất cả các mục trong wiki'),
+  new SlashCommandBuilder()
+    .setName('botclear')
+    .setDescription('Xoá tin nhắn')
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -127,22 +130,36 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 client.on('interactionCreate', async interaction => {
     const { commandName, options } = interaction;
 if (interaction.isAutocomplete()) {
-if (interaction.commandName === 'wiki') {
-    const focusedValue = interaction.options.getFocused().toLowerCase();
-    const filtered = Object.keys(wiki).filter(key => 
-    key.toLowerCase().includes(focusedValue)
-    ).slice(0, 25); // Discord giới hạn 25 lựa chọn
+  if (interaction.commandName === 'wiki') {
+      const focusedValue = interaction.options.getFocused().toLowerCase();
+      const filtered = Object.keys(wiki).filter(key => 
+      key.toLowerCase().includes(focusedValue)
+      ).slice(0, 25); // Discord giới hạn 25 lựa chọn
 
-    await interaction.respond(
-    filtered.map(key => ({ name: key, value: key }))
-    );
-}
+      await interaction.respond(
+      filtered.map(key => ({ name: key, value: key }))
+      );
+  }
+  if (interaction.commandName === 'rw') {
+      const focusedValue = interaction.options.getFocused().toLowerCase();
+      const filtered = Object.keys(runewords).filter(key => 
+        key.toLowerCase().includes(focusedValue)
+      ).slice(0, 25); // Giới hạn 25 lựa chọn
+
+      await interaction.respond(
+        filtered.map(key => ({ name: key, value: key }))
+      );
     }
-    if (interaction.isButton()) {
+  }
+
+  if (interaction.isButton()) {
     if (interaction.customId === 'show_wiki_list') {
         await handleSlashList(interaction);
     }
+    if (interaction.customId === 'show_rw_list') {
+      await handleRunewordList(interaction);
     }
+  }
 
   if (interaction.isCommand()){
   try {
@@ -180,6 +197,9 @@ if (interaction.commandName === 'wiki') {
       case 'list':
         await handleSlashList(interaction);
         break;
+        case 'botclear' :
+          await handleSlashClear(interaction);
+          break;
       default:
         await interaction.reply({
           content: 'Lệnh không được hỗ trợ',
@@ -199,14 +219,46 @@ if (interaction.commandName === 'wiki') {
 // Các hàm xử lý Slash Command
 async function handleSlashRuneword(interaction) {
   const searchTerm = interaction.options.getString('name');
+
+  if (!searchTerm) {
+    const button = new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId('show_rw_list')
+          .setLabel('📜 Xem danh sách Runewords')
+          .setStyle(ButtonStyle.Primary)
+      );
+
+    return interaction.reply({
+      content: 'Nhập tên Runeword hoặc nhấn nút để xem danh sách',
+      components: [button],
+      flags : 1 << 6,
+      fetchReply: true
+    });
+  }
+
   const foundKey = Object.keys(runewords).find(
     key => key.toLowerCase() === searchTerm.toLowerCase()
   );
 
   if (!foundKey) {
-    return await interaction.reply({
-      content: `\`\`\`\n🐺 ẳng ẳng ẳng!"${searchTerm}"\n\`\`\``,
-      flags: 1 << 6
+    // Gợi ý các runeword gần giống
+    const similarKeys = Object.keys(runewords).filter(key => 
+      key.toLowerCase().includes(searchTerm.toLowerCase())
+    ).slice(0, 5);
+
+    if (similarKeys.length > 0) {
+      const embed = new EmbedBuilder()
+        .setColor('#FFA500')
+        .setTitle(`Không tìm thấy "${searchTerm}"`)
+        .setDescription(`Có thể bạn đang tìm:\n${similarKeys.map(k => `- ${k}`).join('\n')}`);
+
+      return interaction.reply({ embeds: [embed], flags : 1 << 6 });
+    }
+
+    return interaction.reply({
+      content: `\`\`\`\n🐺 Không tìm thấy Runeword "${searchTerm}"\n\`\`\``,
+      flags : 1 << 6
     });
   }
 
@@ -218,8 +270,8 @@ async function handleSlashRuneword(interaction) {
       .setColor('#0099ff')
       .setTitle(rw.name || foundKey)
       .addFields(
-        { name: 'Loại', value: rw.types?.join(", ") || "N/A", inline: true },
-        { name: 'Yêu cầu cấp độ', value: rw.level?.toString() || "N/A", inline: true }
+        { name: 'Loại', value: rw.types?.join(", ") || "N/A", inline: false },
+        { name: 'Yêu cầu cấp độ', value: rw.level?.toString() || "N/A", inline: false }
       );
 
     if (rw.option) {
@@ -548,6 +600,103 @@ async function handleSlashList(interaction) {
       });
     }
   }
+}
+
+async function handleSlashClear(interaction) {
+  if (!interaction.isChatInputCommand()) return;
+
+    const member = interaction.member;
+    // ✅ Kiểm tra quyền
+    const hasRole = member.roles.cache.has(config.clear_role);
+    const isAllowedUser = member.id === config.clear_member_id;
+
+    if (hasRole && isAllowedUser) {
+
+      await interaction.deferReply({ flags: 64 });
+
+      const channel = interaction.channel;
+    try {
+      let deletedCount = 0;
+      let fetched;
+      do {
+        fetched = await channel.messages.fetch({ limit: 100 });
+        const deletable = fetched.filter(msg => Date.now() - msg.createdTimestamp < 14 * 24 * 60 * 60 * 1000);
+        if (deletable.size > 0) {
+          await channel.bulkDelete(deletable, true);
+          deletedCount += deletable.size;
+        }
+      } while (fetched.size >= 2);
+
+      await interaction.editReply(`🧹 Đã xoá ${deletedCount} tin nhắn (chỉ những tin nhắn < 14 ngày).`);
+    } catch (err) {
+      console.error(err);
+      await interaction.editReply('❌ Đã xảy ra lỗi khi xoá.');
+    }
+  } else {
+      return interaction.reply({
+        content: '❌ Bạn không có quyền sử dụng lệnh này.',
+        flags: 64 // ephemeral
+      });
+    }
+    }
+
+    
+async function handleRunewordList(interaction) {
+  const allRunewords = Object.keys(runewords).sort();
+  const chunkSize = 20;
+  const chunks = [];
+  
+  for (let i = 0; i < allRunewords.length; i += chunkSize) {
+    chunks.push(allRunewords.slice(i, i + chunkSize));
+  }
+
+  const createEmbed = (page) => new EmbedBuilder()
+    .setTitle(`📜 Danh sách Runewords (Trang ${page}/${chunks.length})`)
+    .setDescription(chunks[page-1].map((rw, i) => `**${i+1}.** ${rw}`).join('\n'))
+    .setColor('#0099ff');
+
+  let currentPage = 1;
+  const row = new ActionRowBuilder()
+    .addComponents(
+      new ButtonBuilder()
+        .setCustomId('rw_prev')
+        .setLabel('◀')
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(true),
+      new ButtonBuilder()
+        .setCustomId('rw_next')
+        .setLabel('▶')
+        .setStyle(ButtonStyle.Secondary)
+        .setDisabled(chunks.length <= 1)
+    );
+
+  const reply = await interaction.reply({
+    embeds: [createEmbed(currentPage)],
+    components: [row],
+    flags : 1 << 6,
+    fetchReply: true
+  });
+
+  // Xử lý phân trang
+  const collector = reply.createMessageComponentCollector({ time: 60000 });
+
+  collector.on('collect', async i => {
+    if (i.customId === 'rw_prev') currentPage--;
+    if (i.customId === 'rw_next') currentPage++;
+
+    await i.deferUpdate();
+    row.components[0].setDisabled(currentPage <= 1);
+    row.components[1].setDisabled(currentPage >= chunks.length);
+    
+    await i.editReply({
+      embeds: [createEmbed(currentPage)],
+      components: [row]
+    });
+  });
+
+  collector.on('end', () => {
+    interaction.editReply({ components: [] }).catch(console.error);
+  });
 }
 
 // Các hàm tiện ích
