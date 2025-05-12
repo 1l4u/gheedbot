@@ -141,6 +141,7 @@ if (interaction.isAutocomplete()) {
       );
   }
   if (interaction.commandName === 'rw') {
+    try {
       const focusedValue = interaction.options.getFocused().toLowerCase();
       const filtered = Object.keys(runewords).filter(key => 
         key.toLowerCase().includes(focusedValue)
@@ -149,7 +150,14 @@ if (interaction.isAutocomplete()) {
       await interaction.respond(
         filtered.map(key => ({ name: key, value: key }))
       );
+    } catch (err) {
+      console.error('❌ Lỗi xử lý lệnh rw:', err);
+      // chỉ nên gọi editReply nếu đã deferReply
+      if (interaction.deferred) {
+        await interaction.editReply({ content: '```🐺 Đã xảy ra lỗi!```' });
+      }
     }
+  }
   }
 
   if (interaction.isButton()) {
