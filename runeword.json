@@ -144,7 +144,7 @@
 	},
 	"Stealth": {
 		"name": "Stealth - Tal Eth",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+10% Faster Run/Walk ",
 			"+20% Faster Cast Rate ",
@@ -159,7 +159,7 @@
 	},
 	"Peace": {
 		"name": "Peace - Shael Thul Amn",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"You May Summon 1 Additional Valkyrie ",
 			"8% Chance to Cast Level 12 Slow Movement when Struck ",
@@ -173,7 +173,7 @@
 	},
 	"Myth": {
 		"name": "Myth - Hel Amn Nef",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"5% Chance to Cast Level 1 Taunt on Striking ",
 			"3% Chance to Cast Level 1 Howl when Struck ",
@@ -189,7 +189,7 @@
 	},
 	"Smoke": {
 		"name": "Smoke - Nef Lum",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+20% Faster Hit Recovery ",
 			"+75% Enhanced Defense ",
@@ -203,7 +203,7 @@
 	},
 	"Hustle": {
 		"name": "Hustle - Shael Ko Eld",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"Level 6 Burst of Speed When Equipped ",
 			"+20% Increased Attack Speed ",
@@ -217,7 +217,7 @@
 	},
 	"Lionheart": {
 		"name": "Lionheart - Hel Lum Fal",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+[80-110]% Enhanced Damage ",
 			"+[10-25] to Strength ",
@@ -232,7 +232,7 @@
 	},
 	"Treachery": {
 		"name": "Treachery - Shael Thul Amn",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"25% Chance to Cast Level 15 Venom on Striking ",
 			"15% Chance to Cast Level 21 Mind Blast when Struck ",
@@ -246,7 +246,7 @@
 	},
 	"Wealth": {
 		"name": "Wealth - Lem Ko Tir",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+10 to Dexterity ",
 			"+4 to Mana after each Kill ",
@@ -257,7 +257,7 @@
 	},
 	"Enlightenment": {
 		"name": "Enlightenment - Pul Ral Sol",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"25% Chance to Cast Level 28 Fire Ball on Casting ",
 			"35% Chance to Cast Level 25 Blaze when Struck ",
@@ -272,7 +272,7 @@
 	},
 	"Duress": {
 		"name": "Duress - Shael Um Thul",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+40% Faster Hit Recovery ",
 			"+[40-80]% Enhanced Damage ",
@@ -290,7 +290,7 @@
 	},
 	"Stone": {
 		"name": "Stone - Shael Um Pul Lum",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"Indestructible",
 			"+1 to All Skills ",
@@ -307,7 +307,7 @@
 	},
 	"Gloom": {
 		"name": "Gloom - Fal Um Pul",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"15% Chance to Cast Level 9 Dim Vision when Struck ",
 			"+[20-40]% Faster Hit Recovery ",
@@ -322,7 +322,7 @@
 	},
 	"Bone": {
 		"name": "Bone - Sol Um Um",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"30% Chance to Cast Level 25 Bone Spear on Striking ",
 			"10% Chance to Cast Level 15 Bone Armor when Struck ",
@@ -335,7 +335,7 @@
 	},
 	"Prudence": {
 		"name": "Prudence - Mal Tir",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+40% Faster Cast Rate ",
 			"+25% Faster Hit Recovery ",
@@ -350,7 +350,7 @@
 	},
 	"Rain": {
 		"name": "Rain - Ort Mal Ith",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"20% Chance to Cast Level 25 Twister on Striking ",
 			"8% Chance to Cast Level 15 Cyclone Armor when Struck ",
@@ -364,7 +364,7 @@
 	},
 	"Principle": {
 		"name": "Principle - Ral Gul Eld",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"50% Chance to Cast Level 25 Holy Bolt on Striking ",
 			"+2 to Paladin Skills ",
@@ -380,7 +380,7 @@
 	"Fortitude": [
 		{
 			"name": "Fortitude - El Sol Dol Lo",
-			"types": ["Armor"],
+			"types": ["Armors"],
 			"option": [
 				"+25% Faster Cast Rate ",
 				"+[250-300]% Enhanced Damage ",
@@ -398,7 +398,7 @@
 		},
 		{
 			"name": "Fortitude - El Sol Dol Lo",
-			"types": ["Weapon"],
+			"types": ["Weapons"],
 			"option": [
 				"+25% Faster Cast Rate ",
 				"+[250-300]% Enhanced Damage ",
@@ -416,7 +416,7 @@
 	],
 	"Bramble": {
 		"name": "Bramble - Ral Ohm Sur Eth",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"Level [18-21] Thorns Aura when Equipped ",
 			"+50% Faster Hit Recovery ",
@@ -435,7 +435,7 @@
 	"Dragon": [
 		{
 			"name": "Dragon - Sur Lo Sol",
-			"types": ["Armor"],
+			"types": ["Armors"],
 			"option": [
 				"You May Summon 1 Additional Hydra ",
 				"12% Chance to Cast Level 28 Hydra on Striking ",
@@ -470,7 +470,7 @@
 	],
 	"coh": {
 		"name": "Chains of Honor - Dol Um Ber Ist",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+2 to All Skills ",
 			"+200% Damage to Demons ",
@@ -487,7 +487,7 @@
 	},
 	"Chains of Honor": {
 		"name": "Chains of Honor - Dol Um Ber Ist",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+2 to All Skills ",
 			"+200% Damage to Demons ",
@@ -504,7 +504,7 @@
 	},
 	"Enigma": {
 		"name": "Enigma - Jah Ith Ber",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"+2 to All Skills ",
 			"+25% Faster Run/Walk ",
@@ -521,7 +521,7 @@
 	},
 	"Innocence": {
 		"name": "Innocence - Gul Lem Zod Hel",
-		"types": ["Armor"],
+		"types": ["Armors"],
 		"option": [
 			"Indestructible",
 			"Level [8-12] Blade Shield When Equipped ",
@@ -570,7 +570,7 @@
 		},
 		{
 			"name": "Spirit - Tal Thul Ort Amn",
-			"types": ["Sword", "Staves"],
+			"types": ["Swords", "Staves"],
 			"option": [
 				"+1 to All Skills (Non-Staves Only) ",
 				"+2 to All Skills (Staves Only) ",
@@ -672,7 +672,7 @@
 		},
 		{
 			"name": "Phoenix - Vex Vex Lo Jah",
-			"types": ["Weapon"],
+			"types": ["Weapons"],
 			"option": [
 				"20% Chance to Cast Level 40 Firestorm on Striking (Non-Staves Only) ",
 				"20% Chance to Cast Level 40 Firestorm on Casting (Staves Only) ",
