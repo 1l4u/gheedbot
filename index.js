@@ -737,57 +737,67 @@ function getHardcoreText() {
 
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
-
-  // Kiểm tra bypass
-  if (hasBypassPermission(message.member)) return;
-
-  const isSpamChannel = config.allowedChannels_spam?.includes(message.channel.id);
-  const isShowChannel = config.allowedChannels_show?.includes(message.channel.id);
   
-  // --- Xử lý cho spam channel ---
-  if (isSpamChannel) {
-    if (isValidCommand(message.content)) return handleCommand(message);
-
-    try {
-      // Xoá tin nhắn người dùng
-      await message.delete().catch(err => {
-        if (err.code !== 10008) throw err;
-        console.warn(`Tin nhắn đã bị xoá trước đó (spam channel):`, err.message);
-      });
-
-      // Gửi cảnh báo
-      await sendWarning(message);
-    } catch (err) {
-      console.error('Lỗi xóa tin nhắn spam:', err);
-    }
+  // Kiểm tra nếu kênh không nằm trong danh sách allowedChannels thì bỏ qua
+  if (config.allowedChannels_show && !config.allowedChannels_show.includes(message.channel.id)) {
+    return;
+  }
+  
+  // Kiểm tra nếu người dùng có role được phép thì bỏ qua
+  if (config.allowedRoles && message.member.roles.cache.some(role => config.allowedRoles.includes(role.id))) {
     return;
   }
 
-  // --- Xử lý cho show channel ---
-  if (isShowChannel) {
-    const hasImage = message.attachments.some(attach =>
-      config.imageExtensions.some(ext => attach.name?.toLowerCase().endsWith(ext))
+  const hasImage = message.attachments.size > 0 && 
+    message.attachments.some(attach => 
+      config.imageExtensions.some(ext => attach.name.toLowerCase().endsWith(ext))
     );
 
-    const hasImageEmbed = message.embeds.some(embed => embed.image || embed.thumbnail);
+  const hasImageEmbed = message.embeds.some(embed => embed.image || embed.thumbnail);
 
-    if (!hasImage && !hasImageEmbed) {
-      try {
-        await message.delete().catch(err => {
-          if (err.code !== 10008) throw err;
-          console.warn(`Tin nhắn đã bị xoá trước đó (show channel):`, err.message);
-        });
-
-        const warning = await message.channel.send(`${message.author}, chỉ gửi hình ở đây!`);
-        setTimeout(() => warning.delete().catch(() => {}), 5000);
-      } catch (err) {
-        console.error('Lỗi xử lý tin nhắn không hình:', err);
-      }
+  if (!hasImage && !hasImageEmbed) {
+    try {
+      await message.delete();
+      setTimeout(() => warning.delete().catch(console.error), 5000);
+    } catch (error) {
+      console.error('Lỗi xử lý tin nhắn:', error);
     }
-    return;
   }
+
 });
 
+client.on('messageCreate', async (message) => {
+    // Bỏ qua nếu là bot
+    if (message.author.bot) return;
+
+    // Kiểm tra kênh được phép (nếu có cấu hình)
+    if (config.allowedChannels_spam && config.allowedChannels_spam.length > 0) {
+      if (!config.allowedChannels_spam.includes(message.channel.id)) {
+        return; // Bỏ qua nếu không phải kênh được phép
+      }
+    }
+  
+    // Kiểm tra có được bỏ qua không
+    if (hasBypassPermission(message.member)) {
+      return;
+    }
+
+  // Kiểm tra có được bỏ qua không
+  if (hasBypassPermission(message.member)) return;
+
+  // Kiểm tra lệnh hợp lệ
+  if (isValidCommand(message.content)) {
+    return handleCommand(message); // Xử lý lệnh
+  }
+
+  // Xóa tin nhắn không phải lệnh
+  try {
+    await message.delete();
+    await sendWarning(message);
+  } catch (error) {
+    console.error('Lỗi xử lý tin nhắn:', error);
+  }
+});
 
 // --- Các hàm hỗ trợ --- //
 
