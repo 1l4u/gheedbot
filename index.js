@@ -41,9 +41,9 @@ const commands = [
     .setName('wiki')
     .setDescription('Tìm kiếm thông tin wiki')
     .addStringOption(option =>
-      option.setName('query')
+      option.setName('name')
         .setDescription('Từ khóa cần tìm (nhấn nút để xem danh sách)')
-        .setRequired(false)
+        .setRequired(true)
         .setAutocomplete(true)),
   new SlashCommandBuilder()
     .setName('search')
@@ -227,7 +227,7 @@ async function handleSlashRuneword(interaction) {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('show_rw_list')
-          .setLabel('📜 Xem toàn bộ danh sách')
+          .setLabel('Xem toàn bộ danh sách')
           .setStyle(ButtonStyle.Primary)
       );
 
@@ -309,7 +309,7 @@ async function handleSlashRuneword(interaction) {
 }
 
 async function handleSlashWiki(interaction) {
-  const searchTerm = interaction.options.getString('query');
+  const searchTerm = interaction.options.getString('name');
   
   // Trường hợp không nhập query
   if (!searchTerm) {
@@ -354,8 +354,7 @@ async function handleSlashWiki(interaction) {
   if (!foundKey) {
     // Tìm các từ khóa gần đúng
     const similarKeys = Object.keys(wiki).filter(key => 
-      key.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      searchTerm.toLowerCase().includes(key.toLowerCase())
+      key.toLowerCase().includes(searchTerm.toLowerCase())
     ).slice(0, 5); // Giới hạn 5 gợi ý
 
     if (similarKeys.length > 0) {
