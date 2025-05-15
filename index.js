@@ -799,7 +799,7 @@ async function handleSlashSetup(interaction) {
       .setTitle('ĐẠI HOÀNG INTERFACE')
       .setDescription('**Giao diện** này cung cấp truy cập nhanh đến các công cụ và dữ liệu trò chơi.')
       .setImage('https://i.imgur.com/1JBh7P7.png')
-      .setFooter({ text: 'Nhấn các nút bên dưới để sử dụng tính năng tương ứng' });
+      .setFooter({ text: 'Nhấn các nút bên dưới để sử dụng tính năng tương ứng. Hoặc sử dụng commands / tương ứng.' });
 
     await interaction.channel.send({
     embeds: [embed],
