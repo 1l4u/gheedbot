@@ -131,17 +131,13 @@ client.on('interactionCreate', async interaction => {
     const { commandName, options } = interaction;
 // Xử lý tương tác autocomplete
 if (interaction.isAutocomplete()) {
-  const dataSource = autocompleteSources[interaction.commandName];
+    const dataSource = autocompleteSources[interaction.commandName];
 
-  if (dataSource) {
-    try {
-      await handleAutocomplete(interaction, dataSource);
-    } catch (err) {
-      console.error(`Lỗi xử lý lệnh ${interaction.commandName}:`, err);
-      if (interaction.deferred) {
-        await interaction.editReply({ content: '```🐺 Đã xảy ra lỗi!```' });
-      }
-    }
+  if (!dataSource) return;
+  try {
+    await handleAutocomplete(interaction, dataSource);
+  } catch (err) {
+    console.error(`Lỗi xử lý lệnh ${interaction.commandName}:`, err);
   }
 }
 
@@ -268,9 +264,14 @@ async function handleAutocomplete(interaction, dataObject) {
     .filter(key => key.toLowerCase().includes(focusedValue))
     .slice(0, 25); // Discord giới hạn 25 lựa chọn
 
-  await interaction.respond(
-    filtered.map(key => ({ name: key, value: key }))
-  );
+  try {
+    await interaction.respond(
+      filtered.map(key => ({ name: key, value: key }))
+    );
+  } catch (err) {
+    console.error('Lỗi khi gọi interaction.respond():', err);
+    // Không được gọi editReply ở đây vì autocomplete không có reply/defer
+  }
 }
 
 
