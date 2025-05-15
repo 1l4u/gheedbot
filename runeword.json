@@ -167,7 +167,7 @@
 			"+20% Faster Hit Recovery ",
 			"+2 to Critical Strike ",
 			"Cold Resist +30% ",
-			"Attacker Takes Damage of 14 "
+			"Attacker Takes Damage of 20 "
 		],
 		"level": "29"
 	},
@@ -181,7 +181,7 @@
 			"+30 Defense vs. Missile ",
 			"Replenish Life +10 ",
 			"+[3-4] to Mana after each Kill ",
-			"Attacker Takes Damage of 14 ",
+			"Attacker Takes Damage of 20 ",
 			"Attacker Takes Damage of [2-297] ([2-3] per Character Level) ",
 			"Requirements -15% "
 		],
@@ -563,7 +563,7 @@
 				"Lightning Resist +35% ",
 				"Poison Resist +35% ",
 				"+[3-8] Magic Absorb ",
-				"Attacker Takes Damage of 14 ",
+				"Attacker Takes Damage of 244 ",
 				"Requirements -15% "
 			],
 			"level": "25"
@@ -1832,5 +1832,38 @@
 			"Adds 258-364 Cold Damage "
 		],
 		"level": "69"
+	},
+	"Loyalty" :{
+		"name" : "Loyalty - Pul Tir Dol",
+		"types" : ["Bows", "Spears"],
+		"option" :[
+			"+2 to Passive and Magic Skill (Amazon Only)",
+			"+60% Faster Cast Rate",
+			"+20% Chance to Pierce (Bows only)",
+			"+[200-245] Enhanced Damage",
+			"+75% Damage to Demons",
+			"+100 to Attack Rating against Demons",
+			"+20% Chance of Crushing Blow (Spears Only)",
+			"+[2-3] to Decoy (Amazon Only)",
+			"+[2-3] to Strafe (Amazon Only) (Bows Only)",
+			"+[2-3] to Power Strike (Amazon Only) (Spears Only)",
+			"+4 to Mana after each Kill"
+		]
+	},
+	"Epiphany" :{
+		"name": "Epiphany - Lo Ith Lo Ist",
+		"types" :["Shields"],
+		"option" :[
+			"25% Chance to Cast Level 27 Static Field when Struck",
+			"Level 18 Energy Shield when Equipped",
+			"+20% Faster Cast Rate",
+			"Adds 1-750 Lightning Damage",
+			"+[10-15] to All Attributes",
+			"Increase Maximum Mana [28-35]%",
+			"+8% to Maximum Lightning Resist",
+			"Poison Resist +[40-55]%",
+			"+15% Damage Taken Gained as Mana when Hit",
+			"+30% Better Chance of Getting Magic Item"
+		]
 	}
 }
