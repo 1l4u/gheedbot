@@ -105,10 +105,10 @@ const commands = [
     .setDescription('Hiển thị câu nói vui về Hardcore'),
   new SlashCommandBuilder()
     .setName('list')
-    .setDescription('Liệt kê tất cả các mục trong wiki')/
+    .setDescription('Liệt kê tất cả các mục trong wiki'),
     new SlashCommandBuilder()
     .setName('botsetup')
-    .setDescription('Đại Hoàng Interface')
+    .setDescription('Đại Hoàng Interface'),
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
