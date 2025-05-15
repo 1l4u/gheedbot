@@ -105,7 +105,10 @@ const commands = [
     .setDescription('Hiển thị câu nói vui về Hardcore'),
   new SlashCommandBuilder()
     .setName('list')
-    .setDescription('Liệt kê tất cả các mục trong wiki')
+    .setDescription('Liệt kê tất cả các mục trong wiki')/
+    new SlashCommandBuilder()
+    .setName('botsetup')
+    .setDescription('Đại Hoàng Interface')
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -126,44 +129,71 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 // Xử lý Slash Commands
 client.on('interactionCreate', async interaction => {
     const { commandName, options } = interaction;
+// Xử lý tương tác autocomplete
 if (interaction.isAutocomplete()) {
-  if (interaction.commandName === 'wiki') {
-      const focusedValue = interaction.options.getFocused().toLowerCase();
-      const filtered = Object.keys(wiki).filter(key => 
-      key.toLowerCase().includes(focusedValue)
-      ).slice(0, 25); // Discord giới hạn 25 lựa chọn
+  const dataSource = autocompleteSources[interaction.commandName];
 
-      await interaction.respond(
-      filtered.map(key => ({ name: key, value: key }))
-      );
-  }
-  if (interaction.commandName === 'rw') {
+  if (dataSource) {
     try {
-      const focusedValue = interaction.options.getFocused().toLowerCase();
-      const filtered = Object.keys(runewords).filter(key => 
-        key.toLowerCase().includes(focusedValue)
-      ).slice(0, 25); // Giới hạn 25 lựa chọn
-
-      await interaction.respond(
-        filtered.map(key => ({ name: key, value: key }))
-      );
+      await handleAutocomplete(interaction, dataSource);
     } catch (err) {
-      console.error('Lỗi xử lý lệnh rw:', err);
-      // chỉ nên gọi editReply nếu đã deferReply
+      console.error(`Lỗi xử lý lệnh ${interaction.commandName}:`, err);
       if (interaction.deferred) {
         await interaction.editReply({ content: '```🐺 Đã xảy ra lỗi!```' });
       }
     }
   }
-  }
+}
 
   if (interaction.isButton()) {
-    if (interaction.customId === 'show_wiki_list') {
-        await handleSlashList(interaction);
+    try{
+      switch (interaction.customId) {
+        // Các nút từ giao diện wiki
+        case 'wiki':
+          //await handleSlashList(interaction);
+          break;
+        case 'list':
+          //await handleSlashList(interaction);
+          break;
+        case 'runeword':
+          //await handleRunewordButton(interaction);
+          break;
+        case 'search':
+          //await handleSlashSearch(interaction);
+          break;
+        case 'tas':
+          //await handleSlashTas(interaction);
+          break;
+        case 'ias':
+          //await handleSlashIas(interaction);
+          break;
+        case 'chance':
+          //await handleSlashCritChance(interaction);
+          break;
+        case 'hotkey':
+          //await interaction.editReply({content: getHotkeyText(),flags: 1 << 6});
+        case 'show_wiki_list':
+          //await handleButtonList(interaction);
+          break;
+        case 'show_rw_list':
+          //await handleRunewordList(interaction);
+          break;
+        default:
+        await interaction.reply({
+          content: 'Lệnh không được hỗ trợ',
+          flags: 1 << 6
+        });
+      }
+  }catch (error) {
+      console.error('Lỗi xử lý button:', error);
+      if (!interaction.replied) {
+        await interaction.followUp({
+          content: 'Đã xảy ra lỗi khi xử lý yêu cầu',
+          ephemeral: true
+        });
+      }
     }
-    if (interaction.customId === 'show_rw_list') {
-      await handleRunewordList(interaction);
-    }
+    return;
   }
 
   if (interaction.isCommand()){
@@ -202,6 +232,9 @@ if (interaction.isAutocomplete()) {
       case 'list':
         await handleSlashList(interaction);
         break;
+        case 'botsetup':
+        await handleSlashSetup(interaction);
+        break;
       default:
         await interaction.reply({
           content: 'Lệnh không được hỗ trợ',
@@ -217,6 +250,30 @@ if (interaction.isAutocomplete()) {
     });
   }}
 });
+
+
+// Map các lệnh với dữ liệu tương ứng
+const autocompleteSources = {
+  wiki: wiki,
+  rw: runewords,
+  // thêm lệnh khác tại đây, ví dụ:
+  // items: itemsData,
+};
+
+// Hàm xử lý autocomplete dùng chung
+async function handleAutocomplete(interaction, dataObject) {
+  const focusedValue = interaction.options.getFocused().toLowerCase();
+
+  const filtered = Object.keys(dataObject)
+    .filter(key => key.toLowerCase().includes(focusedValue))
+    .slice(0, 25); // Discord giới hạn 25 lựa chọn
+
+  await interaction.respond(
+    filtered.map(key => ({ name: key, value: key }))
+  );
+}
+
+
 
 // Các hàm xử lý Slash Command
 async function handleSlashRuneword(interaction) {
@@ -289,8 +346,8 @@ async function handleSlashRuneword(interaction) {
       .setColor('#0099ff')
       .setTitle(rw.name || foundKey)
       .addFields(
-        { name: 'Loại', value: rw.types?.join(", ") || "N/A", inline: false },
-        { name: 'Yêu cầu cấp độ', value: rw.level?.toString() || "N/A", inline: false }
+        { name: ``, value: rw.types?.join(", ") || "N/A", inline: false },
+        { name: ``, value: rw.level?.toString() || "N/A", inline: false }
       );
 
     if (rw.option) {
@@ -470,8 +527,8 @@ async function handleSlashTas(interaction) {
   const embed = new EmbedBuilder()
     .setColor('#0099ff')
     .addFields(
-      { name: 'EIAS - Effective Item IAS', value: `${eias}%`, inline: false },
-      { name: 'TAS - Total Attack Speed', value: `${tas}%`, inline: false },
+      { name: `TAS - ${tas}%`, value: '', inline: true },
+      { name: `EIAS - ${eias}%`, value: '', inline: true },
       { name: 'Công thức', value: `- TAS = EIAS + Skill_IAS - WSM\n- EIAS = (120 * IAS) / (120 + IAS)` }
     )
     .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
@@ -505,11 +562,7 @@ async function handleSlashIas(interaction) {
 
 
 async function handleSlashList(interaction) {
-  // Xử lý defer cho button interaction
   const isButton = interaction.isButton();
-  if (isButton) {
-    await interaction.deferUpdate();
-  }
 
   const allItems = Object.keys(wiki).sort();
   const chunkSize = 20;
@@ -550,71 +603,53 @@ async function handleSlashList(interaction) {
 
   try {
     // Xử lý reply khác nhau cho button và slash command
+    let message; // Khai báo biến message ở ngoài để có thể dùng chung
     if (isButton) {
       // Gửi dưới dạng followUp cho button interaction
-      const message = await interaction.followUp({
+      message = await interaction.followUp({
         embeds: [initialEmbed],
         components: [initialRow],
         flags: 1 << 6,
-        fetchReply: true
+        fetchReply: true,
       });
-
-      // Tạo collector cho phân trang
-      const collector = message.createMessageComponentCollector({ time: 60000 });
-
-      collector.on('collect', async i => {
-        if (i.customId === 'prev_page') currentPage--;
-        if (i.customId === 'next_page') currentPage++;
-
-        await i.deferUpdate();
-        await i.editReply({
-          embeds: [createListEmbed(currentPage)],
-          components: [createActionRow(currentPage)]
-        });
-      });
-
-      collector.on('end', () => {
-        interaction.editReply({ components: [] }).catch(console.error);
-      });
-
     } else {
       // Gửi dưới dạng reply cho slash command
-      const message = await interaction.reply({
+      message = await interaction.reply({
         embeds: [initialEmbed],
         components: [initialRow],
         flags: 1 << 6,
-        fetchReply: true
-      });
-
-      // Tạo collector cho phân trang
-      const collector = message.createMessageComponentCollector({ time: 60000 });
-
-      collector.on('collect', async i => {
-        if (i.customId === 'prev_page') currentPage--;
-        if (i.customId === 'next_page') currentPage++;
-
-        await i.deferUpdate();
-        await i.editReply({
-          embeds: [createListEmbed(currentPage)],
-          components: [createActionRow(currentPage)]
-        });
-      });
-
-      collector.on('end', () => {
-        interaction.editReply({ components: [] }).catch(console.error);
+        fetchReply: true,
       });
     }
+
+    // Tạo collector cho phân trang (đặt bên ngoài khối if...else)
+    const collector = message.createMessageComponentCollector({ time: 60000 });
+
+    collector.on('collect', async (i) => {
+      if (i.customId === 'prev_page') currentPage--;
+      if (i.customId === 'next_page') currentPage++;
+
+      await i.deferUpdate();
+      await i.editReply({
+        embeds: [createListEmbed(currentPage)],
+        components: [createActionRow(currentPage)],
+      });
+    });
+
+    collector.on('end', () => {
+      interaction.editReply({ components: [] }).catch(console.error);
+    });
   } catch (error) {
     console.error('Lỗi khi xử lý handleSlashList:', error);
     if (isButton) {
       await interaction.followUp({
         content: 'Đã xảy ra lỗi khi tải danh sách',
-        flags: 1 << 6
+        flags: 1 << 6,
       });
     } else {
       await interaction.reply({
         content: 'Đã xảy ra lỗi khi tải danh sách',
-        flags: 1 << 6
+        flags: 1 << 6,
       });
     }
   }
@@ -734,6 +769,49 @@ function getHotkeyText() {
 function getHardcoreText() {
   return "*Hardcore không phải là một lối chơi, mà là một cách sống... rất ngắn.*" + "\n*Chơi Hardcore không phải để chứng tỏ bạn giỏi, mà để chứng tỏ bạn… chịu đựng giỏi.*";
 }
+
+
+
+async function handleSlashSetup(interaction) {
+  try {
+    const row1 = new ActionRowBuilder().addComponents(
+      new ButtonBuilder().setCustomId('wiki').setEmoji('1371540189586915429').setStyle(ButtonStyle.Secondary),
+      new ButtonBuilder().setCustomId('runeword').setEmoji('1371540174604865658').setStyle(ButtonStyle.Secondary),
+      new ButtonBuilder().setCustomId('chance').setEmoji('1371540179235373056').setStyle(ButtonStyle.Secondary),
+      new ButtonBuilder().setCustomId('tas').setEmoji('1371540183337402378').setStyle(ButtonStyle.Secondary),
+    );
+
+    const row2 = new ActionRowBuilder().addComponents(
+      new ButtonBuilder().setCustomId('ias').setEmoji('1371540183337402378').setStyle(ButtonStyle.Secondary),
+      new ButtonBuilder().setCustomId('search').setEmoji('1371540187540357130').setStyle(ButtonStyle.Secondary),
+      new ButtonBuilder().setCustomId('list').setEmoji('1371540185606787082').setStyle(ButtonStyle.Secondary)
+    );
+
+    const embed = new EmbedBuilder()
+      .setColor(0xFF0000)
+      .setTitle('ĐẠI HOÀNG INTERFACE')
+      .setDescription('**Giao diện** này cung cấp truy cập nhanh đến các công cụ và dữ liệu trò chơi.')
+      .setImage('https://i.imgur.com/1JBh7P7.png')
+      .setFooter({ text: 'Nhấn các nút bên dưới để sử dụng tính năng tương ứng' });
+
+    await interaction.channel.send({
+    embeds: [embed],
+    components: [row1, row2],
+  });
+    }
+  catch (err) {
+    console.error('Lỗi', err);
+    await interaction.reply({
+      content: ' Đã xảy ra lỗi.',
+      flags : 1 << 6
+    });
+  }
+}
+
+
+
+
+
 
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
