@@ -6,6 +6,7 @@ const wiki = require("./wiki.json");
 const express = require("express");
 const config = require('./config.json');
 const app = express();
+const { handleTranslation, handleAutoTranslate } = require('./translation');
 const PORT = process.env.PORT || 3000;
 
 
@@ -106,9 +107,17 @@ const commands = [
   new SlashCommandBuilder()
     .setName('list')
     .setDescription('Liệt kê tất cả các mục trong wiki'),
-    new SlashCommandBuilder()
+  new SlashCommandBuilder()
     .setName('botsetup')
     .setDescription('Đại Hoàng Interface'),
+  new SlashCommandBuilder()
+    .setName('translate')
+    .setDescription('Dịch một đoạn văn bản Anh ↔ Việt')
+    .addStringOption(option =>
+      option.setName('text')
+        .setDescription('Nội dung cần dịch')
+        .setRequired(true)
+  )
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -144,35 +153,24 @@ if (interaction.isAutocomplete()) {
   if (interaction.isButton()) {
     try{
       switch (interaction.customId) {
-        // Các nút từ giao diện wiki
         case 'wiki':
-          //await handleSlashList(interaction);
           break;
         case 'list':
-          //await handleSlashList(interaction);
           break;
         case 'runeword':
-          //await handleRunewordButton(interaction);
           break;
         case 'search':
-          //await handleSlashSearch(interaction);
           break;
         case 'tas':
-          //await handleSlashTas(interaction);
           break;
         case 'ias':
-          //await handleSlashIas(interaction);
           break;
         case 'chance':
-          //await handleSlashCritChance(interaction);
           break;
         case 'hotkey':
-          //await interaction.editReply({content: getHotkeyText(),flags: 1 << 6});
         case 'show_wiki_list':
-          //await handleButtonList(interaction);
           break;
         case 'show_rw_list':
-          //await handleRunewordList(interaction);
           break;
         default:
         await interaction.reply({
@@ -228,8 +226,11 @@ if (interaction.isAutocomplete()) {
       case 'list':
         await handleSlashList(interaction);
         break;
-        case 'botsetup':
+      case 'botsetup':
         await handleSlashSetup(interaction);
+        break;
+      case 'translate':
+        await handleTranslation(interaction);
         break;
       default:
         await interaction.reply({
