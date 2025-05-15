@@ -46,13 +46,13 @@ const commands = [
         .setDescription('Từ khóa cần tìm (nhấn nút để xem danh sách)')
         .setRequired(true)
         .setAutocomplete(true)),
-  new SlashCommandBuilder()
-    .setName('search')
-    .setDescription('Tìm runeword theo loại')
-    .addStringOption(option =>
-      option.setName('type')
-        .setDescription('Loại runeword (armors, weapons, etc)')
-        .setRequired(true)),
+  // new SlashCommandBuilder()
+  //   .setName('search')
+  //   .setDescription('Tìm runeword theo loại')
+  //   .addStringOption(option =>
+  //     option.setName('type')
+  //       .setDescription('Loại runeword (armors, weapons, etc)')
+  //       .setRequired(true)),
   new SlashCommandBuilder()
     .setName('chance')
     .setDescription('Tính tổng crit chance')
@@ -98,15 +98,15 @@ const commands = [
       option.setName('wsm')
         .setDescription('Weapon Speed Modifier')
         .setRequired(true)),
-  new SlashCommandBuilder()
-    .setName('hotkey')
-    .setDescription('Hiển thị các phím tắt trong game'),
-  new SlashCommandBuilder()
-    .setName('hardcore')
-    .setDescription('Hiển thị câu nói vui về Hardcore'),
-  new SlashCommandBuilder()
-    .setName('list')
-    .setDescription('Liệt kê tất cả các mục trong wiki'),
+  // new SlashCommandBuilder()
+  //   .setName('hotkey')
+  //   .setDescription('Hiển thị các phím tắt trong game'),
+  // new SlashCommandBuilder()
+  //   .setName('hardcore')
+  //   .setDescription('Hiển thị câu nói vui về Hardcore'),
+  // new SlashCommandBuilder()
+  //   .setName('list')
+  //   .setDescription('Liệt kê tất cả các mục trong wiki'),
   new SlashCommandBuilder()
     .setName('botsetup')
     .setDescription('Đại Hoàng Interface'),
@@ -199,9 +199,9 @@ if (interaction.isAutocomplete()) {
       case 'wiki':
         await handleSlashWiki(interaction);
         break;
-      case 'search':
-        await handleSlashSearch(interaction);
-        break;
+      //case 'search':
+        //await handleSlashSearch(interaction);
+      //  break;
       case 'chance':
         await handleSlashCritChance(interaction);
         break;
@@ -211,21 +211,21 @@ if (interaction.isAutocomplete()) {
       case 'ias':
         await handleSlashIas(interaction);
         break;
-      case 'hotkey':
-        await interaction.reply({
-          content: getHotkeyText(),
-          flags: 1 << 6
-        });
-        break;
-      case 'hardcore':
-        await interaction.reply({
-          content: getHardcoreText(),
-          flags: 1 << 6
-        });
-        break;
-      case 'list':
-        await handleSlashList(interaction);
-        break;
+      //case 'hotkey':
+        //await interaction.reply({
+        //  content: getHotkeyText(),
+        // flags: 1 << 6
+        //});
+      //  break;
+      //case 'hardcore':
+        //await interaction.reply({
+        //  content: getHardcoreText(),
+        //  flags: 1 << 6
+        //});
+      //  break;
+      //case 'list':
+        //await handleSlashList(interaction);
+       // break;
       case 'botsetup':
         await handleSlashSetup(interaction);
         break;
