@@ -96,7 +96,7 @@
 			"types": ["Helms"],
 			"option": [
 				"10% Chance to Cast Level 15 Confuse when Struck",
-				"Level 13 Holy Shock Aura when Equipped",
+				"Level 14 Holy Shock Aura when Equipped",
 				"+[20-30]% Faster Hit Recovery",
 				"+30% Enhanced Defense",
 				"+[150-220] Defense",
@@ -366,11 +366,11 @@
 		"name": "Principle - Ral Gul Eld",
 		"types": ["Armors"],
 		"option": [
-			"50% Chance to Cast Level 25 Holy Bolt on Striking ",
+			"75% Chance to Cast Level 25 Holy Bolt on Striking ",
 			"+2 to Paladin Skills ",
-			"+[50-80]% Damage to Demons ",
-			"+[50-80]% Damage to Undead ",
-			"+[50-100] to Life ",
+			"+[100-150]% Damage to Demons ",
+			"+[100-150]% Damage to Undead ",
+			"+[100-150] to Life ",
 			"15% Slower Stamina Drain ",
 			"+4% to Maximum Poison Resist ",
 			"Fire Resist +30% "
@@ -438,15 +438,15 @@
 			"types": ["Armors"],
 			"option": [
 				"You May Summon 1 Additional Hydra ",
-				"12% Chance to Cast Level 28 Hydra on Striking ",
+				"12% Chance to Cast Level 40 Hydra on Striking ",
 				"20% Chance to Cast Level 18 Venom when Struck ",
 				"Level 12 Holy Fire Aura when Equipped ",
-				"+360 Defense ",
-				"+230 Defense vs. Missile ",
+				"+[400-550] Defense ",
 				"+[0-37] to Strength (+0.375 per Character Level) ",
 				"Increase Maximum Mana 5% ",
 				"+4% to Maximum Lightning Resist ",
-				"Physical Damage Taken Reduced by 7 "
+				"Physical Damage Taken Reduced by 7 ",
+				"+[4-5] to Hydra (Sorceress Only)"
 			],
 			"level": "61"
 		},
@@ -455,15 +455,15 @@
 			"types": ["Shield"],
 			"option": [
 				"You May Summon 1 Additional Hydra ",
-				"12% Chance to Cast Level 28 Hydra on Striking ",
+				"12% Chance to Cast Level 40 Hydra on Striking ",
 				"20% Chance to Cast Level 18 Venom when Struck ",
 				"Level 12 Holy Fire Aura when Equipped ",
-				"+360 Defense ",
-				"+230 Defense vs. Missile ",
+				"+[400-550] Defense ",
 				"+[0-37] to Strength (+0.375 per Character Level) ",
 				"+50 to Mana ",
 				"+4% to Maximum Lightning Resist ",
-				"Physical Damage Taken Reduced by 7 "
+				"Physical Damage Taken Reduced by 7 ",
+				"+[4-5] to Hydra (Sorceress Only)"
 			],
 			"level": "61"
 		}
@@ -474,7 +474,7 @@
 		"option": [
 			"+2 to All Skills ",
 			"+200% Damage to Demons ",
-			"+100% Damage to Undead ",
+			"+200% Damage to Undead ",
 			"8% Life Stolen per Hit ",
 			"+70% Enhanced Defense ",
 			"+20 to Strength ",
@@ -491,7 +491,7 @@
 		"option": [
 			"+2 to All Skills ",
 			"+200% Damage to Demons ",
-			"+100% Damage to Undead ",
+			"+200% Damage to Undead ",
 			"8% Life Stolen per Hit ",
 			"+70% Enhanced Defense ",
 			"+20 to Strength ",
@@ -839,8 +839,7 @@
 			"7% Life Stolen per Hit ",
 			"Prevent Monster Heal ",
 			"+[5-10] to All Attributes ",
-			"+2 to Mana after each Kill ",
-			"Reduces All Vendor Prices 15% "
+			"+2 to Mana after each Kill "
 		],
 		"level": "25"
 	},
@@ -878,11 +877,11 @@
 	},
 	"Insight": {
 		"name": "Insight - Ral Tir Tal Sol",
-		"types": ["Staves", "Polearms", "Spears", "Scepters"],
+		"types": ["Staves", "Polearms", "Spears"],
 		"option": [
 			"Level [12-17] Meditation Aura when Equipped ",
 			"+35% Faster Cast Rate ",
-			"+[140-180]% Enhanced Damage ",
+			"+[180-240]% Enhanced Damage ",
 			"+9 to Minimum Damage ",
 			"[180-250]% Bonus to Attack Rating ",
 			"Adds 5-30 Fire Damage ",
@@ -963,16 +962,16 @@
 		"name": "Memory - Lum Io Sol Eth",
 		"types": ["Staves"],
 		"option": [
-			"+3 to Sorceress Skills ",
+			"+4 to All Skills ",
 			"+33% Faster Cast Rate ",
 			"+9 to Minimum Damage ",
 			"-25% Target Defense ",
-			"+3 to Energy Shield (Sorceress Only) ",
+			"+2 to Energy Shield (Sorceress Only) ",
 			"+2 to Static Field (Sorceress Only) ",
 			"+50% Enhanced Defense ",
 			"+10 to Vitality ",
 			"+10 to Energy ",
-			"Increase Maximum Mana [20-40]% ",
+			"Increase Maximum Mana [25-40]% ",
 			"Magic Damage Taken Reduced by 7 "
 		],
 		"level": "37"
@@ -1063,8 +1062,8 @@
 			"+75% Damage to Undead ",
 			"+50 to Attack Rating against Undead ",
 			"Adds 1-50 Lightning Damage ",
-			"+1 to Concentrate ",
-			"+1 to Zeal ",
+			"+10 to Concentrate ",
+			"+10 to Zeal ",
 			"Hit Blinds Target +10 ",
 			"75% Extra Gold from Monsters ",
 			"Level 8 Heart of Wolverine (36 Charges) "
@@ -1073,7 +1072,7 @@
 	},
 	"Voice of Reason": {
 		"name": "Voice of Reason - Lem Ko El Eld",
-		"types": ["Swords", "Maces", "Bows", "Crossbows"],
+		"types": ["Swords", "Maces", "Bows", "Crossbows", "Scepters"],
 		"option": [
 			"15% Chance to Cast Level 16 Frozen Orb on Striking ",
 			"18% Chance to Cast Level 20 Ice Blast on Striking ",
@@ -1109,7 +1108,7 @@
 	},
 	"Crescent Moon": {
 		"name": "Crescent Moon - Shael Um Tir",
-		"types": ["Axes", "Swords", "Polearms", "Spears", "Claws", "Throws"],
+		"types": ["Axes", "Swords", "Polearms", "Spears", "Claws", "Throws", "Scepters"],
 		"option": [
 			"10% Chance to Cast Level 27 Lightning on Striking ",
 			"12% Chance to Cast Level 13 Static Field on Striking (Axes/Swords/Claws Only) ",
@@ -1164,8 +1163,8 @@
 		"name": "Rift - Hel Ko Lem Gul",
 		"types": ["Scepters", "Polearms", "Spears", "Swords"],
 		"option": [
-			"20% Chance to Cast Level 30 Tornado on Striking ",
-			"20% Chance to Cast Level 25 Frozen Orb on Attack ",
+			"26% Chance to Cast Level 30 Tornado on Striking ",
+			"24% Chance to Cast Level 25 Frozen Orb on Striking ",
 			"+60% Increased Attack Speed ",
 			"20% Bonus to Attack Rating ",
 			"Adds 160-250 Magic Damage ",
@@ -1332,7 +1331,7 @@
 	},
 	"Grief": {
 		"name": "Grief - Eth Tir Lo Mal Ral",
-		"types": ["Swords", "Axes"],
+		"types": ["Swords", "Axes", "Polearms"],
 		"option": [
 			"35% Chance to Cast Level 15 Venom on Striking ",
 			"+[30-40]% Increased Attack Speed ",
@@ -1483,7 +1482,7 @@
 		"types": ["Bows", "Crossbows"],
 		"option": [
 			"Level [12-15] Fanaticism Aura when Equipped ",
-			"+[255-305]% Enhanced Damage ",
+			"+[325-345]% Enhanced Damage ",
 			"Ignore Target's Defense ",
 			"300% Bonus to Attack Rating ",
 			"+75% Damage to Undead ",
@@ -1560,8 +1559,8 @@
 			"10% Chance to Cast Level 11 Life Tap on Striking ",
 			"60% Chance to Cast Level 40 Charged Bolt on Attack ",
 			"6% Chance to Cast Level 11 Fade when Struck ",
-			"Level 17 Might Aura when Equipped ",
-			"+[330-375]% Enhanced Damage ",
+			"Level 19 Might Aura when Equipped ",
+			"+[350-400]% Enhanced Damage ",
 			"Ignore Target's Defense ",
 			"[60-70]% Chance of Crushing Blow ",
 			"Prevent Monster Heal ",
@@ -1612,7 +1611,7 @@
 		"name": "Mist - Cham Shael Gul Thul Ith",
 		"types": ["Bows", "Crossbows"],
 		"option": [
-			"Level [8-12] Concentration Aura when Equipped ",
+			"Level [12-14] Concentration Aura when Equipped ",
 			"+2 to All Skills ",
 			"+20% Increased Attack Speed ",
 			"+100% Chance to Pierce ",
@@ -1827,9 +1826,9 @@
 			"+40% Increased Attack Speed ",
 			"+[225-300]% Enhanced Damage ",
 			"Ignore Target's Defense ",
-			"Adds 305-380 Fire Damage ",
-			"Adds 301-400 Lightning Damage ",
-			"Adds 258-364 Cold Damage "
+			"Adds 366-456 Fire Damage ",
+			"Adds 361-480 Lightning Damage ",
+			"Adds 310-437 Cold Damage "
 		],
 		"level": "69"
 	},
