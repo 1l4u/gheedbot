@@ -774,6 +774,12 @@ function getHardcoreText() {
 
 
 async function handleSlashSetup(interaction) {
+    if (!config.clear_member_id.includes(interaction.user.id)) {
+    return await interaction.reply({
+      content: 'Bạn không có quyền sử dụng lệnh này.',
+      flags: 1 << 6
+    });
+  }
   try {
     const row1 = new ActionRowBuilder().addComponents(
       new ButtonBuilder().setCustomId('wiki').setEmoji('1371540189586915429').setStyle(ButtonStyle.Secondary),
@@ -809,7 +815,43 @@ async function handleSlashSetup(interaction) {
   }
 }
 
+async function handleSlashClear(interaction) {
+  if (!config.clear_member_id.includes(interaction.user.id)) {
+    return await interaction.reply({
+      content: 'Bạn không có quyền sử dụng lệnh này.',
+      flags: 1 << 6
+    });
+  }
+  try {
+    const channel = interaction.channel;
+    let deletedCount = 0;
+    let fetched;
+    
+    do {
+      fetched = await channel.messages.fetch({ limit: 100 });
+      const deletable = fetched.filter(msg => 
+        Date.now() - msg.createdTimestamp < 14 * 24 * 60 * 60 * 1000
+      );
+      
+      if (deletable.size > 0) {
+        await channel.bulkDelete(deletable, true);
+        deletedCount += deletable.size;
+      }
+    } while (fetched.size >= 2);
 
+    await interaction.editReply({
+      content: ` Đã xoá ${deletedCount} tin nhắn (chỉ những tin nhắn < 14 ngày).`,
+      flags : 1 << 6
+    });
+
+  } catch (err) {
+    console.error('Lỗi khi xóa tin nhắn:', err);
+    await interaction.editReply({
+      content: ' Đã xảy ra lỗi khi xoá tin nhắn.',
+      flags : 1 << 6
+    });
+  }
+}
 
 
 
