@@ -348,7 +348,7 @@ async function handleSlashRuneword(interaction) {
       .setTitle(rw.name || foundKey)
       .addFields(
         { name: ``, value: rw.types?.join(", ") || "N/A", inline: false },
-        { name: ``, value: rw.level?.toString() || "N/A", inline: false }
+        { name: ``, value: `Level: ${rw.level?.toString()}` || "N/A", inline: false }
       );
 
     if (rw.option) {
