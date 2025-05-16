@@ -279,6 +279,12 @@ async function handleAutocomplete(interaction, dataObject) {
 
 // Các hàm xử lý Slash Command
 async function handleSlashRuneword(interaction) {
+  if (!config.allowedChannels?.includes(interaction.channel.id)) {
+    return await interaction.reply({
+      content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+      flags: 1 << 6
+    });
+  }
   const searchTerm = interaction.options.getString('name');
 
   if (!searchTerm) {
@@ -368,6 +374,12 @@ async function handleSlashRuneword(interaction) {
 }
 
 async function handleSlashWiki(interaction) {
+    if (!config.allowedChannels?.includes(interaction.channel.id)) {
+    return await interaction.reply({
+      content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+      flags: 1 << 6
+    });
+  }
   const searchTerm = interaction.options.getString('name');
   
   // Trường hợp không nhập query
@@ -500,6 +512,12 @@ async function handleSlashSearch(interaction) {
 }
 
 async function handleSlashCritChance(interaction) {
+    if (!config.allowedChannels?.includes(interaction.channel.id)) {
+    return await interaction.reply({
+      content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+      flags: 1 << 6
+    });
+  }
   const ds = interaction.options.getInteger('ds');
   const cs = interaction.options.getInteger('cs');
   const wm = interaction.options.getInteger('wm');
@@ -519,6 +537,12 @@ async function handleSlashCritChance(interaction) {
 }
 
 async function handleSlashTas(interaction) {
+    if (!config.allowedChannels?.includes(interaction.channel.id)) {
+    return await interaction.reply({
+      content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+      flags: 1 << 6
+    });
+  }
   const ias = interaction.options.getInteger('ias');
   const skillIas = interaction.options.getInteger('skill_ias');
   const wsm = interaction.options.getInteger('wsm');
@@ -542,6 +566,12 @@ async function handleSlashTas(interaction) {
 }
 
 async function handleSlashIas(interaction) {
+    if (!config.allowedChannels?.includes(interaction.channel.id)) {
+    return await interaction.reply({
+      content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+      flags: 1 << 6
+    });
+  }
   const tas = interaction.options.getInteger('tas');
   const skillIas = interaction.options.getInteger('skill_ias');
   const wsm = interaction.options.getInteger('wsm');
@@ -564,6 +594,12 @@ async function handleSlashIas(interaction) {
 
 
 async function handleSlashList(interaction) {
+    if (!config.allowedChannels?.includes(interaction.channel.id)) {
+    return await interaction.reply({
+      content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+      flags: 1 << 6
+    });
+  }
   const isButton = interaction.isButton();
 
   const allItems = Object.keys(wiki).sort();
@@ -706,6 +742,12 @@ async function handleSlashClear(interaction) {
 
     
 async function handleRunewordList(interaction) {
+    if (!config.allowedChannels?.includes(interaction.channel.id)) {
+    return await interaction.reply({
+      content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+      flags: 1 << 6
+    });
+  }
   const allRunewords = Object.keys(runewords).sort();
   const chunkSize = 20;
   const chunks = [];
@@ -815,47 +857,6 @@ async function handleSlashSetup(interaction) {
     });
   }
 }
-
-async function handleSlashClear(interaction) {
-  if (!config.clear_member_id.includes(interaction.user.id)) {
-    return await interaction.reply({
-      content: 'Bạn không có quyền sử dụng lệnh này.',
-      flags: 1 << 6
-    });
-  }
-  try {
-    const channel = interaction.channel;
-    let deletedCount = 0;
-    let fetched;
-    
-    do {
-      fetched = await channel.messages.fetch({ limit: 100 });
-      const deletable = fetched.filter(msg => 
-        Date.now() - msg.createdTimestamp < 14 * 24 * 60 * 60 * 1000
-      );
-      
-      if (deletable.size > 0) {
-        await channel.bulkDelete(deletable, true);
-        deletedCount += deletable.size;
-      }
-    } while (fetched.size >= 2);
-
-    await interaction.editReply({
-      content: ` Đã xoá ${deletedCount} tin nhắn (chỉ những tin nhắn < 14 ngày).`,
-      flags : 1 << 6
-    });
-
-  } catch (err) {
-    console.error('Lỗi khi xóa tin nhắn:', err);
-    await interaction.editReply({
-      content: ' Đã xảy ra lỗi khi xoá tin nhắn.',
-      flags : 1 << 6
-    });
-  }
-}
-
-
-
 
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
