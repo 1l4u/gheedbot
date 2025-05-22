@@ -6,18 +6,58 @@ const wiki = require("./wiki.json");
 const express = require("express");
 const config = require('./config.json');
 const app = express();
-const { handleTranslation, handleAutoTranslate } = require('./translation');
+const { handleTranslation} = require('./translation');
 const PORT = process.env.PORT || 3000;
 
 
-// Tạo một route đơn giản để giữ app "alive"
-app.get("/ping", (req, res) => {
-  res.send("Pong!");
+
+app.use(express.json());
+
+// Route health check (bắt buộc cho Render)
+app.get('/ping', (req, res) => {
+  res.status(200).json({ 
+    status: 'healthy',
+    message: 'Pong!',
+    timestamp: new Date().toISOString()
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`Web server is running on port ${PORT}`);
+// Route mặc định
+app.get('/', (req, res) => {
+  res.send('Discord Bot is running');
 });
+
+// Xử lý lỗi 404
+app.use((req, res) => {
+  res.status(404).send('Not found');
+});
+
+// Khởi động server
+const server = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+// Xử lý tắt server đúng cách
+process.on('SIGTERM', () => {
+  console.log('Shutting down server...');
+  server.close(() => {
+    console.log('Server closed');
+    process.exit(0);
+  });
+});
+
+// Xử lý uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  server.close(() => process.exit(1));
+});
+
+// Xử lý unhandled rejections
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Rejection:', err);
+  server.close(() => process.exit(1));
+});
+
 
 const client = new Client({
   intents: [
@@ -553,8 +593,8 @@ async function handleSlashTas(interaction) {
   const embed = new EmbedBuilder()
     .setColor('#0099ff')
     .addFields(
-      { name: `TAS - ${tas}%`, value: '', inline: true },
-      { name: `EIAS - ${eias}%`, value: '', inline: true },
+      { name: ``, value: `TAS - ${tas}%`, inline: true },
+      { name: ``, value: `EIAS - ${eias}%`, inline: true },
       { name: 'Công thức', value: `- TAS = EIAS + Skill_IAS - WSM\n- EIAS = (120 * IAS) / (120 + IAS)` }
     )
     .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
@@ -740,7 +780,6 @@ async function handleSlashClear(interaction) {
   }
 }
 
-    
 async function handleRunewordList(interaction) {
     if (!config.allowedChannels?.includes(interaction.channel.id)) {
     return await interaction.reply({
@@ -804,18 +843,6 @@ async function handleRunewordList(interaction) {
     interaction.editReply({ components: [] }).catch(console.error);
   });
 }
-
-// Các hàm tiện ích
-function getHotkeyText() {
-  return "```1. Khi cầm nguyên Stack (2+ vật phẩm trở lên):\n     Giữ chuột trái trên stack để di chuyển cả chồng stack đó.\n     Ctrl + Shift + Click vào ô trống: Tách ra 1 vật phẩm (vật phẩm này sẽ không stack nghĩa là không có dấu + trên vật phẩm, nếu là rune và gem thì có thể ép vào đồ).\n     Ctrl + Click vào ô trống: Tách ra 1 vật phẩm (vẫn giữ stack có dấu +, có thể gộp lại sau, nếu là rune và gem thì không thể ép vào đồ).\n\n2. Khi chỉ có 1 vật phẩm stack(hiển thị dấu +):\nThao tác như trên hoặc\n     Ctrl + Shift + Click: Chuyển đổi chế độ stack/không stack.\n     Shift + Left Click: Identify item\n     Shift + Right Click: Di chuyển giữa các thùng đồ(inventory <-> stash <-> cube)\n     Ctrl + Right Click: ném xuống đất\n     Ctrl + Shift + Right Click: Di chuyển vào cube(cube không được mở nếu không sẽ ném xuống đất)\n\n3. Khi cộng điểm skill hoặc stat:\n     Ctrl + Left Click: 5 điểm\n     Shift + Left Click: 20 điểm\n     Ctrl + Shift + Left Click: All\n\n4. Currency Stash: Khi bạn đặt các vật phẩm vào stash, chúng sẽ tự động chuyển vào Currency Stash, cho phép xếp chồng Rejuv.\n     Left Click: Lấy 1 vật phẩm lên chuột\n     Right Click: Lấy một vật phẩm vào inventory\n     Ctrl + (Left / Right Click): Lấy 5 vật phẩm (chuột / inventory)\n     Shift + (Left / Right Click): Lấy 20 vật phẩm (chuột / inventory)\n     Ctrl + Shift + (Left / Right Click): Lấy 50 vật phẩm (chuột / inventory)```";
-}
-
-function getHardcoreText() {
-  return "*Hardcore không phải là một lối chơi, mà là một cách sống... rất ngắn.*" + "\n*Chơi Hardcore không phải để chứng tỏ bạn giỏi, mà để chứng tỏ bạn… chịu đựng giỏi.*";
-}
-
-
-
 async function handleSlashSetup(interaction) {
     if (!config.clear_member_id.includes(interaction.user.id)) {
     return await interaction.reply({
