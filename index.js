@@ -974,6 +974,7 @@ async function sendWarning(message) {
   setTimeout(() => warning.delete().catch(() => {}), 10000);
 }
 
+
 // Luôn ưu tiên dùng process.env
 const token = process.env.DISCORD_TOKEN || "";
 
