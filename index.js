@@ -86,13 +86,6 @@ const commands = [
         .setDescription('Từ khóa cần tìm (nhấn nút để xem danh sách)')
         .setRequired(true)
         .setAutocomplete(true)),
-  // new SlashCommandBuilder()
-  //   .setName('search')
-  //   .setDescription('Tìm runeword theo loại')
-  //   .addStringOption(option =>
-  //     option.setName('type')
-  //       .setDescription('Loại runeword (armors, weapons, etc)')
-  //       .setRequired(true)),
   new SlashCommandBuilder()
     .setName('chance')
     .setDescription('Tính tổng crit chance')
@@ -138,15 +131,6 @@ const commands = [
       option.setName('wsm')
         .setDescription('Weapon Speed Modifier')
         .setRequired(true)),
-  // new SlashCommandBuilder()
-  //   .setName('hotkey')
-  //   .setDescription('Hiển thị các phím tắt trong game'),
-  // new SlashCommandBuilder()
-  //   .setName('hardcore')
-  //   .setDescription('Hiển thị câu nói vui về Hardcore'),
-  // new SlashCommandBuilder()
-  //   .setName('list')
-  //   .setDescription('Liệt kê tất cả các mục trong wiki'),
   new SlashCommandBuilder()
     .setName('botsetup')
     .setDescription('Đại Hoàng Interface'),
@@ -157,7 +141,30 @@ const commands = [
       option.setName('text')
         .setDescription('Nội dung cần dịch')
         .setRequired(true)
-  )
+  ),
+  new SlashCommandBuilder()
+  .setName('dmgcal')
+  .setDescription('Tính dmg vũ khí')
+  .addIntegerOption(option =>
+    option.setName('min_base')
+          .setDescription('Min Base Damage')
+          .setRequired(true))
+  .addIntegerOption(option =>
+    option.setName('max_base')
+          .setDescription('Max Base Damage')
+          .setRequired(true))
+  .addIntegerOption(option =>
+    option.setName('enhanced')
+          .setDescription('Enhanced Damage')
+          .setRequired(true))
+  .addIntegerOption(option =>
+    option.setName('add_min')
+          .setDescription('Add Min Damage')
+          .setRequired(true))
+  .addIntegerOption(option =>
+    option.setName('add_max')
+          .setDescription('Add Max Damage')
+          .setRequired(true))
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -239,9 +246,6 @@ if (interaction.isAutocomplete()) {
       case 'wiki':
         await handleSlashWiki(interaction);
         break;
-      //case 'search':
-        //await handleSlashSearch(interaction);
-      //  break;
       case 'chance':
         await handleSlashCritChance(interaction);
         break;
@@ -251,26 +255,14 @@ if (interaction.isAutocomplete()) {
       case 'ias':
         await handleSlashIas(interaction);
         break;
-      //case 'hotkey':
-        //await interaction.reply({
-        //  content: getHotkeyText(),
-        // flags: 1 << 6
-        //});
-      //  break;
-      //case 'hardcore':
-        //await interaction.reply({
-        //  content: getHardcoreText(),
-        //  flags: 1 << 6
-        //});
-      //  break;
-      //case 'list':
-        //await handleSlashList(interaction);
-       // break;
       case 'botsetup':
         await handleSlashSetup(interaction);
         break;
       case 'translate':
         await handleTranslation(interaction);
+        break;
+      case 'dmgcal' :
+        await handleDmgCalculator(interaction);
         break;
       default:
         await interaction.reply({
@@ -884,6 +876,44 @@ async function handleSlashSetup(interaction) {
     });
   }
 }
+
+async function handleDmgCalculator(interaction) {
+    if (!config.allowedChannels?.includes(interaction.channel.id)) {
+    return await interaction.reply({
+      content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+      flags: 1 << 6
+    });
+  }
+
+    const minBase = interaction.options.getInteger('min_base');
+    const maxBase = interaction.options.getInteger('max_base');
+    const enhanced = interaction.options.getInteger('enhanced');
+    const addMin = interaction.options.getInteger('add_min');
+    const addMax = interaction.options.getInteger('add_max');
+
+    if (minBase < 0 || maxBase < 0 || enhanced < 0 || addMin < 0 || addMax < 0) {
+      return await interaction.reply({
+        content: 'Giá trị phải từ 0',
+        flags: 1 << 6
+      });
+    }
+
+    const minDmg = Math.round((minBase * (1 + enhanced/100)) + addMin);
+    const maxDmg = Math.round((maxBase * (1 + enhanced/100)) + addMax);
+
+    const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .addFields(
+      { name: 'Damage', value: `${minDmg}-${maxDmg}`, inline: true }
+    )
+    .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
+
+  await interaction.reply({
+    embeds: [embed],
+    flags: 1 << 6
+  });
+}
+
 
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
