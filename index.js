@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder, Routes, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require("discord.js");
 const { REST } = require('@discordjs/rest');
 const runewords = require("./runeword.json");
+const itembases = require('./base_item.json');
 const wiki = require("./wiki.json");
 const express = require("express");
 const config = require('./config.json');
@@ -164,7 +165,35 @@ const commands = [
   .addIntegerOption(option =>
     option.setName('add_max')
           .setDescription('Add Max Damage')
-          .setRequired(true))
+          .setRequired(true)),
+  new SlashCommandBuilder()
+    .setName('dmgcal2')
+    .setDescription('Tính dmg vũ khí')
+    .addIntegerOption(option =>
+      option.setName('item')
+            .setDescription('Tên item')
+            .setRequired(true)
+            .setAutocomplete(true))
+    .addIntegerOption(option =>
+      option.setName('enhanced')
+            .setDescription('Enhanced Damage')
+            .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('add_min')
+            .setDescription('Add Min Damage')
+            .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('add_max')
+            .setDescription('Add Max Damage')
+            .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('add_max_lvl')
+            .setDescription('Add Max Damage per Level')
+            .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('ed_max_lvl')
+            .setDescription('Enhanced Damage per Level')
+            .setRequired(true))
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -264,6 +293,9 @@ if (interaction.isAutocomplete()) {
       case 'dmgcal' :
         await handleDmgCalculator(interaction);
         break;
+      case 'dmgcal2' :
+        await handleDmgCalculator2(interaction);
+        break;
       default:
         await interaction.reply({
           content: 'Lệnh không được hỗ trợ',
@@ -285,6 +317,7 @@ if (interaction.isAutocomplete()) {
 const autocompleteSources = {
   wiki: wiki,
   rw: runewords,
+  ib: itembases
   // thêm lệnh khác tại đây, ví dụ:
   // items: itemsData,
 };
@@ -914,6 +947,59 @@ async function handleDmgCalculator(interaction) {
   });
 }
 
+async function handleDmgCalculator2(interaction) {
+   // Kiểm tra channel allowed
+    if (!config.allowedChannels?.includes(interaction.channel.id)) {
+        return await interaction.reply({
+            content: 'Channel không được phép sử dụng lệnh này. Lệnh chỉ được sử dụng trong "bot-spam"',
+            flags: 1 << 6
+        });
+    }
+
+    // Lấy base damage từ item
+    const itemData = interaction.options.getString('item');
+    const item = itembases[itemData];
+    if (!item) {
+        return await interaction.reply({
+            content: `Không tìm thấy thông tin cho item "${itemData}"`,
+            flags: 1 << 6
+        });
+    }
+
+    // Lấy các giá trị từ interaction
+    const enhanced = interaction.options.getInteger('enhanced');
+    const addMin = interaction.options.getInteger('add_min') || 0;
+    const addMax = interaction.options.getInteger('add_max') || 0;
+    const maxlvl = interaction.options.getInteger('max_lvl') || 0;
+    const edlvl = interaction.options.getInteger('ed_lvl') || 0;
+
+    // Kiểm tra giá trị âm
+    if ([enhanced, addMin, addMax, maxlvl, edlvl].some(val => val < 0)) {
+        return await interaction.reply({
+            content: 'Tất cả giá trị phải lớn hơn hoặc bằng 0',
+            flags: 1 << 6
+        });
+    }
+    minBase = parseInt(item.min);
+    maxBase = parseInt(item.max);
+
+    // Tính toán damage
+    const minDmg = Math.round((minBase * (1 + enhanced/100))) + addMin;
+    const maxDmg = Math.round((maxBase * (1 + enhanced/100))) + addMax + maxlvl + (maxBase * edlvl);
+
+    // Tạo embed kết quả
+    const embed = new EmbedBuilder()
+        .setColor('#0099ff')
+        .setTitle(`Damage Calculation for ${itemData}`)
+        .addFields(
+            { name: 'Base Damage', value: `${minBase}-${maxBase}`, inline: true },
+            { name: 'Final Damage', value: `${minDmg}-${maxDmg} (Avg: ${avgDmg})`, inline: true },
+        )
+        .setFooter({ text: `Requested by ${interaction.user.username}` })
+        .setTimestamp();
+
+    await interaction.reply({ embeds: [embed] });
+}
 
 client.on('messageCreate', async message => {
   if (message.author.bot) return;
