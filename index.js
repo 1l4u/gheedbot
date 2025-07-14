@@ -259,7 +259,7 @@ if (interaction.isAutocomplete()) {
       if (!interaction.replied) {
         await interaction.followUp({
           content: 'Đã xảy ra lỗi khi xử lý yêu cầu',
-          ephemeral: true
+          flags: 1 << 6
         });
       }
     }
@@ -313,30 +313,61 @@ if (interaction.isAutocomplete()) {
 });
 
 
-// Map các lệnh với dữ liệu tương ứng
 const autocompleteSources = {
   wiki: wiki,
   rw: runewords,
   ib: itembases
-  // thêm lệnh khác tại đây, ví dụ:
-  // items: itemsData,
+  // Có thể thêm các nguồn dữ liệu khác ở đây
 };
 
-// Hàm xử lý autocomplete dùng chung
-async function handleAutocomplete(interaction, dataObject) {
-  const focusedValue = interaction.options.getFocused().toLowerCase();
-
-  const filtered = Object.keys(dataObject)
-    .filter(key => key.toLowerCase().includes(focusedValue))
-    .slice(0, 25); // Discord giới hạn 25 lựa chọn
+// Hàm xử lý autocomplete được tối ưu
+async function handleAutocomplete(interaction) {
+  // Kiểm tra interaction hợp lệ
+  if (!interaction.isAutocomplete()) return;
 
   try {
-    await interaction.respond(
-      filtered.map(key => ({ name: key, value: key }))
-    );
-  } catch (err) {
-    console.error('Lỗi khi gọi interaction.respond():', err);
-    // Không được gọi editReply ở đây vì autocomplete không có reply/defer
+    // Lấy thông tin command và giá trị nhập
+    const commandName = interaction.commandName;
+    const focusedValue = interaction.options.getFocused().toLowerCase().trim();
+    
+    // Kiểm tra nguồn dữ liệu
+    const dataSource = autocompleteSources[commandName];
+    if (!dataSource) {
+      console.warn(`Không tìm thấy nguồn dữ liệu cho command: ${commandName}`);
+      return;
+    }
+
+    // Tối ưu: Cache keys nếu dữ liệu lớn
+    const dataKeys = Object.keys(dataSource);
+    
+    // Lọc và giới hạn kết quả
+    const filtered = dataKeys
+      .filter(key => {
+        // Tìm kiếm không phân biệt hoa thường
+        const normalizedKey = key.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const normalizedInput = focusedValue.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return normalizedKey.includes(normalizedInput);
+      })
+      .slice(0, 25); // Giới hạn của Discord
+
+    // Kiểm tra trạng thái interaction trước khi phản hồi
+    if (!interaction.responded) {
+      await interaction.respond(
+        filtered.map(key => ({
+          name: key.length > 100 ? `${key.substring(0, 97)}...` : key, // Giới hạn độ dài
+          value: key.length > 100 ? key.substring(0, 100) : key // Đảm bảo value không quá dài
+        }))
+      );
+    }
+  } catch (error) {
+    console.error(`Lỗi xử lý autocomplete cho command ${interaction.commandName}:`, {
+      error: error.message,
+      stack: error.stack,
+      interactionId: interaction.id,
+      userId: interaction.user.id
+    });
+
+    // Không cần xử lý thêm vì autocomplete đã fail
   }
 }
 
