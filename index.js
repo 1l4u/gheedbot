@@ -165,35 +165,35 @@ const commands = [
   .addIntegerOption(option =>
     option.setName('add_max')
           .setDescription('Add Max Damage')
-          .setRequired(true)),
-  new SlashCommandBuilder()
-    .setName('dmgcal2')
-    .setDescription('Tính dmg vũ khí')
-    .addIntegerOption(option =>
-      option.setName('item')
-            .setDescription('Tên item')
-            .setRequired(true)
-            .setAutocomplete(true))
-    .addIntegerOption(option =>
-      option.setName('enhanced')
-            .setDescription('Enhanced Damage')
-            .setRequired(true))
-    .addIntegerOption(option =>
-      option.setName('add_min')
-            .setDescription('Add Min Damage')
-            .setRequired(true))
-    .addIntegerOption(option =>
-      option.setName('add_max')
-            .setDescription('Add Max Damage')
-            .setRequired(true))
-    .addIntegerOption(option =>
-      option.setName('add_max_lvl')
-            .setDescription('Add Max Damage per Level')
-            .setRequired(true))
-    .addIntegerOption(option =>
-      option.setName('ed_max_lvl')
-            .setDescription('Enhanced Damage per Level')
-            .setRequired(true))
+          .setRequired(true))
+  // new SlashCommandBuilder()
+  //   .setName('dmgcal2')
+  //   .setDescription('Tính dmg vũ khí')
+  //   .addIntegerOption(option =>
+  //     option.setName('item')
+  //           .setDescription('Tên item')
+  //           .setRequired(true)
+  //           .setAutocomplete(true))
+  //   .addIntegerOption(option =>
+  //     option.setName('enhanced')
+  //           .setDescription('Enhanced Damage')
+  //           .setRequired(true))
+  //   .addIntegerOption(option =>
+  //     option.setName('add_min')
+  //           .setDescription('Add Min Damage')
+  //           .setRequired(true))
+  //   .addIntegerOption(option =>
+  //     option.setName('add_max')
+  //           .setDescription('Add Max Damage')
+  //           .setRequired(true))
+  //   .addIntegerOption(option =>
+  //     option.setName('add_max_lvl')
+  //           .setDescription('Add Max Damage per Level')
+  //           .setRequired(true))
+  //   .addIntegerOption(option =>
+  //     option.setName('ed_max_lvl')
+  //           .setDescription('Enhanced Damage per Level')
+  //           .setRequired(true))
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -293,9 +293,9 @@ if (interaction.isAutocomplete()) {
       case 'dmgcal' :
         await handleDmgCalculator(interaction);
         break;
-      case 'dmgcal2' :
-        await handleDmgCalculator2(interaction);
-        break;
+      // case 'dmgcal2' :
+      //   await handleDmgCalculator2(interaction);
+      //   break;
       default:
         await interaction.reply({
           content: 'Lệnh không được hỗ trợ',
