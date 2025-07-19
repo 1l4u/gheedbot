@@ -5,6 +5,6 @@
     "allowedChannels": ["1361772596303237212"],
     "allowedRoles": ["1371860537356324995", "1362362087501860954"],
     "imageExtensions": [".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp",".svg",".heic",".heif",".tiff",".tif","raw",".cr2",".nef",".arw","dng","ico",".psd",".ai",".indd",".eps",".jfif",".exr",".dds",".apng"],
-    "allowedCommand": ["rw", "wiki", "search", "chance", "hotkey", "hardcore", "list", "tas", "ias", "botsetup", "pd2info"],
+    "allowedCommand": ["rw", "wiki", "search", "chance", "hotkey", "hardcore", "list", "tas", "ias", "pd2info"],
     "prefix": ["/"]
   }
