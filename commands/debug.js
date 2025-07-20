@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { checkCommandPermissions, replyPermissionError } = require('../utils/permissions');
+const { checkCommandPermissions } = require('../utils/permissions');
 const config = require('../config.json');
 
 /**
@@ -10,18 +10,23 @@ const config = require('../config.json');
  */
 async function handleSlashDebug(interaction, client) {
   console.log(`🔍 Debug command called by ${interaction.user.tag}`);
-  
+
+  // Defer reply để tránh timeout
+  await interaction.deferReply({ flags: 1 << 6 });
+
   // Kiểm tra permissions - yêu cầu role, không yêu cầu channel cụ thể
   const permissionCheck = checkCommandPermissions(interaction, {
     requireChannel: false, // Debug có thể dùng ở bất kỳ đâu
     requireRole: true      // Nhưng cần có role được phép
   });
-  
+
   if (!permissionCheck.allowed) {
     console.log(`❌ Debug permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
-    return await replyPermissionError(interaction, permissionCheck.reason);
+    return await interaction.editReply({
+      content: permissionCheck.reason
+    });
   }
-  
+
   try {
     console.log(`🔍 Starting debug response...`);
     
@@ -49,22 +54,16 @@ async function handleSlashDebug(interaction, client) {
       .setTimestamp()
       .setFooter({ text: `Requested by ${interaction.user.tag}` });
 
-    await interaction.reply({
-      embeds: [embed],
-      flags: 1 << 6 // Ephemeral
+    await interaction.editReply({
+      embeds: [embed]
     });
-    
+
     console.log(`✅ Debug response sent successfully`);
   } catch (error) {
     console.error('❌ Debug command error:', error);
-    try {
-      await interaction.reply({
-        content: 'Lỗi khi thực hiện debug command',
-        flags: 1 << 6
-      });
-    } catch (replyError) {
-      console.error('❌ Failed to send error reply:', replyError);
-    }
+    await interaction.editReply({
+      content: 'Lỗi khi thực hiện debug command'
+    });
   }
 }
 

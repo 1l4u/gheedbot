@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const { checkCommandPermissions, replyPermissionError } = require('../utils/permissions');
+const { checkCommandPermissions } = require('../utils/permissions');
 
 /**
  * Crit Chance calculator command
@@ -7,16 +7,21 @@ const { checkCommandPermissions, replyPermissionError } = require('../utils/perm
  */
 async function handleSlashCritChance(interaction) {
   console.log(`🔧 CritChance command called by ${interaction.user.tag}`);
-  
+
+  // Defer reply để tránh timeout
+  await interaction.deferReply({ flags: 1 << 6 });
+
   // Kiểm tra permissions - chỉ yêu cầu channel, không cần role
   const permissionCheck = checkCommandPermissions(interaction, {
     requireChannel: true,
     requireRole: false
   });
-  
+
   if (!permissionCheck.allowed) {
     console.log(`❌ CritChance permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
-    return await replyPermissionError(interaction, permissionCheck.reason);
+    return await interaction.editReply({
+      content: permissionCheck.reason
+    });
   }
 
   try {
@@ -24,7 +29,14 @@ async function handleSlashCritChance(interaction) {
     const cs = interaction.options.getInteger('cs');
     const wm = interaction.options.getInteger('wm');
 
-    const totalCrit = Math.min(1 - ((1 - DS) * (1 - CS) * (1 - WM)));
+    // Convert to decimal for calculation
+    const dsDecimal = ds / 100;
+    const csDecimal = cs / 100;
+    const wmDecimal = wm / 100;
+
+    // Calculate total crit chance using the formula: 1 - [(1 - DS) × (1 - CS) × (1 - WM)]
+    const totalCritDecimal = 1 - ((1 - dsDecimal) * (1 - csDecimal) * (1 - wmDecimal));
+    const totalCrit = Math.floor(totalCritDecimal * 100); // Convert back to percentage and round down
     const effectiveCrit = Math.min(totalCrit, 95); // Cap at 95%
 
     const embed = new EmbedBuilder()
@@ -38,17 +50,15 @@ async function handleSlashCritChance(interaction) {
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
-    await interaction.reply({
-      embeds: [embed],
-      flags: 1 << 6
+    await interaction.editReply({
+      embeds: [embed]
     });
-    
+
     console.log(`✅ CritChance response sent`);
   } catch (error) {
     console.error('❌ CritChance command error:', error);
-    await interaction.reply({
-      content: 'Đã xảy ra lỗi khi tính toán crit chance',
-      flags: 1 << 6
+    await interaction.editReply({
+      content: 'Đã xảy ra lỗi khi tính toán crit chance'
     });
   }
 }
@@ -59,16 +69,21 @@ async function handleSlashCritChance(interaction) {
  */
 async function handleSlashTas(interaction) {
   console.log(`🔧 TAS command called by ${interaction.user.tag}`);
-  
+
+  // Defer reply để tránh timeout
+  await interaction.deferReply({ flags: 1 << 6 });
+
   // Kiểm tra permissions - chỉ yêu cầu channel, không cần role
   const permissionCheck = checkCommandPermissions(interaction, {
     requireChannel: true,
     requireRole: false
   });
-  
+
   if (!permissionCheck.allowed) {
     console.log(`❌ TAS permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
-    return await replyPermissionError(interaction, permissionCheck.reason);
+    return await interaction.editReply({
+      content: permissionCheck.reason
+    });
   }
 
   try {
@@ -88,17 +103,15 @@ async function handleSlashTas(interaction) {
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
-    await interaction.reply({
-      embeds: [embed],
-      flags: 1 << 6
+    await interaction.editReply({
+      embeds: [embed]
     });
-    
+
     console.log(`✅ TAS response sent`);
   } catch (error) {
     console.error('❌ TAS command error:', error);
-    await interaction.reply({
-      content: 'Đã xảy ra lỗi khi tính toán TAS',
-      flags: 1 << 6
+    await interaction.editReply({
+      content: 'Đã xảy ra lỗi khi tính toán TAS'
     });
   }
 }
@@ -109,16 +122,21 @@ async function handleSlashTas(interaction) {
  */
 async function handleSlashIas(interaction) {
   console.log(`🔧 IAS command called by ${interaction.user.tag}`);
-  
+
+  // Defer reply để tránh timeout
+  await interaction.deferReply({ flags: 1 << 6 });
+
   // Kiểm tra permissions - chỉ yêu cầu channel, không cần role
   const permissionCheck = checkCommandPermissions(interaction, {
     requireChannel: true,
     requireRole: false
   });
-  
+
   if (!permissionCheck.allowed) {
     console.log(`❌ IAS permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
-    return await replyPermissionError(interaction, permissionCheck.reason);
+    return await interaction.editReply({
+      content: permissionCheck.reason
+    });
   }
 
   try {
@@ -136,17 +154,15 @@ async function handleSlashIas(interaction) {
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
-    await interaction.reply({
-      embeds: [embed],
-      flags: 1 << 6
+    await interaction.editReply({
+      embeds: [embed]
     });
-    
+
     console.log(`✅ IAS response sent`);
   } catch (error) {
     console.error('❌ IAS command error:', error);
-    await interaction.reply({
-      content: 'Đã xảy ra lỗi khi tính toán IAS',
-      flags: 1 << 6
+    await interaction.editReply({
+      content: 'Đã xảy ra lỗi khi tính toán IAS'
     });
   }
 }
@@ -157,16 +173,21 @@ async function handleSlashIas(interaction) {
  */
 async function handleDmgCalculator(interaction) {
   console.log(`🔧 DmgCalculator command called by ${interaction.user.tag}`);
-  
+
+  // Defer reply để tránh timeout
+  await interaction.deferReply({ flags: 1 << 6 });
+
   // Kiểm tra permissions - chỉ yêu cầu channel, không cần role
   const permissionCheck = checkCommandPermissions(interaction, {
     requireChannel: true,
     requireRole: false
   });
-  
+
   if (!permissionCheck.allowed) {
     console.log(`❌ DmgCalculator permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
-    return await replyPermissionError(interaction, permissionCheck.reason);
+    return await interaction.editReply({
+      content: permissionCheck.reason
+    });
   }
 
   try {
@@ -190,17 +211,15 @@ async function handleDmgCalculator(interaction) {
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
-    await interaction.reply({
-      embeds: [embed],
-      flags: 1 << 6
+    await interaction.editReply({
+      embeds: [embed]
     });
-    
+
     console.log(`✅ DmgCalculator response sent`);
   } catch (error) {
     console.error('❌ DmgCalculator command error:', error);
-    await interaction.reply({
-      content: 'Đã xảy ra lỗi khi tính toán damage',
-      flags: 1 << 6
+    await interaction.editReply({
+      content: 'Đã xảy ra lỗi khi tính toán damage'
     });
   }
 }

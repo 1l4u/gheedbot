@@ -385,16 +385,39 @@ const autocompleteSources = {
   // Có thể thêm các nguồn dữ liệu khác ở đây
 };
 
+// Cache để tránh duplicate autocomplete calls
+const autocompleteCache = new Map();
+const CACHE_DURATION = 1000; // 1 second
+
 // Hàm xử lý autocomplete được tối ưu
 async function handleAutocomplete(interaction) {
   // Kiểm tra interaction hợp lệ
   if (!interaction.isAutocomplete()) return;
+
+  // Kiểm tra nếu interaction đã được responded
+  if (interaction.responded) {
+    console.log('Autocomplete interaction already responded, skipping...');
+    return;
+  }
 
   try {
     // Lấy thông tin command và giá trị nhập
     const commandName = interaction.commandName;
     const focusedOption = interaction.options.getFocused(true);
     const userInput = focusedOption.value.toLowerCase();
+
+    // Tạo cache key
+    const cacheKey = `${commandName}:${userInput}:${interaction.user.id}`;
+    const now = Date.now();
+
+    // Kiểm tra cache để tránh duplicate calls
+    if (autocompleteCache.has(cacheKey)) {
+      const cached = autocompleteCache.get(cacheKey);
+      if (now - cached.timestamp < CACHE_DURATION) {
+        console.log(`🔄 Skipping duplicate autocomplete for: ${cacheKey}`);
+        return;
+      }
+    }
 
     // Lấy data source tương ứng
     const dataSource = autocompleteSources[commandName];
@@ -406,16 +429,24 @@ async function handleAutocomplete(interaction) {
       .slice(0, 25) // Discord giới hạn 25 choices
       .map(choice => ({ name: choice, value: choice }));
 
-    // Respond với choices
-    await interaction.respond(choices);
+    // Cache result
+    autocompleteCache.set(cacheKey, { timestamp: now, choices });
+
+    // Clean old cache entries
+    for (const [key, value] of autocompleteCache.entries()) {
+      if (now - value.timestamp > CACHE_DURATION) {
+        autocompleteCache.delete(key);
+      }
+    }
+
+    // Respond với choices (chỉ nếu chưa responded)
+    if (!interaction.responded) {
+      await interaction.respond(choices);
+    }
   } catch (error) {
     console.error('Lỗi trong handleAutocomplete:', error);
-    // Không throw error để tránh crash bot
-    try {
-      await interaction.respond([]);
-    } catch (respondError) {
-      console.error('Lỗi khi respond autocomplete rỗng:', respondError);
-    }
+    // Không cố gắng respond lại nếu đã bị lỗi
+    // Chỉ log error để debug
   }
 }
 
