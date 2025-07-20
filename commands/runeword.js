@@ -37,15 +37,15 @@ async function handleSlashRuneword(interaction) {
       .setColor('#0099ff')
       .setTitle(`🏺 ${name}`)
       .addFields(
-        { name: 'Runes', value: runeword.runes || 'N/A', inline: true },
-        { name: 'Item Types', value: runeword.itemtypes || 'N/A', inline: true },
-        { name: 'Required Level', value: runeword.rlvl?.toString() || 'N/A', inline: true }
+        { name: '', value: runeword.name || 'N/A'},
+        { name: 'Item Types', value: runeword.types || 'N/A'},
+        { name: 'Required Level', value: runeword.level?.toString() || 'N/A'}
       );
 
-    if (runeword.properties && runeword.properties.length > 0) {
+    if (runeword.options && runeword.options.length > 0) {
       embed.addFields({
         name: 'Properties',
-        value: runeword.properties.join('\n'),
+        value: runeword.options.join('\n'),
         inline: false
       });
     }

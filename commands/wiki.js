@@ -35,22 +35,12 @@ async function handleSlashWiki(interaction) {
 
     const embed = new EmbedBuilder()
       .setColor('#ff6600')
-      .setTitle(`📖 ${name}`)
-      .setDescription(wikiItem.description || 'Không có mô tả');
-
-    // Thêm các fields khác nếu có
-    if (wikiItem.type) {
-      embed.addFields({ name: 'Type', value: wikiItem.type, inline: true });
-    }
-    
-    if (wikiItem.level) {
-      embed.addFields({ name: 'Level', value: wikiItem.level.toString(), inline: true });
-    }
+      .setTitle(`📖 ${name}`);
     
     if (wikiItem.properties && wikiItem.properties.length > 0) {
       embed.addFields({
-        name: 'Properties',
-        value: wikiItem.properties.join('\n'),
+        name: '',
+        value: wikiItem.text.join('\n'),
         inline: false
       });
     }
