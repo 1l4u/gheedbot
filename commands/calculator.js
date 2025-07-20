@@ -24,7 +24,7 @@ async function handleSlashCritChance(interaction) {
     const cs = interaction.options.getInteger('cs');
     const wm = interaction.options.getInteger('wm');
 
-    const totalCrit = ds + cs + wm;
+    const totalCrit = Math.min(1 - ((1 - DS) * (1 - CS) * (1 - WM)));
     const effectiveCrit = Math.min(totalCrit, 95); // Cap at 95%
 
     const embed = new EmbedBuilder()

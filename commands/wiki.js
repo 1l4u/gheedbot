@@ -36,13 +36,21 @@ async function handleSlashWiki(interaction) {
     const embed = new EmbedBuilder()
       .setColor('#ff6600')
       .setTitle(`📖 ${name}`);
-    
-    if (wikiItem.properties && wikiItem.properties.length > 0) {
+
+    if (wikiItem.text && Array.isArray(wikiItem.text)) {
       embed.addFields({
-        name: '',
+        name: 'Information',
         value: wikiItem.text.join('\n'),
         inline: false
       });
+    } else if (typeof wikiItem.text === 'string') {
+      embed.addFields({
+        name: 'Information',
+        value: wikiItem.text,
+        inline: false
+      });
+    } else {
+      embed.setDescription('Không có thông tin chi tiết');
     }
 
     if (wikiItem.url) {
