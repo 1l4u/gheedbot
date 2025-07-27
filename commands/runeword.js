@@ -47,11 +47,52 @@ async function handleSlashRuneword(interaction) {
       );
 
     if (runeword.option && runeword.option.length > 0) {
-      embed.addFields({
-        name: 'Properties',
-        value: runeword.option.join('\n'),
-        inline: false
-      });
+      const propertiesText = runeword.option.join('\n');
+
+      // Chia properties thành nhiều fields nếu quá dài
+      const maxFieldLength = 1024;
+
+      if (propertiesText.length <= maxFieldLength) {
+        embed.addFields([{
+          name: 'Properties',
+          value: propertiesText,
+          inline: false
+        }]);
+      } else {
+        // Chia thành nhiều parts
+        let remainingText = propertiesText;
+        let partNumber = 1;
+
+        while (remainingText.length > 0 && partNumber <= 3) {
+          let chunk = remainingText.substring(0, maxFieldLength);
+
+          // Tìm vị trí ngắt dòng gần nhất
+          if (remainingText.length > maxFieldLength) {
+            const lastNewline = chunk.lastIndexOf('\n');
+            if (lastNewline > 0) {
+              chunk = chunk.substring(0, lastNewline);
+            }
+          }
+
+          embed.addFields([{
+            name: partNumber === 1 ? '' : ``,
+            value: chunk,
+            inline: false
+          }]);
+
+          remainingText = remainingText.substring(chunk.length).trim();
+          partNumber++;
+        }
+
+        // Nếu vẫn còn text, thêm note
+        if (remainingText.length > 0) {
+          embed.addFields([{
+            name: 'Lưu ý',
+            value: '',
+            inline: false
+          }]);
+        }
+      }
     }
 
     await interaction.editReply({

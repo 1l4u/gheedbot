@@ -1,0 +1,72 @@
+{
+    "Amazon" :{
+        "Strength" : "20",
+        "Dexterity" : "25",
+        "Vitality" : "20",
+        "Energy" : "15",
+        "Life" : "50 | +2/lvl | +3/vitality",
+        "Mana" : "15 | +2/lvl | +1.5/energy",
+        "Attack Rating" : "95 | +5/dexterity",
+        "Defense" : "6 | +0.25/dexterity"
+    },
+    "Assassin" :{
+        "Strength" : "20",
+        "Dexterity" : "20",
+        "Vitality" : "20",
+        "Energy" : "25",
+        "Life" : "50 | +2/lvl | +3/vitality",
+        "Mana" : "15 | +2/lvl | +1.75/energy",
+        "Attack Rating" : "80 | +5/dexterity",
+        "Defense" : "5 | +0.25/dexterity"
+    },
+    "Barbarian" :{
+        "Strength" : "30",
+        "Dexterity" : "20",
+        "Vitality" : "25",
+        "Energy" : "10",
+        "Life" : "55 | +2/lvl | +4/vitality",
+        "Mana" : "15 | +1.5/lvl | +1/energy",
+        "Attack Rating" : "85 | +5/dexterity",
+        "Defense" : "5 | +0.25/dexterity"
+    },
+    "Druid" :{
+        "Strength" : "15",
+        "Dexterity" : "20",
+        "Vitality" : "25",
+        "Energy" : "20",
+        "Life" : "55 | +1.5/lvl | +2/vitality",
+        "Mana" : "15 | +2/lvl | +2/energy",
+        "Attack Rating" : "70 | +5/dexterity",
+        "Defense" : "5 | +0.25/dexterity"
+    },
+    "Necromancer" :{
+        "Strength" : "15",
+        "Dexterity" : "25",
+        "Vitality" : "15",
+        "Energy" : "25",
+        "Life" : "45 | +1.5/lvl | +2/vitality",
+        "Mana" : "25 | +2/lvl | +2/energy",
+        "Attack Rating" : "80 | +5/dexterity",
+        "Defense" : "6 | +0.25/dexterity"
+    },
+    "Paladin" :{
+        "Strength" : "25",
+        "Dexterity" : "20",
+        "Vitality" : "25",
+        "Energy" : "15",
+        "Life" : "55 | +2/lvl | +3/vitality",
+        "Mana" : "15 | +2/lvl | +1.5/energy",
+        "Attack Rating" : "85 | +5/dexterity",
+        "Defense" : "6 | +0.25/dexterity"
+    },
+    "Sorceress" :{
+        "Strength" : "10",
+        "Dexterity" : "25",
+        "Vitality" : "10",
+        "Energy" : "35",
+        "Life" : "40 | +1/lvl | +2/vitality",
+        "Mana" : "35 | +2/lvl | +2/energy",
+        "Attack Rating" : "75 | +5/dexterity",
+        "Defense" : "6 | +0.25/dexterity"
+    }
+}
