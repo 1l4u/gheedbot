@@ -1,5 +1,5 @@
-{
-	"Nadir": {
+[
+	{
 		"name": "Nadir - Nef Tir",
 		"types": ["Helms"],
 		"option": [
@@ -14,7 +14,7 @@
 		],
 		"level": "13"
 	},
-	"Radiance": {
+	{
 		"name": "Radiance - Nef Sol Ith",
 		"types": ["Helms"],
 		"option": [
@@ -30,7 +30,7 @@
 		],
 		"level": "27"
 	},
-	"Lore": {
+	{
 		"name": "Lore - Ort Sol",
 		"types": ["Helms"],
 		"option": [
@@ -43,7 +43,7 @@
 		],
 		"level": "27"
 	},
-	"Wisdom": {
+	{
 		"name": "Wisdom - Pul Ith Eld",
 		"types": ["Helms"],
 		"option": [
@@ -59,7 +59,7 @@
 		],
 		"level": "45"
 	},
-	"Delirium": {
+	{
 		"name": "Delirium - Lem Ist Io",
 		"types": ["Helms"],
 		"option": [
@@ -75,7 +75,7 @@
 		],
 		"level": "Required Level: 51"
 	},
-	"Flickering Flame": {
+	{
 		"name": "Flickering Flame - Nef Pul Vex",
 		"types": ["Helms"],
 		"option": [
@@ -90,43 +90,41 @@
 		],
 		"level": "55"
 	},
-	"Dream": [
-		{
-			"name": "Dream - Io Jah Pul",
-			"types": ["Helms"],
-			"option": [
-				"10% Chance to Cast Level 15 Confuse when Struck",
-				"Level 14 Holy Shock Aura when Equipped",
-				"+[20-30]% Faster Hit Recovery",
-				"+30% Enhanced Defense",
-				"+[150-220] Defense",
-				"+10 to Vitality",
-				"Increase Maximum Life 5%",
-				"+[0-61] to Mana (+0.625 per Character Level)",
-				"All Resistances +[10-20] ",
-				"[20-30]% Better Chance of Getting Magic Items"
-			],
-			"level": "65"
-		},
-		{
-			"name": "Dream - Io Jah Pul",
-			"types": ["Shield"],
-			"option": [
-				"10% Chance to Cast Level 15 Confuse when Struck",
-				"Level 13 Holy Shock Aura when Equipped",
-				"+[20-30]% Faster Hit Recovery",
-				"+30% Enhanced Defense",
-				"+[150-220] Defense",
-				"+10 to Vitality",
-				"+75 to Life ",
-				"+[0-61] to Mana (+0.625 per Character Level)",
-				"All Resistances +[10-20] ",
-				"[20-30]% Better Chance of Getting Magic Items"
-			],
-			"level": "65"
-		}
-	],
-	"Ferocity": {
+	{
+		"name": "Dream - Io Jah Pul",
+		"types": ["Helms"],
+		"option": [
+			"10% Chance to Cast Level 15 Confuse when Struck",
+			"Level 14 Holy Shock Aura when Equipped",
+			"+[20-30]% Faster Hit Recovery",
+			"+30% Enhanced Defense",
+			"+[150-220] Defense",
+			"+10 to Vitality",
+			"Increase Maximum Life 5%",
+			"+[0-61] to Mana (+0.625 per Character Level)",
+			"All Resistances +[10-20] ",
+			"[20-30]% Better Chance of Getting Magic Items"
+		],
+		"level": "65"
+	},
+	{
+		"name": "Dream - Io Jah Pul",
+		"types": ["Shield"],
+		"option": [
+			"10% Chance to Cast Level 15 Confuse when Struck",
+			"Level 13 Holy Shock Aura when Equipped",
+			"+[20-30]% Faster Hit Recovery",
+			"+30% Enhanced Defense",
+			"+[150-220] Defense",
+			"+10 to Vitality",
+			"+75 to Life ",
+			"+[0-61] to Mana (+0.625 per Character Level)",
+			"All Resistances +[10-20] ",
+			"[20-30]% Better Chance of Getting Magic Items"
+		],
+		"level": "65"
+	},
+	{
 		"name": "Ferocity - Zod Cham Shael",
 		"types": ["Helms"],
 		"option": [
@@ -142,7 +140,7 @@
 		],
 		"level": "69"
 	},
-	"Stealth": {
+	{
 		"name": "Stealth - Tal Eth",
 		"types": ["Armors"],
 		"option": [
@@ -157,7 +155,7 @@
 		],
 		"level": "17"
 	},
-	"Peace": {
+	{
 		"name": "Peace - Shael Thul Amn",
 		"types": ["Armors"],
 		"option": [
@@ -171,7 +169,7 @@
 		],
 		"level": "29"
 	},
-	"Myth": {
+	{
 		"name": "Myth - Hel Amn Nef",
 		"types": ["Armors"],
 		"option": [
@@ -187,7 +185,7 @@
 		],
 		"level": "25"
 	},
-	"Smoke": {
+	{
 		"name": "Smoke - Nef Lum",
 		"types": ["Armors"],
 		"option": [
@@ -201,7 +199,7 @@
 		],
 		"level": "37"
 	},
-	"Hustle": {
+	{
 		"name": "Hustle - Shael Ko Eld",
 		"types": ["Armors"],
 		"option": [
@@ -215,7 +213,7 @@
 		],
 		"level": "39"
 	},
-	"Lionheart": {
+	{
 		"name": "Lionheart - Hel Lum Fal",
 		"types": ["Armors"],
 		"option": [
@@ -230,7 +228,7 @@
 		],
 		"level": "41"
 	},
-	"Treachery": {
+	{
 		"name": "Treachery - Shael Thul Amn",
 		"types": ["Armors"],
 		"option": [
@@ -244,7 +242,7 @@
 		],
 		"level": "43"
 	},
-	"Wealth": {
+	{
 		"name": "Wealth - Lem Ko Tir",
 		"types": ["Armors"],
 		"option": [
@@ -255,7 +253,7 @@
 		],
 		"level": "43"
 	},
-	"Enlightenment": {
+	{
 		"name": "Enlightenment - Pul Ral Sol",
 		"types": ["Armors"],
 		"option": [
@@ -270,7 +268,7 @@
 		],
 		"level": "45"
 	},
-	"Duress": {
+	{
 		"name": "Duress - Shael Um Thul",
 		"types": ["Armors"],
 		"option": [
@@ -288,7 +286,7 @@
 		],
 		"level": "47"
 	},
-	"Stone": {
+	{
 		"name": "Stone - Shael Um Pul Lum",
 		"types": ["Armors"],
 		"option": [
@@ -305,7 +303,7 @@
 		],
 		"level": "47"
 	},
-	"Gloom": {
+	{
 		"name": "Gloom - Fal Um Pul",
 		"types": ["Armors"],
 		"option": [
@@ -320,7 +318,7 @@
 		],
 		"level": "47"
 	},
-	"Bone": {
+	{
 		"name": "Bone - Sol Um Um",
 		"types": ["Armors"],
 		"option": [
@@ -333,7 +331,7 @@
 		],
 		"level": "47"
 	},
-	"Prudence": {
+	{
 		"name": "Prudence - Mal Tir",
 		"types": ["Armors"],
 		"option": [
@@ -348,7 +346,7 @@
 		],
 		"level": "49"
 	},
-	"Rain": {
+	{
 		"name": "Rain - Ort Mal Ith",
 		"types": ["Armors"],
 		"option": [
@@ -362,7 +360,7 @@
 		],
 		"level": "49"
 	},
-	"Principle": {
+	{
 		"name": "Principle - Ral Gul Eld",
 		"types": ["Armors"],
 		"option": [
@@ -377,7 +375,6 @@
 		],
 		"level": "53"
 	},
-	"Fortitude": [
 		{
 			"name": "Fortitude - El Sol Dol Lo",
 			"types": ["Armors"],
@@ -412,27 +409,27 @@
 				"+1 to Light Radius "
 			],
 			"level": "59"
+		},
+	[
+		{
+			"name": "Bramble - Ral Ohm Sur Eth",
+			"types": ["Armors"],
+			"option": [
+				"Level [18-21] Thorns Aura when Equipped ",
+				"+50% Faster Hit Recovery ",
+				"+[40-50]% to Poison Skill Damage ",
+				"+300 Defense ",
+				"Increase Maximum Mana 5% ",
+				"Regenerate Mana 15% ",
+				"+4% to Maximum Cold Resist ",
+				"Fire Resist +30% ",
+				"Poison Resist +100% ",
+				"+[4-6] Life after each Kill ",
+				"Level 13 Spirit of Barbs (33 Charges) "
+			],
+			"level": "61"
 		}
 	],
-	"Bramble": {
-		"name": "Bramble - Ral Ohm Sur Eth",
-		"types": ["Armors"],
-		"option": [
-			"Level [18-21] Thorns Aura when Equipped ",
-			"+50% Faster Hit Recovery ",
-			"+[40-50]% to Poison Skill Damage ",
-			"+300 Defense ",
-			"Increase Maximum Mana 5% ",
-			"Regenerate Mana 15% ",
-			"+4% to Maximum Cold Resist ",
-			"Fire Resist +30% ",
-			"Poison Resist +100% ",
-			"+[4-6] Life after each Kill ",
-			"Level 13 Spirit of Barbs (33 Charges) "
-		],
-		"level": "61"
-	},
-	"Dragon": [
 		{
 			"name": "Dragon - Sur Lo Sol",
 			"types": ["Armors"],
@@ -467,8 +464,8 @@
 			],
 			"level": "61"
 		}
-	],
-	"coh": {
+	,
+	{
 		"name": "Chains of Honor - Dol Um Ber Ist",
 		"types": ["Armors"],
 		"option": [
@@ -485,24 +482,7 @@
 		],
 		"level": "63"
 	},
-	"Chains of Honor": {
-		"name": "Chains of Honor - Dol Um Ber Ist",
-		"types": ["Armors"],
-		"option": [
-			"+2 to All Skills ",
-			"+200% Damage to Demons ",
-			"+200% Damage to Undead ",
-			"8% Life Stolen per Hit ",
-			"+70% Enhanced Defense ",
-			"+20 to Strength ",
-			"Replenish Life +10 ",
-			"All Resistances +[50-60] ",
-			"Physical Damage Taken Reduced by 5% ",
-			"30% Better Chance of Getting Magic Items "
-		],
-		"level": "63"
-	},
-	"Enigma": {
+	{
 		"name": "Enigma - Jah Ith Ber",
 		"types": ["Armors"],
 		"option": [
@@ -519,7 +499,7 @@
 		],
 		"level": "65"
 	},
-	"Innocence": {
+	{
 		"name": "Innocence - Gul Lem Zod Hel",
 		"types": ["Armors"],
 		"option": [
@@ -536,7 +516,7 @@
 		],
 		"level": "59"
 	},
-	"Ancient's Pledge": {
+	{
 		"name": "Ancient's Pledge - Ral Ort Tal",
 		"types": ["Shield"],
 		"option": [
@@ -549,7 +529,6 @@
 		],
 		"level": "21"
 	},
-	"Spirit": [
 		{
 			"name": "Spirit - Tal Thul Ort Amn",
 			"types": ["Shield"],
@@ -588,8 +567,8 @@
 			],
 			"level": "25"
 		}
-	],
-	"Rhyme": {
+	,
+	{
 		"name": "Rhyme - Shael Eth",
 		"types": ["Shield"],
 		"option": [
@@ -603,7 +582,7 @@
 		],
 		"level": "29"
 	},
-	"Splendor": {
+	{
 		"name": "Splendor - Eth Lum",
 		"types": ["Shield"],
 		"option": [
@@ -619,7 +598,7 @@
 		],
 		"level": "37"
 	},
-	"Sanctuary": {
+	{
 		"name": "Sanctuary - Ko Ko Mal",
 		"types": ["Shield"],
 		"option": [
@@ -635,7 +614,7 @@
 		],
 		"level": "49"
 	},
-	"Exile": {
+	{
 		"name": "Exile - Vex Ohm Ist Dol",
 		"types": ["Shield"],
 		"option": [
@@ -653,7 +632,7 @@
 		],
 		"level": "57"
 	},
-	"Phoenix": [
+	
 		{
 			"name": "Phoenix - Vex Vex Lo Jah",
 			"types": ["Shield"],
@@ -688,8 +667,8 @@
 			],
 			"level": "65"
 		}
-	],
-	"Shattered Wall": {
+	,
+	{
 		"name": "Shattered Wall - Zod Jah Ral Cham",
 		"types": ["Paladin Shield"],
 		"option": [
@@ -705,7 +684,7 @@
 		],
 		"level": "69"
 	},
-	"Steel": {
+	{
 		"name": "Steel - Tir El",
 		"types": ["Swords", "Axes", "Maces", "Claws", "Throws"],
 		"option": [
@@ -720,7 +699,7 @@
 		],
 		"level": "13"
 	},
-	"Malice": {
+	{
 		"name": "Malice - Ith El Eth",
 		"types": ["Melee Weapons", "Throws"],
 		"option": [
@@ -736,7 +715,7 @@
 		],
 		"level": "15"
 	},
-	"Leaf": {
+	{
 		"name": "Leaf - Tir Ral",
 		"types": ["Staves"],
 		"option": [
@@ -751,7 +730,7 @@
 		],
 		"level": "19"
 	},
-	"Pattern": {
+	{
 		"name": "Pattern - Tal Ort Tir",
 		"types": ["Claws"],
 		"option": [
@@ -768,7 +747,7 @@
 		],
 		"level": "21"
 	},
-	"Zephyr": {
+	{
 		"name": "Zephyr - Ort Eth",
 		"types": ["Bows", "Crossbows", "Throws"],
 		"option": [
@@ -783,7 +762,7 @@
 		],
 		"level": "21"
 	},
-	"Holy Thunder": {
+	{
 		"name": "Holy Thunder - Eth Ral Ort Tal",
 		"types": ["Scepters"],
 		"option": [
@@ -800,7 +779,7 @@
 		],
 		"level": "21"
 	},
-	"Neophyte": {
+	{
 		"name": "Neophyte - Thul Tir",
 		"types": ["Orbs", "Claws", "Scepters", "Clubs", "Staves"],
 		"option": [
@@ -814,7 +793,7 @@
 		],
 		"level": "23"
 	},
-	"Strength": {
+	{
 		"name": "Strength - Amn Tir",
 		"types": ["Melee Weapons", "Throws"],
 		"option": [
@@ -827,7 +806,7 @@
 		],
 		"level": "25"
 	},
-	"Edge": {
+	{
 		"name": "Edge - Tir Tal Amn",
 		"types": ["Bows", "Crossbows"],
 		"option": [
@@ -843,7 +822,7 @@
 		],
 		"level": "25"
 	},
-	"King's Grace": {
+	{
 		"name": "King's Grace - Amn Ral Thul",
 		"types": ["Scepters", "Swords", "Claws", "Throws"],
 		"option": [
@@ -859,7 +838,7 @@
 		],
 		"level": "25"
 	},
-	"Purity": {
+	{
 		"name": "Purity - Amn Eth Thul",
 		"types": ["Polearms", "Spears", "Staves", "Bows", "Crossbows"],
 		"option": [
@@ -875,7 +854,7 @@
 		],
 		"level": "25"
 	},
-	"Insight": {
+	{
 		"name": "Insight - Ral Tir Tal Sol",
 		"types": ["Staves", "Polearms", "Spears"],
 		"option": [
@@ -893,7 +872,7 @@
 		],
 		"level": "27"
 	},
-	"Honor": {
+	{
 		"name": "Honor - Amn El Ith Tir Sol",
 		"types": ["Melee Weapons"],
 		"option": [
@@ -911,7 +890,7 @@
 		],
 		"level": "27"
 	},
-	"Rampage": {
+	{
 		"name": "Rampage - Shael El Ith Eth",
 		"types": ["Polearms", "Spears", "Staves"],
 		"option": [
@@ -926,7 +905,7 @@
 		],
 		"level": "29"
 	},
-	"Black": {
+	{
 		"name": "Black - Thul Io Nef",
 		"types": ["Clubs", "Hammers", "Maces", "Claws"],
 		"option": [
@@ -943,7 +922,7 @@
 		],
 		"level": "35"
 	},
-	"White": {
+	{
 		"name": "White - Dol Io",
 		"types": ["Wands"],
 		"option": [
@@ -958,7 +937,7 @@
 		],
 		"level": "35"
 	},
-	"Memory": {
+	{
 		"name": "Memory - Lum Io Sol Eth",
 		"types": ["Staves"],
 		"option": [
@@ -976,7 +955,7 @@
 		],
 		"level": "37"
 	},
-	"Harmony": {
+	{
 		"name": "Harmony - Tir Ith Sol Ko",
 		"types": ["Bows", "Crossbows"],
 		"option": [
@@ -996,7 +975,7 @@
 		],
 		"level": "39"
 	},
-	"Melody": {
+	{
 		"name": "Melody - Shael Ko Nef",
 		"types": ["Bows", "Crossbows"],
 		"option": [
@@ -1012,7 +991,7 @@
 		],
 		"level": "39"
 	},
-	"Unbending Will": {
+	{
 		"name": "Unbending Will - Fal Io Ith Eld El Hel",
 		"types": ["Swords"],
 		"option": [
@@ -1033,7 +1012,7 @@
 		],
 		"level": "41"
 	},
-	"Obedience": {
+	{
 		"name": "Obedience - Hel Ko Thul Eth Fal",
 		"types": ["Polearms", "Spears", "Hammers"],
 		"option": [
@@ -1052,7 +1031,7 @@
 		],
 		"level": "41"
 	},
-	"Passion": {
+	{
 		"name": "Passion - Dol Ort Eld Lem",
 		"types": ["Weapons"],
 		"option": [
@@ -1070,7 +1049,7 @@
 		],
 		"level": "43"
 	},
-	"Voice of Reason": {
+	{
 		"name": "Voice of Reason - Lem Ko El Eld",
 		"types": ["Swords", "Maces", "Bows", "Crossbows", "Scepters"],
 		"option": [
@@ -1089,7 +1068,7 @@
 		],
 		"level": "43"
 	},
-	"Lawbringer": {
+	{
 		"name": "Lawbringer - Amn Lem Ko",
 		"types": ["Hammers", "Scepters", "Swords", "Claws", "Throws"],
 		"option": [
@@ -1106,7 +1085,7 @@
 		],
 		"level": "43"
 	},
-	"Crescent Moon": {
+	{
 		"name": "Crescent Moon - Shael Um Tir",
 		"types": ["Axes", "Swords", "Polearms", "Spears", "Claws", "Throws", "Scepters"],
 		"option": [
@@ -1125,7 +1104,7 @@
 		],
 		"level": "47"
 	},
-	"Venom": {
+	{
 		"name": "Venom - Tal Dol Mal",
 		"types": ["Weapons","Throws"],
 		"option": [
@@ -1141,7 +1120,7 @@
 		],
 		"level": "49"
 	},
-	"Oath": {
+	{
 		"name": "Oath - Shael Pul Mal Lum",
 		"types": ["Swords", "Aces", "Maces"],
 		"option": [
@@ -1159,7 +1138,7 @@
 		],
 		"level": "49"
 	},
-	"Rift": {
+	{
 		"name": "Rift - Hel Ko Lem Gul",
 		"types": ["Scepters", "Polearms", "Spears", "Swords"],
 		"option": [
@@ -1179,7 +1158,7 @@
 		],
 		"level": "53"
 	},
-	"Kingslayer": {
+	{
 		"name": "Kingslayer - Mal Um Gul Fal",
 		"types": ["Swords", "Axes"],
 		"option": [
@@ -1198,7 +1177,7 @@
 		],
 		"level": "53"
 	},
-	"Hoto": {
+	{
 		"name": "Heart of the Oak - Ko Vex Pul Thul",
 		"types": ["Staves", "Maces"],
 		"option": [
@@ -1217,26 +1196,7 @@
 		],
 		"level": "55"
 	},
-	"Heart of the Oak": {
-		"name": "Heart of the Oak - Ko Vex Pul Thul",
-		"types": ["Staves", "Maces"],
-		"option": [
-			"+3 to All Skills ",
-			"+30% Faster Cast Rate ",
-			"+75% Damage to Demons ",
-			"+100 to Attack Rating against Demons ",
-			"Adds 3-14 Cold Damage ",
-			"7% Mana Stolen per Hit ",
-			"+10 to Dexterity ",
-			"Replenish Life +20 ",
-			"Increase Maximum Mana 15% ",
-			"All Resistances +[20-30] ",
-			"Level 4 Oak Sage (25 Charges) ",
-			"Level 14 Raven (60 Charges) "
-		],
-		"level": "55"
-	},
-	"Silence": {
+	{
 		"name": "Silence - Dol Eld Hel Ist Tir Vex",
 		"types": ["Weapons"],
 		"option": [
@@ -1256,7 +1216,7 @@
 		],
 		"level": "55"
 	},
-	"Death": {
+	{
 		"name": "Death - Hel El Vex Ort Gul",
 		"types": ["Swords", "Axes"],
 		"option": [
@@ -1276,7 +1236,7 @@
 		],
 		"level": "55"
 	},
-	"Chaos": {
+	{
 		"name": "Chaos - Fal Ohm Um",
 		"types": ["Claws"],
 		"option": [
@@ -1293,7 +1253,7 @@
 		],
 		"level": "57"
 	},
-	"cta": {
+	{
 		"name": "Call to Arms - Amn Ral Mal Ist Ohm",
 		"types": ["Weapons"],
 		"option": [
@@ -1311,25 +1271,7 @@
 		],
 		"level": "57"
 	},
-	"Call to Arms": {
-		"name": "Call to Arms - Amn Ral Mal Ist Ohm",
-		"types": ["Weapons"],
-		"option": [
-			"+1 to All Skills ",
-			"+40% Increased Attack Speed ",
-			"+[245-285]% Enhanced Damage ",
-			"Adds 5-30 Fire Damage ",
-			"7% Life Stolen per Hit ",
-			"Prevent Monster Heal ",
-			"+[2-6] to Battle Command ",
-			"+[2-6] to Battle Orders ",
-			"+[1-3] to Battle Cry ",
-			"Replenish Life +12 ",
-			"30% Better Chance of Getting Magic Items "
-		],
-		"level": "57"
-	},
-	"Grief": {
+	{
 		"name": "Grief - Eth Tir Lo Mal Ral",
 		"types": ["Swords", "Axes", "Polearms"],
 		"option": [
@@ -1347,7 +1289,7 @@
 		],
 		"level": "59"
 	},
-	"Wind": {
+	{
 		"name": "Wind -  Sur El",
 		"types": ["Melee Weapons", "Throws"],
 		"option": [
@@ -1368,7 +1310,7 @@
 		],
 		"level": "61"
 	},
-	"Wrath": {
+	{
 		"name": "Wrath - Pul Lum Ber Mal",
 		"types": ["Bows", "Crossbows"],
 		"option": [
@@ -1386,7 +1328,7 @@
 		],
 		"level": "63"
 	},
-	"Beast": {
+	{
 		"name": "Beast - Ber Tir Um Mal Lum",
 		"types": ["Axes", "Scepters", "Hammers", "Staves"],
 		"option": [
@@ -1406,7 +1348,7 @@
 		],
 		"level": "63"
 	},
-	"Eternity": {
+	{
 		"name": "Eternity - Amn Ber Ist Sol Sur",
 		"types": ["Melee Weapons"],
 		"option": [
@@ -1423,7 +1365,7 @@
 		],
 		"level": "63"
 	},
-	"Infinity": {
+	{
 		"name": "Infinity - Ber Mal Ber Ist",
 		"types": ["Polearms", "Spears", "Staves"],
 		"option": [
@@ -1443,7 +1385,7 @@
 		],
 		"level": "63"
 	},
-	"Fury": {
+	{
 		"name": "Fury - Jah Gul Eth",
 		"types": ["Melee Weapons", "Throws"],
 		"option": [
@@ -1460,7 +1402,7 @@
 		],
 		"level": "65"
 	},
-	"Famine": {
+	{
 		"name": "Famine - Fal Ohm Ort Jah",
 		"types": ["Axes", "Hammers", "Swords"],
 		"option": [
@@ -1477,7 +1419,7 @@
 		],
 		"level": "65"
 	},
-	"Faith": {
+	{
 		"name": "Faith - Ohm Jah Lem Eld",
 		"types": ["Bows", "Crossbows"],
 		"option": [
@@ -1494,7 +1436,7 @@
 		],
 		"level": "65"
 	},
-	"Ice": {
+	{
 		"name": "Ice - Amm Shael Jah Lo",
 		"types": ["Bows", "Crossbows"],
 		"option": [
@@ -1512,7 +1454,7 @@
 		],
 		"level": "65"
 	},
-	"Brand": {
+	{
 		"name": "Brand - Jah Lo Mal Gul",
 		"types": ["Bows", "Crossbows"],
 		"option": [
@@ -1530,7 +1472,7 @@
 		],
 		"level": "65"
 	},
-	"Destruction": {
+	{
 		"name": "Destruction - Vex Lo Ber Jah Ko",
 		"types": ["Swords", "Polearms", "Spears", "Staves"],
 		"option": [
@@ -1552,7 +1494,7 @@
 		],
 		"level": "65"
 	},
-	"Last Wish": {
+	{
 		"name": "Last Wish - Jah Mal Jah Sur Jah Ber",
 		"types": ["Axes", "Hammers", "Swords", "Staves"],
 		"option": [
@@ -1569,7 +1511,7 @@
 		],
 		"level": "65"
 	},
-	"Rapture": {
+	{
 		"name": "Rapture - Vex Jah Lo Ral Ko Mal",
 		"types": ["Hammers"],
 		"option": [
@@ -1588,7 +1530,7 @@
 		],
 		"level": "65"
 	},
-	"Plague": {
+	{
 		"name": "Plague - Cham Fal Um",
 		"types": ["Weapons","Throws"],
 		"option": [
@@ -1607,7 +1549,7 @@
 		],
 		"level": "67"
 	},
-	"Mist": {
+	{
 		"name": "Mist - Cham Shael Gul Thul Ith",
 		"types": ["Bows", "Crossbows"],
 		"option": [
@@ -1625,7 +1567,7 @@
 		],
 		"level": "67"
 	},
-	"Dominion": {
+	{
 		"name": "Dominion - Cham Ohm",
 		"types": ["Wands"],
 		"option": [
@@ -1642,7 +1584,7 @@
 		],
 		"level": "67"
 	},
-	"Doom": {
+	{
 		"name": "Doom -  Hel Ohm Um Lo Cham",
 		"types": [
 			"Axes",
@@ -1671,7 +1613,7 @@
 		],
 		"level": "67"
 	},
-	"hoj": {
+	{
 		"name": "Hand of Justice - Sur Cham Amn Lo",
 		"types": ["Weapons"],
 		"option": [
@@ -1689,25 +1631,7 @@
 		],
 		"level": "67"
 	},
-	"Hand of Justice": {
-		"name": "Hand of Justice - Sur Cham Amn Lo",
-		"types": ["Weapons"],
-		"option": [
-			"100% Chance to Cast Level 36 Blaze when you Level-Up ",
-			"100% Chance to Cast Level 48 Meteor when you Die ",
-			"Level 12 Holy Fire Aura when Equipped ",
-			"+33% Increased Attack Speed ",
-			"+[280-330]% Enhanced Damage ",
-			"Ignore Target's Defense ",
-			"7% Life Stolen per Hit ",
-			"-[10-20]% to Enemy Fire Resistance ",
-			"20% Deadly Strike ",
-			"+4 Life after each Kill ",
-			"Freezes Target +3 "
-		],
-		"level": "67"
-	},
-	"Pride": {
+	{
 		"name": "Pride - Cham Sur Io Lo",
 		"types": ["Polearms", "Spears", "Staves"],
 		"option": [
@@ -1725,7 +1649,7 @@
 		],
 		"level": "67"
 	},
-	"Asylum": {
+	{
 		"name": "Asylum - Gul Cham Hel Jah Dol Um",
 		"types": [
 			"Hammers",
@@ -1753,7 +1677,7 @@
 		],
 		"level": "67"
 	},
-	"Obsession": {
+	{
 		"name": "Obsession - Zod Ist Lem Lum Io Nef",
 		"types": ["Staves"],
 		"option": [
@@ -1773,7 +1697,7 @@
 		],
 		"level": "69"
 	},
-	"botd": {
+	{
 		"name": "Breath of the Dying - Vex Hel El Eld Zod Eth",
 		"types": ["Weapons"],
 		"option": [
@@ -1794,28 +1718,7 @@
 		],
 		"level": "69"
 	},
-	"Breath of the Dying": {
-		"name": "Breath of the Dying - Vex Hel El Eld Zod Eth",
-		"types": ["Weapons"],
-		"option": [
-			"35% Chance to Cast Level 40 Poison Nova on Striking ",
-			"Indestructible",
-			"+60% Increased Attack Speed ",
-			"+[350-400]% Enhanced Damage ",
-			"-25% Target Defense ",
-			"+50 to Attack Rating ",
-			"+200% Damage to Undead ",
-			"+50 to Attack Rating against Undead ",
-			"7% Mana Stolen per Hit ",
-			"[8-12]% Life Stolen per Hit ",
-			"Prevent Monster Heal ",
-			"+30 to All Attributes ",
-			"+1 to Light Radius ",
-			"Requirements -20% "
-		],
-		"level": "69"
-	},
-	"Zenith": {
+	{
 		"name": "Zenith - Jah Zod Ort Thul Ral",
 		"types": ["Polearms", "Spears", "Staves", "Bows", "Crossbows", "2h Swords"],
 		"option": [
@@ -1832,7 +1735,7 @@
 		],
 		"level": "69"
 	},
-	"Loyalty" :{
+	{
 		"name" : "Loyalty - Pul Tir Dol",
 		"types" : ["Bows", "Spears"],
 		"option" :[
@@ -1849,7 +1752,7 @@
 			"+4 to Mana after each Kill"
 		]
 	},
-	"Epiphany" :{
+	{
 		"name": "Epiphany - Lo Ith Lo Ist",
 		"types" :["Shields"],
 		"option" :[
@@ -1865,4 +1768,4 @@
 			"+30% Better Chance of Getting Magic Item"
 		]
 	}
-}
+]

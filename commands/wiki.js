@@ -26,110 +26,139 @@ async function handleSlashWiki(interaction) {
   }
 
   try {
-    const name = interaction.options.getString('name');
+    // Lấy và kiểm tra giá trị name
+    const nameOption = interaction.options.getString('name');
+    if (!nameOption) {
+      console.log('❌ No name provided in interaction');
+      return await interaction.editReply({
+        content: 'Vui lòng cung cấp tên mục wiki'
+      });
+    }
+    const name = nameOption.toLowerCase();
     console.log(`🔍 Searching wiki: ${name}`);
 
-    const wikiItem = wiki[name];
+    // Kiểm tra dữ liệu wiki
+    if (!Array.isArray(wiki)) {
+      console.log('❌ Invalid wiki data: not an array');
+      return await interaction.editReply({
+        content: 'Dữ liệu wiki không hợp lệ'
+      });
+    }
 
-    if (!wikiItem) {
+    // Tìm tất cả các mục wiki khớp với name
+    const matchedWikiItems = wiki.filter(
+      item => item && typeof item.name === 'string' && item.name.toLowerCase() === name
+    );
+
+    if (matchedWikiItems.length === 0) {
       return await interaction.editReply({
         content: `Không tìm thấy thông tin wiki cho "${name}"`
       });
     }
 
-    const embed = new EmbedBuilder()
-      .setColor('#ff6600')
-      .setTitle(`📖 ${name}`);
+    // Tạo embeds và files cho từng mục wiki khớp
+    const embeds = [];
+    const files = [];
 
-    // Xử lý text content
-    let textContent = '';
-    if (wikiItem.text && Array.isArray(wikiItem.text)) {
-      textContent = wikiItem.text.join('\n');
-    } else if (typeof wikiItem.text === 'string') {
-      textContent = wikiItem.text;
-    }
-
-    if (textContent) {
-      // Chia text thành nhiều fields nếu quá dài
-      const maxFieldLength = 1024;
-      const fields = [];
-
-      if (textContent.length <= maxFieldLength) {
-        // Nếu ngắn, chỉ cần 1 field
-        fields.push({
-          name: '',
-          value: textContent,
-          inline: false
-        });
+    for (const wikiItem of matchedWikiItems) {
+      // Xử lý text content
+      let textContents = [];
+      if (wikiItem.text && Array.isArray(wikiItem.text)) {
+        textContents = wikiItem.text;
+      } else if (typeof wikiItem.text === 'string') {
+        textContents = [wikiItem.text];
       } else {
-        // Chia thành nhiều parts
-        let remainingText = textContent;
-        let partNumber = 1;
+        textContents = ['Không có thông tin chi tiết'];
+      }
 
-        while (remainingText.length > 0) {
-          let chunk = remainingText.substring(0, maxFieldLength);
+      // Tạo embed cho mỗi phần text
+      for (let i = 0; i < textContents.length; i++) {
+        const textContent = textContents[i];
+        const embed = new EmbedBuilder()
+          .setColor('#ff6600')
+          .setTitle(`📖 ${wikiItem.name}${wikiItem.type ? ` (${wikiItem.type})` : ''}${textContents.length > 1 ? ` ` : ''}`);
 
-          // Tìm vị trí ngắt dòng gần nhất để không cắt giữa từ
-          if (remainingText.length > maxFieldLength) {
-            const lastNewline = chunk.lastIndexOf('\n');
-            const lastSpace = chunk.lastIndexOf(' ');
-            const breakPoint = lastNewline > -1 ? lastNewline : (lastSpace > -1 ? lastSpace : maxFieldLength);
+        if (wikiItem.url) {
+          embed.setURL(wikiItem.url);
+        }
 
-            if (breakPoint > 0 && breakPoint < maxFieldLength) {
-              chunk = chunk.substring(0, breakPoint);
+        if (textContent) {
+          // Chia text thành nhiều fields nếu quá dài
+          const maxFieldLength = 1024;
+          const fields = [];
+
+          if (textContent.length <= maxFieldLength) {
+            fields.push({
+              name: '',
+              value: textContent,
+              inline: false
+            });
+          } else {
+            let remainingText = textContent;
+            let partNumber = 1;
+
+            while (remainingText.length > 0) {
+              let chunk = remainingText.substring(0, maxFieldLength);
+
+              // Tìm vị trí ngắt dòng hoặc khoảng trắng gần nhất
+              if (remainingText.length > maxFieldLength) {
+                const lastNewline = chunk.lastIndexOf('\n');
+                const lastSpace = chunk.lastIndexOf(' ');
+                const breakPoint = lastNewline > -1 ? lastNewline : (lastSpace > -1 ? lastSpace : maxFieldLength);
+
+                if (breakPoint > 0 && breakPoint < maxFieldLength) {
+                  chunk = chunk.substring(0, breakPoint);
+                }
+              }
+
+              fields.push({
+                name: partNumber === 1 ? '' : ``,
+                value: chunk,
+                inline: false
+              });
+
+              remainingText = remainingText.substring(chunk.length).trim();
+              partNumber++;
+
+              // Giới hạn tối đa 5 fields
+              if (partNumber > 5) {
+                fields.push({
+                  name: 'Thông tin bị cắt',
+                  value: '... (nội dung quá dài, đã bị cắt)',
+                  inline: false
+                });
+                break;
+              }
             }
           }
 
-          fields.push({
-            name: partNumber === 1 ? '' : ``,
-            value: chunk,
-            inline: false
-          });
-
-          remainingText = remainingText.substring(chunk.length).trim();
-          partNumber++;
-
-          // Giới hạn tối đa 5 fields để tránh spam
-          if (partNumber > 5) {
-            fields.push({
-              name: 'Thông tin bị cắt',
-              value: '... (nội dung quá dài, đã bị cắt)',
-              inline: false
-            });
-            break;
-          }
+          embed.addFields(fields);
+        } else {
+          embed.setDescription('Không có thông tin chi tiết');
         }
+
+        // Xử lý file attachment nếu nội dung quá dài
+        if (textContent && textContent.length > 4000) {
+          const buffer = Buffer.from(textContent, 'utf8');
+          const attachment = new AttachmentBuilder(buffer, {
+            name: `${wikiItem.name}${wikiItem.type ? `_${wikiItem.type}` : ''}${textContents.length > 1 ? `_part${i + 1}` : ''}_info.txt`,
+            description: `Thông tin đầy đủ cho ${wikiItem.name}${wikiItem.type ? ` (${wikiItem.type})` : ''}${textContents.length > 1 ? `` : ''}`
+          });
+          files.push(attachment);
+
+          embed.addFields([{
+            name: '📎 File đính kèm',
+            value: 'Nội dung đầy đủ được gửi trong file đính kèm',
+            inline: false
+          }]);
+        }
+
+        embeds.push(embed);
       }
-
-      embed.addFields(fields);
-    } else {
-      embed.setDescription('Không có thông tin chi tiết');
-    }
-
-    if (wikiItem.url) {
-      embed.setURL(wikiItem.url);
-    }
-
-    // Nếu nội dung gốc quá dài (>4000 chars), gửi kèm file attachment
-    let files = [];
-    if (textContent && textContent.length > 4000) {
-      const buffer = Buffer.from(textContent, 'utf8');
-      const attachment = new AttachmentBuilder(buffer, {
-        name: `${name}_info.txt`,
-        description: `Full information for ${name}`
-      });
-      files.push(attachment);
-
-      // Thêm note về file attachment
-      embed.addFields([{
-        name: '📎 File đính kèm',
-        value: 'Nội dung đầy đủ được gửi trong file đính kèm',
-        inline: false
-      }]);
     }
 
     await interaction.editReply({
-      embeds: [embed],
+      embeds: embeds,
       files: files
     });
 

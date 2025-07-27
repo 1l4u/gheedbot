@@ -380,9 +380,7 @@ if (interaction.isAutocomplete()) {
 
 const autocompleteSources = {
   wiki: wiki,
-  rw: runewords,
-  ib: itembases
-  // Có thể thêm các nguồn dữ liệu khác ở đây
+  rw: runewords
 };
 
 // Cache để tránh duplicate autocomplete calls
@@ -421,13 +419,24 @@ async function handleAutocomplete(interaction) {
 
     // Lấy data source tương ứng
     const dataSource = autocompleteSources[commandName];
-    if (!dataSource) return;
+    if (!dataSource || !Array.isArray(dataSource)) {
+      console.log(`❌ Invalid or missing data source for command: ${commandName}`);
+      await interaction.respond([]); // Trả về danh sách rỗng để tránh lỗi
+      return;
+    }
 
-    // Tìm kiếm và filter
-    const choices = Object.keys(dataSource)
+    // Lấy danh sách tên duy nhất từ trường `name`
+    const choices = [...new Set(
+      dataSource
+        .filter(item => item && typeof item.name === 'string' && item.name) // Lọc các item hợp lệ
+        .map(item => item.name)
+    )]
       .filter(choice => choice.toLowerCase().includes(userInput))
       .slice(0, 25) // Discord giới hạn 25 choices
       .map(choice => ({ name: choice, value: choice }));
+
+    // Log để debug
+    //console.log(`Autocomplete choices for ${commandName}:`, choices);
 
     // Cache result
     autocompleteCache.set(cacheKey, { timestamp: now, choices });
@@ -445,8 +454,10 @@ async function handleAutocomplete(interaction) {
     }
   } catch (error) {
     console.error('Lỗi trong handleAutocomplete:', error);
-    // Không cố gắng respond lại nếu đã bị lỗi
-    // Chỉ log error để debug
+    // Trả về danh sách rỗng để tránh crash
+    if (!interaction.responded) {
+      await interaction.respond([]);
+    }
   }
 }
 

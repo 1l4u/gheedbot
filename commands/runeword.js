@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
 const runewords = require('../runeword.json');
 
@@ -12,7 +12,7 @@ async function handleSlashRuneword(interaction) {
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
 
-  // Kiểm tra permissions - chỉ yêu cầu channel, không cần role
+  // Kiểm tra permissions
   const permissionCheck = checkCommandPermissions(interaction, {
     requireChannel: true,
     requireRole: false
@@ -26,77 +26,134 @@ async function handleSlashRuneword(interaction) {
   }
 
   try {
-    const name = interaction.options.getString('name');
+    // Lấy và kiểm tra giá trị name
+    const nameOption = interaction.options.getString('name');
+    if (!nameOption) {
+      console.log('❌ No name provided in interaction');
+      return await interaction.editReply({
+        content: 'Vui lòng cung cấp tên runeword'
+      });
+    }
+    const name = nameOption.toLowerCase();
     console.log(`🔍 Searching runeword: ${name}`);
-    
-    const runeword = runewords[name];
-    
-    if (!runeword) {
+
+    // Kiểm tra dữ liệu runewords
+    if (!Array.isArray(runewords)) {
+      console.log('❌ Invalid runewords data: not an array');
+      return await interaction.editReply({
+        content: 'Dữ liệu runeword không hợp lệ'
+      });
+    }
+
+    // Tìm tất cả các runeword khớp với name
+    const matchedRunewords = runewords.filter(
+      item => item && typeof item.name === 'string' && item.name.toLowerCase() === name
+    );
+
+    if (matchedRunewords.length === 0) {
       return await interaction.editReply({
         content: `Không tìm thấy runeword "${name}"`
       });
     }
 
-    const embed = new EmbedBuilder()
-      .setColor('#0099ff')
-      .setTitle(`🏺 ${name}`)
-      .addFields(
-        { name: 'Runeword', value: runeword.name || 'N/A' },
-        { name: 'Item Types', value: Array.isArray(runeword.types) ? runeword.types.join(', ') : (runeword.types || 'N/A') },
-        { name: 'Required Level', value: runeword.level?.toString() || 'N/A'}
-      );
+    // Tạo embeds và files cho từng runeword khớp
+    const embeds = [];
+    const files = [];
 
-    if (runeword.option && runeword.option.length > 0) {
-      const propertiesText = runeword.option.join('\n');
+    for (const runeword of matchedRunewords) {
+      const embed = new EmbedBuilder()
+        .setColor('#ff6600')
+        .setTitle(`${runeword.name}${runeword.type ? ` (${runeword.type})` : ''}`)
+        .addFields(
+          { name: '', value: runeword.types.join(', ') || 'N/A'},
+          { name: '', value: 'Required Level: ' + runeword.level || 'N/A'}
+        );
 
-      // Chia properties thành nhiều fields nếu quá dài
-      const maxFieldLength = 1024;
-
-      if (propertiesText.length <= maxFieldLength) {
-        embed.addFields([{
-          name: 'Properties',
-          value: propertiesText,
-          inline: false
-        }]);
+      // Xử lý options hoặc text
+      let textContent = '';
+      if (runeword.option && Array.isArray(runeword.option)) {
+        textContent = runeword.option.join('\n');
+      } else if (typeof runeword.option === 'string') {
+        textContent = runeword.option;
       } else {
-        // Chia thành nhiều parts
-        let remainingText = propertiesText;
+        textContent = 'Không có thông tin chi tiết';
+      }
+
+      // Chia text thành nhiều fields nếu quá dài
+      const maxFieldLength = 1024;
+      const fields = [];
+
+      if (textContent.length <= maxFieldLength) {
+        fields.push({
+          name: '',
+          value: textContent,
+          inline: false
+        });
+      } else {
+        let remainingText = textContent;
         let partNumber = 1;
 
-        while (remainingText.length > 0 && partNumber <= 3) {
+        while (remainingText.length > 0) {
           let chunk = remainingText.substring(0, maxFieldLength);
 
-          // Tìm vị trí ngắt dòng gần nhất
           if (remainingText.length > maxFieldLength) {
             const lastNewline = chunk.lastIndexOf('\n');
-            if (lastNewline > 0) {
-              chunk = chunk.substring(0, lastNewline);
+            const lastSpace = chunk.lastIndexOf(' ');
+            const breakPoint = lastNewline > -1 ? lastNewline : (lastSpace > -1 ? lastSpace : maxFieldLength);
+
+            if (breakPoint > 0 && breakPoint < maxFieldLength) {
+              chunk = chunk.substring(0, breakPoint);
             }
           }
 
-          embed.addFields([{
+          fields.push({
             name: partNumber === 1 ? '' : ``,
             value: chunk,
             inline: false
-          }]);
+          });
 
           remainingText = remainingText.substring(chunk.length).trim();
           partNumber++;
-        }
 
-        // Nếu vẫn còn text, thêm note
-        if (remainingText.length > 0) {
-          embed.addFields([{
-            name: 'Lưu ý',
-            value: '',
-            inline: false
-          }]);
+          if (partNumber > 5) {
+            fields.push({
+              name: 'Thông tin bị cắt',
+              value: '... (nội dung quá dài, đã bị cắt)',
+              inline: false
+            });
+            break;
+          }
         }
       }
+
+      embed.addFields(fields);
+
+      if (runeword.url) {
+        embed.setURL(runeword.url);
+      }
+
+      // Xử lý file attachment nếu nội dung quá dài
+      if (textContent && textContent.length > 4000) {
+        const buffer = Buffer.from(textContent, 'utf8');
+        const attachment = new AttachmentBuilder(buffer, {
+          name: `${runeword.name}${runeword.type ? `_${runeword.type}` : ''}_info.txt`,
+          description: `Thông tin đầy đủ cho ${runeword.name}${runeword.type ? ` (${runeword.type})` : ''}`
+        });
+        files.push(attachment);
+
+        embed.addFields([{
+          name: '📎 File đính kèm',
+          value: 'Nội dung đầy đủ được gửi trong file đính kèm',
+          inline: false
+        }]);
+      }
+
+      embeds.push(embed);
     }
 
     await interaction.editReply({
-      embeds: [embed]
+      embeds: embeds,
+      files: files
     });
 
     console.log(`✅ Runeword response sent for: ${name}`);
