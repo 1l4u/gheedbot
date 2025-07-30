@@ -516,6 +516,63 @@ client.on('messageCreate', async message => {
 });
 
 
+
+// Cấu hình
+const YOUR_USER_ID = '396596028465348620'; // Thay bằng ID Discord cá nhân của bạn
+const TARGET_VOICE_CHANNEL_ID = '1361772596303237213'; // Thay bằng ID kênh voice
+const COOLDOWN_TIME = 5 * 60 * 1000; // 5 phút cooldown để chống spam
+const lastNotification = new Map(); // Lưu thời gian thông báo cuối cùng
+
+// Sự kiện khi bot sẵn sàng
+client.once('ready', () => {
+    console.log(`Bot đã sẵn sàng, đăng nhập với tên: ${client.user.tag} lúc ${new Date().toLocaleString()}`);
+});
+
+// Theo dõi sự kiện thay đổi trạng thái voice
+client.on('voiceStateUpdate', async (oldState, newState) => {
+    try {
+        // Tìm người dùng để gửi DM
+        const user = await client.users.fetch(YOUR_USER_ID).catch(() => null);
+        
+        // Kiểm tra nếu người dùng tồn tại
+        if (!user) {
+            console.log('Không tìm thấy người dùng với ID đã cung cấp!');
+            return;
+        }
+
+        // Bỏ qua nếu người dùng là bot
+        if (newState.member.user.bot) return;
+
+        // Lấy ID người dùng và thời gian hiện tại
+        const userId = newState.member.id;
+        const now = Date.now();
+
+        // Kiểm tra cooldown
+        if (lastNotification.has(userId) && now - lastNotification.get(userId) < COOLDOWN_TIME) {
+            return; // Bỏ qua nếu chưa đủ thời gian cooldown
+        }
+
+        // Cập nhật thời gian thông báo
+        lastNotification.set(userId, now);
+
+        // Người dùng tham gia kênh voice cụ thể
+        if (!oldState.channelId && newState.channelId === TARGET_VOICE_CHANNEL_ID) {
+            const channelName = newState.channel.name;
+            await user.send(`${newState.member.user.tag} đã tham gia kênh voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+        }
+        // Người dùng rời kênh voice cụ thể
+        else if (oldState.channelId === TARGET_VOICE_CHANNEL_ID && !newState.channelId) {
+            const channelName = oldState.channel.name;
+            await user.send(`${newState.member.user.tag} đã rời kênh voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+        }
+    } catch (error) {
+        console.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
+    }
+});
+
+
+
+
 // --- Các hàm hỗ trợ --- //
 
 // Xử lý lệnh có tham số
@@ -594,6 +651,7 @@ async function loginWithRetry(maxRetries = 3) {
     }
   }
 }
+
 
 // Khởi động bot
 loginWithRetry().catch(error => {
