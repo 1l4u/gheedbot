@@ -119,7 +119,8 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMembers
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildVoiceStates
   ],
 });
 
@@ -519,8 +520,7 @@ client.on('messageCreate', async message => {
 
 // Cấu hình
 const YOUR_USER_ID = '396596028465348620'; // Thay bằng ID Discord cá nhân của bạn
-const TARGET_VOICE_CHANNEL_ID = '1361772596303237213'; // Thay bằng ID kênh voice
-const COOLDOWN_TIME = 5 * 60 * 1000; // 5 phút cooldown để chống spam
+const COOLDOWN_TIME = 10000; // 5 phút cooldown để chống spam
 const lastNotification = new Map(); // Lưu thời gian thông báo cuối cùng
 
 // Sự kiện khi bot sẵn sàng
@@ -556,14 +556,16 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         lastNotification.set(userId, now);
 
         // Người dùng tham gia kênh voice cụ thể
-        if (!oldState.channelId && newState.channelId === TARGET_VOICE_CHANNEL_ID) {
+        if (!oldState.channelId && newState.channelId) {
             const channelName = newState.channel.name;
             await user.send(`${newState.member.user.tag} đã tham gia kênh voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+            console.log(`Đã gửi DM: ${newState.member.user.tag} tham gia ${channelName}`);
         }
-        // Người dùng rời kênh voice cụ thể
-        else if (oldState.channelId === TARGET_VOICE_CHANNEL_ID && !newState.channelId) {
+        // Người dùng rời bất kỳ kênh voice nào
+        else if (oldState.channelId && !newState.channelId) {
             const channelName = oldState.channel.name;
             await user.send(`${newState.member.user.tag} đã rời kênh voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+            console.log(`Đã gửi DM: ${newState.member.user.tag} rời ${channelName}`);
         }
     } catch (error) {
         console.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
