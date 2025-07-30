@@ -543,17 +543,17 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         // Bỏ qua nếu người dùng là bot
         if (newState.member.user.bot) return;
 
-        // Lấy ID người dùng và thời gian hiện tại
-        const userId = newState.member.id;
-        const now = Date.now();
+        // // Lấy ID người dùng và thời gian hiện tại
+        // const userId = newState.member.id;
+        // const now = Date.now();
 
-        // Kiểm tra cooldown
-        if (lastNotification.has(userId) && now - lastNotification.get(userId) < COOLDOWN_TIME) {
-            return; // Bỏ qua nếu chưa đủ thời gian cooldown
-        }
+        // // Kiểm tra cooldown
+        // if (lastNotification.has(userId) && now - lastNotification.get(userId) < COOLDOWN_TIME) {
+        //     return; // Bỏ qua nếu chưa đủ thời gian cooldown
+        // }
 
         // Cập nhật thời gian thông báo
-        lastNotification.set(userId, now);
+        // lastNotification.set(userId, now);
 
         // Người dùng tham gia kênh voice cụ thể
         if (!oldState.channelId && newState.channelId) {
