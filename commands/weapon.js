@@ -82,30 +82,21 @@ async function handleSlashWeapon(interaction) {
       }
 
       // WSM field
-      if (weapon.wsm !== undefined && weapon.wsm !== '') {
+      if (weapon.speed !== undefined && weapon.speed !== '') {
         fields.push({
           name: 'WSM',
-          value: weapon.wsm,
+          value: weapon.speed,
           inline: true
         });
       }
 
       // Required field (Strength - Dexterity)
-      if (weapon.str !== undefined && weapon.str !== '') {
-        const strValue = weapon.str;
-        const dexValue = weapon.dex !== undefined && weapon.dex !== '' ? weapon.dex : '0';
+      if (weapon.reqstr !== undefined && weapon.reqstr !== '') {
+        const strValue = weapon.reqstr;
+        const dexValue = weapon.reqdex !== undefined && weapon.reqdex !== '' ? weapon.reqdex : '0';
         fields.push({
           name: 'Required',
           value: `${strValue} - ${dexValue}`,
-          inline: true
-        });
-      }
-
-      // Socket field
-      if (weapon.sock !== undefined && weapon.sock !== '') {
-        fields.push({
-          name: 'Socket',
-          value: weapon.sock,
           inline: true
         });
       }
@@ -117,9 +108,9 @@ async function handleSlashWeapon(interaction) {
 
       // Thêm footer với thông tin bổ sung
       const footerInfo = [];
-      if (weapon.code) footerInfo.push(`Code: ${weapon.code}`);
-      if (weapon.qlvl) footerInfo.push(`QLvl: ${weapon.qlvl}`);
-      if (weapon.rlvl) footerInfo.push(`RLvl: ${weapon.rlvl}`);
+      if (weapon.code) footerInfo.push(`Level: ${weapon.levelreq}`);
+      if (weapon.qlvl) footerInfo.push(`StrBonus: ${weapon.StrBonus}`);
+      if (weapon.rlvl) footerInfo.push(`DexBonus: ${weapon.DexBonus}`);
 
       if (footerInfo.length > 0) {
         embed.setFooter({ text: footerInfo.join(' | ') });
