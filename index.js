@@ -26,7 +26,7 @@ app.use(express.json({ limit: '10mb' }));
 // Request timeout middleware
 app.use((req, res, next) => {
   res.setTimeout(30000, () => {
-    console.log('Request timeout');
+    console.log('Hết thời gian chờ request');
     res.status(408).json({
       status: 'error',
       message: 'Request timeout',
@@ -60,19 +60,19 @@ app.get('/ping', (req, res) => {
 // Route mặc định
 app.get('/', (req, res) => {
   try {
-    res.send('Discord Bot is running');
+    res.send('Discord Bot đang chạy');
   } catch (error) {
-    console.error('Root route error:', error);
-    res.status(500).send('Internal Server Error');
+    console.error('Lỗi route gốc:', error);
+    res.status(500).send('Lỗi máy chủ nội bộ');
   }
 });
 
 // Global error handler cho Express
 app.use((err, req, res, next) => {
-  console.error('Express error:', err);
+  console.error('Lỗi Express:', err);
   res.status(500).json({
     status: 'error',
-    message: 'Internal server error',
+    message: 'Lỗi máy chủ nội bộ',
     timestamp: new Date().toISOString()
   });
 });
@@ -81,21 +81,21 @@ app.use((err, req, res, next) => {
 app.use((req, res) => {
   res.status(404).json({
     status: 'error',
-    message: 'Not found',
+    message: 'Không tìm thấy',
     timestamp: new Date().toISOString()
   });
 });
 
 // Khởi động server
 const server = app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server đang chạy trên cổng ${PORT}`);
 });
 
 // Xử lý tắt server đúng cách
 process.on('SIGTERM', () => {
-  console.log('Shutting down server...');
+  console.log('Đang tắt server...');
   server.close(() => {
-    console.log('Server closed');
+    console.log('Server đã đóng');
     process.exit(0);
   });
 });
@@ -490,7 +490,7 @@ async function handleAutocomplete(interaction, dataSource) {
 
   // Kiểm tra nếu interaction đã được responded
   if (interaction.responded) {
-    console.log('Autocomplete interaction already responded, skipping...');
+    console.log('Autocomplete interaction đã được phản hồi, bỏ qua...');
     return;
   }
 
@@ -508,7 +508,7 @@ async function handleAutocomplete(interaction, dataSource) {
     if (autocompleteCache.has(cacheKey)) {
       const cached = autocompleteCache.get(cacheKey);
       if (now - cached.timestamp < CACHE_DURATION) {
-        console.log(`Skipping duplicate autocomplete for: ${cacheKey}`);
+        console.log(`Bỏ qua autocomplete trùng lặp cho: ${cacheKey}`);
         return;
       }
     }
@@ -644,7 +644,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 
         // Kiểm tra cooldown (5 giây để tránh spam)
         if (lastNotification.has(userId) && now - lastNotification.get(userId) < 5000) {
-            console.log(`Cooldown active for user ${userId}, skipping notification`);
+            console.log(`Cooldown đang hoạt động cho user ${userId}, bỏ qua thông báo`);
             return; // Bỏ qua nếu chưa đủ thời gian cooldown
         }
 
@@ -731,7 +731,7 @@ client.once('ready', async () => {
 });
 
 client.on('error', (error) => {
-  console.error('Discord client error:', error);
+  console.error('Lỗi Discord client:', error);
 });
 
 client.on('warn', (warning) => {
@@ -757,7 +757,7 @@ async function loginWithRetry(maxRetries = 3) {
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      console.log(`🔑 Đang đăng nhập Discord (lần thử ${attempt}/${maxRetries})...`);
+      console.log(`Đang đăng nhập Discord (lần thử ${attempt}/${maxRetries})...`);
       await client.login(token);
       console.log('Đăng nhập Discord thành công!');
       return;

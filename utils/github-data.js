@@ -11,8 +11,8 @@ class GitHubDataFetcher {
     
     // Cấu hình GitHub repository
     this.config = {
-      owner: 'your-username', // Thay bằng username GitHub của bạn
-      repo: 'your-repo-name', // Thay bằng tên repository
+      owner: '1l4u', // Thay bằng username GitHub của bạn
+      repo: 'gheedbot', // Thay bằng tên repository
       branch: 'main' // Hoặc 'master' tùy theo branch chính
     };
   }

@@ -7,7 +7,7 @@ const runewords = require('../runeword.json');
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashRuneword(interaction) {
-  console.log(`🔧 Runeword command called by ${interaction.user.tag}`);
+  console.log(` Runeword command called by ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -19,7 +19,7 @@ async function handleSlashRuneword(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`❌ Runeword permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(` Runeword permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -99,9 +99,9 @@ async function handleSlashRuneword(interaction) {
       embeds: [embed]
     });
 
-    console.log(`✅ Runeword response sent for: ${name}`);
+    console.log(` Runeword response sent for: ${name}`);
   } catch (error) {
-    console.error('❌ Runeword command error:', error);
+    console.error(' Runeword command error:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm runeword'
     });

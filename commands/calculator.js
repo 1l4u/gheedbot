@@ -7,7 +7,7 @@ const { dataManager } = require('../utils/data-manager');
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashCritChance(interaction) {
-  console.log(`🔧 CritChance command called by ${interaction.user.tag}`);
+  console.log(`Lệnh CritChance được gọi bởi ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -19,7 +19,7 @@ async function handleSlashCritChance(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`❌ CritChance permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền CritChance cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -69,7 +69,7 @@ async function handleSlashCritChance(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashTas(interaction) {
-  console.log(`🔧 TAS command called by ${interaction.user.tag}`);
+  console.log(`Lệnh TAS được gọi bởi ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -81,7 +81,7 @@ async function handleSlashTas(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`❌ TAS permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền TAS cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -108,9 +108,9 @@ async function handleSlashTas(interaction) {
       embeds: [embed]
     });
 
-    console.log(`✅ TAS response sent`);
+    console.log(`Đã gửi phản hồi TAS`);
   } catch (error) {
-    console.error('❌ TAS command error:', error);
+    console.error('Lỗi lệnh TAS:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán TAS'
     });
@@ -122,7 +122,7 @@ async function handleSlashTas(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashIas(interaction) {
-  console.log(`🔧 IAS command called by ${interaction.user.tag}`);
+  console.log(`Lệnh IAS được gọi bởi ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -134,7 +134,7 @@ async function handleSlashIas(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`❌ IAS permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền IAS cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });

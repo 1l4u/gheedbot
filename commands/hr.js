@@ -82,9 +82,9 @@ async function handleSlashHr(interaction) {
       embeds: [embed]
     });
 
-    console.log(`HR calculation completed: ${totalHr.toFixed(2)} HR`);
+    console.log(`Tính toán HR hoàn thành: ${totalHr.toFixed(2)} HR`);
   } catch (error) {
-    console.error('HR calculation error:', error);
+    console.error('Lỗi tính toán HR:', error);
     await interaction.editReply({
       content: 'Lỗi khi tính toán HR. Vui lòng thử lại!'
     });
