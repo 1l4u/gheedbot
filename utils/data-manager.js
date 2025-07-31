@@ -50,44 +50,66 @@ class DataManager {
       throw new Error(`Không hỗ trợ data type: ${dataType}`);
     }
 
-    try {
-      if (this.useGitHub) {
-        // Load từ GitHub
+    // Nếu đã có data trong memory, trả về luôn
+    if (this.data[dataType]) {
+      console.log(`Sử dụng data đã load cho ${dataType}`);
+      return this.data[dataType];
+    }
+
+    let githubError = null;
+    let localError = null;
+
+    // Thử GitHub trước nếu được bật
+    if (this.useGitHub) {
+      try {
+        console.log(`Đang load ${dataType} từ GitHub...`);
         const fileName = path.basename(this.localPaths[dataType]);
         const data = await githubFetcher.fetchFile(fileName);
+
+        // Validate data
+        if (!data || (Array.isArray(data) && data.length === 0)) {
+          console.warn(`Warning: ${dataType} từ GitHub trống hoặc null`);
+        }
+
         this.data[dataType] = data;
+        console.log(`✅ Load ${dataType} từ GitHub thành công (${Array.isArray(data) ? data.length : 'N/A'} items)`);
         return data;
-      } else {
-        // Load từ file local
-        const filePath = this.localPaths[dataType];
-        if (fs.existsSync(filePath)) {
-          const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-          this.data[dataType] = data;
-          return data;
-        } else {
-          throw new Error(`File local không tồn tại: ${filePath}`);
-        }
+
+      } catch (error) {
+        githubError = error;
+        console.error(`❌ Lỗi load ${dataType} từ GitHub:`, error.message);
       }
-    } catch (error) {
-      console.error(`Lỗi khi load ${dataType}:`, error.message);
-      
-      // Fallback: thử load từ source khác
-      if (this.useGitHub) {
-        console.log(`Fallback: thử load ${dataType} từ file local...`);
-        try {
-          const filePath = this.localPaths[dataType];
-          if (fs.existsSync(filePath)) {
-            const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-            this.data[dataType] = data;
-            return data;
-          }
-        } catch (fallbackError) {
-          console.error(`Fallback cũng thất bại:`, fallbackError.message);
-        }
-      }
-      
-      throw error;
     }
+
+    // Fallback: thử load từ file local
+    try {
+      console.log(`Đang load ${dataType} từ file local...`);
+      const filePath = this.localPaths[dataType];
+
+      if (!fs.existsSync(filePath)) {
+        throw new Error(`File không tồn tại: ${filePath}`);
+      }
+
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+      // Validate data
+      if (!data || (Array.isArray(data) && data.length === 0)) {
+        console.warn(`Warning: ${dataType} từ local file trống hoặc null`);
+      }
+
+      this.data[dataType] = data;
+      console.log(`✅ Load ${dataType} từ local file thành công (${Array.isArray(data) ? data.length : 'N/A'} items)`);
+      return data;
+
+    } catch (error) {
+      localError = error;
+      console.error(`❌ Lỗi load ${dataType} từ local file:`, error.message);
+    }
+
+    // Cả GitHub và local đều thất bại
+    const errorMsg = `Không thể load ${dataType}. GitHub: ${githubError?.message || 'N/A'}, Local: ${localError?.message || 'N/A'}`;
+    console.error(errorMsg);
+    throw new Error(errorMsg);
   }
 
   /**

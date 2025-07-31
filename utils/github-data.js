@@ -29,79 +29,135 @@ class GitHubDataFetcher {
   }
 
   /**
-   * Fetch file từ GitHub với caching
+   * Fetch file từ GitHub với caching và retry logic cho Render
    * @param {string} filePath - Đường dẫn file trong repo
    * @returns {Promise<any>} - Parsed JSON data
    */
-  async fetchFile(filePath) {
+  async fetchFile(filePath, retries = 3) {
     const cacheKey = filePath;
     const cached = this.cache.get(cacheKey);
-    
+
     // Kiểm tra cache
     if (cached && (Date.now() - cached.timestamp) < this.cacheTimeout) {
       console.log(`Sử dụng cache cho ${filePath}`);
       return cached.data;
     }
 
-    try {
-      console.log(`Đang tải ${filePath} từ GitHub...`);
-      const url = `${this.baseUrl}/${this.config.owner}/${this.config.repo}/${this.config.branch}/${filePath}`;
-      const data = await this.httpGet(url);
-      const parsedData = JSON.parse(data);
-      
-      // Lưu vào cache
-      this.cache.set(cacheKey, {
-        data: parsedData,
-        timestamp: Date.now()
-      });
-      
-      console.log(`Đã tải thành công ${filePath} (${data.length} bytes)`);
-      return parsedData;
-      
-    } catch (error) {
-      console.error(`Lỗi khi tải ${filePath}:`, error.message);
-      
-      // Fallback về cache cũ nếu có
-      if (cached) {
-        console.log(`Sử dụng cache cũ cho ${filePath}`);
-        return cached.data;
+    let lastError;
+
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        console.log(`Đang tải ${filePath} từ GitHub (lần thử ${attempt}/${retries})...`);
+        const url = `${this.baseUrl}/${this.config.owner}/${this.config.repo}/${this.config.branch}/${filePath}`;
+
+        const data = await this.httpGet(url);
+
+        // Validate JSON
+        let parsedData;
+        try {
+          parsedData = JSON.parse(data);
+        } catch (parseError) {
+          throw new Error(`Invalid JSON in ${filePath}: ${parseError.message}`);
+        }
+
+        // Validate data structure
+        if (!Array.isArray(parsedData)) {
+          console.warn(`Warning: ${filePath} is not an array, got ${typeof parsedData}`);
+        }
+
+        // Lưu vào cache
+        this.cache.set(cacheKey, {
+          data: parsedData,
+          timestamp: Date.now()
+        });
+
+        console.log(`Đã tải thành công ${filePath} (${data.length} bytes, ${Array.isArray(parsedData) ? parsedData.length : 'N/A'} items)`);
+        return parsedData;
+
+      } catch (error) {
+        lastError = error;
+        console.error(`Lỗi khi tải ${filePath} (lần thử ${attempt}/${retries}):`, error.message);
+
+        // Nếu không phải lần thử cuối, đợi trước khi retry
+        if (attempt < retries) {
+          const delay = attempt * 2000; // 2s, 4s, 6s...
+          console.log(`Đợi ${delay}ms trước khi thử lại...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
       }
-      
-      throw error;
     }
+
+    // Tất cả attempts đều thất bại, thử fallback về cache cũ
+    if (cached) {
+      console.log(`Tất cả attempts thất bại, sử dụng cache cũ cho ${filePath}`);
+      return cached.data;
+    }
+
+    // Không có cache, throw error cuối cùng
+    throw new Error(`Failed to load ${filePath} after ${retries} attempts: ${lastError.message}`);
   }
 
   /**
-   * HTTP GET request
+   * HTTP GET request với improved error handling cho Render
    * @param {string} url - URL to fetch
    * @returns {Promise<string>} - Response data
    */
   httpGet(url) {
     return new Promise((resolve, reject) => {
-      const request = https.get(url, (response) => {
+      const options = {
+        timeout: 30000, // Tăng timeout cho Render
+        headers: {
+          'User-Agent': 'GheedBot/1.0 (Render Deployment)',
+          'Accept': 'application/json, text/plain, */*',
+          'Cache-Control': 'no-cache',
+          'Connection': 'close'
+        }
+      };
+
+      const request = https.get(url, options, (response) => {
         let data = '';
-        
+
+        // Log response cho debugging
+        console.log(`GitHub request: ${response.statusCode} ${response.statusMessage} for ${url}`);
+
         response.on('data', (chunk) => {
           data += chunk;
         });
-        
+
         response.on('end', () => {
           if (response.statusCode === 200) {
+            console.log(`GitHub data loaded: ${data.length} bytes`);
             resolve(data);
           } else {
-            reject(new Error(`HTTP ${response.statusCode}: ${response.statusMessage}`));
+            const error = new Error(`HTTP ${response.statusCode}: ${response.statusMessage}`);
+            error.statusCode = response.statusCode;
+            error.url = url;
+            reject(error);
           }
         });
+
+        response.on('error', (error) => {
+          error.url = url;
+          reject(error);
+        });
       });
-      
+
       request.on('error', (error) => {
+        console.error(`GitHub request error for ${url}:`, error.message);
+        error.url = url;
         reject(error);
       });
-      
-      request.setTimeout(10000, () => {
+
+      request.on('timeout', () => {
+        console.error(`GitHub request timeout for ${url}`);
         request.destroy();
-        reject(new Error('Request timeout'));
+        const error = new Error(`Request timeout after 30s`);
+        error.url = url;
+        error.code = 'TIMEOUT';
+        reject(error);
       });
+
+      request.setTimeout(30000);
     });
   }
 
