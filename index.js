@@ -622,7 +622,8 @@ client.once('ready', () => {
     console.log(`Bot đã sẵn sàng, đăng nhập với tên: ${client.user.tag} lúc ${new Date().toLocaleString()}`);
 });
 
-// Theo dõi sự kiện thay đổi trạng thái voice
+// Theo dõi sự kiện thay đổi trạng thái voice (chỉ đăng ký 1 lần)
+client.removeAllListeners('voiceStateUpdate'); // Xóa listeners cũ nếu có
 client.on('voiceStateUpdate', async (oldState, newState) => {
     try {
         // Tìm người dùng để gửi DM
@@ -637,17 +638,18 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         // Bỏ qua nếu người dùng là bot
         if (newState.member.user.bot) return;
 
-        // // Lấy ID người dùng và thời gian hiện tại
-        // const userId = newState.member.id;
-        // const now = Date.now();
+        // Lấy ID người dùng và thời gian hiện tại
+        const userId = newState.member.id;
+        const now = Date.now();
 
-        // // Kiểm tra cooldown
-        // if (lastNotification.has(userId) && now - lastNotification.get(userId) < COOLDOWN_TIME) {
-        //     return; // Bỏ qua nếu chưa đủ thời gian cooldown
-        // }
+        // Kiểm tra cooldown (5 giây để tránh spam)
+        if (lastNotification.has(userId) && now - lastNotification.get(userId) < 5000) {
+            console.log(`Cooldown active for user ${userId}, skipping notification`);
+            return; // Bỏ qua nếu chưa đủ thời gian cooldown
+        }
 
         // Cập nhật thời gian thông báo
-        // lastNotification.set(userId, now);
+        lastNotification.set(userId, now);
 
         // Lấy nickname (hoặc username nếu không có nickname) và username
         const nickname = newState.member.nickname || newState.member.user.username;
@@ -656,14 +658,26 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         // Người dùng tham gia bất kỳ kênh voice nào
         if (!oldState.channelId && newState.channelId) {
             const channelName = newState.channel.name;
-            await user.send(`${nickname} (${username}) đã tham gia voice ${channelName} lúc ${new Date().toLocaleString()}.`);
-            console.log(`Đã gửi DM: ${nickname} (${username}) tham gia ${channelName}`);
+            try {
+                await user.send(`${nickname} (${username}) đã tham gia voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+                console.log(`Đã gửi DM: ${nickname} (${username}) tham gia ${channelName}`);
+            } catch (dmError) {
+                console.error(`Lỗi gửi DM tham gia: ${dmError.message}`);
+            }
         }
         // Người dùng rời bất kỳ kênh voice nào
         else if (oldState.channelId && !newState.channelId) {
             const channelName = oldState.channel.name;
-            await user.send(`${nickname} (${username}) đã rời voice ${channelName} lúc ${new Date().toLocaleString()}.`);
-            console.log(`Đã gửi DM: ${nickname} (${username}) rời ${channelName}`);
+            try {
+                await user.send(`${nickname} (${username}) đã rời voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+                console.log(`Đã gửi DM: ${nickname} (${username}) rời ${channelName}`);
+            } catch (dmError) {
+                console.error(`Lỗi gửi DM rời: ${dmError.message}`);
+            }
+        }
+        // Người dùng chuyển kênh (không gửi thông báo để tránh spam)
+        else if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
+            console.log(`${nickname} (${username}) chuyển từ ${oldState.channel.name} sang ${newState.channel.name} - không gửi thông báo`);
         }
     } catch (error) {
         console.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
