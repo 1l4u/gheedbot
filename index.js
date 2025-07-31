@@ -2,8 +2,8 @@ require("dotenv").config();
 const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder, Routes, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require("discord.js");
 const { REST } = require('@discordjs/rest');
 const runewords = require("./runeword.json");
-const itembases = require('./base_item.json');
-const wiki = require("./wiki.json");
+const weapons = require('./weapon.json');
+const wikis = require("./wiki.json");
 const express = require("express");
 const config = require('./config.json');
 const app = express();
@@ -12,7 +12,8 @@ const app = express();
 const { handleSlashDebug } = require('./commands/debug');
 const { handleSlashRuneword } = require('./commands/runeword');
 const { handleSlashWiki } = require('./commands/wiki');
-const { handleSlashCritChance, handleSlashTas, handleSlashIas, handleDmgCalculator } = require('./commands/calculator');
+const { handleSlashWeapon } = require('./commands/weapon');
+const { handleSlashCritChance, handleSlashTas, handleSlashIas, handleDmgCalculator, handleDmgCalculator2 } = require('./commands/calculator');
 
 // Import utilities
 const { hasBypassPermission, isValidCommand } = require('./utils/permissions');
@@ -143,6 +144,14 @@ const commands = [
         .setRequired(true)
         .setAutocomplete(true)),
   new SlashCommandBuilder()
+    .setName('weapon')
+    .setDescription('Tìm kiếm thông tin weapon')
+    .addStringOption(option =>
+      option.setName('name')
+        .setDescription('Tên weapon cần tìm')
+        .setRequired(true)
+        .setAutocomplete(true)),
+  new SlashCommandBuilder()
     .setName('chance')
     .setDescription('Tính tổng crit chance')
     .addIntegerOption(option =>
@@ -212,7 +221,39 @@ const commands = [
   .addIntegerOption(option =>
     option.setName('add_max')
           .setDescription('Add Max Damage')
-          .setRequired(true))
+          .setRequired(true)),
+  new SlashCommandBuilder()
+  .setName('dmgcal2')
+  .setDescription('Tính dmg vũ khí với weapon picker')
+  .addStringOption(option =>
+    option.setName('item')
+          .setDescription('Chọn weapon')
+          .setRequired(true)
+          .setAutocomplete(true))
+  .addIntegerOption(option =>
+    option.setName('ed')
+          .setDescription('Enhanced Damage %')
+          .setRequired(false))
+  .addIntegerOption(option =>
+    option.setName('add_min')
+          .setDescription('Add Min Damage')
+          .setRequired(false))
+  .addIntegerOption(option =>
+    option.setName('add_max')
+          .setDescription('Add Max Damage')
+          .setRequired(false))
+  .addBooleanOption(option =>
+    option.setName('eth')
+          .setDescription('Ethereal weapon (+25% base damage)')
+          .setRequired(false))
+  .addIntegerOption(option =>
+    option.setName('ed_lvl')
+          .setDescription('Enhanced Damage per Level %')
+          .setRequired(false))
+  .addIntegerOption(option =>
+    option.setName('max_lvl')
+          .setDescription('Max Damage per Level')
+          .setRequired(false))
 ].map(command => command.toJSON());
 
 // Hàm đăng ký slash commands
@@ -249,19 +290,19 @@ client.on('interactionCreate', async interaction => {
     const { commandName } = interaction;
     
     // Debug logging
-    console.log(`📥 Interaction received: ${interaction.type} | Command: ${commandName} | User: ${interaction.user.tag}`);
+    console.log(`Nhận interaction: ${interaction.type} | Lệnh: ${commandName} | Người dùng: ${interaction.user.tag}`);
 // Xử lý tương tác autocomplete
 if (interaction.isAutocomplete()) {
-    console.log(`🔍 Autocomplete for: ${interaction.commandName}`);
+    console.log(`Autocomplete cho: ${interaction.commandName}`);
     const dataSource = autocompleteSources[interaction.commandName];
 
   if (!dataSource) {
-    console.log(`❌ No data source for: ${interaction.commandName}`);
+    console.log(`Không có nguồn dữ liệu cho: ${interaction.commandName}`);
     return;
   }
   try {
     await handleAutocomplete(interaction, dataSource);
-    console.log(`✅ Autocomplete handled for: ${interaction.commandName}`);
+    console.log(`Đã xử lý autocomplete cho: ${interaction.commandName}`);
   } catch (err) {
     console.error(`Lỗi xử lý autocomplete ${interaction.commandName}:`, err);
   }
@@ -309,48 +350,56 @@ if (interaction.isAutocomplete()) {
   }
 
   if (interaction.isChatInputCommand()){
-    console.log(`💬 Chat Input Command: ${commandName}`);
+    console.log(`Lệnh Chat Input: ${commandName}`);
   try {
     // Direct execution without timeout wrapper for debugging
-    console.log(`🎯 About to execute switch for: ${commandName}`);
+    console.log(`Chuẩn bị thực thi switch cho: ${commandName}`);
     switch (commandName) {
         case 'rw':
-          console.log(`🔧 Executing: handleSlashRuneword`);
+          console.log(`Đang thực thi: handleSlashRuneword`);
           await handleSlashRuneword(interaction);
           break;
         case 'wiki':
-          console.log(`🔧 Executing: handleSlashWiki`);
+          console.log(`Đang thực thi: handleSlashWiki`);
           await handleSlashWiki(interaction);
           break;
+        case 'weapon':
+          console.log(`Đang thực thi: handleSlashWeapon`);
+          await handleSlashWeapon(interaction);
+          break;
         case 'chance':
-          console.log(`🔧 Executing: handleSlashCritChance`);
+          console.log(`Đang thực thi: handleSlashCritChance`);
           await handleSlashCritChance(interaction);
           break;
         case 'tas':
-          console.log(`🔧 Executing: handleSlashTas`);
+          console.log(`Đang thực thi: handleSlashTas`);
           await handleSlashTas(interaction);
           break;
         case 'ias':
-          console.log(`🔧 Executing: handleSlashIas`);
+          console.log(`Đang thực thi: handleSlashIas`);
           await handleSlashIas(interaction);
           break;
         case 'debug':
-          console.log(`🔧 Executing: handleSlashDebug`);
+          console.log(`Đang thực thi: handleSlashDebug`);
           await handleSlashDebug(interaction, client);
           break;
         case 'dmgcal' :
-          console.log(`🔧 Executing: handleDmgCalculator`);
+          console.log(`Đang thực thi: handleDmgCalculator`);
           await handleDmgCalculator(interaction);
           break;
+        case 'dmgcal2' :
+          console.log(`Đang thực thi: handleDmgCalculator2`);
+          await handleDmgCalculator2(interaction);
+          break;
         default:
-          console.log(`❌ Unknown command: ${commandName}`);
+          console.log(`Lệnh không xác định: ${commandName}`);
           await interaction.reply({
             content: 'Lệnh không được hỗ trợ',
             flags: 1 << 6
           });
       }
-    
-    console.log(`✅ Switch statement completed for: ${commandName}`);
+
+    console.log(`Hoàn thành switch statement cho: ${commandName}`);
 		
   } catch (error) {
     console.error(`Lỗi khi xử lý lệnh ${commandName}:`, error);
@@ -359,16 +408,16 @@ if (interaction.isAutocomplete()) {
       // Kiểm tra nếu interaction chưa được reply
       if (!interaction.replied && !interaction.deferred) {
         await interaction.reply({
-          content: '```🐺 Đã xảy ra lỗi! Vui lòng thử lại sau.```',
+          content: '```Đã xảy ra lỗi! Vui lòng thử lại sau.```',
           flags: 1 << 6
         });
       } else if (interaction.deferred) {
         await interaction.editReply({
-          content: '```🐺 Đã xảy ra lỗi! Vui lòng thử lại sau.```'
+          content: '```Đã xảy ra lỗi! Vui lòng thử lại sau.```'
         });
       } else {
         await interaction.followUp({
-          content: '```🐺 Đã xảy ra lỗi! Vui lòng thử lại sau.```',
+          content: '```Đã xảy ra lỗi! Vui lòng thử lại sau.```',
           flags: 1 << 6
         });
       }
@@ -380,8 +429,10 @@ if (interaction.isAutocomplete()) {
 
 
 const autocompleteSources = {
-  wiki: wiki,
-  rw: runewords
+  wiki: wikis,
+  rw: runewords,
+  weapon: weapons,
+  dmgcal2: weapons
 };
 
 // Cache để tránh duplicate autocomplete calls
@@ -555,17 +606,21 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         // Cập nhật thời gian thông báo
         // lastNotification.set(userId, now);
 
-        // Người dùng tham gia kênh voice cụ thể
+        // Lấy nickname (hoặc username nếu không có nickname) và username
+        const nickname = newState.member.nickname || newState.member.user.username;
+        const username = newState.member.user.username;
+
+        // Người dùng tham gia bất kỳ kênh voice nào
         if (!oldState.channelId && newState.channelId) {
             const channelName = newState.channel.name;
-            await user.send(`${newState.member.user.tag} đã tham gia kênh voice ${channelName} lúc ${new Date().toLocaleString()}.`);
-            console.log(`Đã gửi DM: ${newState.member.user.tag} tham gia ${channelName}`);
+            await user.send(`${nickname} (${username}) đã tham gia voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+            console.log(`Đã gửi DM: ${nickname} (${username}) tham gia ${channelName}`);
         }
         // Người dùng rời bất kỳ kênh voice nào
         else if (oldState.channelId && !newState.channelId) {
             const channelName = oldState.channel.name;
-            await user.send(`${newState.member.user.tag} đã rời kênh voice ${channelName} lúc ${new Date().toLocaleString()}.`);
-            console.log(`Đã gửi DM: ${newState.member.user.tag} rời ${channelName}`);
+            await user.send(`${nickname} (${username}) đã rời voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+            console.log(`Đã gửi DM: ${nickname} (${username}) rời ${channelName}`);
         }
     } catch (error) {
         console.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
@@ -603,9 +658,9 @@ client.once('ready', async () => {
   // Đăng ký slash commands sau khi bot ready
   const success = await registerSlashCommands();
   if (success) {
-    console.log('✅ Tất cả slash commands đã được đăng ký!');
+    console.log('Tất cả slash commands đã được đăng ký!');
   } else {
-    console.log('❌ Có lỗi khi đăng ký slash commands!');
+    console.log('Có lỗi khi đăng ký slash commands!');
   }
 });
 
@@ -618,7 +673,7 @@ client.on('warn', (warning) => {
 });
 
 client.on('disconnect', () => {
-  console.log('🔌 Bot đã ngắt kết nối');
+  console.log('Bot đã ngắt kết nối');
 });
 
 client.on('reconnecting', () => {

@@ -7,7 +7,7 @@ const runewords = require('../runeword.json');
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashRuneword(interaction) {
-  console.log(`🔧 Runeword command called by ${interaction.user.tag}`);
+  console.log(`Lệnh runeword được gọi bởi ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -19,7 +19,7 @@ async function handleSlashRuneword(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`❌ Runeword permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền runeword cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -29,17 +29,17 @@ async function handleSlashRuneword(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      console.log('❌ No name provided in interaction');
+      console.log('Không có tên được cung cấp trong interaction');
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên runeword'
       });
     }
     const name = nameOption.toLowerCase();
-    console.log(`🔍 Searching runeword: ${name}`);
+    console.log(`Đang tìm kiếm runeword: ${name}`);
 
     // Kiểm tra dữ liệu runewords
     if (!Array.isArray(runewords)) {
-      console.log('❌ Invalid runewords data: not an array');
+      console.log('Dữ liệu runeword không hợp lệ: không phải array');
       return await interaction.editReply({
         content: 'Dữ liệu runeword không hợp lệ'
       });
@@ -156,9 +156,9 @@ async function handleSlashRuneword(interaction) {
       files: files
     });
 
-    console.log(`✅ Runeword response sent for: ${name}`);
+    console.log(`Đã gửi phản hồi runeword cho: ${name}`);
   } catch (error) {
-    console.error('❌ Runeword command error:', error);
+    console.error('Lỗi lệnh runeword:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm runeword'
     });

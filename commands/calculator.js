@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
+const weapons = require('../weapon.json');
 
 /**
  * Crit Chance calculator command
@@ -41,7 +42,7 @@ async function handleSlashCritChance(interaction) {
 
     const embed = new EmbedBuilder()
       .setColor('#ff0000')
-      .setTitle('🎯 Crit Chance Calculator')
+      .setTitle('Crit Chance Calculator')
       .addFields(
         { name: 'Deadly Strike', value: `${ds}%`, inline: true },
         { name: 'Critical Strike', value: `${cs}%`, inline: true },
@@ -54,9 +55,9 @@ async function handleSlashCritChance(interaction) {
       embeds: [embed]
     });
 
-    console.log(`✅ CritChance response sent`);
+    console.log(`Đã gửi phản hồi CritChance`);
   } catch (error) {
-    console.error('❌ CritChance command error:', error);
+    console.error('Lỗi lệnh CritChance:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán crit chance'
     });
@@ -158,9 +159,9 @@ async function handleSlashIas(interaction) {
       embeds: [embed]
     });
 
-    console.log(`✅ IAS response sent`);
+    console.log(`Đã gửi phản hồi IAS`);
   } catch (error) {
-    console.error('❌ IAS command error:', error);
+    console.error('Lỗi lệnh IAS:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán IAS'
     });
@@ -203,7 +204,7 @@ async function handleDmgCalculator(interaction) {
 
     const embed = new EmbedBuilder()
       .setColor('#ff6600')
-      .setTitle('⚔️ Damage Calculator')
+      .setTitle('Damage Calculator')
       .addFields(
         { name: 'Min Damage', value: minDamage.toString(), inline: true },
         { name: 'Max Damage', value: maxDamage.toString(), inline: true },
@@ -215,9 +216,118 @@ async function handleDmgCalculator(interaction) {
       embeds: [embed]
     });
 
-    console.log(`✅ DmgCalculator response sent`);
+    console.log(`Đã gửi phản hồi DmgCalculator`);
   } catch (error) {
-    console.error('❌ DmgCalculator command error:', error);
+    console.error('Lỗi lệnh DmgCalculator:', error);
+    await interaction.editReply({
+      content: 'Đã xảy ra lỗi khi tính toán damage'
+    });
+  }
+}
+
+/**
+ * Damage calculator 2 command với weapon picker
+ * @param {Interaction} interaction - Discord interaction
+ */
+async function handleDmgCalculator2(interaction) {
+  console.log(`Lệnh dmgcal2 được gọi bởi ${interaction.user.tag}`);
+
+  // Defer reply để tránh timeout
+  await interaction.deferReply({ flags: 1 << 6 });
+
+  // Kiểm tra permissions - chỉ yêu cầu channel, không cần role
+  const permissionCheck = checkCommandPermissions(interaction, {
+    requireChannel: true,
+    requireRole: false
+  });
+
+  if (!permissionCheck.allowed) {
+    console.log(`Từ chối quyền dmgcal2 cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    return await interaction.editReply({
+      content: permissionCheck.reason
+    });
+  }
+
+  try {
+    // Lấy tên weapon
+    const itemName = interaction.options.getString('item');
+    if (!itemName) {
+      return await interaction.editReply({
+        content: 'Vui lòng chọn weapon'
+      });
+    }
+
+    // Tìm weapon trong database
+    const weapon = weapons.find(w => w.name.toLowerCase() === itemName.toLowerCase());
+    if (!weapon) {
+      return await interaction.editReply({
+        content: `Không tìm thấy weapon "${itemName}"`
+      });
+    }
+
+    // Kiểm tra weapon có min/max damage không
+    if (!weapon.min || !weapon.max) {
+      return await interaction.editReply({
+        content: `Weapon "${itemName}" không có thông tin damage`
+      });
+    }
+
+    // Lấy các tham số khác
+    const ed = interaction.options.getInteger('ed');
+    const addMin = interaction.options.getInteger('add_min');
+    const addMax = interaction.options.getInteger('add_max');
+    const isEth = interaction.options.getBoolean('eth') || false;
+    const edLvl = interaction.options.getInteger('ed_lvl') || 0;
+    const maxLvl = interaction.options.getInteger('max_lvl') || 0;
+
+    // Chuyển đổi min/max từ string sang number
+    let minBase = parseInt(weapon.min);
+    let maxBase = parseInt(weapon.max);
+
+    // Áp dụng Ethereal bonus (+25% base damage) nếu được chọn
+    if (isEth) {
+      minBase = Math.floor(minBase * 1.25);
+      maxBase = Math.floor(maxBase * 1.25);
+    }
+
+    // Tính toán damage
+    const minDamage = Math.floor((minBase * (100 + ed + edLvl)) / 100) + addMin;
+    const maxDamage = Math.floor((maxBase * (100 + ed + edLvl)) / 100) + addMax + maxLvl;
+    const avgDamage = (minDamage + maxDamage) / 2;
+
+    const embed = new EmbedBuilder()
+      .setColor('#ff6600')
+      .setTitle('Damage Calculator')
+      .addFields(
+        { name: 'Weapon', value: `${weapon.name}${isEth ? ' (Ethereal)' : ''}`, inline: true },
+        { name: 'Base Damage', value: isEth ? `${parseInt(weapon.min)} - ${parseInt(weapon.max)} → ${minBase} - ${maxBase}` : `${minBase} - ${maxBase}`, inline: true },
+        { name: 'Enhanced Damage', value: `${ed}%`, inline: true },
+        { name: 'Min Damage', value: minDamage.toString(), inline: true },
+        { name: 'Max Damage', value: maxDamage.toString(), inline: true },
+        { name: 'Average Damage', value: avgDamage.toFixed(1), inline: true }
+      )
+      .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
+
+    // Thêm thông tin ED/Lvl và Max/Lvl nếu có
+    if (edLvl > 0 || maxLvl > 0) {
+      const additionalFields = [];
+      if (edLvl > 0) additionalFields.push(`ED/Lvl: ${edLvl}%`);
+      if (maxLvl > 0) additionalFields.push(`Max/Lvl: ${maxLvl}`);
+
+      embed.addFields({
+        name: 'Per Level Bonuses',
+        value: additionalFields.join('\n'),
+        inline: false
+      });
+    }
+
+    await interaction.editReply({
+      embeds: [embed]
+    });
+
+    console.log(`Đã gửi phản hồi DmgCalculator2`);
+  } catch (error) {
+    console.error('Lỗi lệnh DmgCalculator2:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán damage'
     });
@@ -228,5 +338,6 @@ module.exports = {
   handleSlashCritChance,
   handleSlashTas,
   handleSlashIas,
-  handleDmgCalculator
+  handleDmgCalculator,
+  handleDmgCalculator2
 };

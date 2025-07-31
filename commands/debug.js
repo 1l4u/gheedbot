@@ -9,7 +9,7 @@ const config = require('../config.json');
  * @param {Client} client - Discord client
  */
 async function handleSlashDebug(interaction, client) {
-  console.log(`🔍 Debug command called by ${interaction.user.tag}`);
+  console.log(`Lệnh debug được gọi bởi ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -21,7 +21,7 @@ async function handleSlashDebug(interaction, client) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`❌ Debug permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền debug cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });

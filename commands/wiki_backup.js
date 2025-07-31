@@ -7,7 +7,7 @@ const wiki = require('../wiki.json');
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashWiki(interaction) {
-  console.log(`🔧 Wiki command called by ${interaction.user.tag}`);
+  console.log(`Lệnh wiki được gọi bởi ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -19,7 +19,7 @@ async function handleSlashWiki(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`❌ Wiki permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền wiki cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -27,7 +27,7 @@ async function handleSlashWiki(interaction) {
 
   try {
     const name = interaction.options.getString('name');
-    console.log(`🔍 Searching wiki: ${name}`);
+    console.log(`Đang tìm kiếm wiki: ${name}`);
 
     const wikiItem = wiki[name];
 
@@ -39,7 +39,7 @@ async function handleSlashWiki(interaction) {
 
     const embed = new EmbedBuilder()
       .setColor('#ff6600')
-      .setTitle(`📖 ${name}`);
+      .setTitle(`${name}`);
 
     // Xử lý text content
     let textContent = '';
@@ -122,7 +122,7 @@ async function handleSlashWiki(interaction) {
 
       // Thêm note về file attachment
       embed.addFields([{
-        name: '📎 File đính kèm',
+        name: 'File đính kèm',
         value: 'Nội dung đầy đủ được gửi trong file đính kèm',
         inline: false
       }]);
@@ -133,9 +133,9 @@ async function handleSlashWiki(interaction) {
       files: files
     });
 
-    console.log(`✅ Wiki response sent for: ${name}`);
+    console.log(`Đã gửi phản hồi wiki cho: ${name}`);
   } catch (error) {
-    console.error('❌ Wiki command error:', error);
+    console.error('Lỗi lệnh wiki:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm wiki'
     });

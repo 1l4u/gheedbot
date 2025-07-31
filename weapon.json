@@ -1,5 +1,6 @@
-{
-    "Hand Axe" :{
+[
+    {
+        "name": "Hand Axe",
         "code": "7ha",
         "qlvl": "54",
         "rlvl": "40",
@@ -12,7 +13,8 @@
         "sock": "3",
         "dur": "84"
     },
-    "Axe":{
+    {
+        "name": "Axe",
         "code": "7ax",
         "qlvl": "61",
         "rlvl": "45",
@@ -25,7 +27,8 @@
         "sock": "4",
         "dur": "72"
     },
-    "Double Axe":{
+    {
+        "name": "Double Axe",
         "code": "72a",
         "qlvl": "70",
         "rlvl": "52",
@@ -38,7 +41,8 @@
         "sock": "5",
         "dur": "72"
     },
-    "Military Pick":{
+    {
+        "name": "Military Pick",
         "code": "7mp",
         "qlvl": "79",
         "rlvl": "59",
@@ -51,7 +55,8 @@
         "sock": "6",
         "dur": "78"
     },
-    "War Axe":{
+    {
+        "name": "War Axe",
         "code": "7wa",
         "qlvl": "85",
         "rlvl": "64",
@@ -64,7 +69,8 @@
         "sock": "6",
         "dur": "78"
     },
-    "Large Axe":{
+    {
+        "name": "Large Axe",
         "code": "7la",
         "qlvl": "57",
         "rlvl": "42",
@@ -77,7 +83,8 @@
         "sock": "5",
         "dur": "90"
     },
-    "Broad Axe":{
+    {
+        "name": "Broad Axe",
         "code": "7ba",
         "qlvl": "65",
         "rlvl": "48",
@@ -90,7 +97,8 @@
         "sock": "5",
         "dur": "105"
     },
-    "Battle Axe":{
+    {
+        "name": "Battle Axe",
         "code": "7bt",
         "qlvl": "73",
         "rlvl": "54",
@@ -103,7 +111,8 @@
         "sock": "5",
         "dur": "100"
     },
-    "Great Axe":{
+    {
+        "name": "Great Axe",
         "code": "7ga",
         "qlvl": "82",
         "rlvl": "61",
@@ -116,7 +125,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Giant Axe":{
+    {
+        "name": "Giant Axe",
         "code": "7gi",
         "qlvl": "85",
         "rlvl": "66",
@@ -129,7 +139,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Club":{
+    {
+        "name": "Club",
         "code": "7cl",
         "qlvl": "52",
         "rlvl": "39",
@@ -142,7 +153,8 @@
         "sock": "3",
         "dur": "110"
     },
-    "Spiked Club":{
+    {
+        "name": "Spiked Club",
         "code": "7sp",
         "qlvl": "57",
         "rlvl": "42",
@@ -155,7 +167,8 @@
         "sock": "3",
         "dur": "130"
     },
-    "Mace":{
+    {
+        "name": "Mace",
         "code": "7ma",
         "qlvl": "63",
         "rlvl": "47",
@@ -168,7 +181,8 @@
         "sock": "3",
         "dur": "120"
     },
-    "Morning Star":{
+    {
+        "name": "Morning Star",
         "code": "7mt",
         "qlvl": "70",
         "rlvl": "52",
@@ -181,7 +195,8 @@
         "sock": "3",
         "dur": "144"
     },
-    "Flail":{
+    {
+        "name": "Flail",
         "code": "7fl",
         "qlvl": "76",
         "rlvl": "57",
@@ -194,7 +209,8 @@
         "sock": "5",
         "dur": "130"
     },
-    "War Hammer":{
+    {
+        "name": "War Hammer",
         "code": "7wh",
         "qlvl": "82",
         "rlvl": "61",
@@ -207,7 +223,8 @@
         "sock": "4",
         "dur": "130"
     },
-    "Maul":{
+    {
+        "name": "Maul",
         "code": "7m7",
         "qlvl": "69",
         "rlvl": "51",
@@ -220,7 +237,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Great Maul":{
+    {
+        "name": "Great Maul",
         "code": "7gm",
         "qlvl": "85",
         "rlvl": "65",
@@ -233,7 +251,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Short Sword":{
+    {
+        "name": "Short Spear",
         "code": "7ss",
         "qlvl": "56",
         "rlvl": "42",
@@ -246,7 +265,8 @@
         "sock": "3",
         "dur": "68"
     },
-    "Scimitar":{
+    {
+        "name": "Scimitar",
         "code": "7sm",
         "qlvl": "61",
         "rlvl": "45",
@@ -259,7 +279,8 @@
         "sock": "3",
         "dur": "64"
     },
-    "Sabre":{
+    {
+        "name": "Broad Spear",
         "code": "7sb",
         "qlvl": "63",
         "rlvl": "47",
@@ -272,7 +293,8 @@
         "sock": "3",
         "dur": "84"
     },
-    "Falchion":{
+    {
+        "name": "Falchion",
         "code": "7fc",
         "qlvl": "69",
         "rlvl": "51",
@@ -285,7 +307,8 @@
         "sock": "3",
         "dur": "84"
     },
-    "Crystal Sword":{
+    {
+        "name": "Crystal Sword",
         "code": "7cr",
         "qlvl": "73",
         "rlvl": "54",
@@ -298,7 +321,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Broad Sword":{
+    {
+        "name": "Broad Sword",
         "code": "7bs",
         "qlvl": "78",
         "rlvl": "58",
@@ -311,7 +335,8 @@
         "sock": "4",
         "dur": "84"
     },
-    "Long Sword":{
+    {
+        "name": "Long Sword",
         "code": "7ls",
         "qlvl": "82",
         "rlvl": "61",
@@ -324,7 +349,8 @@
         "sock": "5",
         "dur": "88"
     },
-    "War Sword":{
+    {
+        "name": "War Sword",
         "code": "7wd",
         "qlvl": "85",
         "rlvl": "66",
@@ -337,7 +363,8 @@
         "sock": "3",
         "dur": "88"
     },
-    "Two-Handed Sword":{
+    {
+        "name": "Two-Handed Sword",
         "code": "72h",
         "qlvl": "59",
         "rlvl": "44",
@@ -350,7 +377,8 @@
         "sock": "3",
         "dur": "88"
     },
-    "Claymore":{
+    {
+        "name": "Claymore",
         "code": "7cm",
         "qlvl": "66",
         "rlvl": "49",
@@ -363,7 +391,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Giant Sword":{
+    {
+        "name": "Giant Sword",
         "code": "7gs",
         "qlvl": "71",
         "rlvl": "53",
@@ -376,7 +405,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Bastard Sword":{
+    {
+        "name": "Bastard Sword",
         "code": "7b7",
         "qlvl": "77",
         "rlvl": "57",
@@ -389,7 +419,8 @@
         "sock": "4",
         "dur": "80"
     },
-    "Flamberge":{
+    {
+        "name": "Flamberge",
         "code": "7fb",
         "qlvl": "80",
         "rlvl": "60",
@@ -402,7 +433,8 @@
         "sock": "5",
         "dur": "100"
     },
-    "Great Sword":{
+    {
+        "name": "Great Sword",
         "code": "7gd",
         "qlvl": "85",
         "rlvl": "63",
@@ -415,7 +447,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Two-Handed Sword (1h)":{
+    {
+        "name": "Two-Handed Sword (1h)",
         "code": "72h",
         "qlvl": "59",
         "rlvl": "44",
@@ -428,7 +461,8 @@
         "sock": "3",
         "dur": "88"
     },
-    "Claymore (1h)":{
+    {
+        "name": "Claymore (1h)",
         "code": "7cm",
         "qlvl": "66",
         "rlvl": "49",
@@ -441,7 +475,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Giant Sword (1h)":{
+    {
+        "name": "Giant Sword (1h)",
         "code": "7gs",
         "qlvl": "71",
         "rlvl": "53",
@@ -454,7 +489,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Bastard Sword (1h)":{
+    {
+        "name": "Bastard Sword (1h)",
         "code": "7b7",
         "qlvl": "77",
         "rlvl": "57",
@@ -467,7 +503,8 @@
         "sock": "4",
         "dur": "80"
     },
-    "Flamberge (1h)":{
+    {
+        "name": "Flamberge (1h)",
         "code": "7fb",
         "qlvl": "80",
         "rlvl": "60",
@@ -480,7 +517,8 @@
         "sock": "5",
         "dur": "100"
     },
-    "Great Sword (1h)":{
+    {
+        "name": "Great Sword (1h)",
         "code": "7gd",
         "qlvl": "85",
         "rlvl": "63",
@@ -493,7 +531,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Dagger":{
+    {
+        "name": "Dagger",
         "code": "7dg",
         "qlvl": "58",
         "rlvl": "43",
@@ -506,7 +545,8 @@
         "sock": "2",
         "dur": "72"
     },
-    "Dirk":{
+    {
+        "name": "Dirk",
         "code": "7di",
         "qlvl": "70",
         "rlvl": "52",
@@ -519,7 +559,8 @@
         "sock": "2",
         "dur": "110"
     },
-    "Kris":{
+    {
+        "name": "Kris",
         "code": "7kr",
         "qlvl": "83",
         "rlvl": "62",
@@ -532,7 +573,8 @@
         "sock": "3",
         "dur": "72"
     },
-    "Blade":{
+    {
+        "name": "Blade",
         "code": "7bl",
         "qlvl": "85",
         "rlvl": "66",
@@ -545,7 +587,8 @@
         "sock": "2",
         "dur": "94"
     },
-    "Throwing Knife":{
+    {
+        "name": "Throwing Knife",
         "code": "7tk",
         "qlvl": "64",
         "rlvl": "48",
@@ -558,7 +601,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Balanced Knife":{
+    {
+        "name": "Balanced Knife",
         "code": "7bk",
         "qlvl": "77",
         "rlvl": "57",
@@ -571,7 +615,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Throwing Knife (melee)":{
+    {
+        "name": "Throwing Knife (melee)",
         "code": "7tk",
         "qlvl": "64",
         "rlvl": "48",
@@ -584,7 +629,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Balanced Knife (melee)":{
+    {
+        "name": "Balanced Knife (melee)",
         "code": "7bk",
         "qlvl": "77",
         "rlvl": "57",
@@ -597,7 +643,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Throwing Axe":{
+    {
+        "name": "Throwing Axe",
         "code": "7ta",
         "qlvl": "56",
         "rlvl": "42",
@@ -610,7 +657,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Balanced Axe":{
+    {
+        "name": "Balanced Axe",
         "code": "7b8",
         "qlvl": "80",
         "rlvl": "60",
@@ -623,7 +671,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Throwing Axe (melee)":{
+    {
+        "name": "Throwing Axe (melee)",
         "code": "7ta",
         "qlvl": "56",
         "rlvl": "42",
@@ -636,7 +685,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Balanced Axe (melee)":{
+    {
+        "name": "Balanced Axe (melee)",
         "code": "7b8",
         "qlvl": "80",
         "rlvl": "60",
@@ -649,7 +699,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Javelin":{
+    {
+        "name": "Javelin",
         "code": "7ja",
         "qlvl": "54",
         "rlvl": "40",
@@ -662,7 +713,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Pilum":{
+    {
+        "name": "Pilum",
         "code": "7pi",
         "qlvl": "62",
         "rlvl": "46",
@@ -675,7 +727,8 @@
         "sock": "2",
         "dur": ""
     },
-   "Short Spear":{
+    {
+        "name": "Short Spear",
         "code": "7s7",
         "qlvl": "71",
         "rlvl": "53",
@@ -688,7 +741,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Glaive":{
+    {
+        "name": "Glaive",
         "code": "7gl",
         "qlvl": "79",
         "rlvl": "59",
@@ -701,7 +755,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Throwing Spear":{
+    {
+        "name": "Throwing Spear",
         "code": "7ts",
         "qlvl": "85",
         "rlvl": "65",
@@ -714,7 +769,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Javelin (melee)":{
+    {
+        "name": "Javelin (melee)",
         "code": "7ja",
         "qlvl": "54",
         "rlvl": "40",
@@ -727,7 +783,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Pilum (melee)":{
+    {
+        "name": "Pilum (melee)",
         "code": "7pi",
         "qlvl": "62",
         "rlvl": "46",
@@ -740,7 +797,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Short Spear (melee)":{
+    {
+        "name": "Short Spear (melee)",
         "code": "7s7",
         "qlvl": "71",
         "rlvl": "53",
@@ -753,7 +811,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Glaive (melee)":{
+    {
+        "name": "Glaive (melee)",
         "code": "7gl",
         "qlvl": "79",
         "rlvl": "59",
@@ -766,7 +825,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Throwing Spear (melee)":{
+    {
+        "name": "Throwing Spear (melee)",
         "code": "7ts",
         "qlvl": "85",
         "rlvl": "65",
@@ -779,7 +839,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Maiden Javelin":{
+    {
+        "name": "Maiden Javelin",
         "code": "amf",
         "qlvl": "65",
         "rlvl": "48",
@@ -792,7 +853,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Maiden Javelin (melee)":{
+    {
+        "name": "Maiden Javelin (melee)",
         "code": "amf",
         "qlvl": "65",
         "rlvl": "48",
@@ -805,7 +867,8 @@
         "sock": "",
         "dur": ""
     },
-    "Maiden Spear":{
+    {
+        "name": "Maiden Spear",
         "code": "amd",
         "qlvl": "61",
         "rlvl": "45",
@@ -818,7 +881,8 @@
         "sock": "6",
         "dur": "56"
     },
-    "Maiden Pike":{
+    {
+        "name": "Maiden Pike",
         "code": "ame",
         "qlvl": "81",
         "rlvl": "60",
@@ -831,7 +895,8 @@
         "sock": "6",
         "dur": "50"
     },
-    "Spear":{
+    {
+        "name": "Hyperion Spear",
         "code": "7sr",
         "qlvl": "58",
         "rlvl": "43",
@@ -844,7 +909,8 @@
         "sock": "6",
         "dur": "90"
     },
-    "Trident":{
+    {
+        "name": "Stygian Pike",
         "code": "7tr",
         "qlvl": "66",
         "rlvl": "49",
@@ -857,7 +923,8 @@
         "sock": "4",
         "dur": "105"
     },
-    "Brandistock":{
+    {
+        "name": "Brandistock",
         "code": "7br",
         "qlvl": "74",
         "rlvl": "55",
@@ -870,7 +937,8 @@
         "sock": "5",
         "dur": "84"
     },
-    "Spetum":{
+    {
+        "name": "Spetum",
         "code": "7st",
         "qlvl": "83",
         "rlvl": "62",
@@ -883,7 +951,8 @@
         "sock": "6",
         "dur": "75"
     },
-    "Pike":{
+    {
+        "name": "Pike",
         "code": "7p7",
         "qlvl": "85",
         "rlvl": "66",
@@ -896,7 +965,8 @@
         "sock": "6",
         "dur": "75"
     },
-    "Bardiche":{
+    {
+        "name": "Ogre Axe",
         "code": "7o7",
         "qlvl": "60",
         "rlvl": "45",
@@ -909,7 +979,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Voulge":{
+    {
+        "name": "Voulge",
         "code": "7vo",
         "qlvl": "64",
         "rlvl": "48",
@@ -922,7 +993,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Scythe":{
+    {
+        "name": "Scythe",
         "code": "7s8",
         "qlvl": "71",
         "rlvl": "53",
@@ -935,7 +1007,8 @@
         "sock": "5",
         "dur": "130"
     },
-    "Poleaxe":{
+    {
+        "name": "Poleaxe",
         "code": "7pa",
         "qlvl": "79",
         "rlvl": "59",
@@ -948,7 +1021,8 @@
         "sock": "5",
         "dur": "130"
     },
-    "Halberd":{
+    {
+        "name": "Halberd",
         "code": "7h7",
         "qlvl": "84",
         "rlvl": "63",
@@ -961,7 +1035,8 @@
         "sock": "6",
         "dur": "110"
     },
-    "War Scythe":{
+    {
+        "name": "War Scythe",
         "code": "7wc",
         "qlvl": "85",
         "rlvl": "66",
@@ -974,7 +1049,8 @@
         "sock": "6",
         "dur": "110"
     },
-    "Short Bow":{
+    {
+        "name": "Short Bow",
         "code": "6sb",
         "qlvl": "55",
         "rlvl": "41",
@@ -987,7 +1063,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Hunter's Bow":{
+    {
+        "name": "Long Bow",
         "code": "6hb",
         "qlvl": "60",
         "rlvl": "45",
@@ -1000,7 +1077,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Long Bow":{
+    {
+        "name": "Recurve Bow",
         "code": "6lb",
         "qlvl": "63",
         "rlvl": "47",
@@ -1013,7 +1091,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Composite Bow":{
+    {
+        "name": "Composite Bow",
         "code": "6cb",
         "qlvl": "68",
         "rlvl": "51",
@@ -1026,7 +1105,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Short Battle Bow":{
+    {
+        "name": "Short Battle Bow",
         "code": "6s7",
         "qlvl": "72",
         "rlvl": "54",
@@ -1039,7 +1119,8 @@
         "sock": "5",
         "dur": ""
     },
-     "Long Battle Bow":{
+    {
+        "name": "Long Battle Bow",
         "code": "6l7",
         "qlvl": "77",
         "rlvl": "57",
@@ -1052,7 +1133,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Short War Bow":{
+    {
+        "name": "Short War Bow",
         "code": "6sw",
         "qlvl": "80",
         "rlvl": "60",
@@ -1065,7 +1147,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Long War Bow":{
+    {
+        "name": "Long War Bow",
         "code": "6lw",
         "qlvl": "85",
         "rlvl": "63",
@@ -1078,7 +1161,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Stag Bow":{
+    {
+        "name": "Stag Bow",
         "code": "amb",
         "qlvl": "53",
         "rlvl": "39",
@@ -1091,7 +1175,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Reflex Bow":{
+    {
+        "name": "Grand Matron Bow",
         "code": "amc",
         "qlvl": "78",
         "rlvl": "58",
@@ -1104,7 +1189,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Light Crossbow":{
+    {
+        "name": "Light Crossbow",
         "code": "6lx",
         "qlvl": "57",
         "rlvl": "42",
@@ -1117,7 +1203,8 @@
         "sock": "4",
         "dur": ""
     },
-     "Crossbow":{
+    {
+        "name": "Siege Crossbow",
         "code": "6mx",
         "qlvl": "67",
         "rlvl": "50",
@@ -1130,7 +1217,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Heavy Crossbow":{
+    {
+        "name": "Heavy Crossbow",
         "code": "6hx",
         "qlvl": "75",
         "rlvl": "56",
@@ -1143,7 +1231,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Repeating Crossbow":{
+    {
+        "name": "Repeating Crossbow",
         "code": "6rx",
         "qlvl": "84",
         "rlvl": "63",
@@ -1156,7 +1245,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Katar":{
+    {
+        "name": "Katar",
         "code": "7ar",
         "qlvl": "59",
         "rlvl": "44",
@@ -1169,7 +1259,8 @@
         "sock": "3",
         "dur": "96"
     },
-    "Wrist Blade":{
+    {
+        "name": "Wrist Blade",
         "code": "7wb",
         "qlvl": "62",
         "rlvl": "46",
@@ -1182,7 +1273,8 @@
         "sock": "3",
         "dur": "112"
     },
-     "Hatchet Hands":{
+    {
+        "name": "Fist of War",
         "code": "7xf",
         "qlvl": "68",
         "rlvl": "51",
@@ -1195,7 +1287,8 @@
         "sock": "3",
         "dur": "128"
     },
-    "Cestus":{
+    {
+        "name": "Cestus",
         "code": "7cs",
         "qlvl": "73",
         "rlvl": "54",
@@ -1208,7 +1301,8 @@
         "sock": "3",
         "dur": "144"
     },
-    "Claws":{
+    {
+        "name": "Claws",
         "code": "7lw",
         "qlvl": "78",
         "rlvl": "58",
@@ -1221,7 +1315,8 @@
         "sock": "3",
         "dur": "104"
     },
-    "Blade Talons":{
+    {
+        "name": "Talons",
         "code": "7tw",
         "qlvl": "81",
         "rlvl": "60",
@@ -1234,7 +1329,8 @@
         "sock": "3",
         "dur": "138"
     },
-    "Scissors Katar":{
+    {
+        "name": "Scissors",
         "code": "7qr",
         "qlvl": "85",
         "rlvl": "64",
@@ -1247,7 +1343,8 @@
         "sock": "3",
         "dur": "136"
     },
-    "Scepter":{
+    {
+        "name": "Scepter",
         "code": "7sc",
         "qlvl": "62",
         "rlvl": "46",
@@ -1260,7 +1357,8 @@
         "sock": "3",
         "dur": "100"
     },
-    "Grand Scepter":{
+    {
+        "name": "Quarterstaff",
         "code": "7qs",
         "qlvl": "76",
         "rlvl": "57",
@@ -1273,7 +1371,8 @@
         "sock": "3",
         "dur": "120"
     },
-    "War Scepter":{
+    {
+        "name": "Wand",
         "code": "7ws",
         "qlvl": "85",
         "rlvl": "66",
@@ -1286,7 +1385,8 @@
         "sock": "5",
         "dur": "140"
     },
-    "Short Staff":{
+    {
+        "name": "Short Staff",
         "code": "6ss",
         "qlvl": "58",
         "rlvl": "43",
@@ -1299,7 +1399,8 @@
         "sock": "3",
         "dur": "80"
     },
-    "Long Staff":{
+    {
+        "name": "Long Staff",
         "code": "6ls",
         "qlvl": "66",
         "rlvl": "49",
@@ -1312,7 +1413,8 @@
         "sock": "3",
         "dur": "90"
     },
-    "Gnarled Staff":{
+    {
+        "name": "Cedar Staff",
         "code": "6cs",
         "qlvl": "74",
         "rlvl": "55",
@@ -1325,7 +1427,8 @@
         "sock": "4",
         "dur": "105"
     },
-    "Battle Staff":{
+    {
+        "name": "Battle Staff",
         "code": "6bs",
         "qlvl": "83",
         "rlvl": "62",
@@ -1338,7 +1441,8 @@
         "sock": "4",
         "dur": "120"
     },
-    "War Staff":{
+    {
+        "name": "Archon Staff",
         "code": "6ws",
         "qlvl": "85",
         "rlvl": "66",
@@ -1351,7 +1455,8 @@
         "sock": "6",
         "dur": "78"
     },
-    "Wand":{
+    {
+        "name": "Wand",
         "code": "7wn",
         "qlvl": "55",
         "rlvl": "41",
@@ -1364,7 +1469,8 @@
         "sock": "2",
         "dur": "44"
     },
-    "Yew Wand":{
+    {
+        "name": "Yew Wand",
         "code": "7yw",
         "qlvl": "65",
         "rlvl": "48",
@@ -1377,7 +1483,8 @@
         "sock": "2",
         "dur": "28"
     },
-    "Bone Wand":{
+    {
+        "name": "Bone Wand",
         "code": "7bw",
         "qlvl": "75",
         "rlvl": "56",
@@ -1390,7 +1497,8 @@
         "sock": "2",
         "dur": "34"
     },
-    "Grim Wand":{
+    {
+        "name": "Ghost Wand",
         "code": "7gw",
         "qlvl": "86",
         "rlvl": "64",
@@ -1403,7 +1511,8 @@
         "sock": "2",
         "dur": "36"
     },
-    "Eagle Orb":{
+    {
+        "name": "Eagle Orb",
         "code": "obb",
         "qlvl": "59",
         "rlvl": "44",
@@ -1416,7 +1525,8 @@
         "sock": "2",
         "dur": "40"
     },
-    "Sacred Globe":{
+    {
+        "name": "Eldritch Orb",
         "code": "obc",
         "qlvl": "67",
         "rlvl": "50",
@@ -1429,7 +1539,8 @@
         "sock": "2",
         "dur": "60"
     },
-    "Smoked Sphere":{
+    {
+        "name": "Demon Heart",
         "code": "obd",
         "qlvl": "75",
         "rlvl": "56",
@@ -1442,7 +1553,8 @@
         "sock": "2",
         "dur": "70"
     },
-    "Clasped Orb":{
+    {
+        "name": "Vortex Orb",
         "code": "obe",
         "qlvl": "84",
         "rlvl": "63",
@@ -1455,7 +1567,8 @@
         "sock": "2",
         "dur": "80"
     },
-    "Jared's Stone":{
+    {
+        "name": "Dimensional Shard",
         "code": "obf",
         "qlvl": "85",
         "rlvl": "66",
@@ -1468,7 +1581,8 @@
         "sock": "3",
         "dur": "100"
     },
-    "Hatchet":{
+    {
+        "name": "Hatchet",
         "code": "9ha",
         "qlvl": "31",
         "rlvl": "19",
@@ -1481,7 +1595,8 @@
         "sock": "3",
         "dur": "56"
     },
-    "Cleaver":{
+    {
+        "name": "Axe",
         "code": "9ax",
         "qlvl": "34",
         "rlvl": "22",
@@ -1494,7 +1609,8 @@
         "sock": "4",
         "dur": "48"
     },
-    "Twin Axe":{
+    {
+        "name": "Twin Axe",
         "code": "92a",
         "qlvl": "39",
         "rlvl": "25",
@@ -1507,7 +1623,8 @@
         "sock": "5",
         "dur": "48"
     },
-    "Crowbill":{
+    {
+        "name": "Military Pick",
         "code": "9mp",
         "qlvl": "43",
         "rlvl": "25",
@@ -1520,7 +1637,8 @@
         "sock": "6",
         "dur": "52"
     },
-    "Naga":{
+    {
+        "name": "War Axe",
         "code": "9wa",
         "qlvl": "48",
         "rlvl": "25",
@@ -1533,7 +1651,8 @@
         "sock": "6",
         "dur": "52"
     },
-    "Military Axe":{
+    {
+        "name": "Large Axe",
         "code": "9la",
         "qlvl": "34",
         "rlvl": "22",
@@ -1546,7 +1665,8 @@
         "sock": "5",
         "dur": "60"
     },
-    "Bearded Axe":{
+    {
+        "name": "Bearded Axe",
         "code": "9ba",
         "qlvl": "38",
         "rlvl": "25",
@@ -1559,7 +1679,8 @@
         "sock": "5",
         "dur": "70"
     },
-    "Tabar":{
+    {
+        "name": "Battle Axe",
         "code": "9bt",
         "qlvl": "42",
         "rlvl": "25",
@@ -1572,7 +1693,8 @@
         "sock": "5",
         "dur": "80"
     },
-    "Gothic Axe":{
+    {
+        "name": "Gothic Axe",
         "code": "9ga",
         "qlvl": "46",
         "rlvl": "25",
@@ -1585,7 +1707,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Ancient Axe":{
+    {
+        "name": "Giant Axe",
         "code": "9gi",
         "qlvl": "51",
         "rlvl": "25",
@@ -1598,7 +1721,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Cudgel":{
+    {
+        "name": "Cudgel",
         "code": "9cl",
         "qlvl": "30",
         "rlvl": "18",
@@ -1611,7 +1735,8 @@
         "sock": "3",
         "dur": "48"
     },
-    "Barbed Club":{
+    {
+        "name": "Spiked Club",
         "code": "9sp",
         "qlvl": "32",
         "rlvl": "20",
@@ -1624,7 +1749,8 @@
         "sock": "3",
         "dur": "72"
     },
-    "Flanged Mace":{
+    {
+        "name": "Flanged Mace",
         "code": "9ma",
         "qlvl": "35",
         "rlvl": "23",
@@ -1637,7 +1763,8 @@
         "sock": "3",
         "dur": "120"
     },
-    "Jagged Star":{
+    {
+        "name": "Mallet",
         "code": "9mt",
         "qlvl": "39",
         "rlvl": "25",
@@ -1650,7 +1777,8 @@
         "sock": "3",
         "dur": "144"
     },
-    "Knout":{
+    {
+        "name": "Flail",
         "code": "9fl",
         "qlvl": "43",
         "rlvl": "25",
@@ -1663,7 +1791,8 @@
         "sock": "5",
         "dur": "60"
     },
-    "Battle Hammer":{
+    {
+        "name": "War Hammer",
         "code": "9wh",
         "qlvl": "48",
         "rlvl": "25",
@@ -1676,7 +1805,8 @@
         "sock": "4",
         "dur": "110"
     },
-    "War Club":{
+    {
+        "name": "War Club",
         "code": "9m9",
         "qlvl": "45",
         "rlvl": "25",
@@ -1689,7 +1819,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Martel de Fer":{
+    {
+        "name": "Gothic Mace",
         "code": "9gm",
         "qlvl": "53",
         "rlvl": "25",
@@ -1702,7 +1833,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Gladius":{
+    {
+        "name": "Gladius",
         "code": "9ss",
         "qlvl": "30",
         "rlvl": "18",
@@ -1715,7 +1847,8 @@
         "sock": "3",
         "dur": "48"
     },
-    "Cutlass":{
+    {
+        "name": "Cutlass",
         "code": "9sm",
         "qlvl": "43",
         "rlvl": "25",
@@ -1728,7 +1861,8 @@
         "sock": "3",
         "dur": "44"
     },
-    "Shamshir":{
+    {
+        "name": "Shamshir",
         "code": "9sb",
         "qlvl": "35",
         "rlvl": "23",
@@ -1741,7 +1875,8 @@
         "sock": "3",
         "dur": "64"
     },
-    "Tulwar":{
+    {
+        "name": "Tulwar",
         "code": "9fc",
         "qlvl": "37",
         "rlvl": "25",
@@ -1754,7 +1889,8 @@
         "sock": "3",
         "dur": "64"
     },
-    "Dimensional Blade":{
+    {
+        "name": "Dimensional Blade",
         "code": "9cr",
         "qlvl": "37",
         "rlvl": "25",
@@ -1767,7 +1903,8 @@
         "sock": "6",
         "dur": "40"
     },
-    "Battle Sword":{
+    {
+        "name": "Battle Sword",
         "code": "9bs",
         "qlvl": "40",
         "rlvl": "25",
@@ -1780,7 +1917,8 @@
         "sock": "4",
         "dur": "64"
     },
-    "Rune Sword":{
+    {
+        "name": "Rune Sword",
         "code": "9ls",
         "qlvl": "44",
         "rlvl": "25",
@@ -1793,7 +1931,8 @@
         "sock": "5",
         "dur": "88"
     },
-    "Ancient Sword":{
+    {
+        "name": "Ancient Sword",
         "code": "9wd",
         "qlvl": "49",
         "rlvl": "25",
@@ -1806,7 +1945,8 @@
         "sock": "3",
         "dur": "88"
     },
-    "Espandon":{
+    {
+        "name": "Espandon",
         "code": "92h",
         "qlvl": "37",
         "rlvl": "25",
@@ -1819,7 +1959,8 @@
         "sock": "3",
         "dur": "88"
     },
-    "Dacian Falx":{
+    {
+        "name": "Dacian Falx",
         "code": "9cm",
         "qlvl": "42",
         "rlvl": "25",
@@ -1832,7 +1973,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Tusk Sword":{
+    {
+        "name": "Tusk Sword",
         "code": "9gs",
         "qlvl": "45",
         "rlvl": "25",
@@ -1845,7 +1987,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Gothic Sword":{
+    {
+        "name": "Gothic Sword",
         "code": "9b9",
         "qlvl": "48",
         "rlvl": "25",
@@ -1858,7 +2001,8 @@
         "sock": "4",
         "dur": "80"
     },
-    "Zweihander":{
+    {
+        "name": "Zweihander",
         "code": "9fb",
         "qlvl": "49",
         "rlvl": "25",
@@ -1871,7 +2015,8 @@
         "sock": "5",
         "dur": "100"
     },
-    "Executioner Sword":{
+    {
+        "name": "Executioner Sword",
         "code": "9gd",
         "qlvl": "54",
         "rlvl": "25",
@@ -1884,7 +2029,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Espandon (1h)":{
+    {
+        "name": "Espandon (1h)",
         "code": "92h",
         "qlvl": "37",
         "rlvl": "25",
@@ -1897,7 +2043,8 @@
         "sock": "3",
         "dur": "88"
     },
-    "Dacian Falx (1h)":{
+    {
+        "name": "Dacian Falx (1h)",
         "code": "9cm",
         "qlvl": "42",
         "rlvl": "25",
@@ -1910,7 +2057,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Tusk Sword (1h)":{
+    {
+        "name": "Tusk Sword (1h)",
         "code": "9gs",
         "qlvl": "45",
         "rlvl": "25",
@@ -1923,7 +2071,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Gothic Sword (1h)":{
+    {
+        "name": "Gothic Sword (1h)",
         "code": "9b9",
         "qlvl": "48",
         "rlvl": "25",
@@ -1936,7 +2085,8 @@
         "sock": "4",
         "dur": "80"
     },
-    "Zweihander (1h)":{
+    {
+        "name": "Zweihander (1h)",
         "code": "9fb",
         "qlvl": "49",
         "rlvl": "25",
@@ -1949,7 +2099,8 @@
         "sock": "5",
         "dur": "100"
     },
-    "Executioner Sword (1h)":{
+    {
+        "name": "Executioner Sword (1h)",
         "code": "9gd",
         "qlvl": "54",
         "rlvl": "25",
@@ -1962,7 +2113,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Poignard":{
+    {
+        "name": "Poignard",
         "code": "9dg",
         "qlvl": "31",
         "rlvl": "19",
@@ -1975,7 +2127,8 @@
         "sock": "2",
         "dur": "32"
     },
-    "Rondel":{
+    {
+        "name": "Rondel",
         "code": "9di",
         "qlvl": "36",
         "rlvl": "24",
@@ -1988,7 +2141,8 @@
         "sock": "2",
         "dur": "40"
     },
-    "Cinquedeas":{
+    {
+        "name": "Cinquedeas",
         "code": "9kr",
         "qlvl": "42",
         "rlvl": "25",
@@ -2001,7 +2155,8 @@
         "sock": "3",
         "dur": "48"
     },
-    "Stiletto":{
+    {
+        "name": "Stiletto",
         "code": "9bl",
         "qlvl": "46",
         "rlvl": "25",
@@ -2014,7 +2169,8 @@
         "sock": "2",
         "dur": "48"
     },
-    "Battle Dart":{
+    {
+        "name": "Battle Dart",
         "code": "9tk",
         "qlvl": "31",
         "rlvl": "19",
@@ -2027,7 +2183,8 @@
         "sock": "2",
         "dur": ""
     },
-    "War Dart":{
+    {
+        "name": "War Dart",
         "code": "9bk",
         "qlvl": "39",
         "rlvl": "25",
@@ -2040,7 +2197,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Battle Dart (melee)":{
+    {
+        "name": "Battle Dart (melee)",
         "code": "9tk",
         "qlvl": "31",
         "rlvl": "19",
@@ -2053,7 +2211,8 @@
         "sock": "2",
         "dur": ""
     },
-    "War Dart (melee)":{
+    {
+        "name": "War Dart (melee)",
         "code": "9bk",
         "qlvl": "39",
         "rlvl": "25",
@@ -2066,7 +2225,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Francisca":{
+    {
+        "name": "Francisca",
         "code": "9ta",
         "qlvl": "34",
         "rlvl": "22",
@@ -2079,7 +2239,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Hurlbat":{
+    {
+        "name": "Hurlbat",
         "code": "9b8",
         "qlvl": "41",
         "rlvl": "25",
@@ -2092,7 +2253,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Francisca (melee)":{
+    {
+        "name": "Francisca (melee)",
         "code": "9ta",
         "qlvl": "34",
         "rlvl": "22",
@@ -2105,7 +2267,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Hurlbat (melee)":{
+    {
+        "name": "Hurlbat (melee)",
         "code": "9b8",
         "qlvl": "41",
         "rlvl": "25",
@@ -2118,7 +2281,8 @@
         "sock": "3",
         "dur": ""
     },
-    "War Javelin":{
+    {
+        "name": "War Javelin",
         "code": "9ja",
         "qlvl": "30",
         "rlvl": "18",
@@ -2131,7 +2295,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Great Pilum":{
+    {
+        "name": "Great Pilum",
         "code": "9pi",
         "qlvl": "37",
         "rlvl": "25",
@@ -2144,7 +2309,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Simbilan":{
+    {
+        "name": "Simbilan",
         "code": "9s9",
         "qlvl": "40",
         "rlvl": "25",
@@ -2157,7 +2323,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Spiculum":{
+    {
+        "name": "Spiculum",
         "code": "9gl",
         "qlvl": "46",
         "rlvl": "25",
@@ -2170,7 +2337,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Harpoon":{
+    {
+        "name": "Harpoon",
         "code": "9ts",
         "qlvl": "51",
         "rlvl": "25",
@@ -2183,7 +2351,8 @@
         "sock": "3",
         "dur": ""
     },
-    "War Javelin (melee)":{
+    {
+        "name": "War Javelin (melee)",
         "code": "9ja",
         "qlvl": "30",
         "rlvl": "18",
@@ -2196,7 +2365,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Great Pilum (melee)":{
+    {
+        "name": "Great Pilum (melee)",
         "code": "9pi",
         "qlvl": "37",
         "rlvl": "25",
@@ -2209,7 +2379,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Simbilan (melee)":{
+    {
+        "name": "Simbilan (melee)",
         "code": "9s9",
         "qlvl": "40",
         "rlvl": "25",
@@ -2222,7 +2393,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Spiculum (melee)":{
+    {
+        "name": "Spiculum (melee)",
         "code": "9gl",
         "qlvl": "46",
         "rlvl": "25",
@@ -2235,7 +2407,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Harpoon (melee)":{
+    {
+        "name": "Harpoon (melee)",
         "code": "9ts",
         "qlvl": "51",
         "rlvl": "25",
@@ -2248,7 +2421,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Ceremonial Javelin":{
+    {
+        "name": "Ceremonial Javelin",
         "code": "ama",
         "qlvl": "35",
         "rlvl": "26",
@@ -2261,7 +2435,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Ceremonial Javelin (melee)":{
+    {
+        "name": "Ceremonial Javelin (melee)",
         "code": "ama",
         "qlvl": "35",
         "rlvl": "26",
@@ -2274,7 +2449,8 @@
         "sock": "",
         "dur": ""
     },
-    "Ceremonial Spear":{
+    {
+        "name": "Ceremonial Spear",
         "code": "am8",
         "qlvl": "43",
         "rlvl": "32",
@@ -2287,7 +2463,8 @@
         "sock": "6",
         "dur": "56"
     },
-    "Ceremonial Pike":{
+    {
+        "name": "Ceremonial Pike",
         "code": "am9",
         "qlvl": "51",
         "rlvl": "38",
@@ -2300,7 +2477,8 @@
         "sock": "6",
         "dur": "50"
     },
-    "War Spear":{
+    {
+        "name": "War Spear",
         "code": "9sr",
         "qlvl": "33",
         "rlvl": "21",
@@ -2313,7 +2491,8 @@
         "sock": "4",
         "dur": "60"
     },
-    "Fuscina":{
+    {
+        "name": "Fuscina",
         "code": "9tr",
         "qlvl": "36",
         "rlvl": "24",
@@ -2326,7 +2505,8 @@
         "sock": "4",
         "dur": "70"
     },
-    "War Fork":{
+    {
+        "name": "War Fork",
         "code": "9br",
         "qlvl": "41",
         "rlvl": "25",
@@ -2339,7 +2519,8 @@
         "sock": "5",
         "dur": "56"
     },
-    "Yari":{
+    {
+        "name": "Yari",
         "code": "9st",
         "qlvl": "44",
         "rlvl": "25",
@@ -2352,7 +2533,8 @@
         "sock": "6",
         "dur": "56"
     },
-    "Lance":{
+    {
+        "name": "Lance",
         "code": "9p9",
         "qlvl": "47",
         "rlvl": "25",
@@ -2365,7 +2547,8 @@
         "sock": "6",
         "dur": "50"
     },
-    "Lochaber Axe":{
+    {
+        "name": "Lochaber Axe",
         "code": "9b7",
         "qlvl": "33",
         "rlvl": "21",
@@ -2378,7 +2561,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Bill":{
+    {
+        "name": "Bill",
         "code": "9vo",
         "qlvl": "37",
         "rlvl": "25",
@@ -2391,7 +2575,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Battle Scythe":{
+    {
+        "name": "Battle Scythe",
         "code": "9s8",
         "qlvl": "40",
         "rlvl": "25",
@@ -2404,7 +2589,8 @@
         "sock": "5",
         "dur": "130"
     },
-    "Partizan":{
+    {
+        "name": "Partizan",
         "code": "9pa",
         "qlvl": "35",
         "rlvl": "23",
@@ -2417,7 +2603,8 @@
         "sock": "5",
         "dur": "130"
     },
-    "Bec-de-Corbin":{
+    {
+        "name": "Bec-de-Corbin",
         "code": "9h9",
         "qlvl": "51",
         "rlvl": "25",
@@ -2430,7 +2617,8 @@
         "sock": "6",
         "dur": "110"
     },
-    "Grim Scythe":{
+    {
+        "name": "Grim Scythe",
         "code": "9wc",
         "qlvl": "55",
         "rlvl": "25",
@@ -2443,7 +2631,8 @@
         "sock": "6",
         "dur": "110"
     },
-    "Edge Bow":{
+    {
+        "name": "Edge Bow",
         "code": "8sb",
         "qlvl": "30",
         "rlvl": "18",
@@ -2456,7 +2645,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Razor Bow":{
+    {
+        "name": "Razor Bow",
         "code": "8hb",
         "qlvl": "33",
         "rlvl": "21",
@@ -2469,7 +2659,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Cedar Bow":{
+    {
+        "name": "Cedar Bow",
         "code": "8lb",
         "qlvl": "35",
         "rlvl": "23",
@@ -2482,7 +2673,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Double Bow":{
+    {
+        "name": "Double Bow",
         "code": "8cb",
         "qlvl": "39",
         "rlvl": "25",
@@ -2495,7 +2687,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Short Siege Bow":{
+    {
+        "name": "Short Siege Bow",
         "code": "8s8",
         "qlvl": "43",
         "rlvl": "25",
@@ -2508,7 +2701,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Large Siege Bow":{
+    {
+        "name": "Large Siege Bow",
         "code": "8l8",
         "qlvl": "46",
         "rlvl": "25",
@@ -2521,7 +2715,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Rune Bow":{
+    {
+        "name": "Rune Bow",
         "code": "8sw",
         "qlvl": "49",
         "rlvl": "25",
@@ -2534,7 +2729,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Gothic Bow":{
+    {
+        "name": "Gothic Bow",
         "code": "8lw",
         "qlvl": "52",
         "rlvl": "25",
@@ -2547,7 +2743,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Ashwood Bow":{
+    {
+        "name": "Ashwood Bow",
         "code": "am6",
         "qlvl": "39",
         "rlvl": "29",
@@ -2560,7 +2757,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Ceremonial Bow":{
+    {
+        "name": "Ceremonial Bow",
         "code": "am7",
         "qlvl": "47",
         "rlvl": "35",
@@ -2573,7 +2771,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Arbalest":{
+    {
+        "name": "Arbalest",
         "code": "8lx",
         "qlvl": "34",
         "rlvl": "22",
@@ -2586,7 +2785,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Siege Crossbow":{
+    {
+        "name": "Siege Crossbow",
         "code": "8mx",
         "qlvl": "40",
         "rlvl": "25",
@@ -2599,7 +2799,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Ballista":{
+    {
+        "name": "Ballista",
         "code": "8hx",
         "qlvl": "47",
         "rlvl": "25",
@@ -2612,7 +2813,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Chu-Ko-Nu":{
+    {
+        "name": "Chu-Ko-Nu",
         "code": "8rx",
         "qlvl": "54",
         "rlvl": "25",
@@ -2625,7 +2827,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Quhab":{
+    {
+        "name": "Quhab",
         "code": "9ar",
         "qlvl": "28",
         "rlvl": "21",
@@ -2638,7 +2841,8 @@
         "sock": "3",
         "dur": "96"
     },
-    "Wrist Spike":{
+    {
+        "name": "Wrist Spike",
         "code": "9wb",
         "qlvl": "32",
         "rlvl": "24",
@@ -2651,7 +2855,8 @@
         "sock": "3",
         "dur": "112"
     },
-    "Fascia":{
+    {
+        "name": "Fascia",
         "code": "9xf",
         "qlvl": "36",
         "rlvl": "27",
@@ -2664,7 +2869,8 @@
         "sock": "3",
         "dur": "128"
     },
-     "Hand Scythe":{
+    {
+        "name": "Hand Scythe",
         "code": "9cs",
         "qlvl": "41",
         "rlvl": "30",
@@ -2677,7 +2883,8 @@
         "sock": "3",
         "dur": "144"
     },
-    "Greater Claws":{
+    {
+        "name": "Greater Claws",
         "code": "9lw",
         "qlvl": "45",
         "rlvl": "33",
@@ -2690,7 +2897,8 @@
         "sock": "3",
         "dur": "104"
     },
-    "Greater Talons":{
+    {
+        "name": "Greater Talons",
         "code": "9tw",
         "qlvl": "50",
         "rlvl": "37",
@@ -2703,7 +2911,8 @@
         "sock": "3",
         "dur": "138"
     },
-    "Scissors Quhab":{
+    {
+        "name": "Scissors Quhab",
         "code": "9qr",
         "qlvl": "54",
         "rlvl": "40",
@@ -2716,7 +2925,8 @@
         "sock": "3",
         "dur": "136"
     },
-    "Rune Scepter":{
+    {
+        "name": "Rune Scepter",
         "code": "9sc",
         "qlvl": "31",
         "rlvl": "19",
@@ -2729,7 +2939,8 @@
         "sock": "3",
         "dur": "100"
     },
-    "Holy Water Sprinkler":{
+    {
+        "name": "Holy Water Sprinkler",
         "code": "9qs",
         "qlvl": "40",
         "rlvl": "25",
@@ -2742,7 +2953,8 @@
         "sock": "3",
         "dur": "120"
     },
-    "Divine Scepter":{
+    {
+        "name": "Divine Scepter",
         "code": "9ws",
         "qlvl": "45",
         "rlvl": "25",
@@ -2755,7 +2967,8 @@
         "sock": "5",
         "dur": "140"
     },
-    "Jo Staff":{
+    {
+        "name": "Jo Staff",
         "code": "8ss",
         "qlvl": "30",
         "rlvl": "18",
@@ -2768,7 +2981,8 @@
         "sock": "3",
         "dur": "40"
     },
-    "Quarterstaff":{
+    {
+        "name": "Quarterstaff",
         "code": "8ls",
         "qlvl": "35",
         "rlvl": "23",
@@ -2781,7 +2995,8 @@
         "sock": "3",
         "dur": "60"
     },
-    "Cedar Staff":{
+    {
+        "name": "Cedar Staff",
         "code": "8cs",
         "qlvl": "38",
         "rlvl": "25",
@@ -2794,7 +3009,8 @@
         "sock": "4",
         "dur": "70"
     },
-     "Gothic Staff":{
+    {
+        "name": "Gothic Staff",
         "code": "8bs",
         "qlvl": "42",
         "rlvl": "25",
@@ -2807,7 +3023,8 @@
         "sock": "4",
         "dur": "80"
     },
-    "Rune Staff":{
+    {
+        "name": "Rune Staff",
         "code": "8ws",
         "qlvl": "47",
         "rlvl": "25",
@@ -2820,7 +3037,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Burnt Wand":{
+    {
+        "name": "Burnt Wand",
         "code": "9wn",
         "qlvl": "31",
         "rlvl": "19",
@@ -2833,7 +3051,8 @@
         "sock": "1",
         "dur": "30"
     },
-    "Petrified Wand":{
+    {
+        "name": "Petrified Wand",
         "code": "9yw",
         "qlvl": "38",
         "rlvl": "25",
@@ -2846,7 +3065,8 @@
         "sock": "2",
         "dur": "30"
     },
-    "Tomb Wand":{
+    {
+        "name": "Tomb Wand",
         "code": "9bw",
         "qlvl": "43",
         "rlvl": "25",
@@ -2859,7 +3079,8 @@
         "sock": "2",
         "dur": "30"
     },
-    "Grave Wand":{
+    {
+        "name": "Grave Wand",
         "code": "9gw",
         "qlvl": "49",
         "rlvl": "25",
@@ -2872,7 +3093,8 @@
         "sock": "2",
         "dur": "30"
     },
-    "Glowing Orb":{
+    {
+        "name": "Glowing Orb",
         "code": "ob6",
         "qlvl": "32",
         "rlvl": "24",
@@ -2885,7 +3107,8 @@
         "sock": "2",
         "dur": "40"
     },
-    "Crystalline Globe":{
+    {
+        "name": "Crystalline Globe",
         "code": "ob7",
         "qlvl": "37",
         "rlvl": "27",
@@ -2898,7 +3121,8 @@
         "sock": "2",
         "dur": "60"
     },
-    "Cloudy Sphere":{
+    {
+        "name": "Cloudy Sphere",
         "code": "ob8",
         "qlvl": "41",
         "rlvl": "30",
@@ -2911,7 +3135,8 @@
         "sock": "2",
         "dur": "70"
     },
-    "Sparkling Ball":{
+    {
+        "name": "Sparkling Ball",
         "code": "ob9",
         "qlvl": "46",
         "rlvl": "34",
@@ -2924,7 +3149,8 @@
         "sock": "2",
         "dur": "80"
     },
-    "Swirling Crystal":{
+    {
+        "name": "Swirling Crystal",
         "code": "oba",
         "qlvl": "50",
         "rlvl": "37",
@@ -2937,7 +3163,8 @@
         "sock": "3",
         "dur": "100"
     },
-    "Tomahawk":{
+    {
+        "name": "Tomahawk",
         "code": "7ha",
         "qlvl": "54",
         "rlvl": "40",
@@ -2950,7 +3177,8 @@
         "sock": "3",
         "dur": "84"
     },
-    "Small Crescent":{
+    {
+        "name": "Small Crescent",
         "code": "7ax",
         "qlvl": "61",
         "rlvl": "45",
@@ -2963,7 +3191,8 @@
         "sock": "4",
         "dur": "72"
     },
-    "Ettin Axe":{
+    {
+        "name": "Ettin Axe",
         "code": "72a",
         "qlvl": "70",
         "rlvl": "52",
@@ -2976,7 +3205,8 @@
         "sock": "5",
         "dur": "72"
     },
-    "War Spike":{
+    {
+        "name": "War Spike",
         "code": "7mp",
         "qlvl": "79",
         "rlvl": "59",
@@ -2989,7 +3219,8 @@
         "sock": "6",
         "dur": "78"
     },
-    "Berserker Axe":{
+    {
+        "name": "Berserker Axe",
         "code": "7wa",
         "qlvl": "85",
         "rlvl": "64",
@@ -3002,7 +3233,8 @@
         "sock": "6",
         "dur": "78"
     },
-    "Feral Axe":{
+    {
+        "name": "Feral Axe",
         "code": "7la",
         "qlvl": "57",
         "rlvl": "42",
@@ -3015,7 +3247,8 @@
         "sock": "5",
         "dur": "90"
     },
-    "Silver-Edged Axe":{
+    {
+        "name": "Silver-Edged Axe",
         "code": "7ba",
         "qlvl": "65",
         "rlvl": "48",
@@ -3028,7 +3261,8 @@
         "sock": "5",
         "dur": "105"
     },
-    "Decapitator":{
+    {
+        "name": "Decapitator",
         "code": "7bt",
         "qlvl": "73",
         "rlvl": "54",
@@ -3041,7 +3275,8 @@
         "sock": "5",
         "dur": "100"
     },
-    "Champion Axe":{
+    {
+        "name": "Champion Axe",
         "code": "7ga",
         "qlvl": "82",
         "rlvl": "61",
@@ -3054,7 +3289,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Glorious Axe":{
+    {
+        "name": "Glorious Axe",
         "code": "7gi",
         "qlvl": "85",
         "rlvl": "66",
@@ -3067,7 +3303,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Truncheon":{
+    {
+        "name": "Truncheon",
         "code": "7cl",
         "qlvl": "52",
         "rlvl": "39",
@@ -3080,7 +3317,8 @@
         "sock": "3",
         "dur": "110"
     },
-    "Tyrant Club":{
+    {
+        "name": "Tyrant Club",
         "code": "7sp",
         "qlvl": "57",
         "rlvl": "42",
@@ -3093,7 +3331,8 @@
         "sock": "3",
         "dur": "130"
     },
-    "Reinforced Mace":{
+    {
+        "name": "Reinforced Mace",
         "code": "7ma",
         "qlvl": "63",
         "rlvl": "47",
@@ -3106,7 +3345,8 @@
         "sock": "3",
         "dur": "120"
     },
-    "Devil Star":{
+    {
+        "name": "Devil Star",
         "code": "7mt",
         "qlvl": "70",
         "rlvl": "52",
@@ -3119,7 +3359,8 @@
         "sock": "3",
         "dur": "144"
     },
-    "Scourge":{
+    {
+        "name": "Scourge",
         "code": "7fl",
         "qlvl": "76",
         "rlvl": "57",
@@ -3132,7 +3373,8 @@
         "sock": "5",
         "dur": "130"
     },
-    "Legendary Mallet":{
+    {
+        "name": "Legendary Mallet",
         "code": "7wh",
         "qlvl": "82",
         "rlvl": "61",
@@ -3145,7 +3387,8 @@
         "sock": "4",
         "dur": "130"
     },
-    "Ogre Maul":{
+    {
+        "name": "Ogre Maul",
         "code": "7m7",
         "qlvl": "69",
         "rlvl": "51",
@@ -3158,7 +3401,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Thunder Maul":{
+    {
+        "name": "Thunder Maul",
         "code": "7gm",
         "qlvl": "85",
         "rlvl": "65",
@@ -3171,7 +3415,8 @@
         "sock": "6",
         "dur": "120"
     },
-    "Falcata":{
+    {
+        "name": "Falcata",
         "code": "7ss",
         "qlvl": "56",
         "rlvl": "42",
@@ -3184,7 +3429,8 @@
         "sock": "3",
         "dur": "68"
     },
-    "Ataghan":{
+    {
+        "name": "Ataghan",
         "code": "7sm",
         "qlvl": "61",
         "rlvl": "45",
@@ -3197,7 +3443,8 @@
         "sock": "3",
         "dur": "64"
     },
-    "Elegant Blade":{
+    {
+        "name": "Elegant Blade",
         "code": "7sb",
         "qlvl": "63",
         "rlvl": "47",
@@ -3210,7 +3457,8 @@
         "sock": "3",
         "dur": "84"
     },
-    "Hydra Edge":{
+    {
+        "name": "Hydra Edge",
         "code": "7fc",
         "qlvl": "69",
         "rlvl": "51",
@@ -3223,7 +3471,8 @@
         "sock": "3",
         "dur": "84"
     },
-    "Phase Blade":{
+    {
+        "name": "Phase Blade",
         "code": "7cr",
         "qlvl": "73",
         "rlvl": "54",
@@ -3236,7 +3485,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Conquest Sword":{
+    {
+        "name": "Conquest Sword",
         "code": "7bs",
         "qlvl": "78",
         "rlvl": "58",
@@ -3249,7 +3499,8 @@
         "sock": "4",
         "dur": "84"
     },
-     "Cryptic Sword":{
+    {
+        "name": "Cryptic Sword",
         "code": "7ls",
         "qlvl": "82",
         "rlvl": "61",
@@ -3262,7 +3513,8 @@
         "sock": "5",
         "dur": "88"
     },
-    "Mythical Sword":{
+    {
+        "name": "Mythical Sword",
         "code": "7wd",
         "qlvl": "85",
         "rlvl": "66",
@@ -3275,7 +3527,8 @@
         "sock": "3",
         "dur": "88"
     },
-     "Legend Sword":{
+    {
+        "name": "Legend Sword",
         "code": "72h",
         "qlvl": "59",
         "rlvl": "44",
@@ -3288,7 +3541,8 @@
         "sock": "3",
         "dur": "88"
     },
-    "Highland Blade":{
+    {
+        "name": "Highland Blade",
         "code": "7cm",
         "qlvl": "66",
         "rlvl": "49",
@@ -3301,7 +3555,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Balrog Blade":{
+    {
+        "name": "Balrog Blade",
         "code": "7gs",
         "qlvl": "71",
         "rlvl": "53",
@@ -3314,7 +3569,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Champion Sword":{
+    {
+        "name": "Champion Sword",
         "code": "7b7",
         "qlvl": "77",
         "rlvl": "57",
@@ -3327,7 +3583,8 @@
         "sock": "4",
         "dur": "80"
     },
-    "Colossus Sword":{
+    {
+        "name": "Colossus Sword",
         "code": "7fb",
         "qlvl": "80",
         "rlvl": "60",
@@ -3340,7 +3597,8 @@
         "sock": "5",
         "dur": "100"
     },
-    "Colossus Blade":{
+    {
+        "name": "Colossus Blade",
         "code": "7gd",
         "qlvl": "85",
         "rlvl": "63",
@@ -3353,7 +3611,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Legend Sword (1h)":{
+    {
+        "name": "Legend Sword (1h)",
         "code": "72h",
         "qlvl": "59",
         "rlvl": "44",
@@ -3366,7 +3625,8 @@
         "sock": "3",
         "dur": "88"
     },
-    "Highland Blade (1h)":{
+    {
+        "name": "Highland Blade (1h)",
         "code": "7cm",
         "qlvl": "66",
         "rlvl": "49",
@@ -3379,7 +3639,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Balrog Blade (1h)":{
+    {
+        "name": "Balrog Blade (1h)",
         "code": "7gs",
         "qlvl": "71",
         "rlvl": "53",
@@ -3392,7 +3653,8 @@
         "sock": "4",
         "dur": "100"
     },
-     "Champion Sword (1h)":{
+    {
+        "name": "Champion Sword (1h)",
         "code": "7b7",
         "qlvl": "77",
         "rlvl": "57",
@@ -3405,7 +3667,8 @@
         "sock": "4",
         "dur": "80"
     },
-    "Colossus Sword (1h)":{
+    {
+        "name": "Colossus Sword (1h)",
         "code": "7fb",
         "qlvl": "80",
         "rlvl": "60",
@@ -3418,7 +3681,8 @@
         "sock": "5",
         "dur": "100"
     },
-    "Colossus Blade (1h)":{
+    {
+        "name": "Colossus Blade (1h)",
         "code": "7gd",
         "qlvl": "85",
         "rlvl": "63",
@@ -3431,7 +3695,8 @@
         "sock": "6",
         "dur": "100"
     },
-    "Bone Knife":{
+    {
+        "name": "Bone Knife",
         "code": "7dg",
         "qlvl": "58",
         "rlvl": "43",
@@ -3444,7 +3709,8 @@
         "sock": "2",
         "dur": "72"
     },
-    "Mithril Point":{
+    {
+        "name": "Mithril Point",
         "code": "7di",
         "qlvl": "70",
         "rlvl": "52",
@@ -3457,7 +3723,8 @@
         "sock": "2",
         "dur": "110"
     },
-    "Fanged Knife":{
+    {
+        "name": "Fanged Knife",
         "code": "7kr",
         "qlvl": "83",
         "rlvl": "62",
@@ -3470,7 +3737,8 @@
         "sock": "3",
         "dur": "72"
     },
-    "Legend Spike":{
+    {
+        "name": "Legend Spike",
         "code": "7bl",
         "qlvl": "85",
         "rlvl": "66",
@@ -3483,7 +3751,8 @@
         "sock": "2",
         "dur": "94"
     },
-    "Flying Knife":{
+    {
+        "name": "Flying Knife",
         "code": "7tk",
         "qlvl": "64",
         "rlvl": "48",
@@ -3496,7 +3765,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Winged Knife":{
+    {
+        "name": "Winged Knife",
         "code": "7bk",
         "qlvl": "77",
         "rlvl": "57",
@@ -3509,7 +3779,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Flying Knife (melee)":{
+    {
+        "name": "Flying Knife (melee)",
         "code": "7tk",
         "qlvl": "64",
         "rlvl": "48",
@@ -3522,7 +3793,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Winged Knife (melee)":{
+    {
+        "name": "Winged Knife (melee)",
         "code": "7bk",
         "qlvl": "77",
         "rlvl": "57",
@@ -3535,7 +3807,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Flying Axe":{
+    {
+        "name": "Flying Axe",
         "code": "7ta",
         "qlvl": "56",
         "rlvl": "42",
@@ -3548,7 +3821,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Winged Axe":{
+    {
+        "name": "Winged Axe",
         "code": "7b8",
         "qlvl": "80",
         "rlvl": "60",
@@ -3561,7 +3835,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Flying Axe (melee)":{
+    {
+        "name": "Flying Axe (melee)",
         "code": "7ta",
         "qlvl": "56",
         "rlvl": "42",
@@ -3574,7 +3849,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Winged Axe (melee)":{
+    {
+        "name": "Winged Axe (melee)",
         "code": "7b8",
         "qlvl": "80",
         "rlvl": "60",
@@ -3587,7 +3863,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Hyperion Javelin":{
+    {
+        "name": "Hyperion Javelin",
         "code": "7ja",
         "qlvl": "54",
         "rlvl": "40",
@@ -3600,7 +3877,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Stygian Pilum":{
+    {
+        "name": "Stygian Pilum",
         "code": "7pi",
         "qlvl": "62",
         "rlvl": "46",
@@ -3613,7 +3891,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Balrog Spear":{
+    {
+        "name": "Balrog Spear",
         "code": "7s7",
         "qlvl": "71",
         "rlvl": "53",
@@ -3626,7 +3905,8 @@
         "sock": "2",
         "dur": ""
     },
-     "Ghost Glaive":{
+    {
+        "name": "Ghost Glaive",
         "code": "7gl",
         "qlvl": "79",
         "rlvl": "59",
@@ -3639,7 +3919,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Winged Harpoon":{
+    {
+        "name": "Winged Harpoon",
         "code": "7ts",
         "qlvl": "85",
         "rlvl": "65",
@@ -3652,7 +3933,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Hyperion Javelin (melee)":{
+    {
+        "name": "Hyperion Javelin (melee)",
         "code": "7ja",
         "qlvl": "54",
         "rlvl": "40",
@@ -3665,7 +3947,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Stygian Pilum (melee)":{
+    {
+        "name": "Stygian Pilum (melee)",
         "code": "7pi",
         "qlvl": "62",
         "rlvl": "46",
@@ -3678,7 +3961,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Balrog Spear (melee)":{
+    {
+        "name": "Balrog Spear (melee)",
         "code": "7s7",
         "qlvl": "71",
         "rlvl": "53",
@@ -3691,7 +3975,8 @@
         "sock": "2",
         "dur": ""
     },
-     "Ghost Glaive (melee)":{
+    {
+        "name": "Ghost Glaive (melee)",
         "code": "7gl",
         "qlvl": "79",
         "rlvl": "59",
@@ -3704,7 +3989,8 @@
         "sock": "3",
         "dur": ""
     },
-    "Winged Harpoon (melee)":{
+    {
+        "name": "Winged Harpoon (melee)",
         "code": "7ts",
         "qlvl": "85",
         "rlvl": "65",
@@ -3717,7 +4003,8 @@
         "sock": "3",
         "dur": ""
     },
-     "Matriarchal Javelin":{
+    {
+        "name": "Matriarchal Javelin",
         "code": "amf",
         "qlvl": "65",
         "rlvl": "48",
@@ -3730,7 +4017,8 @@
         "sock": "2",
         "dur": ""
     },
-    "Matriarchal Javelin (melee)":{
+    {
+        "name": "Matriarchal Javelin (melee)",
         "code": "amf",
         "qlvl": "65",
         "rlvl": "48",
@@ -3743,7 +4031,8 @@
         "sock": "",
         "dur": ""
     },
-    "Matriarchal Spear":{
+    {
+        "name": "Matriarchal Spear",
         "code": "amd",
         "qlvl": "61",
         "rlvl": "45",
@@ -3756,7 +4045,8 @@
         "sock": "6",
         "dur": "56"
     },
-    "Matriarchal Pike":{
+    {
+        "name": "Matriarchal Pike",
         "code": "ame",
         "qlvl": "81",
         "rlvl": "60",
@@ -3769,7 +4059,8 @@
         "sock": "6",
         "dur": "50"
     },
-    "Hyperion Spear":{
+    {
+        "name": "Hyperion Spear",
         "code": "7sr",
         "qlvl": "58",
         "rlvl": "43",
@@ -3782,7 +4073,8 @@
         "sock": "6",
         "dur": "90"
     },
-    "Stygian Pike":{
+    {
+        "name": "Stygian Pike",
         "code": "7tr",
         "qlvl": "66",
         "rlvl": "49",
@@ -3795,7 +4087,8 @@
         "sock": "4",
         "dur": "105"
     },
-    "Mancatcher":{
+    {
+        "name": "Mancatcher",
         "code": "7br",
         "qlvl": "74",
         "rlvl": "55",
@@ -3808,7 +4101,8 @@
         "sock": "5",
         "dur": "84"
     },
-    "Ghost Spear":{
+    {
+        "name": "Ghost Spear",
         "code": "7st",
         "qlvl": "83",
         "rlvl": "62",
@@ -3821,7 +4115,8 @@
         "sock": "6",
         "dur": "75"
     },
-    "War Pike":{
+    {
+        "name": "War Pike",
         "code": "7p7",
         "qlvl": "85",
         "rlvl": "66",
@@ -3834,7 +4129,8 @@
         "sock": "6",
         "dur": "75"
     },
-    "Ogre Axe":{
+    {
+        "name": "Ogre Axe",
         "code": "7o7",
         "qlvl": "60",
         "rlvl": "45",
@@ -3847,7 +4143,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Colossus Voulge":{
+    {
+        "name": "Colossus Voulge",
         "code": "7vo",
         "qlvl": "64",
         "rlvl": "48",
@@ -3860,7 +4157,8 @@
         "sock": "4",
         "dur": "100"
     },
-    "Thresher":{
+    {
+        "name": "Thresher",
         "code": "7s8",
         "qlvl": "71",
         "rlvl": "53",
@@ -3873,7 +4171,8 @@
         "sock": "5",
         "dur": "130"
     },
-    "Cryptic Axe":{
+    {
+        "name": "Cryptic Axe",
         "code": "7pa",
         "qlvl": "79",
         "rlvl": "59",
@@ -3886,7 +4185,8 @@
         "sock": "5",
         "dur": "130"
     },
-    "Great Poleaxe":{
+    {
+        "name": "Great Poleaxe",
         "code": "7h7",
         "qlvl": "84",
         "rlvl": "63",
@@ -3899,7 +4199,8 @@
         "sock": "6",
         "dur": "110"
     },
-    "Giant Thresher":{
+    {
+        "name": "Giant Thresher",
         "code": "7wc",
         "qlvl": "85",
         "rlvl": "66",
@@ -3912,7 +4213,8 @@
         "sock": "6",
         "dur": "110"
     },
-    "Spider Bow":{
+    {
+        "name": "Spider Bow",
         "code": "6sb",
         "qlvl": "55",
         "rlvl": "41",
@@ -3925,7 +4227,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Blade Bow":{
+    {
+        "name": "Blade Bow",
         "code": "6hb",
         "qlvl": "60",
         "rlvl": "45",
@@ -3938,7 +4241,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Shadow Bow":{
+    {
+        "name": "Shadow Bow",
         "code": "6lb",
         "qlvl": "63",
         "rlvl": "47",
@@ -3951,7 +4255,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Great Bow":{
+    {
+        "name": "Great Bow",
         "code": "6cb",
         "qlvl": "68",
         "rlvl": "51",
@@ -3964,7 +4269,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Diamond Bow":{
+    {
+        "name": "Diamond Bow",
         "code": "6s7",
         "qlvl": "72",
         "rlvl": "54",
@@ -3977,7 +4283,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Crusader Bow":{
+    {
+        "name": "Crusader Bow",
         "code": "6l7",
         "qlvl": "77",
         "rlvl": "57",
@@ -3990,7 +4297,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Ward Bow":{
+    {
+        "name": "Ward Bow",
         "code": "6sw",
         "qlvl": "80",
         "rlvl": "60",
@@ -4003,7 +4311,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Hydra Bow":{
+    {
+        "name": "Hydra Bow",
         "code": "6lw",
         "qlvl": "85",
         "rlvl": "63",
@@ -4016,7 +4325,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Matriarchal Bow":{
+    {
+        "name": "Matriarchal Bow",
         "code": "amb",
         "qlvl": "53",
         "rlvl": "39",
@@ -4029,7 +4339,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Grand Matron Bow":{
+    {
+        "name": "Grand Matron Bow",
         "code": "amc",
         "qlvl": "78",
         "rlvl": "58",
@@ -4042,7 +4353,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Pellet Bow":{
+    {
+        "name": "Pellet Bow",
         "code": "6lx",
         "qlvl": "57",
         "rlvl": "42",
@@ -4055,7 +4367,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Gorgon Crossbow":{
+    {
+        "name": "Gorgon Crossbow",
         "code": "6mx",
         "qlvl": "67",
         "rlvl": "50",
@@ -4068,7 +4381,8 @@
         "sock": "4",
         "dur": ""
     },
-    "Colossus Crossbow":{
+    {
+        "name": "Colossus Crossbow",
         "code": "6hx",
         "qlvl": "75",
         "rlvl": "56",
@@ -4081,7 +4395,8 @@
         "sock": "6",
         "dur": ""
     },
-    "Demon Crossbow":{
+    {
+        "name": "Demon Crossbow",
         "code": "6rx",
         "qlvl": "84",
         "rlvl": "63",
@@ -4094,7 +4409,8 @@
         "sock": "5",
         "dur": ""
     },
-    "Suwayyah":{
+    {
+        "name": "Suwayyah",
         "code": "7ar",
         "qlvl": "59",
         "rlvl": "44",
@@ -4107,7 +4423,8 @@
         "sock": "3",
         "dur": "96"
     },
-    "Wrist Sword":{
+    {
+        "name": "Wrist Sword",
         "code": "7wb",
         "qlvl": "62",
         "rlvl": "46",
@@ -4120,7 +4437,8 @@
         "sock": "3",
         "dur": "112"
     },
-    "War Fist":{
+    {
+        "name": "War Fist",
         "code": "7xf",
         "qlvl": "68",
         "rlvl": "51",
@@ -4133,7 +4451,8 @@
         "sock": "3",
         "dur": "128"
     },
-    "Battle Cestus":{
+    {
+        "name": "Battle Cestus",
         "code": "7cs",
         "qlvl": "73",
         "rlvl": "54",
@@ -4146,7 +4465,8 @@
         "sock": "3",
         "dur": "144"
     },
-    "Feral Claws":{
+    {
+        "name": "Feral Claws",
         "code": "7lw",
         "qlvl": "78",
         "rlvl": "58",
@@ -4159,7 +4479,8 @@
         "sock": "3",
         "dur": "104"
     },
-    "Runic Talons":{
+    {
+        "name": "Runic Talons",
         "code": "7tw",
         "qlvl": "81",
         "rlvl": "60",
@@ -4172,7 +4493,8 @@
         "sock": "3",
         "dur": "138"
     },
-    "Scissors Suwayyah":{
+    {
+        "name": "Scissors Suwayyah",
         "code": "7qr",
         "qlvl": "85",
         "rlvl": "64",
@@ -4185,7 +4507,8 @@
         "sock": "3",
         "dur": "136"
     },
-    "Mighty Scepter":{
+    {
+        "name": "Mighty Scepter",
         "code": "7sc",
         "qlvl": "62",
         "rlvl": "46",
@@ -4198,7 +4521,8 @@
         "sock": "3",
         "dur": "100"
     },
-    "Seraph Rod":{
+    {
+        "name": "Seraph Rod",
         "code": "7qs",
         "qlvl": "76",
         "rlvl": "57",
@@ -4211,7 +4535,8 @@
         "sock": "3",
         "dur": "120"
     },
-    "Caduceus":{
+    {
+        "name": "Caduceus",
         "code": "7ws",
         "qlvl": "85",
         "rlvl": "66",
@@ -4224,7 +4549,8 @@
         "sock": "5",
         "dur": "140"
     },
-    "Walking Stick":{
+    {
+        "name": "Walking Stick",
         "code": "6ss",
         "qlvl": "58",
         "rlvl": "43",
@@ -4237,7 +4563,8 @@
         "sock": "3",
         "dur": "80"
     },
-    "Stalagmite":{
+    {
+        "name": "Stalagmite",
         "code": "6ls",
         "qlvl": "66",
         "rlvl": "49",
@@ -4250,7 +4577,8 @@
         "sock": "3",
         "dur": "90"
     },
-    "Elder Staff":{
+    {
+        "name": "Elder Staff",
         "code": "6cs",
         "qlvl": "74",
         "rlvl": "55",
@@ -4263,7 +4591,8 @@
         "sock": "4",
         "dur": "105"
     },
-    "Shillelagh":{
+    {
+        "name": "Shillelagh",
         "code": "6bs",
         "qlvl": "83",
         "rlvl": "62",
@@ -4276,7 +4605,8 @@
         "sock": "4",
         "dur": "120"
     },
-     "Archon Staff":{
+    {
+        "name": "Archon Staff",
         "code": "6ws",
         "qlvl": "85",
         "rlvl": "66",
@@ -4289,7 +4619,8 @@
         "sock": "6",
         "dur": "78"
     },
-    "Polished Wand":{
+    {
+        "name": "Polished Wand",
         "code": "7wn",
         "qlvl": "55",
         "rlvl": "41",
@@ -4302,7 +4633,8 @@
         "sock": "2",
         "dur": "44"
     },
-    "Ghost Wand":{
+    {
+        "name": "Ghost Wand",
         "code": "7yw",
         "qlvl": "65",
         "rlvl": "48",
@@ -4315,7 +4647,8 @@
         "sock": "2",
         "dur": "28"
     },
-     "Lich Wand":{
+    {
+        "name": "Lich Wand",
         "code": "7bw",
         "qlvl": "75",
         "rlvl": "56",
@@ -4328,7 +4661,8 @@
         "sock": "2",
         "dur": "34"
     },
-    "Unearthed Wand":{
+    {
+        "name": "Unearthed Wand",
         "code": "7gw",
         "qlvl": "86",
         "rlvl": "64",
@@ -4341,7 +4675,8 @@
         "sock": "2",
         "dur": "36"
     },
-    "Heavenly Stone":{
+    {
+        "name": "Heavenly Stone",
         "code": "obb",
         "qlvl": "59",
         "rlvl": "44",
@@ -4354,7 +4689,8 @@
         "sock": "2",
         "dur": "40"
     },
-    "Eldritch Orb":{
+    {
+        "name": "Eldritch Orb",
         "code": "obc",
         "qlvl": "67",
         "rlvl": "50",
@@ -4367,7 +4703,8 @@
         "sock": "2",
         "dur": "60"
     },
-    "Demon Heart":{
+    {
+        "name": "Demon Heart",
         "code": "obd",
         "qlvl": "75",
         "rlvl": "56",
@@ -4380,7 +4717,8 @@
         "sock": "2",
         "dur": "70"
     },
-    "Vortex Orb":{
+    {
+        "name": "Vortex Orb",
         "code": "obe",
         "qlvl": "84",
         "rlvl": "63",
@@ -4393,7 +4731,8 @@
         "sock": "2",
         "dur": "80"
     },
-    "Dimensional Shard":{
+    {
+        "name": "Dimensional Shard",
         "code": "obf",
         "qlvl": "85",
         "rlvl": "66",
@@ -4406,4 +4745,4 @@
         "sock": "3",
         "dur": "100"
     }
-}
+]

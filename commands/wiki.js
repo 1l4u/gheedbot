@@ -7,7 +7,7 @@ const wiki = require('../wiki.json');
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashWiki(interaction) {
-  console.log(`🔧 Wiki command called by ${interaction.user.tag}`);
+  console.log(`Lệnh wiki được gọi bởi ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -19,7 +19,7 @@ async function handleSlashWiki(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`❌ Wiki permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền wiki cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -29,17 +29,17 @@ async function handleSlashWiki(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      console.log('❌ No name provided in interaction');
+      console.log('Không có tên được cung cấp trong interaction');
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên mục wiki'
       });
     }
     const name = nameOption.toLowerCase();
-    console.log(`🔍 Searching wiki: ${name}`);
+    console.log(`Đang tìm kiếm wiki: ${name}`);
 
     // Kiểm tra dữ liệu wiki
     if (!Array.isArray(wiki)) {
-      console.log('❌ Invalid wiki data: not an array');
+      console.log('Dữ liệu wiki không hợp lệ: không phải array');
       return await interaction.editReply({
         content: 'Dữ liệu wiki không hợp lệ'
       });
@@ -76,7 +76,7 @@ async function handleSlashWiki(interaction) {
         const textContent = textContents[i];
         const embed = new EmbedBuilder()
           .setColor('#ff6600')
-          .setTitle(`📖 ${wikiItem.name}${wikiItem.type ? ` (${wikiItem.type})` : ''}${textContents.length > 1 ? ` ` : ''}`);
+          .setTitle(`${wikiItem.name}${wikiItem.type ? ` (${wikiItem.type})` : ''}${textContents.length > 1 ? ` ` : ''}`);
 
         if (wikiItem.url) {
           embed.setURL(wikiItem.url);
@@ -162,9 +162,9 @@ async function handleSlashWiki(interaction) {
       files: files
     });
 
-    console.log(`✅ Wiki response sent for: ${name}`);
+    console.log(`Đã gửi phản hồi wiki cho: ${name}`);
   } catch (error) {
-    console.error('❌ Wiki command error:', error);
+    console.error('Lỗi lệnh wiki:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm wiki'
     });
