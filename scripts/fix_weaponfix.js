@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 // Đọc file weaponfix.json (hoặc sample nếu file gốc rỗng)
-let filename = 'weaponfix.json';
+let filename = '../data/weaponfix.json';
 let content = fs.readFileSync(filename, 'utf8');
 
 if (content.trim() === '') {
@@ -93,8 +93,8 @@ if (content.trim() === '') {
     }
   ];
 
-  fs.writeFileSync('weaponfix_sample.json', JSON.stringify(sampleData, null, 2));
-  filename = 'weaponfix_sample.json';
+  fs.writeFileSync('../data/weaponfix_sample.json', JSON.stringify(sampleData, null, 2));
+  filename = '../data/weaponfix_sample.json';
   content = fs.readFileSync(filename, 'utf8');
 }
 
@@ -190,8 +190,8 @@ data.forEach((weapon, index) => {
 console.log(`Hoàn thành! Tạo ra ${fixedWeapons.length} weapons từ ${data.length} weapons gốc`);
 
 // Ghi file mới
-fs.writeFileSync('weapon_fixed.json', JSON.stringify(fixedWeapons, null, 2));
-console.log('Đã lưu vào weapon_fixed.json');
+fs.writeFileSync('../data/weapon_fixed.json', JSON.stringify(fixedWeapons, null, 2));
+console.log('Đã lưu vào ../data/weapon_fixed.json');
 
 // Thống kê
 const stats = {

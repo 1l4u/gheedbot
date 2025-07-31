@@ -14,9 +14,9 @@ class DataManager {
       wikis: null
     };
     this.localPaths = {
-      weapons: './weapon.json',
-      runewords: './runeword.json',
-      wikis: './wiki.json'
+      weapons: './data/weapon.json',
+      runewords: './data/runeword.json',
+      wikis: './data/wiki.json'
     };
   }
 
@@ -184,7 +184,7 @@ class DataManager {
    */
   loadGitHubConfig() {
     try {
-      const configPath = './github-config.json';
+      const configPath = './config/github-config.json';
       if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
         if (config.enabled) {

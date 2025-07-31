@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
 const { dataManager } = require('../utils/data-manager');
-const config = require('../config.json');
+const config = require('../config/config.json');
 
 /**
  * Debug command để kiểm tra channel và bot info

@@ -1,4 +1,4 @@
-const config = require('../config.json');
+const config = require('../config/config.json');
 
 /**
  * Kiểm tra quyền bỏ qua bằng ROLE ID
