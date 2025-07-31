@@ -63,8 +63,8 @@ class DataManager {
     if (this.useGitHub) {
       try {
         console.log(`Đang load ${dataType} từ GitHub...`);
-        const fileName = path.basename(this.localPaths[dataType]);
-        const data = await githubFetcher.fetchFile(fileName);
+        const filePath = this.localPaths[dataType].replace('./data/', 'data/');
+        const data = await githubFetcher.fetchFile(filePath);
 
         // Validate data
         if (!data || (Array.isArray(data) && data.length === 0)) {
@@ -191,8 +191,8 @@ class DataManager {
     console.log(`Đang reload ${dataType}...`);
     
     if (this.useGitHub) {
-      const fileName = path.basename(this.localPaths[dataType]);
-      githubFetcher.clearCache(fileName);
+      const filePath = this.localPaths[dataType].replace('./data/', 'data/');
+      githubFetcher.clearCache(filePath);
     }
     
     this.data[dataType] = null;
