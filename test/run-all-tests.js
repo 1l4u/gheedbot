@@ -110,8 +110,8 @@ class AllTestsRunner {
 </body>
 </html>`;
 
-    fs.writeFileSync('./test/test-report.html', html);
-    console.log('\n Đã tạo báo cáo HTML: test/test-report.html');
+    fs.writeFileSync('./test-report.html', html);
+    console.log('\nĐã tạo báo cáo HTML: test-report.html');
   }
 
   /**
@@ -178,8 +178,8 @@ class AllTestsRunner {
       }
     };
 
-    fs.writeFileSync('./test/test-report.json', JSON.stringify(report, null, 2));
-    console.log(' Đã tạo báo cáo JSON: test/test-report.json');
+    fs.writeFileSync('./test-report.json', JSON.stringify(report, null, 2));
+    console.log('Đã tạo báo cáo JSON: test-report.json');
   }
 
   /**
@@ -198,19 +198,19 @@ class AllTestsRunner {
     console.log(` Tỷ lệ thành công: ${successRate}%`);
     
     if (this.results.failed === 0) {
-      console.log(' ALL TESTS ĐẠT! Bot is ready for production.');
+      console.log('TẤT CẢ TESTS ĐÃ ĐẠT! Bot sẵn sàng cho production.');
     } else {
-      console.log(' SOME TESTS THẤT BẠI! Please review the issues above.');
-      console.log('\n Common fixes:');
-      console.log('   - Check file permissions');
-      console.log('   - Verify config files exist');
-      console.log('   - Ensure all dependencies are installed');
-      console.log('   - Check GitHub repository exists (if using GitHub mode)');
+      console.log('MỘT SỐ TESTS ĐÃ THẤT BẠI! Vui lòng xem lại các vấn đề ở trên.');
+      console.log('\nCách sửa thông thường:');
+      console.log('   - Kiểm tra quyền file');
+      console.log('   - Xác minh file config tồn tại');
+      console.log('   - Đảm bảo tất cả dependencies đã được cài đặt');
+      console.log('   - Kiểm tra GitHub repository tồn tại (nếu dùng chế độ GitHub)');
     }
     
-    console.log('\n Đã tạo báo cáo:');
-    console.log('   - test/test-report.html (Báo cáo trực quan)');
-    console.log('   - test/test-report.json (Máy đọc được)');
+    console.log('\nĐã tạo báo cáo:');
+    console.log('   - test-report.html (Báo cáo trực quan)');
+    console.log('   - test-report.json (Máy đọc được)');
     console.log('='.repeat(60));
   }
 }
@@ -223,7 +223,7 @@ if (require.main === module) {
       process.exit(runner.results.failed > 0 ? 1 : 0);
     })
     .catch(error => {
-      console.error(' Test runner bị crash:', error);
+      console.error('Test runner bị crash:', error);
       process.exit(1);
     });
 }

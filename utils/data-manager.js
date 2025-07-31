@@ -91,6 +91,15 @@ class DataManager {
   }
 
   /**
+   * Lấy dữ liệu theo type
+   * @param {string} dataType - 'weapons', 'runewords', hoặc 'wikis'
+   * @returns {any} - Data đã được load
+   */
+  getData(dataType) {
+    return this.data[dataType];
+  }
+
+  /**
    * Lấy dữ liệu weapons
    */
   async getWeapons() {

@@ -117,16 +117,16 @@ class PermissionsTest {
    */
   async testBypassPermission() {
     await this.runTestCase('Quyền bypass hoạt động', () => {
-      // Test với user ID có trong clear_member_id (nếu có config)
+      // Test với role có trong allowedRoles (nếu có config)
       try {
         const config = require('../config/config.json');
-        if (config.clear_member_id && config.clear_member_id.length > 0) {
-          const bypassUserId = config.clear_member_id[0];
-          const mockInteraction = this.createMockInteraction(bypassUserId, 'any', 'any');
-          
-          const hasPermission = hasBypassPermission(mockInteraction);
+        if (config.allowedRoles && config.allowedRoles.length > 0) {
+          const allowedRole = config.allowedRoles[0];
+          const mockInteraction = this.createMockInteraction('123456789', 'any', 'any', [allowedRole]);
+
+          const hasPermission = hasBypassPermission(mockInteraction.member);
           if (!hasPermission) {
-            throw new Error('Bypass permission nên trả về true for clear_member_id');
+            throw new Error('Bypass permission nên trả về true for allowed role');
           }
         }
       } catch (error) {
@@ -136,10 +136,10 @@ class PermissionsTest {
           throw error;
         }
       }
-      
-      // Test với user ID không có trong danh sách
-      const mockInteraction = this.createMockInteraction('999999999', 'any', 'any');
-      const hasPermission = hasBypassPermission(mockInteraction);
+
+      // Test với user không có role được phép
+      const mockInteraction = this.createMockInteraction('999999999', 'any', 'any', []);
+      const hasPermission = hasBypassPermission(mockInteraction.member);
       if (hasPermission) {
         throw new Error('Bypass permission nên trả về false for non-bypass user');
       }
@@ -155,8 +155,9 @@ class PermissionsTest {
         const config = require('../config/config.json');
         if (config.allowedCommand && config.allowedCommand.length > 0) {
           const validCmd = config.allowedCommand[0];
-          if (!isValidCommand(validCmd)) {
-            throw new Error(`${validCmd} nên là valid command`);
+          const fullCommand = `${config.prefix[0]}${validCmd}`;
+          if (!isValidCommand(fullCommand)) {
+            throw new Error(`${fullCommand} nên là valid command`);
           }
         }
       } catch (error) {
@@ -166,10 +167,10 @@ class PermissionsTest {
           throw error;
         }
       }
-      
+
       // Test invalid command
-      if (isValidCommand('invalidcommand123')) {
-        throw new Error('invalidcommand123 không nên be valid');
+      if (isValidCommand('/invalidcommand123')) {
+        throw new Error('/invalidcommand123 không nên be valid');
       }
     });
   }
