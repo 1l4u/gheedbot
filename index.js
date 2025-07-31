@@ -1,9 +1,8 @@
 require("dotenv").config();
 const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder, Routes, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require("discord.js");
 const { REST } = require('@discordjs/rest');
-const runewords = require("./runeword.json");
-const weapons = require('./weapon.json');
-const wikis = require("./wiki.json");
+// Import data manager
+const { dataManager } = require('./utils/data-manager');
 const express = require("express");
 const config = require('./config.json');
 const app = express();
@@ -294,17 +293,20 @@ client.on('interactionCreate', async interaction => {
 // Xử lý tương tác autocomplete
 if (interaction.isAutocomplete()) {
     console.log(`Autocomplete cho: ${interaction.commandName}`);
-    const dataSource = autocompleteSources[interaction.commandName];
 
-  if (!dataSource) {
-    console.log(`Không có nguồn dữ liệu cho: ${interaction.commandName}`);
-    return;
-  }
   try {
+    const dataSource = await getAutocompleteData(interaction.commandName);
+    if (!dataSource || dataSource.length === 0) {
+      console.log(`Không có nguồn dữ liệu cho: ${interaction.commandName}`);
+      await interaction.respond([]);
+      return;
+    }
+
     await handleAutocomplete(interaction, dataSource);
     console.log(`Đã xử lý autocomplete cho: ${interaction.commandName}`);
   } catch (err) {
     console.error(`Lỗi xử lý autocomplete ${interaction.commandName}:`, err);
+    await interaction.respond([]);
   }
   return;
 }
@@ -428,19 +430,32 @@ if (interaction.isAutocomplete()) {
 });
 
 
-const autocompleteSources = {
-  wiki: wikis,
-  rw: runewords,
-  weapon: weapons,
-  dmgcal2: weapons
-};
+// Async function để lấy autocomplete data
+async function getAutocompleteData(commandName) {
+  try {
+    switch (commandName) {
+      case 'wiki':
+        return await dataManager.getWikis();
+      case 'rw':
+        return await dataManager.getRunewords();
+      case 'weapon':
+      case 'dmgcal2':
+        return await dataManager.getWeapons();
+      default:
+        return [];
+    }
+  } catch (error) {
+    console.error(`Lỗi lấy autocomplete data cho ${commandName}:`, error.message);
+    return [];
+  }
+}
 
 // Cache để tránh duplicate autocomplete calls
 const autocompleteCache = new Map();
 const CACHE_DURATION = 1000; // 1 second
 
 // Hàm xử lý autocomplete được tối ưu
-async function handleAutocomplete(interaction) {
+async function handleAutocomplete(interaction, dataSource) {
   // Kiểm tra interaction hợp lệ
   if (!interaction.isAutocomplete()) return;
 
@@ -464,15 +479,14 @@ async function handleAutocomplete(interaction) {
     if (autocompleteCache.has(cacheKey)) {
       const cached = autocompleteCache.get(cacheKey);
       if (now - cached.timestamp < CACHE_DURATION) {
-        console.log(`🔄 Skipping duplicate autocomplete for: ${cacheKey}`);
+        console.log(`Skipping duplicate autocomplete for: ${cacheKey}`);
         return;
       }
     }
 
-    // Lấy data source tương ứng
-    const dataSource = autocompleteSources[commandName];
+    // Kiểm tra data source
     if (!dataSource || !Array.isArray(dataSource)) {
-      console.log(`❌ Invalid or missing data source for command: ${commandName}`);
+      console.log(`Data source không hợp lệ cho command: ${commandName}`);
       await interaction.respond([]); // Trả về danh sách rỗng để tránh lỗi
       return;
     }
@@ -654,7 +668,16 @@ async function sendWarning(message) {
 // Discord client event handlers
 client.once('ready', async () => {
   console.log(`Bot đã sẵn sàng! Đăng nhập với tên: ${client.user.tag}`);
-  
+
+  // Khởi tạo data manager
+  try {
+    await dataManager.initialize();
+    console.log('Data Manager đã được khởi tạo thành công');
+  } catch (error) {
+    console.error('Lỗi khởi tạo Data Manager:', error.message);
+    console.log('Bot sẽ tiếp tục chạy với dữ liệu local...');
+  }
+
   // Đăng ký slash commands sau khi bot ready
   const success = await registerSlashCommands();
   if (success) {

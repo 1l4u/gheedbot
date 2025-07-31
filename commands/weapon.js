@@ -1,6 +1,6 @@
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
-const weapons = require('../weapon.json');
+const { dataManager } = require('../utils/data-manager');
 
 /**
  * Weapon command handler
@@ -37,7 +37,8 @@ async function handleSlashWeapon(interaction) {
     const name = nameOption.toLowerCase();
     console.log(`Đang tìm kiếm weapon: ${name}`);
 
-    // Kiểm tra dữ liệu weapons
+    // Lấy dữ liệu weapons từ data manager
+    const weapons = await dataManager.getWeapons();
     if (!Array.isArray(weapons)) {
       console.log('Dữ liệu weapon không hợp lệ: không phải array');
       return await interaction.editReply({

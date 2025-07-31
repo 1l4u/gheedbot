@@ -1,6 +1,6 @@
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
-const wiki = require('../wiki.json');
+const { dataManager } = require('../utils/data-manager');
 
 /**
  * Wiki command handler
@@ -37,7 +37,8 @@ async function handleSlashWiki(interaction) {
     const name = nameOption.toLowerCase();
     console.log(`Đang tìm kiếm wiki: ${name}`);
 
-    // Kiểm tra dữ liệu wiki
+    // Lấy dữ liệu wiki từ data manager
+    const wiki = await dataManager.getWikis();
     if (!Array.isArray(wiki)) {
       console.log('Dữ liệu wiki không hợp lệ: không phải array');
       return await interaction.editReply({

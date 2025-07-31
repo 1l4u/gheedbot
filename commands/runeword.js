@@ -1,6 +1,6 @@
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
-const runewords = require('../runeword.json');
+const { dataManager } = require('../utils/data-manager');
 
 /**
  * Runeword command handler
@@ -37,7 +37,8 @@ async function handleSlashRuneword(interaction) {
     const name = nameOption.toLowerCase();
     console.log(`Đang tìm kiếm runeword: ${name}`);
 
-    // Kiểm tra dữ liệu runewords
+    // Lấy dữ liệu runewords từ data manager
+    const runewords = await dataManager.getRunewords();
     if (!Array.isArray(runewords)) {
       console.log('Dữ liệu runeword không hợp lệ: không phải array');
       return await interaction.editReply({

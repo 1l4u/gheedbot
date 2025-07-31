@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
+const { dataManager } = require('../utils/data-manager');
 const config = require('../config.json');
 
 /**
@@ -38,16 +39,22 @@ async function handleSlashDebug(interaction, client) {
       config.allowedRoles.includes(role.id)
     );
     
+    // Lấy thông tin data manager
+    const dataStatus = dataManager.getStatus();
+
     const embed = new EmbedBuilder()
       .setColor('#00ff00')
-      .setTitle('🔍 Debug Information')
+      .setTitle('Debug Information')
       .addFields(
         { name: 'Channel ID', value: `\`${channelId}\``, inline: true },
         { name: 'Guild ID', value: `\`${guildId}\``, inline: true },
         { name: 'User ID', value: `\`${userId}\``, inline: true },
-        { name: 'Allowed Channel?', value: isAllowedChannel ? '✅ Yes' : '❌ No', inline: true },
-        { name: 'Has Allowed Role?', value: hasAllowedRole ? '✅ Yes' : '❌ No', inline: true },
-        { name: 'Bot Status', value: client.isReady() ? '✅ Ready' : '❌ Not Ready', inline: true },
+        { name: 'Allowed Channel?', value: isAllowedChannel ? 'Yes' : 'No', inline: true },
+        { name: 'Has Allowed Role?', value: hasAllowedRole ? 'Yes' : 'No', inline: true },
+        { name: 'Bot Status', value: client.isReady() ? 'Ready' : 'Not Ready', inline: true },
+        { name: 'Data Source', value: dataStatus.useGitHub ? 'GitHub' : 'Local Files', inline: true },
+        { name: 'Loaded Data', value: dataStatus.loadedData.join(', ') || 'None', inline: true },
+        { name: 'Cache Info', value: dataStatus.cacheInfo ? `${dataStatus.cacheInfo.length} files cached` : 'No cache', inline: true },
         { name: 'Allowed Channels', value: config.allowedChannels?.map(id => `\`${id}\``).join('\n') || 'None', inline: false },
         { name: 'Allowed Roles', value: config.allowedRoles?.map(id => `\`${id}\``).join('\n') || 'None', inline: false }
       )

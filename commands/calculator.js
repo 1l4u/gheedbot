@@ -1,6 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
-const weapons = require('../weapon.json');
+const { dataManager } = require('../utils/data-manager');
 
 /**
  * Crit Chance calculator command
@@ -257,7 +257,8 @@ async function handleDmgCalculator2(interaction) {
       });
     }
 
-    // Tìm weapon trong database
+    // Lấy dữ liệu weapons và tìm weapon
+    const weapons = await dataManager.getWeapons();
     const weapon = weapons.find(w => w.name.toLowerCase() === itemName.toLowerCase());
     if (!weapon) {
       return await interaction.editReply({

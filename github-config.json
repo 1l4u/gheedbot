@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "owner": "1l4u",
+  "repo": "gheedbot", 
+  "branch": "main",
+  "files": {
+    "weapons": "weapon.json",
+    "runewords": "runeword.json",
+    "wikis": "wiki.json"
+  }
+}
