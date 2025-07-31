@@ -109,8 +109,8 @@ async function handleSlashWeapon(interaction) {
       // Thêm footer với thông tin bổ sung
       const footerInfo = [];
       if (weapon.code) footerInfo.push(`Level: ${weapon.levelreq}`);
-      if (weapon.qlvl) footerInfo.push(`StrBonus: ${weapon.StrBonus}`);
-      if (weapon.rlvl) footerInfo.push(`DexBonus: ${weapon.DexBonus}`);
+      if (weapon.StrBonus) footerInfo.push(`StrBonus: ${weapon.StrBonus}`);
+      if (weapon.DexBonus) footerInfo.push(`DexBonus: ${weapon.DexBonus}`);
 
       if (footerInfo.length > 0) {
         embed.setFooter({ text: footerInfo.join(' | ') });

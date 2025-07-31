@@ -294,18 +294,13 @@ async function handleDmgCalculator2(interaction) {
     // Tính toán damage
     const minDamage = Math.floor((minBase * (100 + ed + edLvl)) / 100) + addMin;
     const maxDamage = Math.floor((maxBase * (100 + ed + edLvl)) / 100) + addMax + maxLvl;
-    const avgDamage = (minDamage + maxDamage) / 2;
 
     const embed = new EmbedBuilder()
       .setColor('#ff6600')
-      .setTitle('Damage Calculator')
+      .setTitle(`${weapon.name}${isEth ? ' (Ethereal)' : ''}`)
       .addFields(
-        { name: 'Weapon', value: `${weapon.name}${isEth ? ' (Ethereal)' : ''}`, inline: true },
         { name: 'Base Damage', value: isEth ? `${parseInt(weapon.min)} - ${parseInt(weapon.max)} → ${minBase} - ${maxBase}` : `${minBase} - ${maxBase}`, inline: true },
-        { name: 'Enhanced Damage', value: `${ed}%`, inline: true },
-        { name: 'Min Damage', value: minDamage.toString(), inline: true },
-        { name: 'Max Damage', value: maxDamage.toString(), inline: true },
-        { name: 'Average Damage', value: avgDamage.toFixed(1), inline: true }
+        { name: 'Damage', value: minDamage.toString() + ' - ' + maxDamage.toString(), inline: true },
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
@@ -326,9 +321,9 @@ async function handleDmgCalculator2(interaction) {
       embeds: [embed]
     });
 
-    console.log(`Đã gửi phản hồi DmgCalculator2`);
+    console.log(`Đã gửi phản hồi Damage Calculator`);
   } catch (error) {
-    console.error('Lỗi lệnh DmgCalculator2:', error);
+    console.error('Lỗi lệnh Damage Calculator:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán damage'
     });
