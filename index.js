@@ -12,7 +12,8 @@ const { handleSlashDebug } = require('./commands/debug');
 const { handleSlashRuneword } = require('./commands/runeword');
 const { handleSlashWiki } = require('./commands/wiki');
 const { handleSlashWeapon } = require('./commands/weapon');
-const { handleSlashCritChance, handleSlashTas, handleSlashIas, handleDmgCalculator, handleDmgCalculator2 } = require('./commands/calculator');
+const { handleSlashCritChance, handleSlashTas, handleSlashIas, handleDmgCalculator2 } = require('./commands/calculator');
+const { handleSlashHr } = require('./commands/hr');
 
 // Import utilities
 const { hasBypassPermission, isValidCommand } = require('./utils/permissions');
@@ -199,30 +200,58 @@ const commands = [
     .setName('debug')
     .setDescription('Kiểm tra thông tin channel và bot'),
   new SlashCommandBuilder()
-  .setName('dmgcal')
-  .setDescription('Tính dmg vũ khí')
-  .addIntegerOption(option =>
-    option.setName('min_base')
-          .setDescription('Min Base Damage')
-          .setRequired(true))
-  .addIntegerOption(option =>
-    option.setName('max_base')
-          .setDescription('Max Base Damage')
-          .setRequired(true))
-  .addIntegerOption(option =>
-    option.setName('ed')
-          .setDescription('Enhanced Damage %')
-          .setRequired(true))
-  .addIntegerOption(option =>
-    option.setName('add_min')
-          .setDescription('Add Min Damage')
-          .setRequired(true))
-  .addIntegerOption(option =>
-    option.setName('add_max')
-          .setDescription('Add Max Damage')
-          .setRequired(true)),
+    .setName('hr')
+    .setDescription('Tính tổng giá trị HR của các runes')
+    .addIntegerOption(option =>
+      option.setName('um')
+        .setDescription('Số lượng UM (0.05 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('mal')
+        .setDescription('Số lượng MAL (0.1 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('ist')
+        .setDescription('Số lượng IST (0.15 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('gul')
+        .setDescription('Số lượng GUL (0.25 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('vex')
+        .setDescription('Số lượng VEX (0.5 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('ohm')
+        .setDescription('Số lượng OHM (0.75 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('lo')
+        .setDescription('Số lượng LO (1 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('sur')
+        .setDescription('Số lượng SUR (1.5 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('ber')
+        .setDescription('Số lượng BER (3 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('jah')
+        .setDescription('Số lượng JAH (2 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('cham')
+        .setDescription('Số lượng CHAM (2.25 HR)')
+        .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('zod')
+        .setDescription('Số lượng ZOD (4.5 HR)')
+        .setRequired(false)),
   new SlashCommandBuilder()
-  .setName('dmgcal2')
+  .setName('dmgcal')
   .setDescription('Tính dmg vũ khí với weapon picker')
   .addStringOption(option =>
     option.setName('item')
@@ -386,12 +415,12 @@ if (interaction.isAutocomplete()) {
           await handleSlashDebug(interaction, client);
           break;
         case 'dmgcal' :
-          console.log(`Đang thực thi: handleDmgCalculator`);
-          await handleDmgCalculator(interaction);
-          break;
-        case 'dmgcal2' :
           console.log(`Đang thực thi: handleDmgCalculator2`);
           await handleDmgCalculator2(interaction);
+          break;
+        case 'hr':
+          console.log(`Đang thực thi: handleSlashHr`);
+          await handleSlashHr(interaction);
           break;
         default:
           console.log(`Lệnh không xác định: ${commandName}`);
@@ -439,7 +468,7 @@ async function getAutocompleteData(commandName) {
       case 'rw':
         return await dataManager.getRunewords();
       case 'weapon':
-      case 'dmgcal2':
+      case 'dmgcal':
         return await dataManager.getWeapons();
       default:
         return [];

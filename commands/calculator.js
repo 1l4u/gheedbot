@@ -169,63 +169,6 @@ async function handleSlashIas(interaction) {
 }
 
 /**
- * Damage calculator command
- * @param {Interaction} interaction - Discord interaction
- */
-async function handleDmgCalculator(interaction) {
-  console.log(`🔧 DmgCalculator command called by ${interaction.user.tag}`);
-
-  // Defer reply để tránh timeout
-  await interaction.deferReply({ flags: 1 << 6 });
-
-  // Kiểm tra permissions - chỉ yêu cầu channel, không cần role
-  const permissionCheck = checkCommandPermissions(interaction, {
-    requireChannel: true,
-    requireRole: false
-  });
-
-  if (!permissionCheck.allowed) {
-    console.log(`❌ DmgCalculator permission denied for ${interaction.user.tag}: ${permissionCheck.reason}`);
-    return await interaction.editReply({
-      content: permissionCheck.reason
-    });
-  }
-
-  try {
-    const minBase = interaction.options.getInteger('min_base');
-    const maxBase = interaction.options.getInteger('max_base');
-    const ed = interaction.options.getInteger('ed');
-    const addMin = interaction.options.getInteger('add_min');
-    const addMax = interaction.options.getInteger('add_max');
-
-    const minDamage = Math.floor((minBase * (100 + ed)) / 100) + addMin;
-    const maxDamage = Math.floor((maxBase * (100 + ed)) / 100) + addMax;
-    const avgDamage = (minDamage + maxDamage) / 2;
-
-    const embed = new EmbedBuilder()
-      .setColor('#ff6600')
-      .setTitle('Damage Calculator')
-      .addFields(
-        { name: 'Min Damage', value: minDamage.toString(), inline: true },
-        { name: 'Max Damage', value: maxDamage.toString(), inline: true },
-        { name: 'Average Damage', value: avgDamage.toFixed(1), inline: true }
-      )
-      .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
-
-    await interaction.editReply({
-      embeds: [embed]
-    });
-
-    console.log(`Đã gửi phản hồi DmgCalculator`);
-  } catch (error) {
-    console.error('Lỗi lệnh DmgCalculator:', error);
-    await interaction.editReply({
-      content: 'Đã xảy ra lỗi khi tính toán damage'
-    });
-  }
-}
-
-/**
  * Damage calculator 2 command với weapon picker
  * @param {Interaction} interaction - Discord interaction
  */
@@ -301,6 +244,7 @@ async function handleDmgCalculator2(interaction) {
       .addFields(
         { name: 'Base Damage', value: isEth ? `${parseInt(weapon.min)} - ${parseInt(weapon.max)} → ${minBase} - ${maxBase}` : `${minBase} - ${maxBase}`, inline: true },
         { name: 'Damage', value: minDamage.toString() + ' - ' + maxDamage.toString(), inline: true },
+        { name: 'WSM', value: weapon.speed, inline: false }
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
@@ -334,6 +278,5 @@ module.exports = {
   handleSlashCritChance,
   handleSlashTas,
   handleSlashIas,
-  handleDmgCalculator,
   handleDmgCalculator2
 };
