@@ -25,6 +25,9 @@ async function handleSlashHr(interaction) {
   try {
     console.log(`Đang tính toán...`);
 
+    // Defer reply để tránh timeout
+    await interaction.deferReply();
+
     // Kiểm tra quyền
     const permissionCheck = await checkCommandPermissions(interaction, 'hr');
     if (!permissionCheck.allowed) {

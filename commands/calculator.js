@@ -242,8 +242,8 @@ async function handleDmgCalculator2(interaction) {
       .setColor('#ff6600')
       .setTitle(`${weapon.name}${isEth ? ' (Ethereal)' : ''}`)
       .addFields(
-        { name: 'Base Damage', value: isEth ? `${parseInt(weapon.min)} - ${parseInt(weapon.max)} → ${minBase} - ${maxBase}` : `${minBase} - ${maxBase}`, inline: true },
-        { name: 'Damage', value: minDamage.toString() + ' - ' + maxDamage.toString(), inline: true },
+        { name: 'Base Damage: ', value: isEth ? `${parseInt(weapon.min)} - ${parseInt(weapon.max)} → ${minBase} - ${maxBase}` : `${minBase} - ${maxBase}`},
+        { name: 'Final Damage: ', value: minDamage.toString() + ' - ' + maxDamage.toString()},
         { name: 'WSM', value: weapon.speed, inline: false }
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
