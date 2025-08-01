@@ -23,10 +23,10 @@ const HR_VALUES = {
  */
 async function handleSlashHr(interaction) {
   try {
-    console.log(`Đang tính toán...`);
+    // Defer reply NGAY LẬP TỨC để tránh timeout - chỉ user thực hiện lệnh thấy
+    await interaction.deferReply({ ephemeral: true });
 
-    // Defer reply để tránh timeout
-    await interaction.deferReply();
+    console.log(`Đang tính toán...`);
 
     // Kiểm tra quyền
     const permissionCheck = await checkCommandPermissions(interaction, 'hr');
