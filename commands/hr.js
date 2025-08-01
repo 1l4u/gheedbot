@@ -18,7 +18,86 @@ const HR_VALUES = {
 };
 
 /**
- * Xử lý lệnh /hr để hiển thị interface tính toán HR
+ * Xử lý lệnh /setuphr để tạo HR interface trong channel (chỉ admin)
+ * @param {Interaction} interaction - Discord interaction
+ */
+async function handleSlashSetupHr(interaction) {
+  try {
+  // Kiểm tra permissions - yêu cầu role, yêu cầu channel cụ thể
+  const permissionCheck = checkCommandPermissions(interaction, {
+    requireChannel: true, // Debug có thể dùng ở bất kỳ đâu
+    requireRole: true      // Nhưng cần có role được phép
+  });
+
+   if (!permissionCheck.allowed) {
+    console.log(`Từ chối quyền debug cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    return await interaction.editReply({
+      content: permissionCheck.reason
+    });
+  }
+
+    // Tạo embed cho HR interface công khai
+    const embed = new EmbedBuilder()
+      .setColor('#FFD700')
+      .setTitle('💎 HR Calculator - Public Interface')
+      .setDescription('Mọi người có thể sử dụng calculator này để tính toán HR!')
+      .addFields(
+        { name: '🟢 Nhóm 1', value: 'UM, MAL, IST, GUL', inline: true },
+        { name: '🟡 Nhóm 2', value: 'VEX, OHM, LO, SUR', inline: true },
+        { name: '🔴 Nhóm 3', value: 'BER, JAH, CHAM, ZOD', inline: true },
+        { name: '📝 Hướng dẫn', value: 'Nhấn button để mở form nhập số lượng cho từng rune. Kết quả sẽ hiển thị riêng tư cho bạn.', inline: false }
+      )
+      .setFooter({ text: 'HR Calculator được setup bởi ' + interaction.user.username });
+
+    // Tạo buttons cho interface công khai
+    const row1 = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId('hr_public_group1_runes')
+        .setLabel('🟢 Nhóm 1 (UM-GUL)')
+        .setStyle(ButtonStyle.Success),
+      new ButtonBuilder()
+        .setCustomId('hr_public_group2_runes')
+        .setLabel('🟡 Nhóm 2 (VEX-SUR)')
+        .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+        .setCustomId('hr_public_group3_runes')
+        .setLabel('🔴 Nhóm 3 (BER-ZOD)')
+        .setStyle(ButtonStyle.Danger)
+    );
+
+    const row2 = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId('hr_public_calculate')
+        .setLabel('🧮 Tính toán HR')
+        .setStyle(ButtonStyle.Success),
+      new ButtonBuilder()
+        .setCustomId('hr_public_reset')
+        .setLabel('🔄 Reset dữ liệu của tôi')
+        .setStyle(ButtonStyle.Secondary)
+    );
+
+    // Gửi interface vào channel (public)
+    await interaction.reply({
+      embeds: [embed],
+      components: [row1, row2]
+    });
+
+    console.log(`HR interface được setup trong ${interaction.channel.name} bởi ${interaction.user.tag}`);
+
+  } catch (error) {
+    console.error('Lỗi setup HR interface:', error);
+
+    if (!interaction.replied && !interaction.deferred) {
+      await interaction.reply({
+        content: 'Đã xảy ra lỗi khi setup HR interface',
+        flags: 1<<6
+      });
+    }
+  }
+}
+
+/**
+ * Xử lý lệnh /hr để hiển thị interface tính toán HR (private)
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashHr(interaction) {
@@ -28,7 +107,7 @@ async function handleSlashHr(interaction) {
     if (!permissionCheck.allowed) {
       return await interaction.reply({
         content: permissionCheck.reason,
-        ephemeral: true
+        flags: 1<<6
       });
     }
 
@@ -74,7 +153,7 @@ async function handleSlashHr(interaction) {
     await interaction.reply({
       embeds: [embed],
       components: [row1, row2],
-      ephemeral: true
+      flags: 1<<6
     });
 
   } catch (error) {
@@ -84,7 +163,7 @@ async function handleSlashHr(interaction) {
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
         content: 'Đã xảy ra lỗi khi hiển thị HR calculator',
-        ephemeral: true
+        flags: 1<<6
       });
     } else {
       await interaction.editReply({
@@ -102,7 +181,7 @@ const userHrData = new Map();
  * @param {string} groupType - 'low', 'mid', 'high', 'ultra'
  * @returns {ModalBuilder} - Modal với input fields riêng cho từng rune
  */
-function createRuneGroupModal(groupType) {
+function createRuneGroupModal(groupType, isPublic = false) {
   const runeGroups = {
     group1: { runes: ['UM', 'MAL', 'IST', 'GUL'], title: 'Nhóm 1 (UM-GUL)' },
     group2: { runes: ['VEX', 'OHM', 'LO', 'SUR'], title: 'Nhóm 2 (VEX-SUR)' },
@@ -110,8 +189,9 @@ function createRuneGroupModal(groupType) {
   };
 
   const group = runeGroups[groupType];
+  const modalId = isPublic ? `hr_public_modal_${groupType}` : `hr_modal_${groupType}`;
   const modal = new ModalBuilder()
-    .setCustomId(`hr_modal_${groupType}`)
+    .setCustomId(modalId)
     .setTitle(group.title);
 
   // Tạo input field riêng cho từng rune
@@ -140,6 +220,30 @@ async function handleHrButton(interaction) {
     const buttonId = interaction.customId;
     const userId = interaction.user.id;
 
+    // Xử lý public buttons (từ /setuphr)
+    if (buttonId.startsWith('hr_public_')) {
+      if (buttonId.endsWith('_runes')) {
+        // Xử lý buttons cho các nhóm runes (public)
+        let groupType = buttonId.replace('hr_public_', '').replace('_runes', '');
+        const modal = createRuneGroupModal(groupType, true); // true = public mode
+        await interaction.showModal(modal);
+
+      } else if (buttonId === 'hr_public_calculate') {
+        // Tính toán HR từ data đã lưu (public)
+        await calculateAndShowHR(interaction, userId, true); // true = public mode
+
+      } else if (buttonId === 'hr_public_reset') {
+        // Reset data (public)
+        userHrData.delete(userId);
+        await interaction.reply({
+          content: 'Đã reset dữ liệu HR của bạn!',
+          flags: 1<<6
+        });
+      }
+      return;
+    }
+
+    // Xử lý private buttons (từ /hr)
     if (buttonId.startsWith('hr_') && buttonId.endsWith('_runes')) {
       // Xử lý buttons cho các nhóm runes
       let groupType = buttonId.replace('hr_', '').replace('_runes', '');
@@ -149,19 +253,19 @@ async function handleHrButton(interaction) {
       if (groupType === 'high') groupType = 'group3';
       if (groupType === 'ultra') groupType = 'group3';
 
-      const modal = createRuneGroupModal(groupType);
+      const modal = createRuneGroupModal(groupType, false); // false = private mode
       await interaction.showModal(modal);
 
     } else if (buttonId === 'hr_calculate') {
       // Tính toán HR từ data đã lưu
-      await calculateAndShowHR(interaction, userId);
+      await calculateAndShowHR(interaction, userId, false); // false = private mode
 
     } else if (buttonId === 'hr_reset') {
       // Reset data
       userHrData.delete(userId);
       await interaction.reply({
-        content: '🔄 Đã reset tất cả dữ liệu HR!',
-        ephemeral: true
+        content: 'Đã reset tất cả dữ liệu HR!',
+        flags: 1<<6
       });
     }
 
@@ -169,7 +273,7 @@ async function handleHrButton(interaction) {
     console.error('Lỗi xử lý HR button:', error);
     await interaction.reply({
       content: 'Đã xảy ra lỗi khi xử lý button',
-      ephemeral: true
+      flags: 1<<6
     });
   }
 }
@@ -193,14 +297,17 @@ async function handleHrModalSubmit(interaction) {
     const runeGroups = {
       hr_modal_group1: ['UM', 'MAL', 'IST', 'GUL'],
       hr_modal_group2: ['VEX', 'OHM', 'LO', 'SUR'],
-      hr_modal_group3: ['BER', 'JAH', 'CHAM', 'ZOD']
+      hr_modal_group3: ['BER', 'JAH', 'CHAM', 'ZOD'],
+      hr_public_modal_group1: ['UM', 'MAL', 'IST', 'GUL'],
+      hr_public_modal_group2: ['VEX', 'OHM', 'LO', 'SUR'],
+      hr_public_modal_group3: ['BER', 'JAH', 'CHAM', 'ZOD']
     };
 
     const runes = runeGroups[modalId];
     if (!runes) {
       return await interaction.reply({
         content: 'Modal không hợp lệ',
-        ephemeral: true
+        flags: 1<<6
       });
     }
 
@@ -218,16 +325,16 @@ async function handleHrModalSubmit(interaction) {
       .map(([rune, quantity]) => `${rune}: ${quantity}`)
       .join(', ');
 
-    await interaction.reply({
-      content: `Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính toán HR" để xem kết quả.`,
-      ephemeral: true
-    });
+    // await interaction.reply({
+    //   content: `Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\nTiếp tục nhập các nhóm khác hoặc nhấn "Tính toán HR" để xem kết quả.`,
+    //   flags: 1<<6
+    // });
 
   } catch (error) {
     console.error('Lỗi xử lý HR modal:', error);
     await interaction.reply({
       content: 'Đã xảy ra lỗi khi lưu dữ liệu',
-      ephemeral: true
+      flags: 1<<6
     });
   }
 }
@@ -237,13 +344,13 @@ async function handleHrModalSubmit(interaction) {
  * @param {ButtonInteraction} interaction - Button interaction
  * @param {string} userId - User ID
  */
-async function calculateAndShowHR(interaction, userId) {
+async function calculateAndShowHR(interaction, userId, isPublic = false) {
   try {
     const userData = userHrData.get(userId);
     if (!userData || Object.keys(userData).length === 0) {
       return await interaction.reply({
         content: 'Chưa có dữ liệu rune nào! Vui lòng nhập số lượng runes trước.',
-        ephemeral: true
+        flags: 1<<6
       });
     }
 
@@ -267,14 +374,14 @@ async function calculateAndShowHR(interaction, userId) {
     if (calculations.length === 0) {
       return await interaction.reply({
         content: 'Không có rune hợp lệ để tính toán!',
-        ephemeral: true
+        flags: 1<<6
       });
     }
 
     // Tạo embed response
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
-      .setTitle(`💎 Tổng HR: ${totalHr.toFixed(2)} HR`)
+      .setTitle(`ổng HR: ${totalHr.toFixed(2)} HR`)
       .setDescription('Chi tiết tính toán:')
       .setTimestamp()
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
@@ -290,7 +397,7 @@ async function calculateAndShowHR(interaction, userId) {
 
     await interaction.reply({
       embeds: [embed],
-      ephemeral: true
+      flags: 1<<6
     });
 
     console.log(`Tính toán HR hoàn thành: ${totalHr.toFixed(2)} HR cho ${interaction.user.tag}`);
@@ -299,13 +406,14 @@ async function calculateAndShowHR(interaction, userId) {
     console.error('Lỗi tính toán HR:', error);
     await interaction.reply({
       content: 'Đã xảy ra lỗi khi tính toán HR',
-      ephemeral: true
+      flags: 1<<6
     });
   }
 }
 
 module.exports = {
   handleSlashHr,
+  handleSlashSetupHr,
   handleHrModalSubmit,
   handleHrButton
 };

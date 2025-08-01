@@ -201,7 +201,10 @@ const commands = [
     .setDescription('Kiểm tra thông tin channel và bot'),
   new SlashCommandBuilder()
     .setName('hr')
-    .setDescription('Tính tổng giá trị HR của các runes'),
+    .setDescription('Tính tổng giá trị HR của các runes (private)'),
+  new SlashCommandBuilder()
+    .setName('setuphr')
+    .setDescription('Tạo HR Calculator interface trong channel (cần quyền Manage Channels)'),
     // .addIntegerOption(option =>
     //   option.setName('um')
     //     .setDescription('Số lượng UM (0.05 HR)')
@@ -345,8 +348,8 @@ if (interaction.isAutocomplete()) {
     console.log(`Modal submit: ${interaction.customId}`);
 
     try {
-      // Xử lý HR calculator modals
-      if (interaction.customId.startsWith('hr_modal_')) {
+      // Xử lý HR calculator modals (cả private và public)
+      if (interaction.customId.startsWith('hr_modal_') || interaction.customId.startsWith('hr_public_modal_')) {
         const { handleHrModalSubmit } = require('./commands/hr');
         await handleHrModalSubmit(interaction);
         return;
@@ -465,6 +468,11 @@ if (interaction.isAutocomplete()) {
         case 'hr':
           console.log(`Đang thực thi: handleSlashHr`);
           await handleSlashHr(interaction);
+          break;
+        case 'setuphr':
+          console.log(`Đang thực thi: handleSlashSetupHr`);
+          const { handleSlashSetupHr } = require('./commands/hr');
+          await handleSlashSetupHr(interaction);
           break;
         default:
           console.log(`Lệnh không xác định: ${commandName}`);
