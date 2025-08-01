@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Calculator Interface Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #36393f;
+            color: #dcddde;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2f3136;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .title {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .step {
+            background: #40444b;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #7289da;
+        }
+
+        .step-title {
+            color: #7289da;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .embed {
+            background: #2f3136;
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .embed-title {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .embed-field {
+            display: inline-block;
+            width: 48%;
+            margin: 5px 1%;
+            background: #40444b;
+            padding: 10px;
+            border-radius: 4px;
+            vertical-align: top;
+        }
+
+        .embed-field-name {
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .embed-field-value {
+            color: #b9bbbe;
+            font-size: 0.9em;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .button-success {
+            background: #43b581;
+            color: white;
+        }
+
+        .button-primary {
+            background: #7289da;
+            color: white;
+        }
+
+        .button-danger {
+            background: #f04747;
+            color: white;
+        }
+
+        .button-secondary {
+            background: #747f8d;
+            color: white;
+        }
+
+        .button:disabled {
+            background: #4f545c;
+            color: #72767d;
+            cursor: not-allowed;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #36393f;
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-title {
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-label {
+            color: #b9bbbe;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            background: #40444b;
+            border: 1px solid #72767d;
+            border-radius: 4px;
+            color: #dcddde;
+            font-size: 16px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #7289da;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .result {
+            background: #2f3136;
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .hr-total {
+            color: #ffd700;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .calculation-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #40444b;
+        }
+
+        .calculation-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-data {
+            background: #40444b;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+
+        .instructions {
+            background: #5865f2;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">💎 HR Calculator Interface Demo</h1>
+        
+        <div class="instructions">
+            <strong>🎯 Hướng dẫn test:</strong><br>
+            1. Nhấn "Bắt đầu /hr" để mô phỏng lệnh<br>
+            2. Nhấn các button nhóm runes để mở modal<br>
+            3. Nhập số lượng runes trong modal<br>
+            4. Nhấn "Tính toán HR" để xem kết quả<br>
+            5. Nhấn "Reset" để bắt đầu lại
+        </div>
+
+        <!-- Step 1: Initial Command -->
+        <div class="step">
+            <div class="step-title">Bước 1: User gõ /hr</div>
+            <button class="button button-primary" onclick="startHrCommand()">🚀 Bắt đầu /hr</button>
+        </div>
+
+        <!-- Step 2: Main Interface -->
+        <div class="step" id="mainInterface" style="display: none;">
+            <div class="step-title">Bước 2: Interface chính hiển thị</div>
+            <div class="embed">
+                <div class="embed-title">💎 HR Calculator</div>
+                <p style="margin-bottom: 15px;">Chọn nhóm runes để nhập số lượng:</p>
+                
+                <div class="embed-field">
+                    <div class="embed-field-name">🟢 Nhóm 1</div>
+                    <div class="embed-field-value">UM, MAL, IST, GUL</div>
+                </div>
+
+                <div class="embed-field">
+                    <div class="embed-field-name">🟡 Nhóm 2</div>
+                    <div class="embed-field-value">VEX, OHM, LO, SUR</div>
+                </div>
+
+                <div class="embed-field">
+                    <div class="embed-field-name">🔴 Nhóm 3</div>
+                    <div class="embed-field-value">BER, JAH, CHAM, ZOD</div>
+                </div>
+                
+                <div style="clear: both; margin-top: 15px;">
+                    <div class="embed-field-name">📝 Hướng dẫn</div>
+                    <div class="embed-field-value">Nhấn button để mở form nhập số lượng cho từng rune</div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="button button-success" onclick="openModal('group1')">🟢 Nhóm 1 (UM-GUL)</button>
+                <button class="button button-primary" onclick="openModal('group2')">🟡 Nhóm 2 (VEX-SUR)</button>
+                <button class="button button-danger" onclick="openModal('group3')">🔴 Nhóm 3 (BER-ZOD)</button>
+            </div>
+            <div class="buttons">
+                <button class="button button-success" id="calculateBtn" onclick="calculateHR()" disabled>🧮 Tính toán HR</button>
+                <button class="button button-secondary" onclick="resetData()">🔄 Reset</button>
+            </div>
+
+            <div class="user-data">
+                <strong>📊 Dữ liệu hiện tại:</strong>
+                <div id="currentData">Chưa có dữ liệu</div>
+            </div>
+        </div>
+
+        <!-- Step 3: Results -->
+        <div class="step" id="resultsSection" style="display: none;">
+            <div class="step-title">Bước 3: Kết quả tính toán</div>
+            <div id="calculationResults"></div>
+        </div>
+    </div>
+
+    <!-- Modals for each rune group -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title" id="modalTitle"></div>
+            <div id="modalInputs"></div>
+            <div class="modal-buttons">
+                <button class="button button-secondary" onclick="closeModal()">Hủy</button>
+                <button class="button button-primary" onclick="submitModal()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // HR Values
+        const HR_VALUES = {
+            'UM': 0.25,
+            'MAL': 0.33,
+            'IST': 0.5,
+            'GUL': 0.75,
+            'VEX': 1,
+            'OHM': 1.25,
+            'LO': 1.5,
+            'SUR': 2,
+            'BER': 3,
+            'JAH': 3.5,
+            'CHAM': 1,
+            'ZOD': 0.75
+        };
+
+        // Rune groups
+        const RUNE_GROUPS = {
+            group1: { runes: ['UM', 'MAL', 'IST', 'GUL'], title: '🟢 Nhóm 1 (UM-GUL)' },
+            group2: { runes: ['VEX', 'OHM', 'LO', 'SUR'], title: '🟡 Nhóm 2 (VEX-SUR)' },
+            group3: { runes: ['BER', 'JAH', 'CHAM', 'ZOD'], title: '� Nhóm 3 (BER-ZOD)' }
+        };
+
+        // User data storage
+        let userData = {};
+        let currentModalGroup = '';
+
+        function startHrCommand() {
+            document.getElementById('mainInterface').style.display = 'block';
+        }
+
+        function openModal(groupType) {
+            currentModalGroup = groupType;
+            const group = RUNE_GROUPS[groupType];
+            
+            document.getElementById('modalTitle').textContent = group.title;
+            
+            let inputsHtml = '';
+            group.runes.forEach(rune => {
+                const currentValue = userData[rune] || 0;
+                inputsHtml += `
+                    <div class="input-group">
+                        <label class="input-label">${rune} (${HR_VALUES[rune]} HR mỗi cái)</label>
+                        <input type="number" class="input-field" id="input_${rune}" 
+                               value="${currentValue}" min="0" max="999" placeholder="0">
+                    </div>
+                `;
+            });
+            
+            document.getElementById('modalInputs').innerHTML = inputsHtml;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function submitModal() {
+            const group = RUNE_GROUPS[currentModalGroup];
+            let hasData = false;
+            
+            group.runes.forEach(rune => {
+                const input = document.getElementById(`input_${rune}`);
+                const value = parseInt(input.value) || 0;
+                userData[rune] = value;
+                if (value > 0) hasData = true;
+            });
+            
+            updateCurrentData();
+            closeModal();
+            
+            // Show feedback
+            const summary = Object.entries(userData)
+                .filter(([_, quantity]) => quantity > 0)
+                .map(([rune, quantity]) => `${rune}: ${quantity}`)
+                .join(', ');
+            
+            alert(`✅ Đã lưu dữ liệu!\nHiện tại: ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính toán HR"`);
+            
+            // Enable calculate button if has data
+            document.getElementById('calculateBtn').disabled = !hasData;
+        }
+
+        function updateCurrentData() {
+            const dataDiv = document.getElementById('currentData');
+            const entries = Object.entries(userData).filter(([_, quantity]) => quantity > 0);
+            
+            if (entries.length === 0) {
+                dataDiv.textContent = 'Chưa có dữ liệu';
+            } else {
+                dataDiv.innerHTML = entries.map(([rune, quantity]) => 
+                    `${rune}: ${quantity} (${(HR_VALUES[rune] * quantity).toFixed(2)} HR)`
+                ).join('<br>');
+            }
+        }
+
+        function calculateHR() {
+            const calculations = [];
+            let totalHr = 0;
+            
+            Object.entries(userData).forEach(([rune, quantity]) => {
+                if (quantity > 0 && HR_VALUES[rune]) {
+                    const value = HR_VALUES[rune] * quantity;
+                    totalHr += value;
+                    calculations.push({
+                        name: rune,
+                        quantity: quantity,
+                        unitValue: HR_VALUES[rune],
+                        totalValue: value
+                    });
+                }
+            });
+            
+            if (calculations.length === 0) {
+                alert('❌ Không có rune hợp lệ để tính toán!');
+                return;
+            }
+            
+            // Sort by value descending
+            calculations.sort((a, b) => b.totalValue - a.totalValue);
+            
+            // Display results
+            let resultsHtml = `
+                <div class="result">
+                    <div class="hr-total">💎 Tổng HR: ${totalHr.toFixed(2)} HR</div>
+                    <div style="text-align: center; margin-bottom: 15px; color: #b9bbbe;">Chi tiết tính toán:</div>
+            `;
+            
+            calculations.forEach(calc => {
+                resultsHtml += `
+                    <div class="calculation-item">
+                        <span><strong>${calc.quantity}x ${calc.name}</strong></span>
+                        <span>${calc.quantity} × ${calc.unitValue} = <strong>${calc.totalValue.toFixed(2)} HR</strong></span>
+                    </div>
+                `;
+            });
+            
+            resultsHtml += '</div>';
+            
+            document.getElementById('calculationResults').innerHTML = resultsHtml;
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetData() {
+            userData = {};
+            updateCurrentData();
+            document.getElementById('calculateBtn').disabled = true;
+            document.getElementById('resultsSection').style.display = 'none';
+            alert('🔄 Đã reset tất cả dữ liệu HR!');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

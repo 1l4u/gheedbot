@@ -340,8 +340,52 @@ if (interaction.isAutocomplete()) {
   return;
 }
 
+  // Xử lý Modal Submissions
+  if (interaction.isModalSubmit()) {
+    console.log(`Modal submit: ${interaction.customId}`);
+
+    try {
+      // Xử lý HR calculator modals
+      if (interaction.customId.startsWith('hr_modal_')) {
+        const { handleHrModalSubmit } = require('./commands/hr');
+        await handleHrModalSubmit(interaction);
+        return;
+      }
+
+      switch (interaction.customId) {
+        case 'hr_calculator_modal':
+          const { handleHrModalSubmit } = require('./commands/hr');
+          await handleHrModalSubmit(interaction);
+          break;
+        default:
+          console.log(`Unknown modal: ${interaction.customId}`);
+          await interaction.reply({
+            content: 'Modal không được hỗ trợ',
+            ephemeral: true
+          });
+      }
+    } catch (error) {
+      console.error(`Lỗi xử lý modal ${interaction.customId}:`, error);
+
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({
+          content: 'Đã xảy ra lỗi khi xử lý modal',
+          ephemeral: true
+        });
+      }
+    }
+    return;
+  }
+
   if (interaction.isButton()) {
     try{
+      // Xử lý HR calculator buttons
+      if (interaction.customId.startsWith('hr_')) {
+        const { handleHrButton } = require('./commands/hr');
+        await handleHrButton(interaction);
+        return;
+      }
+
       switch (interaction.customId) {
         case 'wiki':
           break;
