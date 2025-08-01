@@ -400,7 +400,7 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
     // Tạo embed response
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
-      .setTitle(`ổng HR: ${totalHr.toFixed(2)} HR`)
+      .setTitle(`${totalHr.toFixed(2)} HR`)
       .setDescription('Chi tiết tính toán:')
       .setTimestamp()
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
