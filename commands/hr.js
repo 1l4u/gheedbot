@@ -272,9 +272,6 @@ async function calculateAndShowHR(interaction, userId) {
       });
     }
 
-    // Sắp xếp theo giá trị giảm dần
-    calculations.sort((a, b) => b.totalValue - a.totalValue);
-
     // Tạo embed response
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
