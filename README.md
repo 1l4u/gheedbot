@@ -178,21 +178,18 @@ gheedbot/
 ```
 /rw enigma
 /rw heart of the oak
-/rw hoto
 ```
 
 #### **Weapons:**
 ```
 /weapon grief
 /weapon breath of the dying
-/weapon botd
 ```
 
 #### **Wiki:**
 ```
-/wiki amazon
-/wiki rune
-/wiki unique items
+/wiki crafting
+/wiki uber
 ```
 
 ### 🧮 Calculators
@@ -266,7 +263,7 @@ Bot có thể tự động update data từ GitHub repository:
 ## 🤝 Đóng góp
 
 ### 📝 Báo lỗi
-1. Mở [GitHub Issues](https://github.com/yourusername/gheedbot/issues)
+1. Mở [GitHub Issues](https://github.com/1l4u/gheedbot/issues)
 2. Mô tả chi tiết lỗi
 3. Cung cấp logs nếu có
 
@@ -288,9 +285,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Liên hệ
 
-- **GitHub:** [yourusername](https://github.com/yourusername)
-- **Discord:** YourDiscord#1234
-- **Project Link:** [https://github.com/yourusername/gheedbot](https://github.com/yourusername/gheedbot)
+- **GitHub:** [1l4u](https://github.com/1l4u)
+- **Discord:** hieunguyen#7399
+- **Project Link:** [https://github.com/1l4u/gheedbot](https://github.com/1l4u/gheedbot)
 
 ## 🙏 Acknowledgments
 
