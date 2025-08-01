@@ -220,6 +220,8 @@ async function handleHrButton(interaction) {
     const buttonId = interaction.customId;
     const userId = interaction.user.id;
 
+    console.log(`HR Button clicked: ${buttonId} by ${interaction.user.tag}`);
+
     // Xử lý public buttons (từ /setuphr)
     if (buttonId.startsWith('hr_public_')) {
       if (buttonId.endsWith('_runes')) {
@@ -229,6 +231,8 @@ async function handleHrButton(interaction) {
         await interaction.showModal(modal);
 
       } else if (buttonId === 'hr_public_calculate') {
+        // Defer reply ngay lập tức để tránh timeout
+        await interaction.deferReply({ ephemeral: true });
         // Tính toán HR từ data đã lưu (public)
         await calculateAndShowHR(interaction, userId, true); // true = public mode
 
@@ -236,7 +240,7 @@ async function handleHrButton(interaction) {
         // Reset data (public)
         userHrData.delete(userId);
         await interaction.reply({
-          content: 'Đã reset dữ liệu HR của bạn!',
+          content: '🔄 Đã reset dữ liệu HR của bạn!',
           flags: 1<<6
         });
       }
@@ -257,6 +261,8 @@ async function handleHrButton(interaction) {
       await interaction.showModal(modal);
 
     } else if (buttonId === 'hr_calculate') {
+      // Defer reply ngay lập tức để tránh timeout
+      await interaction.deferReply({ ephemeral: true });
       // Tính toán HR từ data đã lưu
       await calculateAndShowHR(interaction, userId, false); // false = private mode
 
@@ -264,17 +270,30 @@ async function handleHrButton(interaction) {
       // Reset data
       userHrData.delete(userId);
       await interaction.reply({
-        content: 'Đã reset tất cả dữ liệu HR!',
+        content: '🔄 Đã reset tất cả dữ liệu HR!',
         flags: 1<<6
       });
     }
 
   } catch (error) {
     console.error('Lỗi xử lý HR button:', error);
-    await interaction.reply({
-      content: 'Đã xảy ra lỗi khi xử lý button',
-      flags: 1<<6
-    });
+    console.error('Error details:', error.message);
+
+    try {
+      // Kiểm tra nếu interaction chưa được reply
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({
+          content: `❌ Đã xảy ra lỗi khi xử lý button: ${error.message}`,
+          flags: 1<<6
+        });
+      } else if (interaction.deferred) {
+        await interaction.editReply({
+          content: `❌ Đã xảy ra lỗi khi xử lý button: ${error.message}`
+        });
+      }
+    } catch (replyError) {
+      console.error('Lỗi khi gửi error message:', replyError);
+    }
   }
 }
 
@@ -367,10 +386,17 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
   try {
     const userData = userHrData.get(userId);
     if (!userData || Object.keys(userData).length === 0) {
-      return await interaction.reply({
-        content: 'Chưa có dữ liệu rune nào! Vui lòng nhập số lượng runes trước.',
-        flags: 1<<6
-      });
+      // Kiểm tra nếu interaction đã được deferred
+      if (interaction.deferred) {
+        return await interaction.editReply({
+          content: '❌ Chưa có dữ liệu rune nào! Vui lòng nhập số lượng runes trước.'
+        });
+      } else {
+        return await interaction.reply({
+          content: 'Chưa có dữ liệu rune nào! Vui lòng nhập số lượng runes trước.',
+          flags: 1<<6
+        });
+      }
     }
 
     // Tính toán HR
@@ -391,10 +417,17 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
     });
 
     if (calculations.length === 0) {
-      return await interaction.reply({
-        content: 'Không có rune hợp lệ để tính toán!',
-        flags: 1<<6
-      });
+      // Kiểm tra nếu interaction đã được deferred
+      if (interaction.deferred) {
+        return await interaction.editReply({
+          content: '❌ Không có rune hợp lệ để tính toán!'
+        });
+      } else {
+        return await interaction.reply({
+          content: 'Không có rune hợp lệ để tính toán!',
+          flags: 1<<6
+        });
+      }
     }
 
     // Tạo embed response
@@ -414,19 +447,38 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
       });
     });
 
-    await interaction.reply({
-      embeds: [embed],
-      flags: 1<<6
-    });
+    // Kiểm tra nếu interaction đã được deferred
+    if (interaction.deferred) {
+      await interaction.editReply({
+        embeds: [embed]
+      });
+    } else {
+      await interaction.reply({
+        embeds: [embed],
+        flags: 1<<6
+      });
+    }
 
     console.log(`Tính toán HR hoàn thành: ${totalHr.toFixed(2)} HR cho ${interaction.user.tag}`);
 
   } catch (error) {
     console.error('Lỗi tính toán HR:', error);
-    await interaction.reply({
-      content: 'Đã xảy ra lỗi khi tính toán HR',
-      flags: 1<<6
-    });
+
+    try {
+      // Kiểm tra nếu interaction đã được deferred
+      if (interaction.deferred) {
+        await interaction.editReply({
+          content: `❌ Đã xảy ra lỗi khi tính toán HR: ${error.message}`
+        });
+      } else if (!interaction.replied) {
+        await interaction.reply({
+          content: `❌ Đã xảy ra lỗi khi tính toán HR: ${error.message}`,
+          flags: 1<<6
+        });
+      }
+    } catch (replyError) {
+      console.error('Lỗi khi gửi error message:', replyError);
+    }
   }
 }
 

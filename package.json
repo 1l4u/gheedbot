@@ -1,14 +1,40 @@
 {
   "name": "gheedbot",
   "version": "1.0.0",
+  "description": "A specialized Discord bot for Diablo 2 community with game lookup tools and calculators",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "node test/run-all-tests.js",
+    "test:quick": "node test/quick-test.js",
+    "test:hr": "node test/test-hr-modal.js",
+    "test:commands": "node test/test-commands.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "discord",
+    "bot",
+    "diablo2",
+    "d2",
+    "gaming",
+    "calculator",
+    "runeword",
+    "hr-calculator"
+  ],
+  "author": "GheedBot Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/gheedbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/gheedbot/issues"
+  },
+  "homepage": "https://github.com/yourusername/gheedbot#readme",
+  "engines": {
+    "node": ">=16.9.0",
+    "npm": ">=7.0.0"
+  },
   "dependencies": {
     "@discordjs/rest": "^2.5.0",
     "axios": "^1.9.0",
