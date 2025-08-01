@@ -287,6 +287,8 @@ async function handleHrModalSubmit(interaction) {
     const userId = interaction.user.id;
     const modalId = interaction.customId;
 
+    console.log(`HR Modal submit: ${modalId} từ user ${interaction.user.tag}`);
+
     // Lấy dữ liệu hiện tại của user (hoặc tạo mới)
     if (!userHrData.has(userId)) {
       userHrData.set(userId, {});
@@ -317,6 +319,7 @@ async function handleHrModalSubmit(interaction) {
       const value = interaction.fields.getTextInputValue(fieldId) || '0';
       const quantity = parseInt(value) || 0;
       userData[runeName] = quantity;
+      console.log(`Lưu ${runeName}: ${quantity} cho user ${interaction.user.tag}`);
     });
 
     // Tạo summary của dữ liệu đã nhập
@@ -325,17 +328,33 @@ async function handleHrModalSubmit(interaction) {
       .map(([rune, quantity]) => `${rune}: ${quantity}`)
       .join(', ');
 
-    // await interaction.reply({
-    //   content: `Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\nTiếp tục nhập các nhóm khác hoặc nhấn "Tính toán HR" để xem kết quả.`,
-    //   flags: 1<<6
-    // });
+    await interaction.reply({
+      content: `✅ Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính toán HR" để xem kết quả.`,
+      flags: 1<<6
+    });
+
+    console.log(`✅ HR Modal submission thành công cho ${interaction.user.tag}: ${summary || 'Chưa có rune nào'}`);
 
   } catch (error) {
     console.error('Lỗi xử lý HR modal:', error);
-    await interaction.reply({
-      content: 'Đã xảy ra lỗi khi lưu dữ liệu',
-      flags: 1<<6
-    });
+    console.error('Error details:', error.message);
+    console.error('Stack trace:', error.stack);
+
+    try {
+      if (!interaction.replied && !interaction.deferred) {
+        await interaction.reply({
+          content: `❌ Đã xảy ra lỗi khi lưu dữ liệu: ${error.message}`,
+          flags: 1<<6
+        });
+      } else {
+        await interaction.followUp({
+          content: `❌ Đã xảy ra lỗi khi lưu dữ liệu: ${error.message}`,
+          flags: 1<<6
+        });
+      }
+    } catch (replyError) {
+      console.error('Lỗi khi gửi error message:', replyError);
+    }
   }
 }
 
