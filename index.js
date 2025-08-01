@@ -201,55 +201,55 @@ const commands = [
     .setDescription('Kiểm tra thông tin channel và bot'),
   new SlashCommandBuilder()
     .setName('hr')
-    .setDescription('Tính tổng giá trị HR của các runes')
-    .addIntegerOption(option =>
-      option.setName('um')
-        .setDescription('Số lượng UM (0.05 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('mal')
-        .setDescription('Số lượng MAL (0.1 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('ist')
-        .setDescription('Số lượng IST (0.15 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('gul')
-        .setDescription('Số lượng GUL (0.25 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('vex')
-        .setDescription('Số lượng VEX (0.5 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('ohm')
-        .setDescription('Số lượng OHM (0.75 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('lo')
-        .setDescription('Số lượng LO (1 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('sur')
-        .setDescription('Số lượng SUR (1.5 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('ber')
-        .setDescription('Số lượng BER (3 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('jah')
-        .setDescription('Số lượng JAH (2 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('cham')
-        .setDescription('Số lượng CHAM (2.25 HR)')
-        .setRequired(false))
-    .addIntegerOption(option =>
-      option.setName('zod')
-        .setDescription('Số lượng ZOD (4.5 HR)')
-        .setRequired(false)),
+    .setDescription('Tính tổng giá trị HR của các runes'),
+    // .addIntegerOption(option =>
+    //   option.setName('um')
+    //     .setDescription('Số lượng UM (0.05 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('mal')
+    //     .setDescription('Số lượng MAL (0.1 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('ist')
+    //     .setDescription('Số lượng IST (0.15 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('gul')
+    //     .setDescription('Số lượng GUL (0.25 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('vex')
+    //     .setDescription('Số lượng VEX (0.5 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('ohm')
+    //     .setDescription('Số lượng OHM (0.75 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('lo')
+    //     .setDescription('Số lượng LO (1 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('sur')
+    //     .setDescription('Số lượng SUR (1.5 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('ber')
+    //     .setDescription('Số lượng BER (3 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('jah')
+    //     .setDescription('Số lượng JAH (2 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('cham')
+    //     .setDescription('Số lượng CHAM (2.25 HR)')
+    //     .setRequired(false))
+    // .addIntegerOption(option =>
+    //   option.setName('zod')
+    //     .setDescription('Số lượng ZOD (4.5 HR)')
+    //     .setRequired(false)),
   new SlashCommandBuilder()
   .setName('dmgcal')
   .setDescription('Tính dmg vũ khí với weapon picker')

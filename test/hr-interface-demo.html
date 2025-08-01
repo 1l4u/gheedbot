@@ -289,7 +289,7 @@
                 <button class="button button-danger" onclick="openModal('group3')">🔴 Nhóm 3 (BER-ZOD)</button>
             </div>
             <div class="buttons">
-                <button class="button button-success" id="calculateBtn" onclick="calculateHR()" disabled>🧮 Tính toán HR</button>
+                <button class="button button-success" id="calculateBtn" onclick="calculateHR()">🧮 Tính toán HR</button>
                 <button class="button button-secondary" onclick="resetData()">🔄 Reset</button>
             </div>
 
@@ -397,9 +397,6 @@
                 .join(', ');
             
             alert(`✅ Đã lưu dữ liệu!\nHiện tại: ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính toán HR"`);
-            
-            // Enable calculate button if has data
-            document.getElementById('calculateBtn').disabled = !hasData;
         }
 
         function updateCurrentData() {
@@ -468,7 +465,6 @@
         function resetData() {
             userData = {};
             updateCurrentData();
-            document.getElementById('calculateBtn').disabled = true;
             document.getElementById('resultsSection').style.display = 'none';
             alert('🔄 Đã reset tất cả dữ liệu HR!');
         }

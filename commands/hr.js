@@ -35,40 +35,39 @@ async function handleSlashHr(interaction) {
     // Tạo embed giới thiệu
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
-      .setTitle('💎 HR Calculator')
+      .setTitle('HR Calculator')
       .setDescription('Chọn nhóm runes để nhập số lượng:')
       .addFields(
-        { name: '🟢 Nhóm 1', value: 'UM, MAL, IST, GUL', inline: true },
-        { name: '🟡 Nhóm 2', value: 'VEX, OHM, LO, SUR', inline: true },
-        { name: '🔴 Nhóm 3', value: 'BER, JAH, CHAM, ZOD', inline: true },
-        { name: '📝 Hướng dẫn', value: 'Nhấn button để mở form nhập số lượng cho từng rune', inline: false }
+        { name: 'Nhóm 1', value: 'UM, MAL, IST, GUL', inline: true },
+        { name: 'Nhóm 2', value: 'VEX, OHM, LO, SUR', inline: true },
+        { name: 'Nhóm 3', value: 'BER, JAH, CHAM, ZOD', inline: true },
+        { name: 'Hướng dẫn', value: 'Nhấn button để mở form nhập số lượng cho từng rune', inline: false }
       );
 
     // Tạo buttons cho từng nhóm runes
     const row1 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId('hr_group1_runes')
-        .setLabel('🟢 Nhóm 1 (UM-GUL)')
+        .setLabel('Nhóm 1 (UM-GUL)')
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
         .setCustomId('hr_group2_runes')
-        .setLabel('🟡 Nhóm 2 (VEX-SUR)')
+        .setLabel('Nhóm 2 (VEX-SUR)')
         .setStyle(ButtonStyle.Primary),
       new ButtonBuilder()
         .setCustomId('hr_group3_runes')
-        .setLabel('🔴 Nhóm 3 (BER-ZOD)')
+        .setLabel('Nhóm 3 (BER-ZOD)')
         .setStyle(ButtonStyle.Danger)
     );
 
     const row2 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId('hr_calculate')
-        .setLabel('🧮 Tính toán HR')
-        .setStyle(ButtonStyle.Success)
-        .setDisabled(true), // Sẽ enable khi có data
+        .setLabel('Tính toán HR')
+        .setStyle(ButtonStyle.Success), // Luôn enable
       new ButtonBuilder()
         .setCustomId('hr_reset')
-        .setLabel('🔄 Reset')
+        .setLabel('Reset')
         .setStyle(ButtonStyle.Secondary)
     );
 
@@ -105,9 +104,9 @@ const userHrData = new Map();
  */
 function createRuneGroupModal(groupType) {
   const runeGroups = {
-    group1: { runes: ['UM', 'MAL', 'IST', 'GUL'], title: '🟢 Nhóm 1 (UM-GUL)' },
-    group2: { runes: ['VEX', 'OHM', 'LO', 'SUR'], title: '🟡 Nhóm 2 (VEX-SUR)' },
-    group3: { runes: ['BER', 'JAH', 'CHAM', 'ZOD'], title: '🔴 Nhóm 3 (BER-ZOD)' }
+    group1: { runes: ['UM', 'MAL', 'IST', 'GUL'], title: 'Nhóm 1 (UM-GUL)' },
+    group2: { runes: ['VEX', 'OHM', 'LO', 'SUR'], title: 'Nhóm 2 (VEX-SUR)' },
+    group3: { runes: ['BER', 'JAH', 'CHAM', 'ZOD'], title: 'Nhóm 3 (BER-ZOD)' }
   };
 
   const group = runeGroups[groupType];
@@ -220,7 +219,7 @@ async function handleHrModalSubmit(interaction) {
       .join(', ');
 
     await interaction.reply({
-      content: `✅ Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính toán HR" để xem kết quả.`,
+      content: `Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính toán HR" để xem kết quả.`,
       ephemeral: true
     });
 
@@ -243,7 +242,7 @@ async function calculateAndShowHR(interaction, userId) {
     const userData = userHrData.get(userId);
     if (!userData || Object.keys(userData).length === 0) {
       return await interaction.reply({
-        content: '❌ Chưa có dữ liệu rune nào! Vui lòng nhập số lượng runes trước.',
+        content: 'Chưa có dữ liệu rune nào! Vui lòng nhập số lượng runes trước.',
         ephemeral: true
       });
     }
@@ -267,7 +266,7 @@ async function calculateAndShowHR(interaction, userId) {
 
     if (calculations.length === 0) {
       return await interaction.reply({
-        content: '❌ Không có rune hợp lệ để tính toán!',
+        content: 'Không có rune hợp lệ để tính toán!',
         ephemeral: true
       });
     }
