@@ -245,7 +245,7 @@ async function handleHrButton(interaction) {
 
       } else if (buttonId === 'hr_public_calculate') {
         // Defer reply ngay lập tức để tránh timeout
-        await interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply({ flags: 1 << 6 });
         // Tính toán HR từ data đã lưu (public)
         await calculateAndShowHR(interaction, userId, true); // true = public mode
 
@@ -275,7 +275,7 @@ async function handleHrButton(interaction) {
 
     } else if (buttonId === 'hr_calculate') {
       // Defer reply ngay lập tức để tránh timeout
-      await interaction.deferReply({ ephemeral: true });
+      await interaction.deferReply({ flags: 1 << 6 });
       // Tính toán HR từ data đã lưu
       await calculateAndShowHR(interaction, userId, false); // false = private mode
 
@@ -361,7 +361,7 @@ async function handleHrModalSubmit(interaction) {
       .join('\n');
 
     await interaction.reply({
-      content: `✅ Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính HR" để xem kết quả.`,
+      content: `✅ Đã lưu dữ liệu!\n**Hiện tại:**\n ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính HR" để xem kết quả.`,
       flags: 1<<6
     });
 
@@ -446,7 +446,7 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
     // Tạo embed response
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
-      .setTitle(`💎 ${totalHr.toFixed(2)}`)
+      .setTitle(`**${totalHr.toFixed(2)}**`)
       .setDescription('Chi tiết:')
       .setTimestamp()
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
@@ -454,9 +454,7 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
     // Thêm từng calculation
     calculations.forEach(calc => {
       embed.addFields({
-        name: `${calc.quantity}x ${calc.name}`,
-        value: `${calc.quantity} × ${calc.unitValue} = **${calc.totalValue.toFixed(2)} HR**`,
-        inline: true
+        name: ``,value: `${calc.quantity}x ${calc.name} = **${calc.totalValue.toFixed(2)}**`, inline: true
       });
     });
 
