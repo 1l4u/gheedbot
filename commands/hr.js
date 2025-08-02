@@ -42,7 +42,7 @@ async function handleSlashSetupHr(interaction) {
       .setTitle('💎 HR Public Interface')
       .setDescription('🎯 **Hướng dẫn sử dụng:** Nhấn các button theo thứ tự để nhập số lượng runes của bạn!. Sau đó hãy nhấn "Tính HR" để xem kết quả.')
       .addFields(
-        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`*', inline: true },
+        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`', inline: true },
         { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`', inline: true },
         { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`', inline: true },
         { name: '� Lưu ý', value: '• Kết quả chỉ **bạn** thấy được\n• Có thể nhập từng nhóm riêng lẻ\n• Dữ liệu được lưu riêng cho mỗi người', inline: false }
@@ -116,9 +116,9 @@ async function handleSlashHr(interaction) {
       .setTitle('💎 HR Private Interface')
       .setDescription('🎯 **Hướng dẫn:** Nhấn các button theo thứ tự để nhập runes của bạn! Sau đó nhấn "Tính HR" để xem kết quả.')
       .addFields(
-        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`\n*Bắt đầu từ đây*', inline: true },
-        { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`\n*Tiếp tục nhập*', inline: true },
-        { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`\n*Tự động tính toán*', inline: true },
+        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`', inline: true },
+        { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`', inline: true },
+        { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`', inline: true },
         { name: '📋 Lưu ý', value: '• Interface này chỉ bạn thấy\n• Có thể nhập từng nhóm riêng lẻ', inline: false }
       );
 
