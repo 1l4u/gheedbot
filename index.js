@@ -721,7 +721,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         else if (oldState.channelId && !newState.channelId) {
             const channelName = oldState.channel.name;
             try {
-                await user.send(`${nickname} (${username}) đã rời voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+                await user.send(`${nickname} (${username}) đã rời voice ${channelName} lúc ${new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}.`);
                 console.log(`Đã gửi DM: ${nickname} (${username}) rời ${channelName}`);
             } catch (dmError) {
                 console.error(`Lỗi gửi DM rời: ${dmError.message}`);
