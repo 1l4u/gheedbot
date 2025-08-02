@@ -447,8 +447,8 @@
             calculations.forEach(calc => {
                 resultsHtml += `
                     <div class="calculation-item">
-                        <span><strong>${calc.quantity}x ${calc.name}</strong></span>
-                        <span>${calc.quantity} × ${calc.unitValue} = <strong>${calc.totalValue.toFixed(2)} HR</strong></span>
+                        <span><strong>${calc.name}</strong></span>
+                        <span><strong>x${calc.quantity} = ${calc.totalValue.toFixed(2)}</strong></span>
                     </div>
                 `;
             });

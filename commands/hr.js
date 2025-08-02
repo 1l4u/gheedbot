@@ -25,12 +25,12 @@ async function handleSlashSetupHr(interaction) {
   try {
   // Kiểm tra permissions - yêu cầu role, yêu cầu channel cụ thể
   const permissionCheck = checkCommandPermissions(interaction, {
-    requireChannel: true, // Debug có thể dùng ở bất kỳ đâu
+    requireChannel: true, // Setup HR có thể dùng ở bất kỳ đâu
     requireRole: true      // Nhưng cần có role được phép
   });
 
    if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền debug cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền cài đặt Interface HR cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -39,40 +39,40 @@ async function handleSlashSetupHr(interaction) {
     // Tạo embed cho HR interface công khai
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
-      .setTitle('💎 HR Calculator - Public Interface')
-      .setDescription('Mọi người có thể sử dụng calculator này để tính toán HR!')
+      .setTitle('💎 HR Public Interface')
+      .setDescription('🎯 **Hướng dẫn sử dụng:** Nhấn các button theo thứ tự để nhập số lượng runes của bạn!. Sau đó hãy nhấn "Tính HR" để xem kết quả.')
       .addFields(
-        { name: '🟢 Nhóm 1', value: 'UM, MAL, IST, GUL', inline: true },
-        { name: '🟡 Nhóm 2', value: 'VEX, OHM, LO, SUR', inline: true },
-        { name: '🔴 Nhóm 3', value: 'BER, JAH, CHAM, ZOD', inline: true },
-        { name: '📝 Hướng dẫn', value: 'Nhấn button để mở form nhập số lượng cho từng rune. Kết quả sẽ hiển thị riêng tư cho bạn.', inline: false }
+        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`\n*Nhấn để bắt đầu nhập*', inline: true },
+        { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`\n*Tiếp tục nhập*', inline: true },
+        { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`\n*Nhập và tự động tính toán*', inline: true },
+        { name: '� Lưu ý quan trọng', value: '• Kết quả chỉ **bạn** thấy được\n• Có thể nhập từng nhóm riêng lẻ\n• Dữ liệu được lưu riêng cho mỗi người', inline: false }
       )
-      .setFooter({ text: 'HR Calculator được setup bởi ' + interaction.user.username });
+      .setFooter({ text: '🛠️ Được thiết lập bởi ' + interaction.user.username + ' • GheedBot HR Calculator' });
 
     // Tạo buttons cho interface công khai
     const row1 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId('hr_public_group1_runes')
-        .setLabel('🟢 Nhóm 1 (UM-GUL)')
+        .setLabel('🟢 Low Runes')
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
         .setCustomId('hr_public_group2_runes')
-        .setLabel('🟡 Nhóm 2 (VEX-SUR)')
+        .setLabel('🟡 Mid Runes')
         .setStyle(ButtonStyle.Primary),
       new ButtonBuilder()
         .setCustomId('hr_public_group3_runes')
-        .setLabel('🔴 Nhóm 3 (BER-ZOD)')
+        .setLabel('🔴 High Runes')
         .setStyle(ButtonStyle.Danger)
     );
 
     const row2 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId('hr_public_calculate')
-        .setLabel('🧮 Tính toán HR')
+        .setLabel('🧮 Tính HR')
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
         .setCustomId('hr_public_reset')
-        .setLabel('🔄 Reset dữ liệu của tôi')
+        .setLabel('🔄 Xóa Dữ Liệu Của Tôi')
         .setStyle(ButtonStyle.Secondary)
     );
 
@@ -114,39 +114,39 @@ async function handleSlashHr(interaction) {
     // Tạo embed giới thiệu
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
-      .setTitle('HR Calculator')
-      .setDescription('Chọn nhóm runes để nhập số lượng:')
+      .setTitle('💎 HR Private Interface')
+      .setDescription('🎯 **Hướng dẫn:** Nhấn các button theo thứ tự để nhập runes của bạn! Sau đó nhấn "Tính HR" để xem kết quả.')
       .addFields(
-        { name: 'Nhóm 1', value: 'UM, MAL, IST, GUL', inline: true },
-        { name: 'Nhóm 2', value: 'VEX, OHM, LO, SUR', inline: true },
-        { name: 'Nhóm 3', value: 'BER, JAH, CHAM, ZOD', inline: true },
-        { name: 'Hướng dẫn', value: 'Nhấn button để mở form nhập số lượng cho từng rune', inline: false }
+        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`\n*Bắt đầu từ đây*', inline: true },
+        { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`\n*Tiếp tục nhập*', inline: true },
+        { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`\n*Tự động tính toán*', inline: true },
+        { name: '📋 Lưu ý', value: '• Interface này chỉ bạn thấy\n• Có thể nhập từng nhóm riêng lẻ', inline: false }
       );
 
     // Tạo buttons cho từng nhóm runes
     const row1 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId('hr_group1_runes')
-        .setLabel('Nhóm 1 (UM-GUL)')
+        .setLabel('🟢 Low Runes')
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
         .setCustomId('hr_group2_runes')
-        .setLabel('Nhóm 2 (VEX-SUR)')
+        .setLabel('🟡 Mid Runes')
         .setStyle(ButtonStyle.Primary),
       new ButtonBuilder()
         .setCustomId('hr_group3_runes')
-        .setLabel('Nhóm 3 (BER-ZOD)')
+        .setLabel('🔴 High Runes')
         .setStyle(ButtonStyle.Danger)
     );
 
     const row2 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId('hr_calculate')
-        .setLabel('Tính toán HR')
+        .setLabel('🧮 Tính HR')
         .setStyle(ButtonStyle.Success), // Luôn enable
       new ButtonBuilder()
         .setCustomId('hr_reset')
-        .setLabel('Reset')
+        .setLabel('🔄 Xóa Dữ Liệu')
         .setStyle(ButtonStyle.Secondary)
     );
 
@@ -183,9 +183,21 @@ const userHrData = new Map();
  */
 function createRuneGroupModal(groupType, isPublic = false) {
   const runeGroups = {
-    group1: { runes: ['UM', 'MAL', 'IST', 'GUL'], title: 'Nhóm 1 (UM-GUL)' },
-    group2: { runes: ['VEX', 'OHM', 'LO', 'SUR'], title: 'Nhóm 2 (VEX-SUR)' },
-    group3: { runes: ['BER', 'JAH', 'CHAM', 'ZOD'], title: 'Nhóm 3 (BER-ZOD)' }
+    group1: {
+      runes: ['UM', 'MAL', 'IST', 'GUL'],
+      title: 'Low Runes',
+      description: 'Nhập số lượng runes bạn có (để trống = 0)'
+    },
+    group2: {
+      runes: ['VEX', 'OHM', 'LO', 'SUR'],
+      title: 'Mid Runes',
+      description: 'Nhập số lượng runes bạn có (để trống = 0)'
+    },
+    group3: {
+      runes: ['BER', 'JAH', 'CHAM', 'ZOD'],
+      title: 'High Runes',
+      description: 'Nhập số lượng runes cuối cùng và tính toán'
+    }
   };
 
   const group = runeGroups[groupType];
@@ -194,14 +206,15 @@ function createRuneGroupModal(groupType, isPublic = false) {
     .setCustomId(modalId)
     .setTitle(group.title);
 
-  // Tạo input field riêng cho từng rune
+  // Tạo input field riêng cho từng rune với labels tiếng Việt
   group.runes.forEach((runeName) => {
+    const hrValue = HR_VALUES[runeName];
     const row = new ActionRowBuilder().addComponents(
       new TextInputBuilder()
         .setCustomId(`rune_${runeName.toLowerCase()}`)
-        .setLabel(`${runeName} (${HR_VALUES[runeName]} HR mỗi cái)`)
+        .setLabel(`${runeName} - ${hrValue}`)
         .setStyle(TextInputStyle.Short)
-        .setPlaceholder('0')
+        .setPlaceholder('Nhập số lượng (để trống = 0)')
         .setRequired(false)
         .setMaxLength(3) // Tối đa 999
     );
@@ -345,10 +358,10 @@ async function handleHrModalSubmit(interaction) {
     const summary = Object.entries(userData)
       .filter(([_, quantity]) => quantity > 0)
       .map(([rune, quantity]) => `${rune}: ${quantity}`)
-      .join(', ');
+      .join('\n');
 
     await interaction.reply({
-      content: `✅ Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính toán HR" để xem kết quả.`,
+      content: `✅ Đã lưu dữ liệu!\n**Hiện tại:** ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính HR" để xem kết quả.`,
       flags: 1<<6
     });
 
@@ -433,8 +446,8 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
     // Tạo embed response
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
-      .setTitle(`${totalHr.toFixed(2)} HR`)
-      .setDescription('Chi tiết tính toán:')
+      .setTitle(`💎 ${totalHr.toFixed(2)}`)
+      .setDescription('Chi tiết:')
       .setTimestamp()
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
