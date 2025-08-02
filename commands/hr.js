@@ -42,10 +42,10 @@ async function handleSlashSetupHr(interaction) {
       .setTitle('💎 HR Public Interface')
       .setDescription('🎯 **Hướng dẫn sử dụng:** Nhấn các button theo thứ tự để nhập số lượng runes của bạn!. Sau đó hãy nhấn "Tính HR" để xem kết quả.')
       .addFields(
-        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`\n*Nhấn để bắt đầu nhập*', inline: true },
-        { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`\n*Tiếp tục nhập*', inline: true },
-        { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`\n*Nhập và tự động tính toán*', inline: true },
-        { name: '� Lưu ý quan trọng', value: '• Kết quả chỉ **bạn** thấy được\n• Có thể nhập từng nhóm riêng lẻ\n• Dữ liệu được lưu riêng cho mỗi người', inline: false }
+        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`*', inline: true },
+        { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`', inline: true },
+        { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`', inline: true },
+        { name: '� Lưu ý', value: '• Kết quả chỉ **bạn** thấy được\n• Có thể nhập từng nhóm riêng lẻ\n• Dữ liệu được lưu riêng cho mỗi người', inline: false }
       )
       .setFooter({ text: '🛠️ Được thiết lập bởi ' + interaction.user.username + ' • GheedBot HR Calculator' });
 
@@ -72,9 +72,8 @@ async function handleSlashSetupHr(interaction) {
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
         .setCustomId('hr_public_reset')
-        .setLabel('🔄 Xóa Dữ Liệu Của Tôi')
-        .setStyle(ButtonStyle.Secondary)
-    );
+        .setLabel('�️ Xóa Dữ Liệu Của Tôi')
+        .setStyle(ButtonStyle.Secondary));
 
     // Gửi interface vào channel (public)
     await interaction.reply({
@@ -268,7 +267,6 @@ async function handleHrButton(interaction) {
       if (groupType === 'low') groupType = 'group1';
       if (groupType === 'mid') groupType = 'group2';
       if (groupType === 'high') groupType = 'group3';
-      if (groupType === 'ultra') groupType = 'group3';
 
       const modal = createRuneGroupModal(groupType, false); // false = private mode
       await interaction.showModal(modal);

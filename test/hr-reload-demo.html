@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Interface Reload Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #36393f;
+            color: #dcddde;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #2f3136;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .title {
+            text-align: center;
+            color: #FFD700;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .demo-section {
+            background: #40444b;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .section-title {
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .embed {
+            background: #2f3136;
+            border-left: 4px solid #FFD700;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .embed-title {
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .embed-description {
+            color: #b9bbbe;
+            margin-bottom: 15px;
+        }
+
+        .embed-field {
+            display: inline-block;
+            width: 30%;
+            margin: 5px 1.5%;
+            background: #40444b;
+            padding: 10px;
+            border-radius: 4px;
+            vertical-align: top;
+        }
+
+        .embed-field-name {
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .embed-field-value {
+            color: #b9bbbe;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .button-success {
+            background: #43b581;
+            color: white;
+        }
+
+        .button-primary {
+            background: #5865F2;
+            color: white;
+        }
+
+        .button-danger {
+            background: #ed4245;
+            color: white;
+        }
+
+        .button-secondary {
+            background: #747f8d;
+            color: white;
+        }
+
+        .button-hidden {
+            background: #36393f;
+            color: #72767d;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .instructions {
+            background: #FFD700;
+            color: #2f3136;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .comparison-item {
+            background: #40444b;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+
+        .admin-view {
+            border-color: #43b581;
+        }
+
+        .user-view {
+            border-color: #ed4245;
+        }
+
+        .comparison-item h3 {
+            margin: 0 0 15px 0;
+            text-align: center;
+        }
+
+        .admin-view h3 {
+            color: #43b581;
+        }
+
+        .user-view h3 {
+            color: #ed4245;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #2f3136;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: "✅ ";
+            color: #43b581;
+        }
+
+        .feature-list li.disabled::before {
+            content: "❌ ";
+            color: #ed4245;
+        }
+
+        .workflow {
+            background: #2f3136;
+            border: 1px solid #FFD700;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .workflow h4 {
+            color: #FFD700;
+            margin: 0 0 10px 0;
+        }
+
+        .workflow-step {
+            background: #40444b;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border-left: 3px solid #FFD700;
+        }
+
+        .toggle-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .toggle-button {
+            background: #5865F2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .toggle-button:hover {
+            background: #4752C4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">💎 HR Interface Reload Demo</h1>
+        
+        <div class="instructions">
+            🎯 <strong>Tính năng mới:</strong> Button "🔄 Reload Interface" chỉ hiện với admin và cho phép reload interface mà không cần gõ lại /setuphr
+        </div>
+
+        <!-- Demo Interface Comparison -->
+        <div class="demo-section">
+            <div class="section-title">1. So sánh Interface theo quyền</div>
+            
+            <div class="comparison">
+                <div class="comparison-item admin-view">
+                    <h3>👑 Admin View (ManageChannels)</h3>
+                    
+                    <div class="embed">
+                        <div class="embed-title">💎 HR Calculator - Tính Toán High Rune</div>
+                        <div class="embed-description">🎯 Tính toán giá trị High Rune một cách dễ dàng!</div>
+                        
+                        <div class="embed-field">
+                            <div class="embed-field-name">🟢 Low Runes</div>
+                            <div class="embed-field-value">UM, MAL, IST, GUL</div>
+                        </div>
+                        
+                        <div class="embed-field">
+                            <div class="embed-field-name">🟡 Mid Runes</div>
+                            <div class="embed-field-value">VEX, OHM, LO, SUR</div>
+                        </div>
+                        
+                        <div class="embed-field">
+                            <div class="embed-field-name">🔴 High Runes</div>
+                            <div class="embed-field-value">BER, JAH, CHAM, ZOD</div>
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="button button-success">🟢 Low Runes</button>
+                        <button class="button button-primary">🟡 Mid Runes</button>
+                        <button class="button button-danger">🔴 High Runes</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="button button-success">🧮 Tính HR</button>
+                        <button class="button button-secondary">🗑️ Xóa Dữ Liệu</button>
+                        <button class="button button-secondary" onclick="showReloadDemo()">🔄 Reload Interface</button>
+                    </div>
+                </div>
+                
+                <div class="comparison-item user-view">
+                    <h3>👤 User View (No ManageChannels)</h3>
+                    
+                    <div class="embed">
+                        <div class="embed-title">💎 HR Calculator - Tính Toán High Rune</div>
+                        <div class="embed-description">🎯 Tính toán giá trị High Rune một cách dễ dàng!</div>
+                        
+                        <div class="embed-field">
+                            <div class="embed-field-name">🟢 Low Runes</div>
+                            <div class="embed-field-value">UM, MAL, IST, GUL</div>
+                        </div>
+                        
+                        <div class="embed-field">
+                            <div class="embed-field-name">🟡 Mid Runes</div>
+                            <div class="embed-field-value">VEX, OHM, LO, SUR</div>
+                        </div>
+                        
+                        <div class="embed-field">
+                            <div class="embed-field-name">🔴 High Runes</div>
+                            <div class="embed-field-value">BER, JAH, CHAM, ZOD</div>
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="button button-success">🟢 Low Runes</button>
+                        <button class="button button-primary">🟡 Mid Runes</button>
+                        <button class="button button-danger">🔴 High Runes</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="button button-success">🧮 Tính HR</button>
+                        <button class="button button-secondary">🗑️ Xóa Dữ Liệu</button>
+                        <button class="button button-hidden">🔄 Reload Interface (Ẩn)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Comparison -->
+        <div class="demo-section">
+            <div class="section-title">2. So sánh tính năng</div>
+            
+            <div class="comparison">
+                <div class="comparison-item admin-view">
+                    <h3>👑 Admin Features</h3>
+                    <ul class="feature-list">
+                        <li>Thấy button "🔄 Reload Interface"</li>
+                        <li>Có thể reload interface</li>
+                        <li>Không cần gõ lại /setuphr</li>
+                        <li>Update interface real-time</li>
+                        <li>Apply code changes ngay lập tức</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-item user-view">
+                    <h3>👤 User Features</h3>
+                    <ul class="feature-list">
+                        <li class="disabled">Không thấy reload button</li>
+                        <li class="disabled">Không thể reload interface</li>
+                        <li>Sử dụng interface bình thường</li>
+                        <li>Nhập data và tính HR</li>
+                        <li>Reset data cá nhân</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow Demo -->
+        <div class="demo-section">
+            <div class="section-title">3. Workflow sử dụng</div>
+            
+            <div class="workflow">
+                <h4>🔄 Admin Reload Workflow:</h4>
+                <div class="workflow-step">1️⃣ Admin thấy có thay đổi code/interface</div>
+                <div class="workflow-step">2️⃣ Admin nhấn button "🔄 Reload Interface"</div>
+                <div class="workflow-step">3️⃣ Bot check quyền ManageChannels</div>
+                <div class="workflow-step">4️⃣ Bot gọi lại setupHr logic</div>
+                <div class="workflow-step">5️⃣ Interface được update với phiên bản mới</div>
+                <div class="workflow-step">6️⃣ Admin nhận thông báo thành công</div>
+            </div>
+            
+            <div class="workflow">
+                <h4>❌ Non-Admin Attempt:</h4>
+                <div class="workflow-step">1️⃣ User không thấy reload button (ẩn)</div>
+                <div class="workflow-step">2️⃣ Nếu somehow trigger → Permission denied</div>
+                <div class="workflow-step">3️⃣ Interface không thay đổi</div>
+            </div>
+        </div>
+
+        <!-- Technical Implementation -->
+        <div class="demo-section">
+            <div class="section-title">4. Technical Implementation</div>
+            
+            <div class="workflow">
+                <h4>🔧 Button Visibility Logic:</h4>
+                <div class="workflow-step">
+                    <code>if (interaction.member.permissions.has('ManageChannels')) {<br>
+                    &nbsp;&nbsp;row2Components.push(reloadButton);<br>
+                    }</code>
+                </div>
+            </div>
+            
+            <div class="workflow">
+                <h4>🔄 Reload Logic:</h4>
+                <div class="workflow-step">
+                    <code>const mockInteraction = { ...interaction, reply: async (options) => {<br>
+                    &nbsp;&nbsp;await interaction.message.edit(options);<br>
+                    }};<br>
+                    await handleSlashSetupHr(mockInteraction);</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Controls -->
+        <div class="toggle-container">
+            <button class="toggle-button" onclick="toggleView()">🔄 Toggle Admin/User View</button>
+        </div>
+
+        <div id="statusDisplay" class="demo-section">
+            <div class="section-title">5. Status</div>
+            <p><strong>✅ Tính năng đã hoàn thành:</strong></p>
+            <ul class="feature-list">
+                <li>Button reload chỉ hiện với admin</li>
+                <li>Permission check trước khi reload</li>
+                <li>Reload bằng setupHr logic</li>
+                <li>Update interface via message.edit()</li>
+                <li>Error handling robust</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let isAdminView = true;
+
+        function toggleView() {
+            const adminView = document.querySelector('.admin-view');
+            const userView = document.querySelector('.user-view');
+            const toggleButton = document.querySelector('.toggle-button');
+            
+            if (isAdminView) {
+                adminView.style.opacity = '0.5';
+                userView.style.opacity = '1';
+                userView.style.border = '3px solid #43b581';
+                adminView.style.border = '2px solid #ed4245';
+                toggleButton.textContent = '👑 Switch to Admin View';
+                isAdminView = false;
+            } else {
+                adminView.style.opacity = '1';
+                userView.style.opacity = '0.5';
+                adminView.style.border = '3px solid #43b581';
+                userView.style.border = '2px solid #ed4245';
+                toggleButton.textContent = '👤 Switch to User View';
+                isAdminView = true;
+            }
+        }
+
+        function showReloadDemo() {
+            const statusDisplay = document.getElementById('statusDisplay');
+            statusDisplay.innerHTML = `
+                <div class="section-title">🔄 Reload Demo</div>
+                <div class="workflow">
+                    <h4>✅ Reload thành công!</h4>
+                    <div class="workflow-step">🔄 Interface đã được cập nhật với phiên bản mới nhất</div>
+                    <div class="workflow-step">📝 Embed và buttons được tái tạo</div>
+                    <div class="workflow-step">🎯 Tất cả thay đổi code đã được apply</div>
+                    <div class="workflow-step">💡 Không cần gõ lại /setuphr</div>
+                </div>
+            `;
+            
+            // Animate reload effect
+            const embed = document.querySelector('.admin-view .embed');
+            embed.style.animation = 'pulse 1s ease-in-out';
+            
+            setTimeout(() => {
+                embed.style.animation = '';
+            }, 1000);
+        }
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
