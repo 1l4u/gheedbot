@@ -356,7 +356,7 @@ async function handleHrModalSubmit(interaction) {
     const summary = Object.entries(userData)
       .filter(([_, quantity]) => quantity > 0)
       .map(([rune, quantity]) => `${rune}: ${quantity}`)
-      .join('\n');
+      .join(', ');
 
     // Chỉ log và lưu cache, không reply cho user
     console.log(`💾 [CACHE] HR Data saved for ${interaction.user.tag}:`);
