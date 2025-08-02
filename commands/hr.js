@@ -354,18 +354,19 @@ async function handleHrModalSubmit(interaction) {
       console.log(`Lưu ${runeName}: ${quantity} cho user ${interaction.user.tag}`);
     });
 
-    // Tạo summary của dữ liệu đã nhập
+    // Tạo summary của dữ liệu đã nhập cho logging
     const summary = Object.entries(userData)
       .filter(([_, quantity]) => quantity > 0)
       .map(([rune, quantity]) => `${rune}: ${quantity}`)
       .join('\n');
 
-    await interaction.reply({
-      content: `✅ Đã lưu dữ liệu!\n**Hiện tại:**\n ${summary || 'Chưa có rune nào'}\n\n💡 Tiếp tục nhập các nhóm khác hoặc nhấn "🧮 Tính HR" để xem kết quả.`,
-      flags: 1<<6
-    });
+    // Chỉ log và lưu cache, không reply cho user
+    console.log(`💾 [CACHE] HR Data saved for ${interaction.user.tag}:`);
+    console.log(`📊 [DATA] ${summary || 'Chưa có rune nào'}`);
+    console.log(`🔍 [MODAL] ${modalId} processed successfully`);
 
-    console.log(`✅ HR Modal submission thành công cho ${interaction.user.tag}: ${summary || 'Chưa có rune nào'}`);
+    // Acknowledge interaction để tránh lỗi
+    await interaction.deferUpdate();
 
   } catch (error) {
     console.error('Lỗi xử lý HR modal:', error);

@@ -320,8 +320,14 @@ async function withTimeout(promise, timeoutMs = 10000) {
 client.on('interactionCreate', async interaction => {
     const { commandName } = interaction;
     
-    // Debug logging
-    console.log(`Nhận interaction: ${interaction.type} | Lệnh: ${commandName} | Người dùng: ${interaction.user.tag}`);
+    // Debug logging với thông tin chi tiết
+    const interactionInfo = interaction.isCommand() ? `Lệnh: ${commandName}` :
+                           interaction.isButton() ? `Button: ${interaction.customId}` :
+                           interaction.isModalSubmit() ? `Modal: ${interaction.customId}` :
+                           interaction.isAutocomplete() ? `Autocomplete: ${interaction.commandName}` :
+                           `Type: ${interaction.type}`;
+
+    console.log(`Nhận interaction: ${interaction.type} | ${interactionInfo} | Người dùng: ${interaction.user.tag}`);
 // Xử lý tương tác autocomplete
 if (interaction.isAutocomplete()) {
     console.log(`Autocomplete cho: ${interaction.commandName}`);
