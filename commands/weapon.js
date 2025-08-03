@@ -46,92 +46,79 @@ async function handleSlashWeapon(interaction) {
       });
     }
 
-    // Tìm tất cả các weapon khớp với name
-    const matchedWeapons = weapons.filter(
-      weapon => weapon && typeof weapon.name === 'string' && weapon.name.toLowerCase().includes(name)
+    // Tìm weapon khớp chính xác với name (exact match)
+    let matchedWeapon = weapons.find(
+      weapon => weapon && typeof weapon.name === 'string' && weapon.name.toLowerCase() === name
     );
 
-    if (matchedWeapons.length === 0) {
+    // Nếu không tìm thấy exact match, tìm partial match đầu tiên
+    if (!matchedWeapon) {
+      matchedWeapon = weapons.find(
+        weapon => weapon && typeof weapon.name === 'string' && weapon.name.toLowerCase().includes(name)
+      );
+    }
+
+    if (!matchedWeapon) {
       return await interaction.editReply({
         content: `Không tìm thấy weapon "${name}"`
       });
     }
 
-    // Giới hạn số lượng kết quả hiển thị
-    const maxResults = 5;
-    const weaponsToShow = matchedWeapons.slice(0, maxResults);
+    // Tạo embed cho weapon duy nhất
+    const weapon = matchedWeapon;
+    const embed = new EmbedBuilder()
+      .setColor('#ff6600')
+      .setTitle(`${weapon.name}`);
 
-    // Tạo embeds cho từng weapon
-    const embeds = [];
+    // Tạo các fields cho thông tin weapon
+    const fields = [];
 
-    for (const weapon of weaponsToShow) {
-      const embed = new EmbedBuilder()
-        .setColor('#ff6600')
-        .setTitle(`${weapon.name}`);
-
-      // Tạo các fields cho thông tin weapon
-      const fields = [];
-
-      // Damage field
-      if (weapon.min && weapon.max) {
-        fields.push({
-          name: 'Damage',
-          value: `${weapon.min} - ${weapon.max}`,
-          inline: true
-        });
-      }
-
-      // WSM field
-      if (weapon.speed !== undefined && weapon.speed !== '') {
-        fields.push({
-          name: 'WSM',
-          value: weapon.speed,
-          inline: true
-        });
-      }
-
-      // Required field (Strength - Dexterity)
-      if (weapon.reqstr !== undefined && weapon.reqstr !== '') {
-        const strValue = weapon.reqstr;
-        const dexValue = weapon.reqdex !== undefined && weapon.reqdex !== '' ? weapon.reqdex : '0';
-        fields.push({
-          name: 'Required',
-          value: `${strValue} - ${dexValue}`,
-          inline: true
-        });
-      }
-
-      // Thêm các fields vào embed
-      if (fields.length > 0) {
-        embed.addFields(fields);
-      }
-
-      // Thêm footer với thông tin bổ sung
-      const footerInfo = [];
-      if (weapon.code) footerInfo.push(`Level: ${weapon.levelreq}`);
-      if (weapon.StrBonus) footerInfo.push(`StrBonus: ${weapon.StrBonus}`);
-      if (weapon.DexBonus) footerInfo.push(`DexBonus: ${weapon.DexBonus}`);
-
-      if (footerInfo.length > 0) {
-        embed.setFooter({ text: footerInfo.join(' | ') });
-      }
-
-      embeds.push(embed);
+    // Damage field
+    if (weapon.min && weapon.max) {
+      fields.push({
+        name: 'Damage: ',
+        value: `${weapon.min} - ${weapon.max}`,
+      });
     }
 
-    // Thêm thông báo nếu có nhiều kết quả hơn
-    if (matchedWeapons.length > maxResults) {
-      const additionalEmbed = new EmbedBuilder()
-        .setColor('#ffaa00')
-        .setDescription(`Tìm thấy ${matchedWeapons.length} weapons. Chỉ hiển thị ${maxResults} kết quả đầu tiên.`);
-      embeds.push(additionalEmbed);
+    // WSM field
+    if (weapon.speed !== undefined && weapon.speed !== '') {
+      fields.push({
+        name: 'WSM: ',
+        value: weapon.speed,
+      });
     }
 
-    console.log(`Tìm thấy ${weaponsToShow.length} weapons cho "${name}"`);
+    // Required field (Strength - Dexterity)
+    if (weapon.reqstr !== undefined && weapon.reqstr !== '') {
+      const strValue = weapon.reqstr;
+      const dexValue = weapon.reqdex !== undefined && weapon.reqdex !== '' ? weapon.reqdex : '0';
+      fields.push({
+        name: 'Required: ',
+        value: `Str: ${strValue} - Dex: ${dexValue}`,
+      });
+    }
 
-    // Gửi kết quả
+    // Thêm các fields vào embed
+    if (fields.length > 0) {
+      embed.addFields(fields);
+    }
+
+    // Thêm footer với thông tin bổ sung
+    const footerInfo = [];
+    if (weapon.levelreq) footerInfo.push(`Level: ${weapon.levelreq}`);
+    if (weapon.StrBonus) footerInfo.push(`StrBonus: ${weapon.StrBonus}`);
+    if (weapon.DexBonus) footerInfo.push(`DexBonus: ${weapon.DexBonus}`);
+
+    if (footerInfo.length > 0) {
+      embed.setFooter({ text: footerInfo.join(' | ') });
+    }
+
+    console.log(`Tìm thấy weapon "${weapon.name}" cho "${name}"`);
+
+    // Gửi kết quả (chỉ 1 embed)
     await interaction.editReply({
-      embeds: embeds
+      embeds: [embed]
     });
 
   } catch (error) {

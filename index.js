@@ -264,7 +264,7 @@ const commands = [
   .addIntegerOption(option =>
     option.setName('ed')
           .setDescription('Enhanced Damage %')
-          .setRequired(false))
+          .setRequired(true))
   .addIntegerOption(option =>
     option.setName('add_min')
           .setDescription('Add Min Damage')
@@ -277,6 +277,10 @@ const commands = [
     option.setName('eth')
           .setDescription('Ethereal weapon (+25% base damage)')
           .setRequired(false))
+          .setchoices([
+            { name: 'Ethereal', value: 'true' },
+            { name: 'Non-Ethereal', value: 'false' }
+          ])
   .addIntegerOption(option =>
     option.setName('ed_lvl')
           .setDescription('Enhanced Damage per Level %')
@@ -717,7 +721,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         if (!oldState.channelId && newState.channelId) {
             const channelName = newState.channel.name;
             try {
-                await user.send(`${nickname} (${username}) đã tham gia voice ${channelName} lúc ${new Date().toLocaleString()}.`);
+                await user.send(`${nickname} (${username}) đã tham gia voice ${channelName}`);
                 console.log(`Đã gửi DM: ${nickname} (${username}) tham gia ${channelName}`);
             } catch (dmError) {
                 console.error(`Lỗi gửi DM tham gia: ${dmError.message}`);

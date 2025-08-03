@@ -173,7 +173,7 @@ async function handleSlashIas(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleDmgCalculator2(interaction) {
-  console.log(`Lệnh dmgcal2 được gọi bởi ${interaction.user.tag}`);
+  console.log(`Lệnh dmgcal được gọi bởi ${interaction.user.tag}`);
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -218,9 +218,10 @@ async function handleDmgCalculator2(interaction) {
 
     // Lấy các tham số khác
     const ed = interaction.options.getInteger('ed');
-    const addMin = interaction.options.getInteger('add_min');
-    const addMax = interaction.options.getInteger('add_max');
-    const isEth = interaction.options.getBoolean('eth') || false;
+    const addMin = interaction.options.getInteger('add_min') || 0;
+    const addMax = interaction.options.getInteger('add_max') || 0;
+    const ethOption = interaction.options.getString('eth') || 'false';
+    const isEth = ethOption === 'true';
     const edLvl = interaction.options.getInteger('ed_lvl') || 0;
     const maxLvl = interaction.options.getInteger('max_lvl') || 0;
 
@@ -242,11 +243,27 @@ async function handleDmgCalculator2(interaction) {
       .setColor('#ff6600')
       .setTitle(`${weapon.name}${isEth ? ' (Ethereal)' : ''}`)
       .addFields(
-        { name: 'Base Damage: ', value: isEth ? `${parseInt(weapon.min)} - ${parseInt(weapon.max)} → ${minBase} - ${maxBase}` : `${minBase} - ${maxBase}`},
-        { name: 'Final Damage: ', value: minDamage.toString() + ' - ' + maxDamage.toString()},
-        { name: 'WSM', value: weapon.speed, inline: false }
-      )
-      .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
+        { name: '', value: `**Damage**: ${minDamage} - ${maxDamage}`},
+        { name: '', value: `**Base Damage**: ${isEth ? `${minBase} - ${maxBase}` : `${weapon.min} - ${weapon.max}`}`},
+      );
+      const footerInfo = [];
+      if (weapon.wsm) footerInfo.push(`WSM: ${weapon.wsm}`);
+      if (footerInfo.length > 0) {
+        embed.setFooter({ text: footerInfo.join(' | ') });
+      }
+    
+    if(ed > 0 || addMin > 0 || addMax > 0){
+     const additionalFields = [];
+      if (ed > 0) additionalFields.push(`Enhanced Damage: ${ed}%`);
+      if (addMin > 0) additionalFields.push(`Add Min: ${addMin}`);
+      if (addMax > 0) additionalFields.push(`Add Max: ${addMax}`);
+
+      embed.addFields({
+        name: 'Options',
+        value: additionalFields.join('\n'),
+        inline: false
+      });
+    }
 
     // Thêm thông tin ED/Lvl và Max/Lvl nếu có
     if (edLvl > 0 || maxLvl > 0) {
@@ -255,7 +272,7 @@ async function handleDmgCalculator2(interaction) {
       if (maxLvl > 0) additionalFields.push(`Max/Lvl: ${maxLvl}`);
 
       embed.addFields({
-        name: 'Per Level Bonuses',
+        name: 'Level Bonuses',
         value: additionalFields.join('\n'),
         inline: false
       });
