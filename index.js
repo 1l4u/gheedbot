@@ -228,11 +228,11 @@ const commands = [
   .addStringOption(option =>
     option.setName('eth')
           .setDescription('Ethereal weapon (+25% base damage)')
-          .setRequired(false))
-          .setchoices([
+          .setRequired(false)
+          .addChoices(
             { name: 'Ethereal', value: 'true' },
             { name: 'Non-Ethereal', value: 'false' }
-          ])
+          ))
   .addIntegerOption(option =>
     option.setName('ed_lvl')
           .setDescription('Enhanced Damage per Level %')

@@ -3,6 +3,72 @@ const { checkCommandPermissions } = require('../utils/permissions');
 const { dataManager } = require('../utils/data-manager');
 
 /**
+ * Parse jewel string format: ED-MaxDmg,ED-MaxDmg với validation
+ * Ví dụ: "40-15,39-25" → [{ed: 40, maxDmg: 15}, {ed: 39, maxDmg: 25}]
+ * @param {string} jewelString - Jewel string to parse
+ * @returns {Object} - {totalED: number, totalMaxDmg: number, jewels: Array, errors: Array}
+ */
+function parseJewelString(jewelString) {
+  if (!jewelString || jewelString.trim() === '') {
+    return { totalED: 0, totalMaxDmg: 0, jewels: [], errors: [] };
+  }
+
+  try {
+    const jewels = [];
+    const errors = [];
+    let totalED = 0;
+    let totalMaxDmg = 0;
+
+    // Split by comma để lấy từng jewel
+    const jewelParts = jewelString.split(',').map(part => part.trim());
+
+    for (let i = 0; i < jewelParts.length; i++) {
+      const jewelPart = jewelParts[i];
+      if (jewelPart === '') continue;
+
+      // Parse format ED-MaxDmg
+      const match = jewelPart.match(/^(\d+)-(\d+)$/);
+      if (match) {
+        const ed = parseInt(match[1]);
+        const maxDmg = parseInt(match[2]);
+
+        // Validation jewel stats
+        const jewelErrors = [];
+        if (ed < 0 || ed > 40) {
+          jewelErrors.push(`ED phải từ 0-40% (nhận: ${ed}%)`);
+        }
+        if (maxDmg < 0 || maxDmg > 30) {
+          jewelErrors.push(`Max Dmg phải từ 0-30 (nhận: ${maxDmg})`);
+        }
+
+        if (jewelErrors.length > 0) {
+          errors.push(`Jewel ${i + 1} (${jewelPart}): ${jewelErrors.join(', ')}`);
+          console.log(`Invalid jewel stats: ${jewelPart} - ${jewelErrors.join(', ')}`);
+        } else {
+          jewels.push({ ed, maxDmg });
+          totalED += ed;
+          totalMaxDmg += maxDmg;
+          console.log(`Valid jewel: ${jewelPart} (${ed}% ED, +${maxDmg} Max Dmg)`);
+        }
+      } else {
+        errors.push(`Jewel ${i + 1}: Format sai "${jewelPart}" (cần: ED-MaxDmg)`);
+        console.log(`Invalid jewel format: ${jewelPart} (expected: ED-MaxDmg)`);
+      }
+    }
+
+    console.log(`Parsed jewels: ${jewels.length} valid jewels, Total ED: ${totalED}%, Total Max Dmg: +${totalMaxDmg}`);
+    if (errors.length > 0) {
+      console.log(`Jewel errors: ${errors.length} errors found`);
+    }
+
+    return { totalED, totalMaxDmg, jewels, errors };
+
+  } catch (error) {
+    console.error('Lỗi parse jewel string:', error);
+    return { totalED: 0, totalMaxDmg: 0, jewels: [], errors: [`❌ Lỗi parse: ${error.message}`] };
+  }
+}
+/**
  * Crit Chance calculator command
  * @param {Interaction} interaction - Discord interaction
  */
