@@ -339,7 +339,7 @@ async function handleDmgCalculator2(interaction) {
         { name: '', value: `**Damage**: ${minDamage} - ${maxDamage}`},
         { name: '', value: `**Base Damage**: ${isEth ? `${minBase} - ${maxBase}` : `${weapon.min} - ${weapon.max}`}`},
       )
-      .setFooter({ text: `**WSM**: ${weapon.wsm}` });
+      .setFooter({ text: `WSM: ${weapon.speed}\nRequested by: ${interaction.user.username}` });
     if(totalED > 0 || addMin > 0 || totalAddMax > 0){
      const additionalFields = [];
       if (totalED > 0) additionalFields.push(`Enhanced Damage: ${totalED}%`);
