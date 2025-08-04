@@ -338,13 +338,8 @@ async function handleDmgCalculator2(interaction) {
       .addFields(
         { name: '', value: `**Damage**: ${minDamage} - ${maxDamage}`},
         { name: '', value: `**Base Damage**: ${isEth ? `${minBase} - ${maxBase}` : `${weapon.min} - ${weapon.max}`}`},
-      );
-      const footerInfo = [];
-      if (weapon.wsm) footerInfo.push(`WSM: ${weapon.wsm}`);
-      if (footerInfo.length > 0) {
-        embed.setFooter({ text: footerInfo.join(' | ') });
-      }
-    
+      )
+      .setFooter({ text: `**WSM**: ${weapon.wsm}` });
     if(totalED > 0 || addMin > 0 || totalAddMax > 0){
      const additionalFields = [];
       if (totalED > 0) additionalFields.push(`Enhanced Damage: ${totalED}%`);
