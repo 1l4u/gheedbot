@@ -225,7 +225,7 @@ const commands = [
     option.setName('add_max')
           .setDescription('Add Max Damage')
           .setRequired(false))
-  .addBooleanOption(option =>
+  .addStringOption(option =>
     option.setName('eth')
           .setDescription('Ethereal weapon (+25% base damage)')
           .setRequired(false))
