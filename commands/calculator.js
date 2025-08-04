@@ -216,7 +216,7 @@ async function handleDmgCalculator2(interaction) {
       });
     }
 
-    // Lấy các tham số khác
+// Lấy các tham số khác
     const ed = interaction.options.getInteger('ed');
     const addMin = interaction.options.getInteger('add_min') || 0;
     const addMax = interaction.options.getInteger('add_max') || 0;
@@ -224,6 +224,30 @@ async function handleDmgCalculator2(interaction) {
     const isEth = ethOption === 'true';
     const edLvl = interaction.options.getInteger('ed_lvl') || 0;
     const maxLvl = interaction.options.getInteger('max_lvl') || 0;
+    // Parse jewel string (format: ED-MaxDmg,ED-MaxDmg)
+    const jewelString = interaction.options.getString('jewel') || '';
+    const jewelStats = parseJewelString(jewelString);
+
+    // Kiểm tra lỗi jewel và thông báo cho user
+    if (jewelStats.errors.length > 0) {
+      const errorMessage = [
+        '**Lỗi Jewel Stats:**',
+        '',
+        ...jewelStats.errors,
+        '',
+        '📋 **Yêu cầu:**',
+        '• ED: 0-40%',
+        '• Max Dmg: 0-30',
+        '• Format: ED-MaxDmg (ví dụ: 40-15)',
+        '',
+        '💡 **Ví dụ hợp lệ:** `40-15,39-25,38-20`'
+      ].join('\n');
+
+      await interaction.editReply({
+        content: 'Có cái đầu buồi jewel ' + `**${jewelString}**`
+      });
+      return;
+    }
 
     // Chuyển đổi min/max từ string sang number
     let minBase = parseInt(weapon.min);
@@ -235,9 +259,12 @@ async function handleDmgCalculator2(interaction) {
       maxBase = Math.floor(maxBase * 1.25);
     }
 
-    // Tính toán damage
-    const minDamage = Math.floor((minBase * (100 + ed + edLvl)) / 100) + addMin;
-    const maxDamage = Math.floor((maxBase * (100 + ed + edLvl)) / 100) + addMax + maxLvl;
+    // Tính toán damage với jewel stats
+    const totalED = ed + jewelStats.totalED;
+    const totalAddMax = addMax + jewelStats.totalMaxDmg;
+
+    const minDamage = Math.floor((minBase * (1 + totalED/100))) + addMin;
+    const maxDamage = Math.floor((maxBase * (1 + totalED/100))) + totalAddMax + maxLvl + Math.floor(maxBase * edLvl/100);
 
     const embed = new EmbedBuilder()
       .setColor('#ff6600')
@@ -252,11 +279,19 @@ async function handleDmgCalculator2(interaction) {
         embed.setFooter({ text: footerInfo.join(' | ') });
       }
     
-    if(ed > 0 || addMin > 0 || addMax > 0){
+    if(totalED > 0 || addMin > 0 || totalAddMax > 0){
      const additionalFields = [];
-      if (ed > 0) additionalFields.push(`Enhanced Damage: ${ed}%`);
+      if (totalED > 0) additionalFields.push(`Enhanced Damage: ${totalED}%`);
       if (addMin > 0) additionalFields.push(`Add Min: ${addMin}`);
-      if (addMax > 0) additionalFields.push(`Add Max: ${addMax}`);
+      if (totalAddMax > 0) additionalFields.push(`Add Max: ${totalAddMax}`);
+
+      // Hiển thị jewel details nếu có
+      if (jewelStats.jewels.length > 0) {
+        const jewelDetails = jewelStats.jewels.map((jewel, index) =>
+          `Jewel ${index + 1}: ${jewel.ed}-${jewel.maxDmg}`
+        ).join('\n');
+        additionalFields.push(`\n**Jewels:**\n${jewelDetails}`);
+      }
 
       embed.addFields({
         name: 'Options',
@@ -290,6 +325,7 @@ async function handleDmgCalculator2(interaction) {
     });
   }
 }
+
 
 module.exports = {
   handleSlashCritChance,
