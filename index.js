@@ -657,28 +657,27 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         if (newState.member.user.bot) return;
 
         // Lấy ID người dùng và thời gian hiện tại
-        const userId = newState.member.id;
-        const now = Date.now();
+        // const userId = newState.member.id;
+        // const now = Date.now();
 
-        // Kiểm tra cooldown (5 giây để tránh spam)
-        if (lastNotification.has(userId) && now - lastNotification.get(userId) < 5000) {
-            console.log(`Cooldown đang hoạt động cho user ${userId}, bỏ qua thông báo`);
-            return; // Bỏ qua nếu chưa đủ thời gian cooldown
-        }
+        // // Kiểm tra cooldown (5 giây để tránh spam)
+        // if (lastNotification.has(userId) && now - lastNotification.get(userId) < 5000) {
+        //     console.log(`Cooldown đang hoạt động cho user ${userId}, bỏ qua thông báo`);
+        //     return; // Bỏ qua nếu chưa đủ thời gian cooldown
+        // }
 
-        // Cập nhật thời gian thông báo
-        lastNotification.set(userId, now);
+        // // Cập nhật thời gian thông báo
+        // lastNotification.set(userId, now);
 
         // Lấy nickname (hoặc username nếu không có nickname) và username
-        const nickname = newState.member.nickname || newState.member.user.username;
-        const username = newState.member.user.username;
+        const displayName = newState.member.user.displayName;
 
         // Người dùng tham gia bất kỳ kênh voice nào
         if (!oldState.channelId && newState.channelId) {
             const channelName = newState.channel.name;
             try {
-                await user.send(`${nickname} (${username}) đã tham gia voice ${channelName}`);
-                console.log(`Đã gửi DM: ${nickname} (${username}) tham gia ${channelName}`);
+                await user.send(`**${displayName}** đã tham gia voice **${channelName}**`);
+                console.log(`Đã gửi DM: ${displayName} tham gia ${channelName}`);
             } catch (dmError) {
                 console.error(`Lỗi gửi DM tham gia: ${dmError.message}`);
             }
@@ -687,15 +686,15 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         else if (oldState.channelId && !newState.channelId) {
             const channelName = oldState.channel.name;
             try {
-                await user.send(`${nickname} (${username}) đã rời voice ${channelName}`);
-                console.log(`Đã gửi DM: ${nickname} (${username}) rời ${channelName}`);
+                await user.send(`**${displayName}** đã rời voice **${channelName}**`);
+                console.log(`Đã gửi DM: ${displayName} rời ${channelName}`);
             } catch (dmError) {
                 console.error(`Lỗi gửi DM rời: ${dmError.message}`);
             }
         }
         // Người dùng chuyển kênh (không gửi thông báo để tránh spam)
         else if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
-            console.log(`${nickname} (${username}) chuyển từ ${oldState.channel.name} sang ${newState.channel.name} - không gửi thông báo`);
+            console.log(`**${displayName}** chuyển từ ${oldState.channel.name} sang ${newState.channel.name}`);
         }
     } catch (error) {
         console.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
