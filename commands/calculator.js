@@ -26,18 +26,18 @@ function parseJewelString(jewelString) {
       const jewelPart = jewelParts[i];
       if (jewelPart === '') continue;
 
-      // Parse format ED-MaxDmg
-      const match = jewelPart.match(/^(\d+)-(\d+)$/);
+      // Kiểm tra cả hai định dạng: ED-MaxDmg hoặc chỉ ED
+      const match = jewelPart.match(/^(\d+)(?:-(\d+))?$/);
       if (match) {
         const ed = parseInt(match[1]);
-        const maxDmg = parseInt(match[2]);
+        const maxDmg = match[2] ? parseInt(match[2]) : 0; // Nếu không có MaxDmg, mặc định là 0
 
         // Validation jewel stats
         const jewelErrors = [];
-        if (ed < 0 || ed > 40) {
-          jewelErrors.push(`ED phải từ 0-40% (nhận: ${ed}%)`);
+        if (ed < 0 || ed > 45) {
+          jewelErrors.push(`ED phải từ 0-40% (nhận: ${ed}%). Hoặc Ohm = 45`);
         }
-        if (maxDmg < 0 || maxDmg > 30) {
+        if (match[2] && (maxDmg < 0 || maxDmg > 30)) {
           jewelErrors.push(`Max Dmg phải từ 0-30 (nhận: ${maxDmg})`);
         }
 
@@ -51,8 +51,8 @@ function parseJewelString(jewelString) {
           console.log(`Valid jewel: ${jewelPart} (${ed}% ED, +${maxDmg} Max Dmg)`);
         }
       } else {
-        errors.push(`Jewel ${i + 1}: Format sai "${jewelPart}" (cần: ED-MaxDmg)`);
-        console.log(`Invalid jewel format: ${jewelPart} (expected: ED-MaxDmg)`);
+        errors.push(`Jewel ${i + 1}: Format sai "${jewelPart}" (cần: ED hoặc ED-MaxDmg)`);
+        console.log(`Invalid jewel format: ${jewelPart} (expected: ED hoặc ED-MaxDmg)`);
       }
     }
 
@@ -65,9 +65,10 @@ function parseJewelString(jewelString) {
 
   } catch (error) {
     console.error('Lỗi parse jewel string:', error);
-    return { totalED: 0, totalMaxDmg: 0, jewels: [], errors: [`❌ Lỗi parse: ${error.message}`] };
+    return { totalED: 0, totalMaxDmg: 0, jewels: [], errors: [`Lỗi parse: ${error.message}`] };
   }
 }
+
 /**
  * Crit Chance calculator command
  * @param {Interaction} interaction - Discord interaction
@@ -347,12 +348,12 @@ async function handleDmgCalculator2(interaction) {
       if (totalAddMax > 0) additionalFields.push(`Add Max: ${totalAddMax}`);
 
       // Hiển thị jewel details nếu có
-      if (jewelStats.jewels.length > 0) {
-        const jewelDetails = jewelStats.jewels.map((jewel, index) =>
-          `Jewel ${index + 1}: ${jewel.ed}-${jewel.maxDmg}`
-        ).join('\n');
-        additionalFields.push(`\n**Jewels:**\n${jewelDetails}`);
-      }
+    if (jewelStats.jewels.length > 0) {
+      const jewelDetails = jewelStats.jewels.map((jewel, index) =>
+        `Socket ${index + 1}: ${jewel.ed > 40 ? `${jewel.ed} ED` : `${jewel.ed}-${jewel.maxDmg}`}`
+      ).join('\n');
+      additionalFields.push(`\n**Sockets:**\n${jewelDetails}`);
+    }
 
       embed.addFields({
         name: 'Options',
