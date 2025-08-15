@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 app.get('/ping', (req, res) => {
   try {
     const botStatus = client.isReady() ? 'connected' : 'disconnected';
-    res.status(200).json({ 
+    res.status(200).json({
       status: 'healthy',
       message: 'Pong!',
       botStatus: botStatus,
@@ -57,13 +57,87 @@ app.get('/ping', (req, res) => {
   }
 });
 
+// Route health check chi tiết hơn
+app.get('/health', (req, res) => {
+  try {
+    const botStatus = client.isReady() ? 'connected' : 'disconnected';
+    const dataManagerStatus = dataManager.getStatus();
+
+    res.status(200).json({
+      status: 'healthy',
+      message: 'Bot đang hoạt động bình thường',
+      bot: {
+        status: botStatus,
+        user: client.user ? client.user.tag : 'Unknown',
+        guilds: client.guilds ? client.guilds.cache.size : 0
+      },
+      server: {
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
+        platform: process.platform,
+        nodeVersion: process.version
+      },
+      dataManager: dataManagerStatus,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Detailed health check error:', error);
+    res.status(503).json({
+      status: 'error',
+      message: 'Service temporarily unavailable',
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Route mặc định
 app.get('/', (req, res) => {
   try {
-    res.send('Discord Bot đang chạy');
+    const botStatus = client.isReady() ? 'connected' : 'disconnected';
+    res.send(`
+      <html>
+        <head><title>GheedBot Status</title></head>
+        <body>
+          <h1>🤖 GheedBot đang chạy</h1>
+          <p><strong>Bot Status:</strong> ${botStatus}</p>
+          <p><strong>Uptime:</strong> ${Math.floor(process.uptime())} giây</p>
+          <p><strong>Timestamp:</strong> ${new Date().toLocaleString()}</p>
+          <hr>
+          <p><a href="/ping">Health Check (JSON)</a></p>
+          <p><a href="/health">Detailed Health Check</a></p>
+          <p><a href="/test-github">Test GitHub Connection</a></p>
+        </body>
+      </html>
+    `);
   } catch (error) {
     console.error('Lỗi route gốc:', error);
     res.status(500).send('Lỗi máy chủ nội bộ');
+  }
+});
+
+// Route test kết nối GitHub
+app.get('/test-github', async (req, res) => {
+  try {
+    const { githubFetcher } = require('./utils/github-data');
+
+    console.log('Testing GitHub connection...');
+    const testResult = await githubFetcher.fetchFile('data/weapon.json');
+
+    res.status(200).json({
+      status: 'success',
+      message: 'GitHub connection successful',
+      dataSize: Array.isArray(testResult) ? testResult.length : 'N/A',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('GitHub test error:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'GitHub connection failed',
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GheedBot Deployment Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .loading { background-color: #cce7ff; color: #004085; border: 1px solid #b3d7ff; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #6c757d; cursor: not-allowed; }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .endpoint-test {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 GheedBot Deployment Check</h1>
+        <p>Tool kiểm tra tình trạng deployment của GheedBot</p>
+        
+        <div class="endpoint-test">
+            <h3>🏠 Base URL Test</h3>
+            <input type="text" id="baseUrl" placeholder="https://your-app.onrender.com" style="width: 300px; padding: 8px;">
+            <button onclick="setBaseUrl()">Đặt URL</button>
+            <div id="baseUrlStatus" class="status warning">Chưa đặt URL</div>
+        </div>
+
+        <div class="endpoint-test">
+            <h3>🔍 Endpoint Tests</h3>
+            <button onclick="testEndpoint('/')" id="btn-root">Test / (Root)</button>
+            <button onclick="testEndpoint('/ping')" id="btn-ping">Test /ping</button>
+            <button onclick="testEndpoint('/health')" id="btn-health">Test /health</button>
+            <button onclick="testEndpoint('/test-github')" id="btn-github">Test /test-github</button>
+            <div id="endpointResults"></div>
+        </div>
+
+        <div class="endpoint-test">
+            <h3>📊 Tổng quan kết quả</h3>
+            <div id="summary" class="status warning">Chưa có kết quả test</div>
+        </div>
+
+        <div class="endpoint-test">
+            <h3>🔧 Hướng dẫn sửa lỗi</h3>
+            <div id="troubleshooting">
+                <h4>Các bước kiểm tra:</h4>
+                <ol>
+                    <li><strong>Kiểm tra URL:</strong> Đảm bảo URL deployment đúng</li>
+                    <li><strong>Kiểm tra logs:</strong> Xem logs trên platform deployment</li>
+                    <li><strong>Kiểm tra environment variables:</strong> DISCORD_TOKEN, PORT</li>
+                    <li><strong>Kiểm tra network:</strong> Firewall, port binding</li>
+                    <li><strong>Kiểm tra UptimeRobot:</strong> URL monitor, timeout settings</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let baseUrl = '';
+        let testResults = {};
+
+        function setBaseUrl() {
+            const input = document.getElementById('baseUrl');
+            baseUrl = input.value.trim();
+            
+            if (!baseUrl) {
+                updateStatus('baseUrlStatus', 'error', 'URL không được để trống');
+                return;
+            }
+            
+            // Remove trailing slash
+            baseUrl = baseUrl.replace(/\/$/, '');
+            
+            updateStatus('baseUrlStatus', 'success', `URL đã đặt: ${baseUrl}`);
+            
+            // Enable test buttons
+            const buttons = document.querySelectorAll('button[id^="btn-"]');
+            buttons.forEach(btn => btn.disabled = false);
+        }
+
+        async function testEndpoint(endpoint) {
+            if (!baseUrl) {
+                alert('Vui lòng đặt Base URL trước');
+                return;
+            }
+
+            const url = baseUrl + endpoint;
+            const resultDiv = document.getElementById('endpointResults');
+            
+            // Show loading
+            const loadingId = `loading-${endpoint.replace('/', 'root')}`;
+            resultDiv.innerHTML += `<div id="${loadingId}" class="status loading">Đang test ${endpoint}...</div>`;
+
+            try {
+                const startTime = Date.now();
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json, text/html, */*'
+                    }
+                });
+                const endTime = Date.now();
+                const responseTime = endTime - startTime;
+
+                let responseText = '';
+                let responseData = null;
+                
+                try {
+                    responseText = await response.text();
+                    responseData = JSON.parse(responseText);
+                } catch (e) {
+                    // Not JSON, keep as text
+                }
+
+                testResults[endpoint] = {
+                    success: response.ok,
+                    status: response.status,
+                    responseTime,
+                    data: responseData || responseText.substring(0, 200)
+                };
+
+                // Remove loading
+                document.getElementById(loadingId).remove();
+
+                // Show result
+                const statusClass = response.ok ? 'success' : 'error';
+                const resultHtml = `
+                    <div class="status ${statusClass}">
+                        <strong>${endpoint}</strong> - ${response.status} ${response.statusText} (${responseTime}ms)
+                        <pre>${JSON.stringify(responseData || responseText.substring(0, 200), null, 2)}</pre>
+                    </div>
+                `;
+                resultDiv.innerHTML += resultHtml;
+
+            } catch (error) {
+                testResults[endpoint] = {
+                    success: false,
+                    error: error.message
+                };
+
+                // Remove loading
+                document.getElementById(loadingId).remove();
+
+                // Show error
+                const errorHtml = `
+                    <div class="status error">
+                        <strong>${endpoint}</strong> - Lỗi kết nối
+                        <pre>Error: ${error.message}</pre>
+                    </div>
+                `;
+                resultDiv.innerHTML += errorHtml;
+            }
+
+            updateSummary();
+        }
+
+        function updateStatus(elementId, type, message) {
+            const element = document.getElementById(elementId);
+            element.className = `status ${type}`;
+            element.textContent = message;
+        }
+
+        function updateSummary() {
+            const total = Object.keys(testResults).length;
+            const successful = Object.values(testResults).filter(r => r.success).length;
+            const failed = total - successful;
+
+            let summaryClass = 'warning';
+            let summaryText = `Đã test ${total} endpoints: ${successful} thành công, ${failed} thất bại`;
+
+            if (total === 0) {
+                summaryClass = 'warning';
+                summaryText = 'Chưa có kết quả test';
+            } else if (failed === 0) {
+                summaryClass = 'success';
+                summaryText += ' ✅ Tất cả endpoints hoạt động tốt!';
+            } else if (successful === 0) {
+                summaryClass = 'error';
+                summaryText += ' ❌ Tất cả endpoints đều lỗi!';
+            } else {
+                summaryClass = 'warning';
+                summaryText += ' ⚠️ Một số endpoints có vấn đề';
+            }
+
+            updateStatus('summary', summaryClass, summaryText);
+        }
+
+        // Disable test buttons initially
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('button[id^="btn-"]');
+            buttons.forEach(btn => btn.disabled = true);
+        });
+    </script>
+</body>
+</html>
