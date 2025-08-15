@@ -83,7 +83,7 @@
 	{
 		"name": "Chance to Cast",
 		"type": "Thông Tin",
-		"text":"Chance to Cast (CtC) là một thuộc tính đặc biệt trên trang bị, cho phép nhân vật có tỷ lệ % kích hoạt một kỹ năng nhất định khi thực hiện hành động (tấn công, bị tấn công, chặn, giết mục tiêu,...), hành động này phải trúng mục tiêu (không cần gây sát thương).\n\nSynergy vẫn có hiệu lực với kỹ năng được kích hoạt bởi CtC\nKhông bị ảnh hưởng bởi NHD mếu kỹ năng được kích hoạt không nằm trong danh sách NHD."
+		"text": "Chance to Cast (CtC) là một thuộc tính đặc biệt trên trang bị, cho phép nhân vật có tỷ lệ % kích hoạt một kỹ năng nhất định khi thực hiện hành động (tấn công, bị tấn công, chặn, giết mục tiêu,...), hành động này phải trúng mục tiêu (không cần gây sát thương).\n\nSynergy vẫn có hiệu lực với kỹ năng được kích hoạt bởi CtC\nKhông bị ảnh hưởng bởi NHD mếu kỹ năng được kích hoạt không nằm trong danh sách NHD."
 	},
 	{
 		"name": "Poison Length Reduced",
