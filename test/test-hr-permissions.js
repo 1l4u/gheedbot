@@ -205,11 +205,11 @@ async function testBypassPermissions() {
 
 async function testAllowedRolePermissions() {
   console.log('\n🧪 Testing Allowed Role Permissions...\n');
-  
+
   try {
     // Setup mocks
-    hasBypassPermission.mockReturnValue(false);
-    hasAllowedRole.mockReturnValue(true);
+    setMockBehavior('hasBypassPermission', () => false);
+    setMockBehavior('hasAllowedRole', () => true);
     
     console.log('👤 Mock Allowed Role User: AllowedUser#9999');
     console.log('🔑 Permissions: ManageChannels = false');
@@ -240,11 +240,11 @@ async function testAllowedRolePermissions() {
 
 async function testRegularUserPermissions() {
   console.log('\n🧪 Testing Regular User Permissions...\n');
-  
+
   try {
     // Setup mocks
-    hasBypassPermission.mockReturnValue(false);
-    hasAllowedRole.mockReturnValue(false);
+    setMockBehavior('hasBypassPermission', () => false);
+    setMockBehavior('hasAllowedRole', () => false);
     
     console.log('👤 Mock Regular User: RegularUser#0000');
     console.log('🔑 Permissions: ManageChannels = false');
@@ -307,5 +307,6 @@ module.exports = {
   testBypassPermissions,
   testAllowedRolePermissions,
   testRegularUserPermissions,
-  runAllTests
+  runAllTests,
+  runTests: runAllTests // Alias for compatibility
 };

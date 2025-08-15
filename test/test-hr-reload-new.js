@@ -19,6 +19,9 @@ const mockAdminInteraction = {
       }
     }
   },
+  channel: {
+    id: '1361772596303237212'
+  },
   customId: 'hr_public_reload',
   message: {
     edit: async (options) => {
@@ -51,6 +54,9 @@ const mockNonAdminInteraction = {
       }
     }
   },
+  channel: {
+    id: '1361772596303237212'
+  },
   customId: 'hr_public_reload',
   reply: async (options) => {
     console.log('✅ Mock reply for permission denied:', options.content);
@@ -71,6 +77,9 @@ const mockSetupInteraction = {
         return permission === 'ManageChannels';
       }
     }
+  },
+  channel: {
+    id: '1361772596303237212'
   },
   reply: async (options) => {
     console.log('✅ Mock setup reply called');
@@ -102,6 +111,9 @@ const mockSetupNonAdminInteraction = {
         return false; // No admin permissions
       }
     }
+  },
+  channel: {
+    id: '1361772596303237212'
   },
   reply: async (options) => {
     console.log('✅ Mock setup reply called for non-admin');
@@ -277,5 +289,6 @@ module.exports = {
   testButtonVisibilityAdmin,
   testButtonVisibilityNonAdmin,
   testReloadLogic,
-  runAllTests
+  runAllTests,
+  runTests: runAllTests // Alias for compatibility
 };

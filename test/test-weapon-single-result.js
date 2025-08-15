@@ -280,5 +280,6 @@ module.exports = {
   testNotFound,
   testSingleResultLogic,
   testResponseStructure,
-  runAllTests
+  runAllTests,
+  runTests: runAllTests // Alias for compatibility
 };

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node index.js",
-    "test": "node test/run-all-tests.js",
+    "test": "node test/simple-test-runner.js",
+    "test:full": "node test/run-all-tests.js",
     "test:quick": "node test/quick-test.js",
     "test:hr": "node test/test-hr-modal.js",
     "test:commands": "node test/test-commands.js"

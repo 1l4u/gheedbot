@@ -25,6 +25,10 @@ const mockInteraction = {
   reply: async (options) => {
     console.log('✅ Mock Reply:', options);
     return Promise.resolve();
+  },
+  deferUpdate: async () => {
+    console.log('✅ Mock deferUpdate called');
+    return Promise.resolve();
   }
 };
 
@@ -78,6 +82,10 @@ const mockPublicInteraction = {
   reply: async (options) => {
     console.log('✅ Mock Public Reply:', options);
     return Promise.resolve();
+  },
+  deferUpdate: async () => {
+    console.log('✅ Mock deferUpdate called for public modal');
+    return Promise.resolve();
   }
 };
 
@@ -125,5 +133,6 @@ if (require.main === module) {
 module.exports = {
   testHrModalSubmission,
   testPublicHrModalSubmission,
-  runAllTests
+  runAllTests,
+  runTests: runAllTests // Alias for compatibility
 };

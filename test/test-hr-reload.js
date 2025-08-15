@@ -267,5 +267,6 @@ module.exports = {
   testReloadInterfaceStructure,
   testReloadErrorHandling,
   testReloadLogging,
-  runAllTests
+  runAllTests,
+  runTests: runAllTests // Alias for compatibility
 };

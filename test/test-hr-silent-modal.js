@@ -186,5 +186,6 @@ module.exports = {
   testSilentModalSubmission,
   testPublicSilentModalSubmission,
   testLoggingBehavior,
-  runAllTests
+  runAllTests,
+  runTests: runAllTests // Alias for compatibility
 };
