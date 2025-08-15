@@ -10,15 +10,32 @@ const mockConfig = {
   allowedChannels: ['111111111', '222222222'] // Mock channel IDs
 };
 
-// Mock permissions module
-jest.mock('../utils/permissions', () => ({
-  checkCommandPermissions: jest.fn(),
-  hasBypassPermission: jest.fn(),
-  hasAllowedRole: jest.fn()
-}));
+// Manual mock functions
+const mockFunctions = {
+  hasBypassPermission: null,
+  hasAllowedRole: null,
+  checkCommandPermissions: null
+};
 
-// Import mocked functions
-const { hasBypassPermission, hasAllowedRole } = require('../utils/permissions');
+// Mock the permissions module
+const originalPermissions = require('../utils/permissions');
+const mockedPermissions = {
+  ...originalPermissions,
+  hasBypassPermission: (member) => mockFunctions.hasBypassPermission ? mockFunctions.hasBypassPermission(member) : false,
+  hasAllowedRole: (member) => mockFunctions.hasAllowedRole ? mockFunctions.hasAllowedRole(member) : false,
+  checkCommandPermissions: (interaction) => mockFunctions.checkCommandPermissions ? mockFunctions.checkCommandPermissions(interaction) : true
+};
+
+// Helper functions to set mock behavior
+function setMockBehavior(functionName, behavior) {
+  mockFunctions[functionName] = behavior;
+}
+
+function resetMocks() {
+  Object.keys(mockFunctions).forEach(key => {
+    mockFunctions[key] = null;
+  });
+}
 
 // Mock Discord.js objects
 const mockAdminInteraction = {
@@ -118,11 +135,11 @@ const { handleSlashSetupHr } = require('../commands/hr');
 
 async function testAdminPermissions() {
   console.log('🧪 Testing Admin Permissions...\n');
-  
+
   try {
     // Setup mocks
-    hasBypassPermission.mockReturnValue(false);
-    hasAllowedRole.mockReturnValue(false);
+    setMockBehavior('hasBypassPermission', () => false);
+    setMockBehavior('hasAllowedRole', () => false);
     
     console.log('👤 Mock Admin User: AdminUser#1234');
     console.log('🔑 Permissions: ManageChannels = true');
@@ -153,11 +170,11 @@ async function testAdminPermissions() {
 
 async function testBypassPermissions() {
   console.log('\n🧪 Testing Bypass Permissions...\n');
-  
+
   try {
     // Setup mocks
-    hasBypassPermission.mockReturnValue(true);
-    hasAllowedRole.mockReturnValue(false);
+    setMockBehavior('hasBypassPermission', () => true);
+    setMockBehavior('hasAllowedRole', () => false);
     
     console.log('👤 Mock Bypass User: BypassUser#5678');
     console.log('🔑 Permissions: ManageChannels = false');
