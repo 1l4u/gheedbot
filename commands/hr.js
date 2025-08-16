@@ -42,8 +42,8 @@ async function handleSlashSetupHr(interaction) {
       .setTitle('💎 HR Public Interface')
       .setDescription('🎯 **Hướng dẫn sử dụng:** Nhấn các button theo thứ tự để nhập số lượng runes của bạn!. Sau đó hãy nhấn "Tính HR" để xem kết quả.')
       .addFields(
-        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`', inline: true },
-        { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`', inline: true },
+        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST`', inline: true },
+        { name: '🟡 Mid Runes', value: '`GUL` `VEX` `OHM` `LO` `SUR`', inline: true },
         { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`', inline: true },
         { name: '� Lưu ý', value: '• Kết quả chỉ **bạn** thấy được\n• Có thể nhập từng nhóm riêng lẻ\n• Dữ liệu được lưu riêng cho mỗi người', inline: false }
       )
@@ -116,8 +116,8 @@ async function handleSlashHr(interaction) {
       .setTitle('💎 HR Private Interface')
       .setDescription('🎯 **Hướng dẫn:** Nhấn các button theo thứ tự để nhập runes của bạn! Sau đó nhấn "Tính HR" để xem kết quả.')
       .addFields(
-        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST` `GUL`', inline: true },
-        { name: '🟡 Mid Runes', value: '`VEX` `OHM` `LO` `SUR`', inline: true },
+        { name: '🟢 Low Runes', value: '`UM` `MAL` `IST`', inline: true },
+        { name: '🟡 Mid Runes', value: '`GUL` `VEX` `OHM` `LO` `SUR`', inline: true },
         { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`', inline: true },
         { name: '📋 Lưu ý', value: '• Interface này chỉ bạn thấy\n• Có thể nhập từng nhóm riêng lẻ', inline: false }
       );
@@ -183,12 +183,12 @@ const userHrData = new Map();
 function createRuneGroupModal(groupType, isPublic = false) {
   const runeGroups = {
     group1: {
-      runes: ['UM', 'MAL', 'IST', 'GUL'],
+      runes: ['UM', 'MAL', 'IST'],
       title: 'Low Runes',
       description: 'Nhập số lượng runes bạn có (để trống = 0)'
     },
     group2: {
-      runes: ['VEX', 'OHM', 'LO', 'SUR'],
+      runes: ['GUL', 'VEX', 'OHM', 'LO', 'SUR'],
       title: 'Mid Runes',
       description: 'Nhập số lượng runes bạn có (để trống = 0)'
     },
@@ -327,11 +327,11 @@ async function handleHrModalSubmit(interaction) {
 
     // Lấy dữ liệu từ modal và lưu vào userData
     const runeGroups = {
-      hr_modal_group1: ['UM', 'MAL', 'IST', 'GUL'],
-      hr_modal_group2: ['VEX', 'OHM', 'LO', 'SUR'],
+      hr_modal_group1: ['UM', 'MAL', 'IST'],
+      hr_modal_group2: ['GUL','VEX', 'OHM', 'LO', 'SUR'],
       hr_modal_group3: ['BER', 'JAH', 'CHAM', 'ZOD'],
-      hr_public_modal_group1: ['UM', 'MAL', 'IST', 'GUL'],
-      hr_public_modal_group2: ['VEX', 'OHM', 'LO', 'SUR'],
+      hr_public_modal_group1: ['UM', 'MAL', 'IST'],
+      hr_public_modal_group2: ['GUL','VEX', 'OHM', 'LO', 'SUR'],
       hr_public_modal_group3: ['BER', 'JAH', 'CHAM', 'ZOD']
     };
 
