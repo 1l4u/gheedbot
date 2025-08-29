@@ -1,6 +1,7 @@
 const { githubFetcher } = require('./github-data');
 const fs = require('fs');
 const path = require('path');
+const { setInterval } = require('timers/promises');
 
 /**
  * Data Manager để quản lý việc load dữ liệu từ GitHub hoặc local
@@ -258,6 +259,12 @@ class DataManager {
 
 // Singleton instance
 const dataManager = new DataManager();
+
+setInterval(() => {
+  dataManager.reloadAll()
+    .then(() => console.log('Đã tự động reload dữ liệu'))
+    .catch(err => console.error('Lỗi tự động reload:', err.message));
+}, 5 * 60 * 1000);
 
 module.exports = {
   DataManager,

@@ -77,7 +77,7 @@ async function handleSlashWiki(interaction) {
         const textContent = textContents[i];
         const embed = new EmbedBuilder()
           .setColor('#ff6600')
-          .setTitle(`${wikiItem.name}${wikiItem.type ? ` (${wikiItem.type})` : ''}${textContents.length > 1 ? ` ` : ''}`);
+          .setTitle(`${wikiItem.name}${textContents.length > 1 ? ` ` : ''}`);
 
         if (wikiItem.url) {
           embed.setURL(wikiItem.url);

@@ -2,7 +2,7 @@ require("dotenv").config();
 const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder, Routes, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require("discord.js");
 const { REST } = require('@discordjs/rest');
 // Import data manager
-const { dataManager } = require('./utils/data-manager');
+const { dataManager, DataManager } = require('./utils/data-manager');
 const express = require("express");
 const config = require('./config/config.json');
 const app = express();
@@ -318,7 +318,10 @@ const commands = [
   .addStringOption(option =>
     option.setName('jewel')
           .setDescription('Jewel stats (format: ED-MaxDmg,ED-MaxDmg). Ví dụ: 40-15,39-25,22-13...')
-          .setRequired(false))
+          .setRequired(false)),
+  new SlashCommandBuilder()
+  .setName('botreload')
+  .setDescription('Reload data'),
 ].map(command => command.toJSON());
 
 // Hàm đăng ký slash commands
@@ -513,6 +516,25 @@ if (interaction.isAutocomplete()) {
           console.log(`Đang thực thi: handleSlashSetupHr`);
           const { handleSlashSetupHr } = require('./commands/hr');
           await handleSlashSetupHr(interaction);
+          break;
+        case 'botreload':
+            // Kiểm tra quyền sử dụng lệnh bằng hàm từ permission.js
+            const { hasBypassPermission } = require('./utils/permissions.js');
+            if (!hasBypassPermission(interaction.member)) {
+              await interaction.reply({
+                content: 'Bạn không có quyền sử dụng lệnh này.',
+                flags: 1<<6
+              });
+              break;
+            }
+          console.log(`Đang thực thi: reloadAll`);
+          try {
+            await interaction.deferReply({ flags: 1<<6 }); // Cho phép xử lý lâu
+            await dataManager.reloadAll();
+            await interaction.editReply('Đã reload dữ liệu!');
+          } catch (err) {
+            await interaction.editReply('Lỗi reload: ' + err.message);
+          }
           break;
         default:
           console.log(`Lệnh không xác định: ${commandName}`);
@@ -865,6 +887,14 @@ async function loginWithRetry(maxRetries = 3) {
     }
   }
 }
+
+// Tự động reload dữ liệu mỗi 5 phút
+setInterval(() => {
+  dataManager.reloadAll()
+    .then(() => console.log('Đã tự động reload dữ liệu'))
+    .catch(err => console.error('Lỗi tự động reload:', err.message));
+}, 5 * 60 * 1000);
+
 
 
 // Khởi động bot
