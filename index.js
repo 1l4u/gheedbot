@@ -6,7 +6,6 @@ const { dataManager, DataManager } = require('./utils/data-manager');
 const express = require("express");
 const config = require('./config/config.json');
 const app = express();
-
 // Import command handlers
 const { handleSlashDebug } = require('./commands/debug');
 const { handleSlashRuneword } = require('./commands/runeword');
@@ -14,6 +13,7 @@ const { handleSlashWiki } = require('./commands/wiki');
 const { handleSlashWeapon } = require('./commands/weapon');
 const { handleSlashCritChance, handleSlashTas, handleSlashIas, handleDmgCalculator2 } = require('./commands/calculator');
 const { handleSlashHr } = require('./commands/hr');
+const { checkVersionAndReload } = require('./utils/version-check');
 
 // Import utilities
 const { hasBypassPermission, isValidCommand } = require('./utils/permissions');
@@ -890,9 +890,10 @@ async function loginWithRetry(maxRetries = 3) {
 
 // Tự động reload dữ liệu mỗi 5 phút
 setInterval(() => {
-  dataManager.reloadAll()
-    .then(() => console.log('Đã tự động reload dữ liệu'))
-    .catch(err => console.error('Lỗi tự động reload:', err.message));
+  // dataManager.reloadAll()
+  //   .then(() => console.log('Đã tự động reload dữ liệu'))
+  //   .catch(err => console.error('Lỗi tự động reload:', err.message));
+  checkVersionAndReload(dataManager);
 }, 5 * 60 * 1000);
 
 
