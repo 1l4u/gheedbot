@@ -14,7 +14,6 @@ const { handleSlashWeapon } = require('./commands/weapon');
 const { handleSlashCritChance, handleSlashTas, handleSlashIas, handleDmgCalculator2 } = require('./commands/calculator');
 const { handleSlashHr } = require('./commands/hr');
 const { checkVersionAndReload } = require('./utils/version-check');
-
 // Import utilities
 const { hasBypassPermission, isValidCommand } = require('./utils/permissions');
 
@@ -530,7 +529,7 @@ if (interaction.isAutocomplete()) {
           console.log(`Đang thực thi: reloadAll`);
           try {
             await interaction.deferReply({ flags: 1<<6 }); // Cho phép xử lý lâu
-            await dataManager.reloadAll();
+            await checkVersionAndReload(dataManager);
             await interaction.editReply('Đã reload dữ liệu!');
           } catch (err) {
             await interaction.editReply('Lỗi reload: ' + err.message);
