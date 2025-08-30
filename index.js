@@ -529,7 +529,7 @@ if (interaction.isAutocomplete()) {
           console.log(`Đang thực thi: reloadAll`);
           try {
             await interaction.deferReply({ flags: 1<<6 }); // Cho phép xử lý lâu
-            await checkVersionAndReload(dataManager);
+            await dataManager.reloadAll();
             await interaction.editReply('Đã reload dữ liệu!');
           } catch (err) {
             await interaction.editReply('Lỗi reload: ' + err.message);
@@ -889,10 +889,10 @@ async function loginWithRetry(maxRetries = 3) {
 
 // Tự động reload dữ liệu mỗi 5 phút
 setInterval(() => {
-  // dataManager.reloadAll()
-  //   .then(() => console.log('Đã tự động reload dữ liệu'))
-  //   .catch(err => console.error('Lỗi tự động reload:', err.message));
-  checkVersionAndReload(dataManager);
+  dataManager.reloadAll()
+    .then(() => console.log('Đã tự động reload dữ liệu'))
+    .catch(err => console.error('Lỗi tự động reload:', err.message));
+  //checkVersionAndReload(dataManager);
 }, 5 * 60 * 1000);
 
 
