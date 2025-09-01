@@ -48,7 +48,7 @@ async function handleSlashWiki(interaction) {
 
     // Tìm tất cả các mục wiki khớp với name
     const matchedWikiItems = wiki.filter(
-      item => item  === 'string' && item.name.toLowerCase() === name
+      item => item && typeof item.name === 'string' && item.name.toLowerCase() === name
     );
 
     if (matchedWikiItems.length === 0) {
@@ -66,6 +66,8 @@ async function handleSlashWiki(interaction) {
       let textContents = [];
       if (wikiItem.text && Array.isArray(wikiItem.text)) {
         textContents = wikiItem.text;
+      } else if (typeof wikiItem.text === 'string') {
+        textContents = [wikiItem.text];
       } else {
         textContents = ['Không có thông tin chi tiết'];
       }
@@ -81,15 +83,6 @@ async function handleSlashWiki(interaction) {
           embed.setURL(wikiItem.url);
         }
 
-        Object.keys(wikiItem).forEach(key => {
-          if (!['name', 'text', 'url'].includes(key) && wikiItem[key]) {
-            embed.addFields({
-              name: key,
-              value: String(wikiItem[key]),
-              inline: false
-            });
-          }
-        });
 
         if (textContent) {
           // Chia text thành nhiều fields nếu quá dài
