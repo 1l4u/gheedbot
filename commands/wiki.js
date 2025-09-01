@@ -48,7 +48,7 @@ async function handleSlashWiki(interaction) {
 
     // Tìm tất cả các mục wiki khớp với name
     const matchedWikiItems = wiki.filter(
-      item => item && typeof item.name === 'string' && item.name.toLowerCase() === name
+      item => item  === 'string' && item.name.toLowerCase() === name
     );
 
     if (matchedWikiItems.length === 0) {
@@ -66,8 +66,6 @@ async function handleSlashWiki(interaction) {
       let textContents = [];
       if (wikiItem.text && Array.isArray(wikiItem.text)) {
         textContents = wikiItem.text;
-      } else if (typeof wikiItem.text === 'string') {
-        textContents = [wikiItem.text];
       } else {
         textContents = ['Không có thông tin chi tiết'];
       }
@@ -152,8 +150,8 @@ async function handleSlashWiki(interaction) {
         if (textContent && textContent.length > 4000) {
           const buffer = Buffer.from(textContent, 'utf8');
           const attachment = new AttachmentBuilder(buffer, {
-            name: `${wikiItem.name}${wikiItem.type ? `_${wikiItem.type}` : ''}${textContents.length > 1 ? `_part${i + 1}` : ''}_info.txt`,
-            description: `Thông tin đầy đủ cho ${wikiItem.name}${wikiItem.type ? ` (${wikiItem.type})` : ''}${textContents.length > 1 ? `` : ''}`
+            name: `${wikiItem.name}${textContents.length > 1 ? `_part${i + 1}` : ''}_info.txt`,
+            description: `Thông tin đầy đủ cho ${wikiItem.name}${textContents.length > 1 ? `` : ''}`
           });
           files.push(attachment);
 
