@@ -83,6 +83,16 @@ async function handleSlashWiki(interaction) {
           embed.setURL(wikiItem.url);
         }
 
+        Object.keys(wikiItem).forEach(key => {
+          if (!['name', 'text', 'url'].includes(key) && wikiItem[key]) {
+            embed.addFields({
+              name: key,
+              value: String(wikiItem[key]),
+              inline: false
+            });
+          }
+        });
+
         if (textContent) {
           // Chia text thành nhiều fields nếu quá dài
           const maxFieldLength = 1024;
