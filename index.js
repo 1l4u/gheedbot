@@ -888,12 +888,12 @@ async function loginWithRetry(maxRetries = 3) {
 }
 
 // Tự động reload dữ liệu mỗi 5 phút
-setInterval(() => {
-  dataManager.reloadAll()
-    .then(() => console.log('Đã tự động reload dữ liệu'))
-    .catch(err => console.error('Lỗi tự động reload:', err.message));
-  //checkVersionAndReload(dataManager);
-}, 5 * 60 * 1000);
+// setInterval(() => {
+//   dataManager.reloadAll()
+//     .then(() => console.log('Đã tự động reload dữ liệu'))
+//     .catch(err => console.error('Lỗi tự động reload:', err.message));
+//   //checkVersionAndReload(dataManager);
+// }, 5 * 60 * 1000);
 
 
 
