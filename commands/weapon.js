@@ -76,16 +76,16 @@ async function handleSlashWeapon(interaction) {
     // Damage field
     if (weapon.min && weapon.max) {
       fields.push({
-        name: 'Damage: ',
-        value: `${weapon.min} - ${weapon.max}`,
+        name: '',
+        value: `Damage: ${weapon.min} - ${weapon.max}`,
       });
     }
 
     // WSM field
     if (weapon.speed !== undefined && weapon.speed !== '') {
       fields.push({
-        name: 'WSM: ',
-        value: weapon.speed,
+        name: '',
+        value: `WSM: ${weapon.speed}`,
       });
     }
 
@@ -94,8 +94,8 @@ async function handleSlashWeapon(interaction) {
       const strValue = weapon.reqstr;
       const dexValue = weapon.reqdex !== undefined && weapon.reqdex !== '' ? weapon.reqdex : '0';
       fields.push({
-        name: 'Required: ',
-        value: `Str: ${strValue} - Dex: ${dexValue}`,
+        name: '',
+        value: `Required: Str: ${strValue} - Dex: ${dexValue}`,
       });
     }
 

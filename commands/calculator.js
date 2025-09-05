@@ -111,10 +111,10 @@ async function handleSlashCritChance(interaction) {
       .setColor('#ff0000')
       .setTitle('Crit Chance Calculator')
       .addFields(
-        { name: 'Deadly Strike', value: `${ds}%`, inline: true },
-        { name: 'Critical Strike', value: `${cs}%`, inline: true },
-        { name: 'Weapon Mastery', value: `${wm}%`, inline: true },
-        { name: 'Total Crit Chance', value: `${effectiveCrit}%`, inline: false }
+        { name: '', value: `Deadly Strike: ${ds}%`, inline: true },
+        { name: '', value: `Critical Strike: ${cs}%`, inline: true },
+        { name: '', value: `Weapon Mastery: ${wm}%`, inline: true },
+        { name: '', value: `Total Crit Chance: ${effectiveCrit}%`, inline: false }
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
@@ -165,9 +165,9 @@ async function handleSlashTas(interaction) {
     const embed = new EmbedBuilder()
       .setColor('#0099ff')
       .addFields(
-        { name: `TAS`, value: `${tas}%`, inline: true },
-        { name: `EIAS`, value: `${eias}%`, inline: true },
-        { name: 'Công thức', value: `- TAS = EIAS + Skill_IAS - WSM\n- EIAS = (120 * IAS) / (120 + IAS)` }
+        { name: '', value: `TAS: ${tas}%`, inline: true },
+        { name: '', value: `EIAS: ${eias}%`, inline: true },
+        { name: '', value: `Công thức: TAS = EIAS + Skill_IAS - WSM\n- EIAS = (120 * IAS) / (120 + IAS)` }
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
@@ -218,7 +218,7 @@ async function handleSlashIas(interaction) {
     const embed = new EmbedBuilder()
       .setColor('#0099ff')
       .addFields(
-        { name: 'IAS cần thiết', value: `${ias.toFixed(2)}%`, inline: true }
+        { name: '', value: `IAS cần thiết: ${ias.toFixed(2)}%`, inline: true }
       )
       .setFooter({ text: `Yêu cầu bởi ${interaction.user.username}` });
 
