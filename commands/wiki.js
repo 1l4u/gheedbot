@@ -100,6 +100,7 @@ async function handleSlashWiki(interaction) {
             let partNumber = 1;
 
             while (remainingText.length > 0) {
+              await new Promise(resolve => setImmediate(resolve));
               let chunk = remainingText.substring(0, maxFieldLength);
 
               // Tìm vị trí ngắt dòng hoặc khoảng trắng gần nhất

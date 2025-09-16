@@ -95,6 +95,7 @@ async function handleSlashRuneword(interaction) {
         let partNumber = 1;
 
         while (remainingText.length > 0) {
+          await new Promise(resolve => setImmediate(resolve));
           let chunk = remainingText.substring(0, maxFieldLength);
 
           if (remainingText.length > maxFieldLength) {
