@@ -730,10 +730,6 @@ const YOUR_USER_ID = '396596028465348620'; // Thay bằng ID Discord cá nhân c
 const COOLDOWN_TIME = 10000; // 5 phút cooldown để chống spam
 const lastNotification = new Map(); // Lưu thời gian thông báo cuối cùng
 
-// Sự kiện khi bot sẵn sàng
-client.once('ready', () => {
-    console.log(`Bot đã sẵn sàng, đăng nhập với tên: ${client.user.tag} lúc ${new Date().toLocaleString()}`);
-});
 
 // Theo dõi sự kiện thay đổi trạng thái voice (chỉ đăng ký 1 lần)
 client.removeAllListeners('voiceStateUpdate'); // Xóa listeners cũ nếu có
@@ -824,20 +820,16 @@ async function sendWarning(message) {
 client.once('ready', async () => {
   console.log(`Bot đã sẵn sàng! Đăng nhập với tên: ${client.user.tag}`);
 
-  // Khởi tạo data manager
-  try {
-    await dataManager.initialize();
-    console.log('Data Manager đã được khởi tạo thành công');
-  } catch (error) {
-    console.error('Lỗi khởi tạo Data Manager:', error.message);
-    console.log('Bot sẽ tiếp tục chạy với dữ liệu local...');
-  }
+  // Khởi tạo data manager ở chế độ nền sau khi bot đã sẵn sàng
+  dataManager.initialize().catch(err => {
+    console.error("Lỗi không mong muốn trong quá trình khởi tạo nền:", err);
+  });
 
   // Đăng ký slash commands sau khi bot ready
-  const success = await registerSlashCommands();
-  if (success) {
+  try {
+    await registerSlashCommands();
     console.log('Tất cả slash commands đã được đăng ký!');
-  } else {
+  } catch {
     console.log('Có lỗi khi đăng ký slash commands!');
   }
 });
@@ -850,8 +842,10 @@ client.on('warn', (warning) => {
   console.warn('Discord client warning:', warning);
 });
 
+// Discord.js sẽ tự động xử lý việc kết nối lại.
+// Các event 'disconnect' và 'reconnecting' vẫn hữu ích để log.
 client.on('disconnect', () => {
-  console.log('Bot đã ngắt kết nối');
+  console.log('Bot đã ngắt kết nối! Sẽ tự động kết nối lại...');
 });
 
 client.on('reconnecting', () => {
@@ -887,17 +881,17 @@ async function loginWithRetry(maxRetries = 3) {
   }
 }
 
-// Tự động reload dữ liệu mỗi 5 phút
-// setInterval(() => {
-//   dataManager.reloadAll()
-//     .then(() => console.log('Đã tự động reload dữ liệu'))
-//     .catch(err => console.error('Lỗi tự động reload:', err.message));
-//   //checkVersionAndReload(dataManager);
-// }, 5 * 60 * 1000);
-
-
 
 // Khởi động bot
-loginWithRetry().catch(error => {
-  console.error('Lỗi khởi động bot:', error);
+const token = process.env.DISCORD_TOKEN;
+
+if (!token) {
+  console.error('DISCORD_TOKEN không được cung cấp! Bot không thể khởi động.');
+  process.exit(1); // Thoát nếu không có token
+}
+
+// Đăng nhập bot. Discord.js sẽ tự xử lý retry.
+client.login(token).catch(error => {
+  console.error('Lỗi nghiêm trọng khi đăng nhập, không thể khởi động bot:', error);
+  process.exit(1);
 });

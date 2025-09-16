@@ -126,9 +126,9 @@ class DataManager {
    * Lấy dữ liệu weapons
    */
   async getWeapons() {
-    if (!this.data.weapons) {
-      await this.loadData('weapons');
-    }
+    // if (!this.data.weapons) {
+    //   await this.loadData('weapons');
+    // }
     return this.data.weapons;
   }
 
@@ -136,9 +136,9 @@ class DataManager {
    * Lấy dữ liệu runewords
    */
   async getRunewords() {
-    if (!this.data.runewords) {
-      await this.loadData('runewords');
-    }
+    // if (!this.data.runewords) {
+    //   await this.loadData('runewords');
+    // }
     return this.data.runewords;
   }
 
@@ -146,9 +146,9 @@ class DataManager {
    * Lấy dữ liệu wikis
    */
   async getWikis() {
-    if (!this.data.wikis) {
-      await this.loadData('wikis');
-    }
+    // if (!this.data.wikis) {
+    //   await this.loadData('wikis');
+    // }
     return this.data.wikis;
   }
 
@@ -246,13 +246,25 @@ class DataManager {
     this.loadGitHubConfig();
 
     try {
-      await this.loadData('weapons');
-      await this.loadData('runewords');
-      await this.loadData('wikis');
-      console.log('Khởi tạo Data Manager thành công');
+      // Sử dụng Promise.allSettled để không bị dừng bởi một lỗi duy nhất
+      const results = await Promise.allSettled([
+        this.loadData('weapons'),
+        this.loadData('runewords'),
+        this.loadData('wikis')
+      ]);
+
+      results.forEach((result, index) => {
+        const dataType = Object.keys(this.localPaths)[index];
+        if (result.status === 'rejected') {
+          console.error(`Lỗi khởi tạo data cho ${dataType}:`, result.reason.message);
+        }
+      });
+
+      console.log('Khởi tạo Data Manager hoàn tất (có thể có lỗi).');
+
     } catch (error) {
-      console.error('Lỗi khởi tạo Data Manager:', error.message);
-      throw error;
+      // Bắt các lỗi không mong muốn khác, nhưng không throw để tránh crash
+      console.error('Lỗi nghiêm trọng khi khởi tạo Data Manager:', error.message);
     }
   }
 }

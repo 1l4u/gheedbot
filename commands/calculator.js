@@ -252,7 +252,7 @@ async function handleDmgCalculator2(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền dmgcal2 cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    console.log(`Từ chối quyền dmgcal cho ${interaction.user.tag}: ${permissionCheck.reason}`);
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -269,6 +269,12 @@ async function handleDmgCalculator2(interaction) {
 
     // Lấy dữ liệu weapons và tìm weapon
     const weapons = await dataManager.getWeapons();
+    if (!weapons || !Array.isArray(weapons)) {
+      console.error("Dữ liệu 'weapons' không hợp lệ hoặc không thể tải.");
+      return await interaction.editReply({
+        content: `Lỗi: Không thể tải dữ liệu vũ khí. Vui lòng thử lại sau.`
+      });
+    }
     const weapon = weapons.find(w => w.name.toLowerCase() === itemName.toLowerCase());
     if (!weapon) {
       return await interaction.editReply({
@@ -346,7 +352,7 @@ async function handleDmgCalculator2(interaction) {
       if (totalED > 0) additionalFields.push(`Enhanced Damage: ${totalED}%`);
       if (addMin > 0) additionalFields.push(`Add Min: ${addMin}`);
       if (totalAddMax > 0) additionalFields.push(`Add Max: ${totalAddMax}`);
-
+    
       // Hiển thị jewel details nếu có
     if (jewelStats.jewels.length > 0) {
       const jewelDetails = jewelStats.jewels.map((jewel, index) =>
@@ -375,11 +381,15 @@ async function handleDmgCalculator2(interaction) {
       });
     }
 
+    const dmgcal_result = `${minDamage} - ${maxDamage} \n` + jewelStats.jewels.map((jewel) =>
+        `${jewel.ed > 40 ? `${jewel.ed}` : `${jewel.ed}-${jewel.maxDmg}`}`
+      ).join(',')
     await interaction.editReply({
       embeds: [embed]
     });
 
-    console.log(`Đã gửi phản hồi Damage Calculator`);
+
+    console.log(`Đã gửi phản hồi Damage Calculator.\n${dmgcal_result}`);
   } catch (error) {
     console.error('Lỗi lệnh Damage Calculator:', error);
     await interaction.editReply({
