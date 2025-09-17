@@ -1,5 +1,21 @@
 require("dotenv").config();
-const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder, Routes, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require("discord.js");
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('!!! UNHANDLED REJECTION !!!');
+  console.error('Lý do:', reason.stack || reason);
+  // Không nên thoát process ở đây, chỉ ghi log để tìm lỗi
+});
+
+process.on('uncaughtException', (err, origin) => {
+  console.error('!!! UNCAUGHT EXCEPTION !!!');
+  console.error('Lỗi:', err.stack || err);
+  console.error('Nguồn gốc:', origin);
+  // Với lỗi này, ứng dụng đang ở trạng thái không ổn định, nên khởi động lại
+  process.exit(1);
+});
+
+
+const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder, Routes, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, Options } = require("discord.js");
 const { REST } = require('@discordjs/rest');
 // Import data manager
 const { dataManager, DataManager } = require('./utils/data-manager');
@@ -16,6 +32,46 @@ const { handleSlashHr } = require('./commands/hr');
 const { checkVersionAndReload } = require('./utils/version-check');
 // Import utilities
 const { hasBypassPermission, isValidCommand } = require('./utils/permissions');
+
+// const client = new Client({
+//   intents: [
+//     GatewayIntentBits.Guilds,
+//     GatewayIntentBits.GuildMessages,
+//     GatewayIntentBits.MessageContent,
+//     GatewayIntentBits.GuildMembers,
+//     GatewayIntentBits.GuildVoiceStates
+//   ],
+// });
+
+// Thay thế new Client(...) cũ bằng đoạn này
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent, 
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildVoiceStates
+  ],
+  // Tối ưu hóa cache để giảm sử dụng RAM
+  makeCache: Options.cacheWithLimits({
+    MessageManager: 200,       // Giới hạn cache tin nhắn
+    PresenceManager: 0,        // Không cache trạng thái online/offline
+    UserManager: 200,
+    GuildMemberManager: 250,
+  }),
+  // Tự động dọn dẹp cache cũ
+  sweepers: {
+    ...Options.DefaultSweeperSettings,
+    messages: {
+      interval: 3600, // Dọn mỗi giờ
+      lifetime: 1800,   // Giữ tin nhắn trong 30 phút
+    },
+    users: {
+      interval: 21600, // Dọn user không tương tác mỗi 6 giờ
+      filter: () => user => user.bot && user.id !== client.user.id,
+    },
+  },
+});
 
 const PORT = process.env.PORT || 3000;
 
@@ -188,15 +244,15 @@ process.on('unhandledRejection', (err) => {
   // Log lỗi nhưng không tắt server
 });
 
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildVoiceStates
-  ],
-});
+// const client = new Client({
+//   intents: [
+//     GatewayIntentBits.Guilds,
+//     GatewayIntentBits.GuildMessages,
+//     GatewayIntentBits.MessageContent,
+//     GatewayIntentBits.GuildMembers,
+//     GatewayIntentBits.GuildVoiceStates
+//   ],
+// });
 
 // Đăng ký Slash Commands
 const commands = [
@@ -853,33 +909,33 @@ client.on('reconnecting', () => {
 });
 
 // Hàm login với retry logic
-async function loginWithRetry(maxRetries = 3) {
-  const token = process.env.DISCORD_TOKEN || "";
+// async function loginWithRetry(maxRetries = 3) {
+//   const token = process.env.DISCORD_TOKEN || "";
   
-  if (!token) {
-    console.error('DISCORD_TOKEN không được cung cấp!');
-    return;
-  }
+//   if (!token) {
+//     console.error('DISCORD_TOKEN không được cung cấp!');
+//     return;
+//   }
 
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      console.log(`Đang đăng nhập Discord (lần thử ${attempt}/${maxRetries})...`);
-      await client.login(token);
-      console.log('Đăng nhập Discord thành công!');
-      return;
-    } catch (error) {
-      console.error(`Lỗi đăng nhập Discord (lần thử ${attempt}/${maxRetries}):`, error.message);
+//   for (let attempt = 1; attempt <= maxRetries; attempt++) {
+//     try {
+//       console.log(`Đang đăng nhập Discord (lần thử ${attempt}/${maxRetries})...`);
+//       await client.login(token);
+//       console.log('Đăng nhập Discord thành công!');
+//       return;
+//     } catch (error) {
+//       console.error(`Lỗi đăng nhập Discord (lần thử ${attempt}/${maxRetries}):`, error.message);
       
-      if (attempt === maxRetries) {
-        console.error('Đã hết số lần thử đăng nhập Discord!');
-        return;
-      }
+//       if (attempt === maxRetries) {
+//         console.error('Đã hết số lần thử đăng nhập Discord!');
+//         return;
+//       }
       
-      // Đợi trước khi thử lại
-      await new Promise(resolve => setTimeout(resolve, 5000 * attempt));
-    }
-  }
-}
+//       // Đợi trước khi thử lại
+//       await new Promise(resolve => setTimeout(resolve, 5000 * attempt));
+//     }
+//   }
+// }
 
 
 // Khởi động bot

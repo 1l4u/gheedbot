@@ -381,9 +381,9 @@ async function handleDmgCalculator2(interaction) {
       });
     }
 
-    const dmgcal_result = `${minDamage} - ${maxDamage} \n` + jewelStats.jewels.map((jewel) =>
+    const dmgcal_result = `${weapon.name}${isEth ? ' (Ethereal)' : ''}: ${minDamage} - ${maxDamage} \n` +`Jewels: ` + jewelStats.jewels.map((jewel) =>
         `${jewel.ed > 40 ? `${jewel.ed}` : `${jewel.ed}-${jewel.maxDmg}`}`
-      ).join(',')
+      ).join(', ') + `\nOpt: ${totalED} Ed - ${totalAddMax} Max`
     await interaction.editReply({
       embeds: [embed]
     });
