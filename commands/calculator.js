@@ -34,25 +34,25 @@ function parseJewelString(jewelString) {
 
         // Validation jewel stats
         const jewelErrors = [];
-        if (ed < 0 || ed > 45) {
-          jewelErrors.push(`ED phải từ 0-40% (nhận: ${ed}%). Hoặc Ohm = 45`);
-        }
-        if (match[2] && (maxDmg < 0 || maxDmg > 30)) {
-          jewelErrors.push(`Max Dmg phải từ 0-30 (nhận: ${maxDmg})`);
-        }
+        // if (ed < 0 || ed > 45) {
+        //   jewelErrors.push(`ED phải từ 0-40% (nhận: ${ed}%). Hoặc Ohm = 45`);
+        // }
+        // if (match[2] && (maxDmg < 0 || maxDmg > 30)) {
+        //   jewelErrors.push(`Max Dmg phải từ 0-30 (nhận: ${maxDmg})`);
+        // }
 
         if (jewelErrors.length > 0) {
           errors.push(`Jewel ${i + 1} (${jewelPart}): ${jewelErrors.join(', ')}`);
-          console.log(`Invalid jewel stats: ${jewelPart} - ${jewelErrors.join(', ')}`);
+          console.log(`Jewel không hợp lệ: ${jewelPart} - ${jewelErrors.join(', ')}`);
         } else {
           jewels.push({ ed, maxDmg });
           totalED += ed;
           totalMaxDmg += maxDmg;
-          console.log(`Valid jewel: ${jewelPart} (${ed}% ED, +${maxDmg} Max Dmg)`);
+          console.log(`Jewel: ${jewelPart} (${ed}% ED, +${maxDmg} Max Dmg)`);
         }
       } else {
-        errors.push(`Jewel ${i + 1}: Format sai "${jewelPart}" (cần: ED hoặc ED-MaxDmg)`);
-        console.log(`Invalid jewel format: ${jewelPart} (expected: ED hoặc ED-MaxDmg)`);
+        errors.push(`Jewel ${i + 1}:sai "${jewelPart}" (cần: ED hoặc ED-MaxDmg)`);
+        console.log(`Jewel không hợp lệ: ${jewelPart} (expected: ED hoặc ED-MaxDmg)`);
       }
     }
 
