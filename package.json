@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A specialized Discord bot for Diablo 2 community with game lookup tools and calculators",
   "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "node index.js",
