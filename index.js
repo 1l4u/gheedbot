@@ -217,17 +217,11 @@ app.use((req, res) => {
 
 // Khởi động server
 const server = app.listen(PORT, () => {
-  console.log(`Server đang chạy trên cổng ${PORT}`);
+  console.log(`✅ Server Express đã sẵn sàng và đang lắng nghe trên port ${PORT}`);
+  console.log('Health check endpoint có tại /ping');
 });
 
-// Xử lý tắt server đúng cách
-process.on('SIGTERM', () => {
-  console.log('Đang tắt server...');
-  server.close(() => {
-    console.log('Server đã đóng');
-    process.exit(0);
-  });
-});
+
 
 // Xử lý uncaught exceptions
 process.on('uncaughtException', (err) => {
@@ -939,15 +933,42 @@ client.on('reconnecting', () => {
 
 
 // Khởi động bot
-const token = process.env.DISCORD_TOKEN;
+(async () => {
+  try {
+    console.log('Bắt đầu quá trình khởi tạo bot...');
 
-if (!token) {
-  console.error('DISCORD_TOKEN không được cung cấp! Bot không thể khởi động.');
-  process.exit(1); // Thoát nếu không có token
-}
+    // Đăng nhập vào Discord
+    const token = process.env.DISCORD_TOKEN;
+    if (!token) {
+      console.error('DISCORD_TOKEN không được cung cấp! Bot không thể khởi động.');
+      process.exit(1);
+    }
+    await client.login(token);
+    console.log(`✅ Bot đã đăng nhập với tên: ${client.user.tag}`);
 
-// Đăng nhập bot. Discord.js sẽ tự xử lý retry.
-client.login(token).catch(error => {
-  console.error('Lỗi nghiêm trọng khi đăng nhập, không thể khởi động bot:', error);
-  process.exit(1);
+    // Khởi tạo dữ liệu
+    await dataManager.initialize();
+    console.log('✅ Data Manager đã khởi tạo xong.');
+
+    // Đăng ký slash commands (chỉ nên chạy sau khi bot đã login)
+    await registerSlashCommands();
+    console.log('✅ Slash commands đã được đăng ký!');
+
+    console.log('🚀 GheedBot đã hoàn tất khởi động và sẵn sàng hoạt động!');
+
+  } catch (error) {
+    console.error('💥 Lỗi nghiêm trọng trong quá trình khởi động bot:', error);
+    process.exit(1); // Thoát nếu có lỗi nghiêm trọng khi khởi động
+  }
+})();
+
+// Xử lý tắt server đúng cách khi nhận tín hiệu SIGTERM
+process.on('SIGTERM', () => {
+  console.log('SIGTERM: Đang tắt server một cách lịch sự...');
+  server.close(() => {
+    console.log('Server Express đã đóng.');
+    client.destroy(); // Ngắt kết nối bot Discord
+    console.log('Client Discord đã ngắt kết nối.');
+    process.exit(0);
+  });
 });
