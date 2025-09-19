@@ -31,7 +31,7 @@ async function handleSlashWeapon(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      logger.debug('Không có tên được cung cấp trong interaction');
+      logger.debug(M.debug.interactionNameMissing);
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên weapon'
       });
@@ -42,7 +42,7 @@ async function handleSlashWeapon(interaction) {
     // Lấy dữ liệu weapons từ data manager
     const weapons = await dataManager.getWeapons();
     if (!Array.isArray(weapons)) {
-      logger.error('Dữ liệu weapon không hợp lệ: không phải array');
+      logger.error(M.wiki.invalidData);
       return await interaction.editReply({
         content: 'Dữ liệu weapon không hợp lệ'
       });
@@ -124,7 +124,7 @@ async function handleSlashWeapon(interaction) {
     });
 
   } catch (error) {
-    logger.error('Lỗi trong lệnh weapon:', error);
+    logger.error(M.wiki.error, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm weapon'
     });

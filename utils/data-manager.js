@@ -11,6 +11,7 @@ const { M } = require('./log-messages');
 class DataManager {
   constructor() {
     this.useGitHub = false;
+    this.githubConfig = null;
     this.data = {
       weapons: null,
       runewords: null,
@@ -70,8 +71,10 @@ class DataManager {
     if (this.useGitHub) {
       try {
         logger.info(M.data.loadingFromGitHub({ type: dataType }));
-        const filePath = this.localPaths[dataType].replace('./data/', 'data/');
-        const data = await githubFetcher.fetchFile(filePath);
+        const mapped = this.githubConfig?.files?.[dataType];
+        const filePath = mapped || this.localPaths[dataType].replace('./data/', 'data/');
+        const normalizedPath = filePath.startsWith('data/') ? filePath : filePath.replace('./', '');
+        const data = await githubFetcher.fetchFile(normalizedPath);
 
         // Validate data
         if (!data || (Array.isArray(data) && data.length === 0)) {
@@ -238,6 +241,7 @@ class DataManager {
       const configPath = './config/github-config.json';
       if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        this.githubConfig = config;
         if (config.enabled) {
           this.enableGitHub(config.owner, config.repo, config.branch);
           logger.info(M.data.githubConfigLoaded({ owner: config.owner, repo: config.repo, branch: config.branch }));

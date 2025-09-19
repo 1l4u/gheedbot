@@ -31,7 +31,7 @@ async function handleSlashWiki(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      logger.debug('Không có tên được cung cấp trong interaction');
+      logger.debug(M.debug.interactionNameMissing);
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên mục wiki'
       });
@@ -41,7 +41,7 @@ async function handleSlashWiki(interaction) {
     // Lấy dữ liệu wiki từ data manager
     const wiki = await dataManager.getWikis();
     if (!Array.isArray(wiki)) {
-      logger.error('Dữ liệu wiki không hợp lệ: không phải array');
+      logger.error(M.wiki.invalidData);
       return await interaction.editReply({
         content: 'Dữ liệu wiki không hợp lệ'
       });
@@ -166,9 +166,9 @@ async function handleSlashWiki(interaction) {
       files: files
     });
 
-    logger.debug(`✅ Wiki: ${name}`);
+    logger.debug(M.wiki.wikiDetails`: ${name}`);
   } catch (error) {
-    logger.error('Lỗi lệnh wiki:', error);
+    logger.error(M.wiki.error, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm wiki'
     });

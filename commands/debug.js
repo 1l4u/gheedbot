@@ -67,9 +67,9 @@ async function handleSlashDebug(interaction, client) {
       embeds: [embed]
     });
 
-    logger.debug('Debug response sent successfully');
+    logger.debug(M.debug.interactionDebugSuccess);
   } catch (error) {
-    logger.error('Debug command error:', error);
+    logger.error(M.debug.commandError, error);
     await interaction.editReply({
       content: 'Lỗi khi thực hiện debug command'
     });

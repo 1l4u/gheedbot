@@ -95,7 +95,7 @@ const M = {
 
   // Data Manager
   data: {
-    githubEnabled: () => 'Đã bật ch�� độ GitHub data loading',
+    githubEnabled: () => 'Đã bật chế độ GitHub data loading',
     githubDisabled: () => 'Đã tắt chế độ GitHub, sử dụng file local',
     usingLoadedData: ({ type }) => `Sử dụng data đã load cho ${type}`,
     loadingFromGitHub: ({ type }) => `Đang load ${type} từ GitHub...`,
@@ -143,6 +143,18 @@ const M = {
     weaponFound: ({ weapon, name }) => `Tìm thấy weapon "${weapon}" cho "${name}"`,
     wikiCalled: ({ user }) => `Lệnh wiki được gọi bởi ${user}`,
     runewordCalled: ({ user }) => `Lệnh runeword được gọi bởi ${user}`,
+  },
+
+  // Calculator/Jewel parsing
+  calculator: {
+    jewelInvalidDetails: ({ index, part, reasons }) => `Jewel ${index} (${part}): ${reasons}`,
+    jewelAcceptedLog: ({ part, ed, maxDmg }) => `Jewel: ${part} (${ed}% ED, +${maxDmg} Max Dmg)`,
+    jewelInvalidFormatMsg: ({ index, part }) => `Jewel ${index}: sai "${part}" (cần: ED hoặc ED-MaxDmg)`,
+    jewelInvalidFormatLog: ({ part }) => `Jewel không hợp lệ: ${part} (expected: ED hoặc ED-MaxDmg)`,
+    jewelsParsedSummaryLog: ({ count, totalED, totalMaxDmg }) => `Parsed jewels: ${count} valid jewels, Total ED: ${totalED}%, Total Max Dmg: +${totalMaxDmg}`,
+    jewelsErrorsCountLog: ({ count }) => `Jewel errors: ${count} errors found`,
+    jewelStringErrorMsg: ({ index, reason }) => `Jewel ${index}: ${reason}`,
+    jewelStringErrorLog: ({ reason }) => `Jewel string error: ${reason}`,
   },
 
   // HR module

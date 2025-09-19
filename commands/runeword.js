@@ -31,7 +31,7 @@ async function handleSlashRuneword(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      logger.debug('Không có tên được cung cấp trong interaction');
+      logger.debug(M.debug.interactionNameMissing);
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên runeword'
       });
@@ -41,7 +41,7 @@ async function handleSlashRuneword(interaction) {
     // Lấy dữ liệu runewords từ data manager
     const runewords = await dataManager.getRunewords();
     if (!Array.isArray(runewords)) {
-      logger.error('Dữ liệu runeword không hợp lệ: không phải array');
+      logger.error(M.runeword.invalidData);
       return await interaction.editReply({
         content: 'Dữ liệu runeword không hợp lệ'
       });
@@ -159,9 +159,9 @@ async function handleSlashRuneword(interaction) {
       files: files
     });
 
-    logger.debug(`✅ Runeword: ${name}`);
+    logger.debug(M.runeword.runewordDetails`: ${name}`);
   } catch (error) {
-    logger.error('Lỗi lệnh runeword:', error);
+    logger.error(M.runeword.noData, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm runeword'
     });
