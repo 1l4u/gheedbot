@@ -197,7 +197,7 @@ class GitHubDataFetcher {
    * Preload tất cả file cần thiết
    */
   async preloadAll() {
-    const files = ['data/weapon.json', 'data/runeword.json', 'data/wiki.json'];
+    const files = ['data/weapon.json', 'data/runeword.json', 'data/wiki.json', 'data/aura.json', 'data/hr-value.json'];
     const results = {};
     
     for (const file of files) {

@@ -880,6 +880,7 @@ async function initializeBot() {
     await dataManager.initialize();
     logger.info(M.bot.dataManagerInitDone());
 
+    let values = await dataManager.getRuneValues();
     // Đăng ký slash commands
     await registerSlashCommands();
     logger.info(M.bot.slashRegistered());

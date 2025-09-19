@@ -217,7 +217,7 @@ const M = {
     setupDenied: ({ user, reason }) => `Từ chối quyền cài đặt Interface HR cho ${user}: ${reason}`,
     setupDone: ({ channel, user }) => `HR interface được setup trong ${channel} bởi ${user}`,
     saveRune: ({ rune, qty, user }) => `Lưu ${rune}: ${qty} cho user ${user}`,
-    cacheSaved: ({ user, summary, modalId }) => `💾 [CACHE] ${user}: ${summary || 'rỗng'}, ${modalId}`,
+    cacheSaved: ({ user, summary }) => `💾 [CACHE] ${user}: ${summary || 'rỗng'}`,
     result: ({ user, total }) => `✅ ${user}: ${total} HR`,
     error: ({ user, msg }) => `❌ Lỗi xử lý HR cho ${user}: ${msg}`,
     noData: ({ user }) => `⚠️ Không có dữ liệu HR để xử lý cho ${user}`,
@@ -226,7 +226,9 @@ const M = {
     msgError: ({ user, msg }) => `❌ Lỗi xử lý message HR cho ${user}: ${msg}`,
     modalError: ({ user, msg }) => `❌ Lỗi xử lý modal HR cho ${user}: ${msg}`,
     errorDetails: ({ error }) => `Error details: ${error.message}`,
-    stackTrace: ({ error }) => `Stack trace: ${error.stack}`
+    stackTrace: ({ error }) => `Stack trace: ${error.stack}`,
+    dataSaved: ({ user, summary }) => `✅ Đã lưu dữ liệu rune cho ${user}: ${summary || 'rỗng'}`,
+    noDataEntered: ({ user, modalId }) => `⚠️ Không có rune nào được nhập cho ${user} (Modal ID: ${modalId})`,
   },
   
   debug: {
