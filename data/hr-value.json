@@ -1,14 +1,14 @@
 [
-  { "name": "Um", "value": 0.05 },
-  { "name": "Mal", "value": 0.1 },
-  { "name": "Ist", "value": 0.15 },
-  { "name": "Gul", "value": 0.25 },
-  { "name": "Vex", "value": 0.5 },
-  { "name": "Ohm", "value": 0.75 },
-  { "name": "Lo", "value": 1 },
-  { "name": "Sur", "value": 1.5 },
-  { "name": "Ber", "value": 3 },
-  { "name": "Jah", "value": 2 },
-  { "name": "Cham", "value": 2.25 },
-  { "name": "Zod", "value": 4.5 }
+  { "name": "Um", "hr_rate": 0.05 },
+  { "name": "Mal", "hr_rate": 0.1 },
+  { "name": "Ist", "hr_rate": 0.15 },
+  { "name": "Gul", "hr_rate": 0.25 },
+  { "name": "Vex", "hr_rate": 0.5 },
+  { "name": "Ohm", "hr_rate": 0.75 },
+  { "name": "Lo", "hr_rate": 1 },
+  { "name": "Sur", "hr_rate": 1.5 },
+  { "name": "Ber", "hr_rate": 3 },
+  { "name": "Jah", "hr_rate": 2 },
+  { "name": "Cham", "hr_rate": 2.25 },
+  { "name": "Zod", "hr_rate": 4.5 }
 ]
