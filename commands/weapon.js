@@ -42,7 +42,7 @@ async function handleSlashWeapon(interaction) {
     // Lấy dữ liệu weapons từ data manager
     const weapons = await dataManager.getWeapons();
     if (!Array.isArray(weapons)) {
-      logger.error(M.wiki.invalidData);
+      logger.error(M.weapon.invalidData);
       return await interaction.editReply({
         content: 'Dữ liệu weapon không hợp lệ'
       });
@@ -124,7 +124,7 @@ async function handleSlashWeapon(interaction) {
     });
 
   } catch (error) {
-    logger.error(M.wiki.error, error);
+    logger.error(M.weapon.error, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm weapon'
     });

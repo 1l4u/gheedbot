@@ -30,12 +30,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/1l4u/gheedbot.git"
+    "url": "https://github.com/yourusername/gheedbot.git"
   },
   "bugs": {
-    "url": "https://github.com/1l4u/gheedbot/issues"
+    "url": "https://github.com/yourusername/gheedbot/issues"
   },
-  "homepage": "https://github.com/1l4u/gheedbot#readme",
+  "homepage": "https://github.com/yourusername/gheedbot#readme",
 
   "dependencies": {
     "@discordjs/rest": "^2.5.0",

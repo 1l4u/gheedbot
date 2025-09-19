@@ -3,6 +3,8 @@
 //   const { M } = require('./log-messages');
 //   logger.info(M.server.expressReady({ port }));
 
+const e = require("express");
+
 function t(strings, ...keys) {
   // simple tagged template utility if ever needed
   return (...values) => {
@@ -91,6 +93,24 @@ const M = {
     cacheClearedAll: () => 'Đã xóa toàn bộ cache',
     preloadSuccess: ({ file }) => `Preload thành công: ${file}`,
     preloadFailed: ({ file, msg }) => `Preload thất bại: ${file} - ${msg}`,
+    preloadAllDone: () => 'Preload tất cả file hoàn tất',
+    preloadNoFiles: () => 'Không có file nào để preload',
+    preloadAlreadyDone: () => 'Preload đã được thực hiện, bỏ qua',
+    githubDisabled: () => 'GitHub data loading bị tắt, sử dụng file local',
+    githubConfigMissing: () => 'Không tìm thấy github-config.json, sử dụng file local',
+    githubConfigError: () => 'Lỗi load GitHub config, sử dụng file local',
+    githubConfigDisabled: () => 'GitHub config tồn tại nhưng bị tắt, sử dụng file local',
+    githubRateLimit: ({ reset }) => `GitHub rate limit exceeded, reset at ${new Date(reset * 1000).toISOString()}`,
+    githubRateLimitShort: () => 'GitHub rate limit exceeded',
+    githubAbuseLimit: () => 'GitHub abuse detection triggered',
+    githubAbuseLimitWait: ({ ms }) => `Đợi ${ms}ms trước khi thử lại...`,
+    githubLoadingData: () => `Đang tải dữ liệu GitHub...`,
+    githubUsingLocal: ({ file }) => `Sử dụng file local cho ${file}`,
+    githubDataLocalUsed: ({ file }) => `Dữ liệu local được sử dụng cho ${file}`,
+    githubDataLoaded: ({ file }) => `Dữ liệu GitHub được sử dụng cho ${file}`,
+    githubDataError: ({ file, msg }) => `Lỗi dữ liệu GitHub cho ${file}: ${msg}`,
+    githubDataInvalid: ({ file, reason }) => `Dữ liệu GitHub không hợp lệ cho ${file}: ${reason}`,
+    githubDataMissing: ({ file }) => `Không có dữ liệu GitHub cho ${file}`,
   },
 
   // Data Manager
@@ -118,6 +138,18 @@ const M = {
     githubConfigDisabled: () => 'GitHub config tồn tại nhưng bị tắt',
     githubConfigMissing: () => 'Không tìm thấy github-config.json, sử dụng file local',
     githubConfigError: () => 'Lỗi load GitHub config',
+    dataTypeMissing: ({ type }) => `Loại dữ liệu không được hỗ trợ hoặc không tồn tại: ${type}`,
+    dataTypeNoPath: ({ type }) => `Không có đường dẫn cấu hình cho loại dữ liệu: ${type}`,
+    dataTypeNoLoader: ({ type }) => `Không có hàm loader cho loại dữ liệu: ${type}`,
+    dataTypeInvalidLoader: ({ type }) => `Hàm loader không hợp lệ cho loại dữ liệu: ${type}`,
+    dataTypeNoLocal: ({ type }) => `Không có đường dẫn local file cho loại dữ liệu: ${type}`,
+    dataTypeNoGitHub: ({ type }) => `Không có đường dẫn GitHub cho loại dữ liệu: ${type}`,
+    cacheInfo: ({ count }) => `GitHub cache hiện có: ${count} files`,
+    cacheInfoEmpty: () => 'Không có file nào trong GitHub cache',
+    cacheCleared: () => 'Đã xóa toàn bộ GitHub cache',
+    cacheClearedFile: ({ file }) => `Đã xóa cache cho file: ${file}`,
+    dataLoadError: ({ type, msg }) => `Lỗi load dữ liệu cho ${type}: ${msg}`,
+    dataLoadEnd: ({ type, success }) => `Hoàn tất load dữ liệu cho ${type}, Thành công: ${success}`,
   },
 
   // Version check
@@ -143,6 +175,19 @@ const M = {
     weaponFound: ({ weapon, name }) => `Tìm thấy weapon "${weapon}" cho "${name}"`,
     wikiCalled: ({ user }) => `Lệnh wiki được gọi bởi ${user}`,
     runewordCalled: ({ user }) => `Lệnh runeword được gọi bởi ${user}`,
+    runewordSearching: ({ name }) => `Đang tìm kiếm runeword: ${name}`,
+    runewordFound: ({ runeword, name }) => `Tìm thấy runeword "${runeword}" cho "${name}"`,
+    helpCalled: ({ user }) => `Lệnh help được gọi bởi ${user}`,
+    helpSent: () => 'Đã gửi phản hồi help',
+    pingCalled: ({ user }) => `Lệnh ping được gọi bởi ${user}`,
+    pingSent: () => 'Đã gửi phản hồi pong',
+    unknownSubcommand: ({ name }) => `Subcommand không xác định: ${name}`,
+    error: ({ name, msg }) => `Lỗi xử lý lệnh ${name}: ${msg}`,
+    errorNoReply: ({ name, msg }) => `Lỗi xử lý lệnh ${name} (không thể trả lời): ${msg}`,
+    weaponNoData: ({ name }) => `Không có dữ liệu weapon để tìm kiếm: ${name}`,
+    runewordNoData: ({ name }) => `Không có dữ liệu runeword để tìm kiếm: ${name}`,
+    wikiNodata: ({ name }) => `Không có dữ liệu wiki để tìm kiếm: ${name}`,
+
   },
 
   // Calculator/Jewel parsing
@@ -155,6 +200,16 @@ const M = {
     jewelsErrorsCountLog: ({ count }) => `Jewel errors: ${count} errors found`,
     jewelStringErrorMsg: ({ index, reason }) => `Jewel ${index}: ${reason}`,
     jewelStringErrorLog: ({ reason }) => `Jewel string error: ${reason}`,
+    critError: ({ reason }) => `Lỗi tính Crit Chance: ${reason}`,
+    tasError: ({ reason }) => `Lỗi tính Total Attack Speed: ${reason}`,
+    iasError: ({ reason }) => `Lỗi tính Increased Attack Speed: ${reason}`,
+    dmgError: ({ reason }) => `Lỗi tính Damage: ${reason}`,
+    dmgSummaryLog: ({ totalED, totalMaxDmg, baseMin, baseMax, finalMin, finalMax }) =>
+      `Damage calc result - Total ED: ${totalED}%, Total Max Dmg: +${totalMaxDmg}, Base Dmg: ${baseMin}-${baseMax}, Final Dmg: ${finalMin}-${finalMax}`,
+    dmgErrorsCountLog: ({ count }) => `Damage calculation errors: ${count} errors found`,
+    dmgJewelsEmptyLog: () => 'No valid jewels provided for damage calculation',
+    dmgJewelsEmptyMsg: () => 'Vui lòng cung cấp ít nhất một jewel hợp lệ cho phép tính damage',
+
   },
 
   // HR module
@@ -164,7 +219,50 @@ const M = {
     saveRune: ({ rune, qty, user }) => `Lưu ${rune}: ${qty} cho user ${user}`,
     cacheSaved: ({ user, summary, modalId }) => `💾 [CACHE] ${user}: ${summary || 'rỗng'}, ${modalId}`,
     result: ({ user, total }) => `✅ ${user}: ${total} HR`,
+    error: ({ user, msg }) => `❌ Lỗi xử lý HR cho ${user}: ${msg}`,
+    noData: ({ user }) => `⚠️ Không có dữ liệu HR để xử lý cho ${user}`,
+    noSetup: ({ user }) => `⚠️ Chưa setup HR interface cho ${user}`,
+    buttonError: ({ user, msg }) => `❌ Lỗi xử lý button HR cho ${user}: ${msg}`,
+    msgError: ({ user, msg }) => `❌ Lỗi xử lý message HR cho ${user}: ${msg}`,
+    modalError: ({ user, msg }) => `❌ Lỗi xử lý modal HR cho ${user}: ${msg}`,
+    errorDetails: ({ error }) => `Error details: ${error.message}`,
+    stackTrace: ({ error }) => `Stack trace: ${error.stack}`
   },
+  
+  debug: {
+    interactionReceived: ({ id, type }) => `Interaction received: ID=${id}, Type=${type}`,
+    interactionHandled: ({ id, type }) => `Interaction handled: ID=${id}, Type=${type}`,
+    interactionError: ({ id, type, msg }) => `Interaction error: ID=${id}, Type=${type}, Msg=${msg}`,
+    commandStart: ({ name, user }) => `Starting command: ${name} by ${user}`,
+    commandEnd: ({ name, user }) => `Finished command: ${name} by ${user}`,
+    commandError: ({ name, user, msg }) => `Command error: ${name} by ${user}, Msg=${msg}`,
+    permissionDenied: ({ user, reason }) => `Permission denied for ${user}: ${reason}`,
+    permissionGranted: ({ user }) => `Permission granted for ${user}`,
+    dataLoadStart: ({ type }) => `Starting data load for: ${type}`,
+    dataLoadEnd: ({ type, success }) => `Finished data load for: ${type}, Success: ${success}`,
+    dataLoadError: ({ type, msg }) => `Load data lỗi: ${type}, Msg=${msg}`,
+    interactionNameMissing: () => 'Interaction name không được cung cấp',
+    interactionDebugSuccess: () => 'Debug response sent successfully',
+  },
+
+  runeword: {
+    noData: ({ name }) => `Không có dữ liệu runeword để tìm kiếm: ${name}`,
+    invalidData: () => 'Dữ liệu runeword không hợp lệ',
+    runewordDetails: ({ name }) => `✅ Runeword: ${name}`,
+  },
+
+  wiki: {
+    noData: ({ name }) => `Không có dữ liệu wiki để tìm kiếm: ${name}`,
+    invalidData: () => 'Dữ liệu wiki không hợp lệ',
+    wikiDetails: ({ name }) => `✅ Wiki: ${name}`,
+    error: ({ msg }) => `Lỗi xử lý wiki: ${msg}`,
+  },
+  weapon: {
+    noData: ({ name }) => `Không có dữ liệu weapon để tìm kiếm: ${name}`,
+    invalidData: () => 'Dữ liệu weapon không hợp lệ',
+    weaponDetails: ({ name }) => `✅ Weapon: ${name}`,
+    error: ({ msg }) => `Lỗi xử lý weapon: ${msg}`,
+  }
 };
 
 module.exports = { M, t };
