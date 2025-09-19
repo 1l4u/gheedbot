@@ -1,6 +1,8 @@
 const { EmbedBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
 const { dataManager } = require('../utils/data-manager');
+const { logger } = require('../utils/logger');
+const { M } = require('../utils/log-messages');
 
 /**
  * Parse jewel string format: ED-MaxDmg,ED-MaxDmg với validation
@@ -43,28 +45,28 @@ function parseJewelString(jewelString) {
 
         if (jewelErrors.length > 0) {
           errors.push(`Jewel ${i + 1} (${jewelPart}): ${jewelErrors.join(', ')}`);
-          console.log(`Jewel không hợp lệ: ${jewelPart} - ${jewelErrors.join(', ')}`);
+          logger.debug(`Jewel không hợp lệ: ${jewelPart} - ${jewelErrors.join(', ')}`);
         } else {
           jewels.push({ ed, maxDmg });
           totalED += ed;
           totalMaxDmg += maxDmg;
-          console.log(`Jewel: ${jewelPart} (${ed}% ED, +${maxDmg} Max Dmg)`);
+          logger.debug(`Jewel: ${jewelPart} (${ed}% ED, +${maxDmg} Max Dmg)`);
         }
       } else {
         errors.push(`Jewel ${i + 1}:sai "${jewelPart}" (cần: ED hoặc ED-MaxDmg)`);
-        console.log(`Jewel không hợp lệ: ${jewelPart} (expected: ED hoặc ED-MaxDmg)`);
+        logger.debug(`Jewel không hợp lệ: ${jewelPart} (expected: ED hoặc ED-MaxDmg)`);
       }
     }
 
-    console.log(`Parsed jewels: ${jewels.length} valid jewels, Total ED: ${totalED}%, Total Max Dmg: +${totalMaxDmg}`);
+    logger.debug(`Parsed jewels: ${jewels.length} valid jewels, Total ED: ${totalED}%, Total Max Dmg: +${totalMaxDmg}`);
     if (errors.length > 0) {
-      console.log(`Jewel errors: ${errors.length} errors found`);
+      logger.debug(`Jewel errors: ${errors.length} errors found`);
     }
 
     return { totalED, totalMaxDmg, jewels, errors };
 
   } catch (error) {
-    console.error('Lỗi parse jewel string:', error);
+    logger.error('Lỗi parse jewel string:', error);
     return { totalED: 0, totalMaxDmg: 0, jewels: [], errors: [`Lỗi parse: ${error.message}`] };
   }
 }
@@ -74,7 +76,7 @@ function parseJewelString(jewelString) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashCritChance(interaction) {
-  console.log(`Lệnh CritChance được gọi bởi ${interaction.user.tag}`);
+  logger.debug(M.commands.critCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -86,7 +88,7 @@ async function handleSlashCritChance(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền CritChance cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -122,9 +124,9 @@ async function handleSlashCritChance(interaction) {
       embeds: [embed]
     });
 
-    console.log(`Đã gửi phản hồi CritChance`);
+    logger.debug(M.commands.critSent());
   } catch (error) {
-    console.error('Lỗi lệnh CritChance:', error);
+    logger.error('Lỗi lệnh CritChance:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán crit chance'
     });
@@ -136,7 +138,7 @@ async function handleSlashCritChance(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashTas(interaction) {
-  console.log(`Lệnh TAS được gọi bởi ${interaction.user.tag}`);
+  logger.debug(M.commands.tasCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -148,7 +150,7 @@ async function handleSlashTas(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền TAS cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -175,9 +177,9 @@ async function handleSlashTas(interaction) {
       embeds: [embed]
     });
 
-    console.log(`Đã gửi phản hồi TAS`);
+    logger.debug(M.commands.tasSent());
   } catch (error) {
-    console.error('Lỗi lệnh TAS:', error);
+    logger.error('Lỗi lệnh TAS:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán TAS'
     });
@@ -189,7 +191,7 @@ async function handleSlashTas(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashIas(interaction) {
-  console.log(`Lệnh IAS được gọi bởi ${interaction.user.tag}`);
+  logger.debug(M.commands.iasCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -201,7 +203,7 @@ async function handleSlashIas(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền IAS cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -226,9 +228,9 @@ async function handleSlashIas(interaction) {
       embeds: [embed]
     });
 
-    console.log(`Đã gửi phản hồi IAS`);
+    logger.debug(M.commands.iasSent());
   } catch (error) {
-    console.error('Lỗi lệnh IAS:', error);
+    logger.error('Lỗi lệnh IAS:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán IAS'
     });
@@ -240,7 +242,7 @@ async function handleSlashIas(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleDmgCalculator2(interaction) {
-  console.log(`Lệnh dmgcal được gọi bởi ${interaction.user.tag}`);
+  logger.debug(M.commands.dmgCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -252,7 +254,7 @@ async function handleDmgCalculator2(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền dmgcal cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -270,7 +272,7 @@ async function handleDmgCalculator2(interaction) {
     // Lấy dữ liệu weapons và tìm weapon
     const weapons = await dataManager.getWeapons();
     if (!weapons || !Array.isArray(weapons)) {
-      console.error("Dữ liệu 'weapons' không hợp lệ hoặc không thể tải.");
+      logger.error("Dữ liệu 'weapons' không hợp lệ hoặc không thể tải.");
       return await interaction.editReply({
         content: `Lỗi: Không thể tải dữ liệu vũ khí. Vui lòng thử lại sau.`
       });
@@ -389,9 +391,9 @@ async function handleDmgCalculator2(interaction) {
     });
 
 
-    console.log(`Đã gửi phản hồi Damage Calculator.\n${dmgcal_result}`);
+    logger.debug(M.commands.dmgSent({ summary: dmgcal_result }));
   } catch (error) {
-    console.error('Lỗi lệnh Damage Calculator:', error);
+    logger.error('Lỗi lệnh Damage Calculator:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán damage'
     });

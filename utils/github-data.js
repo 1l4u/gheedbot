@@ -1,4 +1,6 @@
 const https = require('https');
+const { logger } = require('./logger');
+const { M } = require('./log-messages');
 
 /**
  * GitHub data fetcher với caching
@@ -25,7 +27,7 @@ class GitHubDataFetcher {
    */
   setRepository(owner, repo, branch = 'main') {
     this.config = { owner, repo, branch };
-    console.log(`Đã cấu hình GitHub repo: ${owner}/${repo}@${branch}`);
+    logger.info(M.github.repoConfigured({ owner, repo, branch }));
   }
 
   /**
@@ -39,7 +41,7 @@ class GitHubDataFetcher {
 
     // Kiểm tra cache
     if (cached && (Date.now() - cached.timestamp) < this.cacheTimeout) {
-      console.log(`Sử dụng cache cho ${filePath}`);
+      logger.debug(M.github.usingCache({ file: filePath }));
       return cached.data;
     }
 
@@ -47,7 +49,7 @@ class GitHubDataFetcher {
 
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
-        console.log(`Đang tải ${filePath} từ GitHub (lần thử ${attempt}/${retries})...`);
+        logger.info(M.github.loadingAttempt({ file: filePath, attempt, retries }));
         const url = `${this.baseUrl}/${this.config.owner}/${this.config.repo}/${this.config.branch}/${filePath}`;
 
         const data = await this.httpGet(url);
@@ -62,7 +64,7 @@ class GitHubDataFetcher {
 
         // Validate data structure
         if (!Array.isArray(parsedData)) {
-          console.warn(`Warning: ${filePath} is not an array, got ${typeof parsedData}`);
+          logger.warn(M.github.jsonNotArray({ file: filePath, type: typeof parsedData }));
         }
 
         // Lưu vào cache
@@ -71,17 +73,17 @@ class GitHubDataFetcher {
           timestamp: Date.now()
         });
 
-        console.log(`Đã tải thành công ${filePath} (${data.length} bytes, ${Array.isArray(parsedData) ? parsedData.length : 'N/A'} items)`);
+        logger.info(M.github.loaded({ file: filePath, bytes: data.length, items: Array.isArray(parsedData) ? parsedData.length : 'N/A' }));
         return parsedData;
 
       } catch (error) {
         lastError = error;
-        console.error(`Lỗi khi tải ${filePath} (lần thử ${attempt}/${retries}):`, error.message);
+        logger.error(M.github.loadError({ file: filePath, attempt, retries, msg: error.message }));
 
         // Nếu không phải lần thử cuối, đợi trước khi retry
         if (attempt < retries) {
           const delay = attempt * 2000; // 2s, 4s, 6s...
-          console.log(`Đợi ${delay}ms trước khi thử lại...`);
+          logger.info(M.github.retryWait({ ms: delay }));
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
@@ -89,7 +91,7 @@ class GitHubDataFetcher {
 
     // Tất cả attempts đều thất bại, thử fallback về cache cũ
     if (cached) {
-      console.log(`Tất cả attempts thất bại, sử dụng cache cũ cho ${filePath}`);
+      logger.warn(M.github.allAttemptsFailedUseCache({ file: filePath }));
       return cached.data;
     }
 
@@ -118,7 +120,7 @@ class GitHubDataFetcher {
         let data = '';
 
         // Log response cho debugging
-        console.log(`GitHub request: ${response.statusCode} ${response.statusMessage} for ${url}`);
+        logger.debug(M.github.httpRequest({ code: response.statusCode, status: response.statusMessage, url }));
 
         response.on('data', (chunk) => {
           data += chunk;
@@ -126,7 +128,7 @@ class GitHubDataFetcher {
 
         response.on('end', () => {
           if (response.statusCode === 200) {
-            console.log(`GitHub data loaded: ${data.length} bytes`);
+            logger.debug(M.github.httpLoaded({ bytes: data.length }));
             resolve(data);
           } else {
             const error = new Error(`HTTP ${response.statusCode}: ${response.statusMessage}`);
@@ -143,13 +145,13 @@ class GitHubDataFetcher {
       });
 
       request.on('error', (error) => {
-        console.error(`GitHub request error for ${url}:`, error.message);
+        logger.error(M.github.requestError({ url, msg: error.message }));
         error.url = url;
         reject(error);
       });
 
       request.on('timeout', () => {
-        console.error(`GitHub request timeout for ${url}`);
+        logger.error(M.github.requestTimeout({ url }));
         request.destroy();
         const error = new Error(`Request timeout after 30s`);
         error.url = url;
@@ -168,10 +170,10 @@ class GitHubDataFetcher {
   clearCache(filePath) {
     if (filePath) {
       this.cache.delete(filePath);
-      console.log(`Đã xóa cache cho ${filePath}`);
+      logger.info(M.github.cacheClearedFile({ file: filePath }));
     } else {
       this.cache.clear();
-      console.log('Đã xóa toàn bộ cache');
+      logger.info(M.github.cacheClearedAll());
     }
   }
 
@@ -201,9 +203,9 @@ class GitHubDataFetcher {
     for (const file of files) {
       try {
         results[file] = await this.fetchFile(file);
-        console.log(`Preload thành công: ${file}`);
+        logger.info(M.github.preloadSuccess({ file }));
       } catch (error) {
-        console.error(`Preload thất bại: ${file}`, error.message);
+        logger.error(M.github.preloadFailed({ file, msg: error.message }));
         results[file] = null;
       }
     }

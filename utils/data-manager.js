@@ -2,6 +2,8 @@ const { githubFetcher } = require('./github-data');
 const fs = require('fs');
 const path = require('path');
 const { setInterval } = require('timers/promises');
+const { logger } = require('./logger');
+const { M } = require('./log-messages');
 
 /**
  * Data Manager để quản lý việc load dữ liệu từ GitHub hoặc local
@@ -34,7 +36,7 @@ class DataManager {
   enableGitHub(owner, repo, branch = 'main') {
     this.useGitHub = true;
     githubFetcher.setRepository(owner, repo, branch);
-    console.log('Đã bật chế độ GitHub data loading');
+    logger.info(M.data.githubEnabled());
   }
 
   /**
@@ -42,7 +44,7 @@ class DataManager {
    */
   disableGitHub() {
     this.useGitHub = false;
-    console.log('Đã tắt chế độ GitHub, sử dụng file local');
+    logger.info(M.data.githubDisabled());
   }
 
   /**
@@ -57,7 +59,7 @@ class DataManager {
 
     // Nếu đã có data trong memory, trả về luôn
     if (this.data[dataType]) {
-      console.log(`Sử dụng data đã load cho ${dataType}`);
+      logger.debug(M.data.usingLoadedData({ type: dataType }));
       return this.data[dataType];
     }
 
@@ -67,28 +69,28 @@ class DataManager {
     // Thử GitHub trước nếu được bật
     if (this.useGitHub) {
       try {
-        console.log(`Đang load ${dataType} từ GitHub...`);
+        logger.info(M.data.loadingFromGitHub({ type: dataType }));
         const filePath = this.localPaths[dataType].replace('./data/', 'data/');
         const data = await githubFetcher.fetchFile(filePath);
 
         // Validate data
         if (!data || (Array.isArray(data) && data.length === 0)) {
-          console.warn(`Warning: ${dataType} từ GitHub trống hoặc null`);
+          logger.warn(M.data.validateEmptyGithub({ type: dataType }));
         }
 
         this.data[dataType] = data;
-        console.log(`✅ Load ${dataType} từ GitHub thành công (${Array.isArray(data) ? data.length : 'N/A'} items)`);
+        logger.info(M.data.loadedFromGitHub({ type: dataType, items: Array.isArray(data) ? data.length : 'N/A' }));
         return data;
 
       } catch (error) {
         githubError = error;
-        console.error(`❌ Lỗi load ${dataType} từ GitHub:`, error.message);
+        logger.error(M.data.loadErrorGitHub({ type: dataType, msg: error.message }));
       }
     }
 
     // Fallback: thử load từ file local
     try {
-      console.log(`Đang load ${dataType} từ file local...`);
+      logger.info(M.data.loadingFromLocal({ type: dataType }));
       const filePath = this.localPaths[dataType];
 
       if (!fs.existsSync(filePath)) {
@@ -99,21 +101,21 @@ class DataManager {
 
       // Validate data
       if (!data || (Array.isArray(data) && data.length === 0)) {
-        console.warn(`Warning: ${dataType} từ local file trống hoặc null`);
+        logger.warn(M.data.validateEmptyLocal({ type: dataType }));
       }
 
       this.data[dataType] = data;
-      console.log(`✅ Load ${dataType} từ local file thành công (${Array.isArray(data) ? data.length : 'N/A'} items)`);
+      logger.info(M.data.loadedFromLocal({ type: dataType, items: Array.isArray(data) ? data.length : 'N/A' }));
       return data;
 
     } catch (error) {
       localError = error;
-      console.error(`❌ Lỗi load ${dataType} từ local file:`, error.message);
+      logger.error(M.data.loadErrorLocal({ type: dataType, msg: error.message }));
     }
 
     // Cả GitHub và local đều thất bại
-    const errorMsg = `Không thể load ${dataType}. GitHub: ${githubError?.message || 'N/A'}, Local: ${localError?.message || 'N/A'}`;
-    console.error(errorMsg);
+    const errorMsg = M.data.loadFatal({ type: dataType, gMsg: githubError?.message || 'N/A', lMsg: localError?.message || 'N/A' });
+    logger.error(errorMsg);
     throw new Error(errorMsg);
   }
 
@@ -169,7 +171,7 @@ class DataManager {
    * Reload tất cả dữ liệu
    */
   async reloadAll() {
-    console.log('Đang reload tất cả dữ liệu...');
+    logger.info(M.data.reloadingAll());
     
     // Xóa cache
     if (this.useGitHub) {
@@ -193,9 +195,9 @@ class DataManager {
       results.wikis = await this.loadData('wikis');
       results.auras = await this.loadData('auras');
       results.runeValues = await this.loadData('runeValues');
-      console.log('Reload thành công tất cả dữ liệu');
+      logger.info(M.data.reloadSuccess());
     } catch (error) {
-      console.error('Lỗi khi reload dữ liệu:', error.message);
+      logger.error(M.data.reloadError(), error.message);
     }
     
     return results;
@@ -206,7 +208,7 @@ class DataManager {
    * @param {string} dataType - 'weapons', 'runewords', hoặc 'wikis'
    */
   async reload(dataType) {
-    console.log(`Đang reload ${dataType}...`);
+    logger.info(M.data.reloadingType({ type: dataType }));
     
     if (this.useGitHub) {
       const filePath = this.localPaths[dataType].replace('./data/', 'data/');
@@ -238,17 +240,17 @@ class DataManager {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
         if (config.enabled) {
           this.enableGitHub(config.owner, config.repo, config.branch);
-          console.log(`Đã load cấu hình GitHub: ${config.owner}/${config.repo}@${config.branch}`);
+          logger.info(M.data.githubConfigLoaded({ owner: config.owner, repo: config.repo, branch: config.branch }));
         } else {
-          console.log('GitHub config tồn tại nhưng bị tắt');
+          logger.info(M.data.githubConfigDisabled());
         }
         return config;
       } else {
-        console.log('Không tìm thấy github-config.json, sử dụng file local');
+        logger.info(M.data.githubConfigMissing());
         return null;
       }
     } catch (error) {
-      console.error('Lỗi load GitHub config:', error.message);
+      logger.error(M.data.githubConfigError(), error.message);
       return null;
     }
   }
@@ -257,7 +259,7 @@ class DataManager {
    * Preload tất cả dữ liệu khi khởi động
    */
   async initialize() {
-    console.log('Đang khởi tạo Data Manager...');
+    logger.info(M.data.initStarting());
 
     // Load cấu hình GitHub
     this.loadGitHubConfig();
@@ -275,15 +277,15 @@ class DataManager {
       results.forEach((result, index) => {
         const dataType = Object.keys(this.localPaths)[index];
         if (result.status === 'rejected') {
-          console.error(`Lỗi khởi tạo data cho ${dataType}:`, result.reason.message);
+          logger.error(`${M.data.initFatal()} (${dataType})`, result.reason.message);
         }
       });
 
-      console.log('Khởi tạo Data Manager hoàn tất (có thể có lỗi).');
+      logger.info(M.data.initDone());
 
     } catch (error) {
       // Bắt các lỗi không mong muốn khác, nhưng không throw để tránh crash
-      console.error('Lỗi nghiêm trọng khi khởi tạo Data Manager:', error.message);
+      logger.error(M.data.initFatal(), error.message);
     }
   }
 }

@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const { logger } = require('./logger');
+const { M } = require('./log-messages');
 const versionFile = path.join(__dirname, '../version.json');
 
 let lastVersion = null;
@@ -12,7 +14,7 @@ function getLocalVersion() {
     const data = JSON.parse(fs.readFileSync(versionFile, 'utf8'));
     return data.version;
   } catch (err) {
-    console.error('Lỗi đọc version local:', err.message);
+    logger.error(M.version.localReadError(), err.message);
     return null;
   }
 }
@@ -25,7 +27,7 @@ async function getGitHubVersion(githubConfig) {
     const res = await axios.get(url, { timeout: 5000 });
     return res.data.version;
   } catch (err) {
-    console.error('Lỗi lấy version từ GitHub:', err.message);
+    logger.error(M.version.githubReadError(), err.message);
     return null;
   }
 }
@@ -47,11 +49,11 @@ async function checkVersionAndReload(dataManager) {
 
   if (lastVersion === null) {
     lastVersion = currentVersion;
-    console.log(`Version không thay đổi: ${lastVersion} -> ${currentVersion}.`);
+    logger.debug(M.version.unchanged({ from: lastVersion, to: currentVersion }));
   }
 
   if (currentVersion && currentVersion !== lastVersion) {
-    console.log(`Version thay đổi: ${lastVersion} -> ${currentVersion}. Đang reload dữ liệu...`);
+    logger.info(M.version.changedReload({ from: lastVersion, to: currentVersion }));
     lastVersion = currentVersion;
     await dataManager.reloadAll();
   }

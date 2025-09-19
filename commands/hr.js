@@ -1,19 +1,21 @@
 const { EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
 const { dataManager } = require('../utils/data-manager');
+const { logger } = require('../utils/logger');
+const { M } = require('../utils/log-messages');
 
 // Khởi tạo giá trị HR từ GitHub khi module được load
 (async function initHrValues() {
   try {
     const hrData = await dataManager.getData('hr-values.json');
     if (hrData && Object.keys(hrData).length > 0) {
-      console.log('Lấy value từ GitHub');
+      logger.info('Lấy value từ GitHub');
       HR_VALUES = hrData;
     } else {
-      console.log('Sử dụng HR values mặc định(GitHub data rỗng)');
+      logger.warn('Sử dụng HR values mặc định(GitHub data rỗng)');
     }
   } catch (error) {
-    console.error('Lỗi lấy dữ liệu từ github, sử dụng giá trị mặc định:', error.message);
+    logger.error('Lỗi lấy dữ liệu từ github, sử dụng giá trị mặc định:', error.message);
   }
 })();
 
@@ -41,7 +43,7 @@ async function handleSlashSetupHr(interaction) {
   });
 
    if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền cài đặt Interface HR cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -56,7 +58,7 @@ async function handleSlashSetupHr(interaction) {
         { name: '🟢 Low Runes', value: '`UM` `MAL` `IST`', inline: true },
         { name: '🟡 Mid Runes', value: '`GUL` `VEX` `OHM` `LO` `SUR`', inline: true },
         { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`', inline: true },
-        { name: 'Lưu ý', value: '• Kết quả chỉ **bạn** thấy được\n• Có thể nhập từng nhóm riêng lẻ\n• Dữ liệu được lưu riêng cho mỗi người', inline: false }
+        { name: '📋 Lưu ý', value: '• Kết quả chỉ **bạn** thấy được\n• Có thể nhập từng nhóm riêng lẻ\n• Dữ liệu được lưu riêng cho mỗi người', inline: false }
       )
       .setFooter({ text: '🛠️ Được thiết lập bởi ' + interaction.user.username + ' • GheedBot HR Calculator' });
 
@@ -79,7 +81,7 @@ async function handleSlashSetupHr(interaction) {
     const row2 = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId('hr_public_reset')
-        .setLabel('Reset')
+        .setLabel('🔄 Reset')
         .setStyle(ButtonStyle.Secondary),
       new ButtonBuilder()
         .setCustomId('hr_public_calculate')
@@ -93,10 +95,10 @@ async function handleSlashSetupHr(interaction) {
       components: [row1, row2]
     });
 
-    console.log(`HR interface được setup trong ${interaction.channel.name} bởi ${interaction.user.tag}`);
+    logger.info(M.hr.setupDone({ channel: interaction.channel.name, user: interaction.user.tag }));
 
   } catch (error) {
-    console.error('Lỗi setup HR interface:', error);
+    logger.error('Lỗi setup HR interface:', error);
 
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({
@@ -168,7 +170,7 @@ async function handleSlashHr(interaction) {
     });
 
   } catch (error) {
-    console.error('Lỗi tính toán HR:', error);
+    logger.error('Lỗi tính toán HR:', error);
 
     // Nếu interaction chưa được reply
     if (!interaction.replied && !interaction.deferred) {
@@ -207,7 +209,7 @@ function createRuneGroupModal(groupType, isPublic = false) {
     group3: {
       runes: ['BER', 'JAH', 'CHAM', 'ZOD'],
       title: 'High Runes',
-      description: 'Nhập số lượng runes cuối cùng và tính toán'
+      description: 'Nhập số lượng runes cuối cùng và tính to��n'
     }
   };
 
@@ -244,7 +246,7 @@ async function handleHrButton(interaction) {
     const buttonId = interaction.customId;
     const userId = interaction.user.id;
 
-    console.log(`HR Button clicked: ${buttonId} by ${interaction.user.tag}`);
+    // console.log(`HR Button clicked: ${buttonId} by ${interaction.user.tag}`);
 
     // Xử lý public buttons (từ /setuphr)
     if (buttonId.startsWith('hr_public_')) {
@@ -299,8 +301,8 @@ async function handleHrButton(interaction) {
     }
 
   } catch (error) {
-    console.error('Lỗi xử lý HR button:', error);
-    console.error('Error details:', error.message);
+    logger.error('Lỗi xử lý HR button:', error);
+    logger.error('Error details:', error.message);
 
     try {
       // Kiểm tra nếu interaction chưa được reply
@@ -315,7 +317,7 @@ async function handleHrButton(interaction) {
         });
       }
     } catch (replyError) {
-      console.error('Lỗi khi gửi error message:', replyError);
+      logger.error('Lỗi khi gửi error message:', replyError);
     }
   }
 }
@@ -329,7 +331,7 @@ async function handleHrModalSubmit(interaction) {
     const userId = interaction.user.id;
     const modalId = interaction.customId;
 
-    console.log(`HR Modal submit: ${modalId} từ user ${interaction.user.tag}`);
+    // console.log(`HR Modal submit: ${modalId} từ user ${interaction.user.tag}`);
 
     // Lấy dữ liệu hiện tại của user (hoặc tạo mới)
     if (!userHrData.has(userId)) {
@@ -361,7 +363,7 @@ async function handleHrModalSubmit(interaction) {
       const value = interaction.fields.getTextInputValue(fieldId) || '0';
       const quantity = parseInt(value) || 0;
       userData[runeName] = quantity;
-      console.log(`Lưu ${runeName}: ${quantity} cho user ${interaction.user.tag}`);
+      logger.debug(M.hr.saveRune({ rune: runeName, qty: quantity, user: interaction.user.tag }));
     });
 
     // Tạo summary của dữ liệu đã nhập cho logging
@@ -371,17 +373,17 @@ async function handleHrModalSubmit(interaction) {
       .join(', ');
 
     // Chỉ log và lưu cache, không reply cho user
-    console.log(`💾 [CACHE] HR Data saved for ${interaction.user.tag}:`);
-    console.log(`📊 [DATA] ${summary || 'Chưa có rune nào'}`);
-    console.log(`🔍 [MODAL] ${modalId} processed successfully`);
-
+    // console.log(`💾 [CACHE] HR Data saved for ${interaction.user.tag}:`);
+    // console.log(`📊 [DATA] ${summary || 'Chưa có rune nào'}`);
+    // console.log(`🔍 [MODAL] ${modalId} processed successfully`);
+    logger.debug(M.hr.cacheSaved({ user: interaction.user.tag, summary, modalId }));
     // Acknowledge interaction để tránh lỗi
     await interaction.deferUpdate();
 
   } catch (error) {
-    console.error('Lỗi xử lý HR modal:', error);
-    console.error('Error details:', error.message);
-    console.error('Stack trace:', error.stack);
+    logger.error('Lỗi xử lý HR modal:', error);
+    logger.error('Error details:', error.message);
+    logger.error('Stack trace:', error.stack);
 
     try {
       if (!interaction.replied && !interaction.deferred) {
@@ -396,7 +398,7 @@ async function handleHrModalSubmit(interaction) {
         });
       }
     } catch (replyError) {
-      console.error('Lỗi khi gửi error message:', replyError);
+      logger.error('Lỗi khi gửi error message:', replyError);
     }
   }
 }
@@ -418,7 +420,7 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
         });
       } else {
         return await interaction.reply({
-          content: 'Chưa có dữ liệu rune nào! Vui lòng nhập số lượng runes trước.',
+          content: '❌ Chưa có dữ liệu rune nào! Vui lòng nhập số lượng runes trước.',
           flags: 1<<6
         });
       }
@@ -449,7 +451,7 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
         });
       } else {
         return await interaction.reply({
-          content: 'Không có rune hợp lệ để tính toán!',
+          content: '❌ Không có rune hợp lệ để tính toán!',
           flags: 1<<6
         });
       }
@@ -482,25 +484,25 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
       });
     }
 
-    console.log(`Tính toán HR hoàn thành: ${totalHr.toFixed(2)} HR cho ${interaction.user.tag}`);
+    logger.info(M.hr.result({ user: interaction.user.tag, total: totalHr.toFixed(2) }));
 
   } catch (error) {
-    console.error('Lỗi tính toán HR:', error);
+    logger.error('❌ Lỗi:', error);
 
     try {
       // Kiểm tra nếu interaction đã được deferred
       if (interaction.deferred) {
         await interaction.editReply({
-          content: `❌ Đã xảy ra lỗi khi tính toán HR: ${error.message}`
+          content: `❌ Lỗi: ${error.message}`
         });
       } else if (!interaction.replied) {
         await interaction.reply({
-          content: `❌ Đã xảy ra lỗi khi tính toán HR: ${error.message}`,
+          content: `❌ Lỗi: ${error.message}`,
           flags: 1<<6
         });
       }
     } catch (replyError) {
-      console.error('Lỗi khi gửi error message:', replyError);
+      logger.error('Lỗi khi gửi error message:', replyError);
     }
   }
 }

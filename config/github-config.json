@@ -6,6 +6,8 @@
   "files": {
     "weapons": "data/weapon.json",
     "runewords": "data/runeword.json",
-    "wikis": "data/wiki.json"
+    "wikis": "data/wiki.json",
+    "auras": "data/aura.json",
+    "runeValues": "data/hr-value.json"
   }
 }

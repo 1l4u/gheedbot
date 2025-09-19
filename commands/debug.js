@@ -2,6 +2,8 @@ const { EmbedBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
 const { dataManager } = require('../utils/data-manager');
 const config = require('../config/config.json');
+const { logger } = require('../utils/logger');
+const { M } = require('../utils/log-messages');
 
 /**
  * Debug command để kiểm tra channel và bot info
@@ -10,7 +12,7 @@ const config = require('../config/config.json');
  * @param {Client} client - Discord client
  */
 async function handleSlashDebug(interaction, client) {
-  console.log(`Lệnh debug được gọi bởi ${interaction.user.tag}`);
+  logger.debug(M.commands.runewordCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -22,14 +24,14 @@ async function handleSlashDebug(interaction, client) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền debug cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
   }
 
   try {
-    console.log(`🔍 Starting debug response...`);
+    logger.debug('🔍 Starting debug response...');
     
     const channelId = interaction.channel.id;
     const guildId = interaction.guild?.id || 'DM';
@@ -65,9 +67,9 @@ async function handleSlashDebug(interaction, client) {
       embeds: [embed]
     });
 
-    console.log(` Debug response sent successfully`);
+    logger.debug('Debug response sent successfully');
   } catch (error) {
-    console.error(' Debug command error:', error);
+    logger.error('Debug command error:', error);
     await interaction.editReply({
       content: 'Lỗi khi thực hiện debug command'
     });

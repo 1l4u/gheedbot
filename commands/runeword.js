@@ -1,13 +1,15 @@
 const { EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { checkCommandPermissions } = require('../utils/permissions');
 const { dataManager } = require('../utils/data-manager');
+const { logger } = require('../utils/logger');
+const { M } = require('../utils/log-messages');
 
 /**
  * Runeword command handler
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashRuneword(interaction) {
-  console.log(`Lệnh runeword được gọi bởi ${interaction.user.tag}`);
+  logger.debug(M.commands.runewordCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -19,7 +21,7 @@ async function handleSlashRuneword(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    console.log(`Từ chối quyền runeword cho ${interaction.user.tag}: ${permissionCheck.reason}`);
+    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -29,18 +31,17 @@ async function handleSlashRuneword(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      console.log('Không có tên được cung cấp trong interaction');
+      logger.debug('Không có tên được cung cấp trong interaction');
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên runeword'
       });
     }
     const name = nameOption.toLowerCase();
-    console.log(`Đang tìm kiếm runeword: ${name}`);
 
     // Lấy dữ liệu runewords từ data manager
     const runewords = await dataManager.getRunewords();
     if (!Array.isArray(runewords)) {
-      console.log('Dữ liệu runeword không hợp lệ: không phải array');
+      logger.error('Dữ liệu runeword không hợp lệ: không phải array');
       return await interaction.editReply({
         content: 'Dữ liệu runeword không hợp lệ'
       });
@@ -158,9 +159,9 @@ async function handleSlashRuneword(interaction) {
       files: files
     });
 
-    console.log(`Đã gửi phản hồi runeword cho: ${name}`);
+    logger.debug(`✅ Runeword: ${name}`);
   } catch (error) {
-    console.error('Lỗi lệnh runeword:', error);
+    logger.error('Lỗi lệnh runeword:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm runeword'
     });
