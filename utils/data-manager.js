@@ -20,8 +20,8 @@ class DataManager {
       weapons: './data/weapon.json',
       runewords: './data/runeword.json',
       wikis: './data/wiki.json',
-      auras: './data/auras.json',
-      runeValues: './data/rune-values.json'
+      auras: './data/aura.json',
+      runeValues: './data/hr-value.json'
     };
   }
 
