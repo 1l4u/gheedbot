@@ -12,12 +12,16 @@ class DataManager {
     this.data = {
       weapons: null,
       runewords: null,
-      wikis: null
+      wikis: null,
+      auras: null,
+      runeValues: null
     };
     this.localPaths = {
       weapons: './data/weapon.json',
       runewords: './data/runeword.json',
-      wikis: './data/wiki.json'
+      wikis: './data/wiki.json',
+      auras: './data/auras.json',
+      runeValues: './data/rune-values.json'
     };
   }
 
@@ -152,6 +156,15 @@ class DataManager {
     return this.data.wikis;
   }
 
+    async getAuras() {
+    return this.data.auras;
+  }
+  /**
+   * Lấy dữ liệu giá trị rune
+   */
+  async getRuneValues() {
+    return this.data.runeValues;
+  }
   /**
    * Reload tất cả dữ liệu
    */
@@ -167,7 +180,9 @@ class DataManager {
     this.data = {
       weapons: null,
       runewords: null,
-      wikis: null
+      wikis: null,
+      auras: null,
+      runeValues: null
     };
     
     // Load lại
@@ -176,6 +191,8 @@ class DataManager {
       results.weapons = await this.loadData('weapons');
       results.runewords = await this.loadData('runewords');
       results.wikis = await this.loadData('wikis');
+      results.auras = await this.loadData('auras');
+      results.runeValues = await this.loadData('runeValues');
       console.log('Reload thành công tất cả dữ liệu');
     } catch (error) {
       console.error('Lỗi khi reload dữ liệu:', error.message);
@@ -250,7 +267,9 @@ class DataManager {
       const results = await Promise.allSettled([
         this.loadData('weapons'),
         this.loadData('runewords'),
-        this.loadData('wikis')
+        this.loadData('wikis'),
+        this.loadData('auras'),
+        this.loadData('runeValues')
       ]);
 
       results.forEach((result, index) => {

@@ -1,0 +1,14 @@
+[
+  { "name": "Um", "value": 0.05 },
+  { "name": "Mal", "value": 0.1 },
+  { "name": "Ist", "value": 0.15 },
+  { "name": "Gul", "value": 0.25 },
+  { "name": "Vex", "value": 0.5 },
+  { "name": "Ohm", "value": 0.75 },
+  { "name": "Lo", "value": 1 },
+  { "name": "Sur", "value": 1.5 },
+  { "name": "Ber", "value": 3 },
+  { "name": "Jah", "value": 2 },
+  { "name": "Cham", "value": 2.25 },
+  { "name": "Zod", "value": 4.5 }
+]

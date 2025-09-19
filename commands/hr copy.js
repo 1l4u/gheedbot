@@ -2,31 +2,21 @@ const { EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowB
 const { checkCommandPermissions } = require('../utils/permissions');
 const { dataManager } = require('../utils/data-manager');
 
-// Khởi tạo giá trị HR từ GitHub khi module được load
-(async function initHrValues() {
-  try {
-    const hrData = await dataManager.getData('hr-values.json');
-    if (hrData && Object.keys(hrData).length > 0) {
-      console.log('Lấy value từ GitHub');
-      HR_VALUES = hrData;
-    } else {
-      console.log('Sử dụng HR values mặc định(GitHub data rỗng)');
-    }
-  } catch (error) {
-    console.error('Lỗi lấy dữ liệu từ github, sử dụng giá trị mặc định:', error.message);
-  }
-})();
-
-// Bảng giá trị HR mặc định (fallback) nếu không tải được từ GitHub
-const DEFAULT_HR_VALUES = {
-  'UM': 0.05, 'MAL': 0.1, 'IST': 0.15,
-  'GUL': 0.25, 'VEX': 0.5, 'OHM': 0.75,
-  'LO': 1, 'SUR': 1.5, 'BER': 3,
-  'JAH': 2, 'CHAM': 2.25, 'ZOD': 4.5
-};
-
-// Giá trị HR sẽ được tải từ GitHub
-let HR_VALUES = { ...DEFAULT_HR_VALUES };
+// Bảng giá trị HR cho các items
+// const HR_VALUES = {
+//   'UM': 0.05,
+//   'MAL': 0.1,
+//   'IST': 0.15,
+//   'GUL': 0.25,
+//   'VEX': 0.5,
+//   'OHM': 0.75,
+//   'LO': 1,
+//   'SUR': 1.5,
+//   'BER': 3,
+//   'JAH': 2,
+//   'CHAM': 2.25,
+//   'ZOD': 4.5
+// };
 
 /**
  * Xử lý lệnh /setuphr để tạo HR interface trong channel (chỉ admin)
@@ -405,7 +395,6 @@ async function handleHrModalSubmit(interaction) {
  * Tính toán và hiển thị kết quả HR
  * @param {ButtonInteraction} interaction - Button interaction
  * @param {string} userId - User ID
- * @param {boolean} isPublic - Có phải là tương tác công khai không
  */
 async function calculateAndShowHR(interaction, userId, isPublic = false) {
   try {
