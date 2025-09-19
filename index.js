@@ -33,17 +33,6 @@ const { checkVersionAndReload } = require('./utils/version-check');
 // Import utilities
 const { hasBypassPermission, isValidCommand } = require('./utils/permissions');
 
-// const client = new Client({
-//   intents: [
-//     GatewayIntentBits.Guilds,
-//     GatewayIntentBits.GuildMessages,
-//     GatewayIntentBits.MessageContent,
-//     GatewayIntentBits.GuildMembers,
-//     GatewayIntentBits.GuildVoiceStates
-//   ],
-// });
-
-// Thay thế new Client(...) cũ bằng đoạn này
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -221,8 +210,6 @@ const server = app.listen(PORT, () => {
   console.log('Health check endpoint có tại /ping');
 });
 
-
-
 // Xử lý uncaught exceptions
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
@@ -237,16 +224,6 @@ process.on('unhandledRejection', (err) => {
   console.error('Unhandled Rejection:', err);
   // Log lỗi nhưng không tắt server
 });
-
-// const client = new Client({
-//   intents: [
-//     GatewayIntentBits.Guilds,
-//     GatewayIntentBits.GuildMessages,
-//     GatewayIntentBits.MessageContent,
-//     GatewayIntentBits.GuildMembers,
-//     GatewayIntentBits.GuildVoiceStates
-//   ],
-// });
 
 // Đăng ký Slash Commands
 const commands = [
@@ -781,8 +758,7 @@ const COOLDOWN_TIME = 10000; // 5 phút cooldown để chống spam
 const lastNotification = new Map(); // Lưu thời gian thông báo cuối cùng
 
 
-// Theo dõi sự kiện thay đổi trạng thái voice (chỉ đăng ký 1 lần)
-client.removeAllListeners('voiceStateUpdate'); // Xóa listeners cũ nếu có
+// Theo dõi sự kiện thay đổi trạng thái voice
 client.on('voiceStateUpdate', async (oldState, newState) => {
     try {
         // Tìm người dùng để gửi DM
@@ -801,7 +777,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         // const userId = newState.member.id;
         // const now = Date.now();
 
-        // // Kiểm tra cooldown (5 giây để tránh spam)
+        // Kiểm tra cooldown (5 giây để tránh spam)
         // if (lastNotification.has(userId) && now - lastNotification.get(userId) < 5000) {
         //     console.log(`Cooldown đang hoạt động cho user ${userId}, bỏ qua thông báo`);
         //     return; // Bỏ qua nếu chưa đủ thời gian cooldown
@@ -870,19 +846,8 @@ async function sendWarning(message) {
 client.once('ready', async () => {
   console.log(`Bot đã sẵn sàng! Đăng nhập với tên: ${client.user.tag}`);
 
-  // Khởi tạo data manager ở chế độ nền sau khi bot đã sẵn sàng
-  dataManager.initialize().catch(err => {
-    console.error("Lỗi không mong muốn trong quá trình khởi tạo nền:", err);
-  });
-
-  // Đăng ký slash commands sau khi bot ready
-  try {
-    await registerSlashCommands();
-    console.log('Tất cả slash commands đã được đăng ký!');
-  } catch {
-    console.log('Có lỗi khi đăng ký slash commands!');
-  }
 });
+
 
 client.on('error', (error) => {
   console.error('Lỗi Discord client:', error);
@@ -902,38 +867,11 @@ client.on('reconnecting', () => {
   console.log('Bot đang kết nối lại...');
 });
 
-// Hàm login với retry logic
-// async function loginWithRetry(maxRetries = 3) {
-//   const token = process.env.DISCORD_TOKEN || "";
-  
-//   if (!token) {
-//     console.error('DISCORD_TOKEN không được cung cấp!');
-//     return;
-//   }
-
-//   for (let attempt = 1; attempt <= maxRetries; attempt++) {
-//     try {
-//       console.log(`Đang đăng nhập Discord (lần thử ${attempt}/${maxRetries})...`);
-//       await client.login(token);
-//       console.log('Đăng nhập Discord thành công!');
-//       return;
-//     } catch (error) {
-//       console.error(`Lỗi đăng nhập Discord (lần thử ${attempt}/${maxRetries}):`, error.message);
-      
-//       if (attempt === maxRetries) {
-//         console.error('Đã hết số lần thử đăng nhập Discord!');
-//         return;
-//       }
-      
-//       // Đợi trước khi thử lại
-//       await new Promise(resolve => setTimeout(resolve, 5000 * attempt));
-//     }
-//   }
-// }
 
 
-// Khởi động bot
-(async () => {
+
+// Create a consolidated bot initialization function
+async function initializeBot() {
   try {
     console.log('Bắt đầu quá trình khởi tạo bot...');
 
@@ -943,24 +881,29 @@ client.on('reconnecting', () => {
       console.error('DISCORD_TOKEN không được cung cấp! Bot không thể khởi động.');
       process.exit(1);
     }
+    
     await client.login(token);
     console.log(`✅ Bot đã đăng nhập với tên: ${client.user.tag}`);
 
-    // Khởi tạo dữ liệu
+    // Khởi tạo dữ liệu (không cần gọi lại trong client.once('ready'))
     await dataManager.initialize();
     console.log('✅ Data Manager đã khởi tạo xong.');
 
-    // Đăng ký slash commands (chỉ nên chạy sau khi bot đã login)
+    // Đăng ký slash commands
     await registerSlashCommands();
     console.log('✅ Slash commands đã được đăng ký!');
 
     console.log('🚀 GheedBot đã hoàn tất khởi động và sẵn sàng hoạt động!');
-
   } catch (error) {
     console.error('💥 Lỗi nghiêm trọng trong quá trình khởi động bot:', error);
-    process.exit(1); // Thoát nếu có lỗi nghiêm trọng khi khởi động
+    // Instead of exiting, we'll retry connection
+    console.log('Sẽ thử lại sau 10 giây...');
+    setTimeout(initializeBot, 10000);
   }
-})();
+}
+
+// Khởi động bot
+initializeBot();
 
 // Xử lý tắt server đúng cách khi nhận tín hiệu SIGTERM
 process.on('SIGTERM', () => {
