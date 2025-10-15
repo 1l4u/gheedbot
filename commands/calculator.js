@@ -10,6 +10,7 @@ const { M } = require('../utils/log-messages');
  * @param {string} jewelString - Jewel string to parse
  * @returns {Object} - {totalED: number, totalMaxDmg: number, jewels: Array, errors: Array}
  */
+
 function parseJewelString(jewelString) {
   if (!jewelString || jewelString.trim() === '') {
     return { totalED: 0, totalMaxDmg: 0, jewels: [], errors: [] };

@@ -216,9 +216,9 @@ const M = {
   hr: {
     setupDenied: ({ user, reason }) => `Từ chối quyền cài đặt Interface HR cho ${user}: ${reason}`,
     setupDone: ({ channel, user }) => `HR interface được setup trong ${channel} bởi ${user}`,
-    saveRune: ({ rune, qty, user }) => `Lưu ${rune}: ${qty} cho user ${user}`,
+    saveRune: ({ rune, qty, user }) => `Lưu ${rune}: ${qty}`,
     cacheSaved: ({ user, summary }) => `💾 [CACHE] ${user}: ${summary || 'rỗng'}`,
-    result: ({ user, total }) => `✅ ${user}: ${total} HR`,
+    result: ({ user, total }) => `✅ ${user}: 💎 ${total} HR`,
     error: ({ user, msg }) => `❌ Lỗi xử lý HR cho ${user}: ${msg}`,
     noData: ({ user }) => `⚠️ Không có dữ liệu HR để xử lý cho ${user}`,
     noSetup: ({ user }) => `⚠️ Chưa setup HR interface cho ${user}`,

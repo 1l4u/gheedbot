@@ -67,15 +67,15 @@ async function handleSlashSetupHr(interaction) {
 
     const embed = new EmbedBuilder()
       .setColor('#FFD700')
-      .setTitle('💎 HR Public Interface')
-      .setDescription('🎯 Hướng dẫn: Nhập số lượng runes (theo nhóm) rồi nhấn "Tính HR" để xem kết quả (ephemeral)')
+      .setTitle('## Đại Hoàng Interface')
+      .setDescription('🎯 Hướng dẫn: Nhập số lượng runes (theo nhóm) rồi nhấn **Tính HR** để xem kết quả')
       .addFields(
         { name: '🟢 Low Runes', value: '`UM` `MAL` `IST`', inline: true },
         { name: '🟡 Mid Runes', value: '`GUL` `VEX` `OHM` `LO` `SUR`', inline: true },
         { name: '🔴 High Runes', value: '`BER` `JAH` `CHAM` `ZOD`', inline: true },
         { name: '📋 Lưu ý', value: '• Kết quả chỉ bạn thấy\n• Có thể nhập từng nhóm riêng lẻ', inline: false }
       )
-      .setFooter({ text: `Được thiết lập bởi ${interaction.user.username} • GheedBot HR Calculator` });
+      .setFooter({ text: `Được thiết lập bởi *"${interaction.user.username}"*` });
 
     const row1 = new ActionRowBuilder().addComponents(
       new ButtonBuilder().setCustomId('hr_public_group1_runes').setLabel('🟢 Low Runes').setStyle(ButtonStyle.Success),
@@ -244,7 +244,7 @@ async function handleHrModalSubmit(interaction) {
       if (quantity > 0) {
         userData[runeName] = quantity;
         hasValidData = true;
-        logger.debug(M.hr.saveRune({ rune: runeName, qty: quantity, user: interaction.user.tag }));
+        // logger.debug(M.hr.saveRune({ rune: runeName, qty: quantity}));
       } else if (userData[runeName]) {
         // Xóa rune nếu số lượng là 0
         delete userData[runeName];

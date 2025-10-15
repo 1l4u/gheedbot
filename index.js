@@ -301,9 +301,9 @@ const commands = [
   new SlashCommandBuilder()
     .setName('debug')
     .setDescription('Kiểm tra thông tin channel và bot'),
-  new SlashCommandBuilder()
-    .setName('hr')
-    .setDescription('Tính tổng giá trị HR của các runes (private)'),
+  // new SlashCommandBuilder()
+  //   .setName('hr')
+  //   .setDescription('Tính tổng giá trị HR của các runes (private)'),
   new SlashCommandBuilder()
     .setName('setuphr')
     .setDescription('Tạo HR Calculator interface trong channel (cần quyền Manage Channels)'),
@@ -435,7 +435,7 @@ if (interaction.isAutocomplete()) {
           logger.warn(M.interactions.unknownModal({ id: interaction.customId }));
           await interaction.reply({
             content: 'Modal không được hỗ trợ',
-            ephemeral: true
+            flags: 1 << 6
           });
       }
     } catch (error) {
@@ -444,7 +444,7 @@ if (interaction.isAutocomplete()) {
       if (!interaction.replied && !interaction.deferred) {
         await interaction.reply({
           content: 'Đã xảy ra lỗi khi xử lý modal',
-          ephemeral: true
+          flags: 1 << 6
         });
       }
     }
@@ -528,9 +528,9 @@ if (interaction.isAutocomplete()) {
         case 'dmgcal' :
           await handleDmgCalculator2(interaction);
           break;
-        case 'hr':
-          await handleSlashHr(interaction);
-          break;
+        // case 'hr':
+        //   await handleSlashHr(interaction);
+        //   break;
         case 'setuphr':
           const { handleSlashSetupHr } = require('./commands/hr');
           await handleSlashSetupHr(interaction);
@@ -546,7 +546,7 @@ if (interaction.isAutocomplete()) {
               break;
             }
           try {
-            await interaction.deferReply({ flags: 1<<6 }); // Cho phép xử lý lâu
+            await interaction.deferReply({ flags: 1 << 6 }); // Cho phép xử lý lâu
             await dataManager.reloadAll();
             await interaction.editReply('Đã reload dữ liệu!');
           } catch (err) {
@@ -785,7 +785,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
             const channelName = newState.channel.name;
             try {
                 await user.send(`**${displayName}** đã tham gia voice **${channelName}**`);
-                logger.debug(`Đã gửi DM: ${displayName} tham gia ${channelName}`);
+                logger.debug(`${displayName} tham gia ${channelName}`);
             } catch (dmError) {
                 logger.error(`Lỗi gửi DM tham gia: ${dmError.message}`);
             }
@@ -795,14 +795,14 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
             const channelName = oldState.channel.name;
             try {
                 await user.send(`**${displayName}** đã rời voice **${channelName}**`);
-                logger.debug(`Đã gửi DM: ${displayName} rời ${channelName}`);
+                logger.debug(`${displayName} rời ${channelName}`);
             } catch (dmError) {
                 logger.error(`Lỗi gửi DM rời: ${dmError.message}`);
             }
         }
         // Người dùng chuyển kênh (không gửi thông báo để tránh spam)
         else if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
-            logger.debug(`**${displayName}** chuyển từ ${oldState.channel.name} sang ${newState.channel.name}`);
+            logger.debug(`**${displayName}** From: ${oldState.channel.name}\n To: ${newState.channel.name}`);
         }
     } catch (error) {
         logger.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
