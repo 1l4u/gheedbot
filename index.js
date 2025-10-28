@@ -356,17 +356,17 @@ const commands = [
 async function registerSlashCommands() {
   try {
     const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
-    logger.info(M.interactions.registering());
+   // logger.info(M.interactions.registering());
     
     await rest.put(
       Routes.applicationCommands(process.env.CLIENT_ID),
       { body: commands }
     );
     
-    logger.info(M.interactions.registered());
+  //  logger.info(M.interactions.registered());
     return true;
   } catch (error) {
-    logger.error(M.interactions.registerError(), error);
+   // logger.error(M.interactions.registerError(), error);
     return false;
   }
 }
@@ -400,7 +400,7 @@ if (interaction.isAutocomplete()) {
   try {
     const dataSource = await getAutocompleteData(interaction.commandName);
     if (!dataSource || dataSource.length === 0) {
-      logger.debug(M.interactions.autocompleteNoSource({ name: interaction.commandName }));
+     // logger.debug(M.interactions.autocompleteNoSource({ name: interaction.commandName }));
       await interaction.respond([]);
       return;
     }
@@ -408,7 +408,7 @@ if (interaction.isAutocomplete()) {
     await handleAutocomplete(interaction, dataSource);
     // console.log(`Đã xử lý autocomplete cho: ${interaction.commandName}`);
   } catch (err) {
-    logger.error(M.interactions.autocompleteError({ name: interaction.commandName }), err);
+  //  logger.error(M.interactions.autocompleteError({ name: interaction.commandName }), err);
     await interaction.respond([]);
   }
   return;
@@ -416,7 +416,7 @@ if (interaction.isAutocomplete()) {
 
   // Xử lý Modal Submissions
   if (interaction.isModalSubmit()) {
-    logger.debug(`Modal submit: ${interaction.customId}`);
+   // logger.debug(`Modal submit: ${interaction.customId}`);
 
     try {
       // Xử lý HR calculator modals (cả private và public)
@@ -432,14 +432,14 @@ if (interaction.isAutocomplete()) {
           await handleHrModalSubmit(interaction);
           break;
         default:
-          logger.warn(M.interactions.unknownModal({ id: interaction.customId }));
+      //    logger.warn(M.interactions.unknownModal({ id: interaction.customId }));
           await interaction.reply({
             content: 'Modal không được hỗ trợ',
             flags: 1 << 6
           });
       }
     } catch (error) {
-      logger.error(`Lỗi xử lý modal ${interaction.customId}:`, error);
+    //  logger.error(`Lỗi xử lý modal ${interaction.customId}:`, error);
 
       if (!interaction.replied && !interaction.deferred) {
         await interaction.reply({
@@ -487,7 +487,7 @@ if (interaction.isAutocomplete()) {
         });
       }
   }catch (error) {
-      logger.error('Lỗi xử lý button:', error);
+    //  logger.error('Lỗi xử lý button:', error);
       if (!interaction.replied) {
         await interaction.followUp({
           content: 'Đã xảy ra lỗi khi xử lý yêu cầu',
@@ -554,17 +554,17 @@ if (interaction.isAutocomplete()) {
           }
           break;
         default:
-          logger.warn(M.interactions.unknownCommand({ name: commandName }));
+         // logger.warn(M.interactions.unknownCommand({ name: commandName }));
           await interaction.reply({
             content: 'Lệnh không được hỗ trợ',
             flags: 1 << 6
           });
       }
 
-    logger.debug(M.interactions.commandDone({ name: commandName }));
+   // logger.debug(M.interactions.commandDone({ name: commandName }));
 		
   } catch (error) {
-    logger.error(`Lỗi khi xử lý lệnh ${commandName}:`, error);
+    //logger.error(`Lỗi khi xử lý lệnh ${commandName}:`, error);
     
     try {
       // Kiểm tra nếu interaction chưa được reply
@@ -584,7 +584,7 @@ if (interaction.isAutocomplete()) {
         });
       }
     } catch (replyError) {
-      logger.error('Lỗi khi gửi error message:', replyError);
+    //  logger.error('Lỗi khi gửi error message:', replyError);
     }
   }}
 });
@@ -605,7 +605,7 @@ async function getAutocompleteData(commandName) {
         return [];
     }
   } catch (error) {
-    logger.error(M.interactions.autocompleteError({ name: commandName }), error.message);
+   // logger.error(M.interactions.autocompleteError({ name: commandName }), error.message);
     return [];
   }
 }
@@ -621,7 +621,7 @@ async function handleAutocomplete(interaction, dataSource) {
 
   // Kiểm tra nếu interaction đã được responded
   if (interaction.responded) {
-    logger.debug(M.interactions.autocompleteRespondedSkip());
+   // logger.debug(M.interactions.autocompleteRespondedSkip());
     return;
   }
 
@@ -639,14 +639,14 @@ async function handleAutocomplete(interaction, dataSource) {
     if (autocompleteCache.has(cacheKey)) {
       const cached = autocompleteCache.get(cacheKey);
       if (now - cached.timestamp < CACHE_DURATION) {
-        logger.debug(M.interactions.autocompleteDuplicateSkip({ key: cacheKey }));
+      //  logger.debug(M.interactions.autocompleteDuplicateSkip({ key: cacheKey }));
         return;
       }
     }
 
     // Kiểm tra data source
     if (!dataSource || !Array.isArray(dataSource)) {
-      logger.debug(M.interactions.autocompleteInvalidSource({ name: commandName }));
+     // logger.debug(M.interactions.autocompleteInvalidSource({ name: commandName }));
       await interaction.respond([]); // Trả về danh sách rỗng để tránh lỗi
       return;
     }
@@ -679,7 +679,7 @@ async function handleAutocomplete(interaction, dataSource) {
       await interaction.respond(choices);
     }
   } catch (error) {
-    logger.error('Lỗi trong handleAutocomplete:', error);
+   // logger.error('Lỗi trong handleAutocomplete:', error);
     // Trả về danh sách rỗng để tránh crash
     if (!interaction.responded) {
       await interaction.respond([]);
@@ -704,13 +704,13 @@ client.on('messageCreate', async message => {
       // Xoá tin nhắn người dùng
       await message.delete().catch(err => {
         if (err.code !== 10008) throw err;
-        logger.warn(M.moderation.spamDeletedWarn({ reason: err.message }));
+       // logger.warn(M.moderation.spamDeletedWarn({ reason: err.message }));
       });
 
       // Gửi cảnh báo
       await sendWarning(message);
     } catch (err) {
-      logger.error('Lỗi xóa tin nhắn spam:', err);
+     // logger.error('Lỗi xóa tin nhắn spam:', err);
     }
     return;
   }
@@ -725,7 +725,7 @@ client.on('messageCreate', async message => {
       try {
         await message.delete().catch(err => {
           if (err.code !== 10008) throw err;
-          logger.warn(M.moderation.showDeletedWarn({ reason: err.message }));
+       //   logger.warn(M.moderation.showDeletedWarn({ reason: err.message }));
         });
 
         const warning = await message.channel.send({
@@ -735,7 +735,7 @@ client.on('messageCreate', async message => {
 
         setTimeout(() => warning.delete().catch(() => {}), 5000);
       } catch (err) {
-        logger.error('Lỗi xóa tin nhắn show:', err);
+       // logger.error('Lỗi xóa tin nhắn show:', err);
       }
     }
   }
@@ -757,7 +757,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         
         // Kiểm tra nếu người dùng tồn tại
         if (!user) {
-            logger.debug('Không tìm thấy người dùng với ID đã cung cấp!');
+          //  logger.debug('Không tìm thấy người dùng với ID đã cung cấp!');
             return;
         }
 
@@ -785,9 +785,9 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
             const channelName = newState.channel.name;
             try {
                 await user.send(`**${displayName}** đã tham gia voice **${channelName}**`);
-                logger.debug(`${displayName} tham gia ${channelName}`);
+            //    logger.debug(`${displayName} tham gia ${channelName}`);
             } catch (dmError) {
-                logger.error(`Lỗi gửi DM tham gia: ${dmError.message}`);
+             //   logger.error(`Lỗi gửi DM tham gia: ${dmError.message}`);
             }
         }
         // Người dùng rời bất kỳ kênh voice nào
@@ -795,17 +795,17 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
             const channelName = oldState.channel.name;
             try {
                 await user.send(`**${displayName}** đã rời voice **${channelName}**`);
-                logger.debug(`${displayName} rời ${channelName}`);
+             //   logger.debug(`${displayName} rời ${channelName}`);
             } catch (dmError) {
-                logger.error(`Lỗi gửi DM rời: ${dmError.message}`);
+              //  logger.error(`Lỗi gửi DM rời: ${dmError.message}`);
             }
         }
         // Người dùng chuyển kênh (không gửi thông báo để tránh spam)
         else if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
-            logger.debug(`**${displayName}** From: ${oldState.channel.name}\n To: ${newState.channel.name}`);
+          //  logger.debug(`**${displayName}** From: ${oldState.channel.name}\n To: ${newState.channel.name}`);
         }
     } catch (error) {
-        logger.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
+       // logger.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
     }
 });
 

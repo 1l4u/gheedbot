@@ -46,29 +46,29 @@ function parseJewelString(jewelString) {
 
         if (jewelErrors.length > 0) {
           const reasons = jewelErrors.join(', ');
-          errors.push(M.calculator.jewelInvalidDetails({ index: i + 1, part: jewelPart, reasons }));
-          logger.debug(M.calculator.jewelInvalidDetails({ index: i + 1, part: jewelPart, reasons }));
+        //  errors.push(M.calculator.jewelInvalidDetails({ index: i + 1, part: jewelPart, reasons }));
+        //  logger.debug(M.calculator.jewelInvalidDetails({ index: i + 1, part: jewelPart, reasons }));
         } else {
           jewels.push({ ed, maxDmg });
           totalED += ed;
           totalMaxDmg += maxDmg;
-          logger.debug(M.calculator.jewelAcceptedLog({ part: jewelPart, ed, maxDmg }));
+        //  logger.debug(M.calculator.jewelAcceptedLog({ part: jewelPart, ed, maxDmg }));
         }
       } else {
-        errors.push(M.calculator.jewelInvalidFormatMsg({ index: i + 1, part: jewelPart }));
-        logger.debug(M.calculator.jewelInvalidFormatLog({ part: jewelPart }));
+      // errors.push(M.calculator.jewelInvalidFormatMsg({ index: i + 1, part: jewelPart }));
+      // logger.debug(M.calculator.jewelInvalidFormatLog({ part: jewelPart }));
       }
     }
 
     logger.debug(M.calculator.jewelsParsedSummaryLog({ count: jewels.length, totalED, totalMaxDmg }));
     if (errors.length > 0) {
-      logger.debug(M.calculator.jewelsErrorsCountLog({ count: errors.length }));
+    //  logger.debug(M.calculator.jewelsErrorsCountLog({ count: errors.length }));
     }
 
     return { totalED, totalMaxDmg, jewels, errors };
 
   } catch (error) {
-    logger.error(M.calculator.jewelStringErrorLog, error);
+  //  logger.error(M.calculator.jewelStringErrorLog, error);
     return { totalED: 0, totalMaxDmg: 0, jewels: [], errors: [`Lỗi parse: ${error.message}`] };
   }
 }
@@ -78,7 +78,7 @@ function parseJewelString(jewelString) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashCritChance(interaction) {
-  logger.debug(M.commands.critCalled({ user: interaction.user.tag }));
+//  logger.debug(M.commands.critCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -90,7 +90,7 @@ async function handleSlashCritChance(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
+//    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -126,9 +126,9 @@ async function handleSlashCritChance(interaction) {
       embeds: [embed]
     });
 
-    logger.debug(M.commands.critSent());
+//    logger.debug(M.commands.critSent());
   } catch (error) {
-    logger.error(M.calculator.critError, error);
+//    logger.error(M.calculator.critError, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán crit chance'
     });
@@ -140,7 +140,7 @@ async function handleSlashCritChance(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashTas(interaction) {
-  logger.debug(M.commands.tasCalled({ user: interaction.user.tag }));
+//  logger.debug(M.commands.tasCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -152,7 +152,7 @@ async function handleSlashTas(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
+//    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -179,9 +179,9 @@ async function handleSlashTas(interaction) {
       embeds: [embed]
     });
 
-    logger.debug(M.commands.tasSent());
+//    logger.debug(M.commands.tasSent());
   } catch (error) {
-    logger.error(M.calculator.tasError, error);
+//    logger.error(M.calculator.tasError, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán TAS'
     });
@@ -193,7 +193,7 @@ async function handleSlashTas(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashIas(interaction) {
-  logger.debug(M.commands.iasCalled({ user: interaction.user.tag }));
+//  logger.debug(M.commands.iasCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -205,7 +205,7 @@ async function handleSlashIas(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
+//    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -230,9 +230,9 @@ async function handleSlashIas(interaction) {
       embeds: [embed]
     });
 
-    logger.debug(M.commands.iasSent());
+//    logger.debug(M.commands.iasSent());
   } catch (error) {
-    logger.error(M.calculator.iasError, error);
+//    logger.error(M.calculator.iasError, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán IAS'
     });
@@ -244,7 +244,7 @@ async function handleSlashIas(interaction) {
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleDmgCalculator2(interaction) {
-  logger.debug(M.commands.dmgCalled({ user: interaction.user.tag }));
+//  logger.debug(M.commands.dmgCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -256,7 +256,7 @@ async function handleDmgCalculator2(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
+ //   logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -274,7 +274,7 @@ async function handleDmgCalculator2(interaction) {
     // Lấy dữ liệu weapons và tìm weapon
     const weapons = await dataManager.getWeapons();
     if (!weapons || !Array.isArray(weapons)) {
-      logger.error(M.commands.weaponNoData);
+   //   logger.error(M.commands.weaponNoData);
       return await interaction.editReply({
         content: `Lỗi: Không thể tải dữ liệu vũ khí. Vui lòng thử lại sau.`
       });
@@ -393,9 +393,9 @@ async function handleDmgCalculator2(interaction) {
     });
 
 
-    logger.debug(M.commands.dmgSent({ summary: dmgcal_result }));
+   // logger.debug(M.commands.dmgSent({ summary: dmgcal_result }));
   } catch (error) {
-    logger.error(M.calculator.dmgError, error);
+   // logger.error(M.calculator.dmgError, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tính toán damage'
     });
