@@ -10,5 +10,5 @@
   { "name": "Ber", "hr_rate": 3 },
   { "name": "Jah", "hr_rate": 2 },
   { "name": "Cham", "hr_rate": 2.25 },
-  { "name": "Zod", "hr_rate": 45 }
+  { "name": "Zod", "hr_rate": 4.5 }
 ]
