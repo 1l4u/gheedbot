@@ -31,13 +31,13 @@ class DataManager {
   enableGitHub(owner, repo, branch = 'main') {
     this.useGitHub = true;
     githubFetcher.setRepository(owner, repo, branch);
-    logger.info(M.data.githubEnabled());
+   // logger.info(M.data.githubEnabled());
   }
 
   disableGitHub() {
     // Không dùng local nữa, nên disable chỉ có tác dụng logic
     this.useGitHub = false;
-    logger.info('Đã tắt GitHub mode (không có fallback local)');
+   // logger.info('Đã tắt GitHub mode (không có fallback local)');
   }
 
   /**
@@ -61,7 +61,7 @@ class DataManager {
 
     // Nếu đã có data thì trả ngay
     if (this.data[dataType]) {
-      logger.debug(M.data.usingLoadedData({ type: dataType }));
+    //  logger.debug(M.data.usingLoadedData({ type: dataType }));
       return this.data[dataType];
     }
 
@@ -75,19 +75,19 @@ class DataManager {
     }
 
     try {
-      logger.info(M.data.loadingFromGitHub({ type: dataType }));
+    //  logger.info(M.data.loadingFromGitHub({ type: dataType }));
       const remotePath = this.getRemotePath(dataType);
       const data = await githubFetcher.fetchFile(remotePath);
 
       if (!data || (Array.isArray(data) && data.length === 0)) {
-        logger.warn(M.data.validateEmptyGithub({ type: dataType }));
+    //    logger.warn(M.data.validateEmptyGithub({ type: dataType }));
       }
 
       this.data[dataType] = data;
-      logger.info(M.data.loadedFromGitHub({ type: dataType, items: Array.isArray(data) ? data.length : 'N/A' }));
+     // logger.info(M.data.loadedFromGitHub({ type: dataType, items: Array.isArray(data) ? data.length : 'N/A' }));
       return data;
     } catch (error) {
-      logger.error(M.data.loadErrorGitHub({ type: dataType, msg: error.message }));
+    //  logger.error(M.data.loadErrorGitHub({ type: dataType, msg: error.message }));
       throw error;
     }
   }
@@ -122,7 +122,7 @@ class DataManager {
   }
 
   async reloadAll() {
-    logger.info(M.data.reloadingAll());
+   // logger.info(M.data.reloadingAll());
     githubFetcher.clearCache();
 
     this.data = {
@@ -139,15 +139,15 @@ class DataManager {
       for (const t of types) {
         results[t] = await this.loadData(t);
       }
-      logger.info(M.data.reloadSuccess());
+   //   logger.info(M.data.reloadSuccess());
     } catch (error) {
-      logger.error(M.data.reloadError(), error.message);
+    //  logger.error(M.data.reloadError(), error.message);
     }
     return results;
   }
 
   async reload(dataType) {
-    logger.info(M.data.reloadingType({ type: dataType }));
+  //  logger.info(M.data.reloadingType({ type: dataType }));
     const path = this.getRemotePath(dataType);
     githubFetcher.clearCache(path);
     this.data[dataType] = null;
@@ -170,23 +170,23 @@ class DataManager {
         this.githubConfig = config;
         if (config.enabled) {
           this.enableGitHub(config.owner, config.repo, config.branch);
-          logger.info(M.data.githubConfigLoaded({ owner: config.owner, repo: config.repo, branch: config.branch }));
+     //     logger.info(M.data.githubConfigLoaded({ owner: config.owner, repo: config.repo, branch: config.branch }));
         } else {
-          logger.info(M.data.githubConfigDisabled());
+     //     logger.info(M.data.githubConfigDisabled());
         }
         return config;
       } else {
-        logger.info(M.data.githubConfigMissing());
+     //   logger.info(M.data.githubConfigMissing());
         return null;
       }
     } catch (error) {
-      logger.error(M.data.githubConfigError(), error.message);
+    //  logger.error(M.data.githubConfigError(), error.message);
       return null;
     }
   }
 
   async initialize() {
-    logger.info(M.data.initStarting());
+  //  logger.info(M.data.initStarting());
     this.loadGitHubConfig();
     try {
       const types = ['weapons', 'runewords', 'wikis', 'auras', 'runeValues'];
@@ -194,12 +194,12 @@ class DataManager {
       results.forEach((result, idx) => {
         const dataType = types[idx];
         if (result.status === 'rejected') {
-          logger.error(`${M.data.initFatal()} (${dataType})`, result.reason?.message || 'unknown');
+   //       logger.error(`${M.data.initFatal()} (${dataType})`, result.reason?.message || 'unknown');
         }
       });
-      logger.info(M.data.initDone());
+   //   logger.info(M.data.initDone());
     } catch (error) {
-      logger.error(M.data.initFatal(), error.message);
+  //    logger.error(M.data.initFatal(), error.message);
     }
   }
 }

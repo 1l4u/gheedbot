@@ -14,7 +14,7 @@ function getLocalVersion() {
     const data = JSON.parse(fs.readFileSync(versionFile, 'utf8'));
     return data.version;
   } catch (err) {
-    logger.error(M.version.localReadError(), err.message);
+   // logger.error(M.version.localReadError(), err.message);
     return null;
   }
 }
@@ -27,7 +27,7 @@ async function getGitHubVersion(githubConfig) {
     const res = await axios.get(url, { timeout: 5000 });
     return res.data.version;
   } catch (err) {
-    logger.error(M.version.githubReadError(), err.message);
+   // logger.error(M.version.githubReadError(), err.message);
     return null;
   }
 }
@@ -49,11 +49,11 @@ async function checkVersionAndReload(dataManager) {
 
   if (lastVersion === null) {
     lastVersion = currentVersion;
-    logger.debug(M.version.unchanged({ from: lastVersion, to: currentVersion }));
+  //  logger.debug(M.version.unchanged({ from: lastVersion, to: currentVersion }));
   }
 
   if (currentVersion && currentVersion !== lastVersion) {
-    logger.info(M.version.changedReload({ from: lastVersion, to: currentVersion }));
+   // logger.info(M.version.changedReload({ from: lastVersion, to: currentVersion }));
     lastVersion = currentVersion;
     await dataManager.reloadAll();
   }
