@@ -15,7 +15,7 @@ process.on('uncaughtException', (err, origin) => {
 });
 
 
-const { Client, GatewayIntentBits, ChannelType, PermissionFlagsBits, EmbedBuilder, SlashCommandBuilder, Routes, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder, Options } = require("discord.js");
+const { Client, GatewayIntentBits, SlashCommandBuilder, Routes, Options, ContextMenuCommandBuilder, ApplicationCommandType } = require("discord.js");
 const { REST } = require('@discordjs/rest');
 // Import data manager
 const { dataManager, DataManager } = require('./utils/data-manager');
@@ -30,18 +30,20 @@ const { handleSlashRuneword } = require('./commands/runeword');
 const { handleSlashWiki } = require('./commands/wiki');
 const { handleSlashWeapon } = require('./commands/weapon');
 const { handleSlashCritChance, handleSlashTas, handleSlashIas, handleDmgCalculator2 } = require('./commands/calculator');
-const { handleSlashHr } = require('./commands/hr');
-const { checkVersionAndReload } = require('./utils/version-check');
 // Import utilities
 const { hasBypassPermission, isValidCommand } = require('./utils/permissions');
+const { onReactionAdd, onReactionRemove } = require('./handlers/reactionTranslate');
+const translationCache = require('./utils/translationCache');
 
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions, 
     GatewayIntentBits.MessageContent, 
     GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildVoiceStates
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.DirectMessages 
   ],
   // Tối ưu hóa cache để giảm sử dụng RAM
   makeCache: Options.cacheWithLimits({
@@ -358,6 +360,12 @@ const commands = [
         .setDescription('Văn bản cần dịch')
         .setRequired(true)
         .setMaxLength(2000)),
+  new ContextMenuCommandBuilder()
+    .setName('Dịch sang Tiếng Việt')
+    .setType(ApplicationCommandType.Message),
+  new ContextMenuCommandBuilder()
+    .setName('Translate to English')
+    .setType(ApplicationCommandType.Message)
 ].map(command => command.toJSON());
 
 // Hàm đăng ký slash commands
@@ -401,26 +409,33 @@ client.on('interactionCreate', async interaction => {
     //                        `Type: ${interaction.type}`;
 
     // console.log(`Nhận interaction: ${interaction.type} | ${interactionInfo} | Người dùng: ${interaction.user.tag}`);
-// Xử lý tương tác autocomplete
-if (interaction.isAutocomplete()) {
-    // console.log(`Autocomplete cho: ${interaction.commandName}`);
-
-  try {
-    const dataSource = await getAutocompleteData(interaction.commandName);
-    if (!dataSource || dataSource.length === 0) {
-     // logger.debug(M.interactions.autocompleteNoSource({ name: interaction.commandName }));
-      await interaction.respond([]);
-      return;
+    // Xử lý context menu message (dịch tin nhắn)
+    if (interaction.isMessageContextMenuCommand()) {
+        const { handleMessageContext } = require('./commands/contextTranslate');
+        await handleMessageContext(interaction);
+        return;
     }
 
-    await handleAutocomplete(interaction, dataSource);
-    // console.log(`Đã xử lý autocomplete cho: ${interaction.commandName}`);
-  } catch (err) {
-  //  logger.error(M.interactions.autocompleteError({ name: interaction.commandName }), err);
-    await interaction.respond([]);
-  }
-  return;
-}
+    // Xử lý tương tác autocomplete
+    if (interaction.isAutocomplete()) {
+        // console.log(`Autocomplete cho: ${interaction.commandName}`);
+
+      try {
+        const dataSource = await getAutocompleteData(interaction.commandName);
+        if (!dataSource || dataSource.length === 0) {
+        // logger.debug(M.interactions.autocompleteNoSource({ name: interaction.commandName }));
+          await interaction.respond([]);
+          return;
+        }
+
+        await handleAutocomplete(interaction, dataSource);
+        // console.log(`Đã xử lý autocomplete cho: ${interaction.commandName}`);
+      } catch (err) {
+      //  logger.error(M.interactions.autocompleteError({ name: interaction.commandName }), err);
+        await interaction.respond([]);
+      }
+      return;
+    }
 
   // Xử lý Modal Submissions
   if (interaction.isModalSubmit()) {
@@ -882,12 +897,52 @@ client.on('reconnecting', () => {
 });
 
 
+// Xử lý reaction thêm
+client.on('messageReactionAdd', async (reaction, user) => {
+    try {
+        // Fetch partial reactions nếu cần
+        if (reaction.partial) {
+            try {
+                await reaction.fetch();
+            } catch (error) {
+                console.error('Lỗi khi fetch reaction:', error);
+                return;
+            }
+        }
+        
+        await onReactionAdd(reaction, user);
+    } catch (error) {
+        console.error('Lỗi xử lý reaction add:', error);
+    }
+});
+
+// Xử lý reaction xoá (tuỳ chọn)
+client.on('messageReactionRemove', async (reaction, user) => {
+    try {
+        if (reaction.partial) {
+            try {
+                await reaction.fetch();
+            } catch (error) {
+                console.error('Lỗi khi fetch reaction:', error);
+                return;
+            }
+        }
+        
+        await onReactionRemove(reaction, user);
+    } catch (error) {
+        console.error('Lỗi xử lý reaction remove:', error);
+    }
+});
 
 
 // Create a consolidated bot initialization function
 async function initializeBot() {
   try {
     logger.info(M.bot.starting());
+
+    // Khởi tạo translation cache trước
+    await translationCache.initialize();
+    logger.info('✅ Translation cache initialized');
 
     // Đăng nhập vào Discord
     const token = process.env.DISCORD_TOKEN;
