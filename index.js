@@ -308,48 +308,56 @@ const commands = [
     .setName('setuphr')
     .setDescription('Tạo HR Calculator interface trong channel (cần quyền Manage Channels)'),
   new SlashCommandBuilder()
-  .setName('dmgcal')
-  .setDescription('Tính dmg vũ khí với weapon picker')
-  .addStringOption(option =>
-    option.setName('item')
-          .setDescription('Chọn weapon')
-          .setRequired(true)
-          .setAutocomplete(true))
-  .addIntegerOption(option =>
-    option.setName('ed')
-          .setDescription('Enhanced Damage %')
-          .setRequired(true))
-  .addIntegerOption(option =>
-    option.setName('add_min')
-          .setDescription('Add Min Damage')
-          .setRequired(false))
-  .addIntegerOption(option =>
-    option.setName('add_max')
-          .setDescription('Add Max Damage')
-          .setRequired(false))
-  .addStringOption(option =>
-    option.setName('eth')
-          .setDescription('Ethereal weapon (+25% base damage)')
-          .setRequired(false)
-          .addChoices(
-            { name: 'Ethereal', value: 'true' },
-            { name: 'Non-Ethereal', value: 'false' }
-          ))
-  .addIntegerOption(option =>
-    option.setName('ed_lvl')
-          .setDescription('Enhanced Damage per Level %')
-          .setRequired(false))
-  .addIntegerOption(option =>
-    option.setName('max_lvl')
-          .setDescription('Max Damage per Level')
-          .setRequired(false))
-  .addStringOption(option =>
-    option.setName('jewel')
-          .setDescription('Jewel stats (format: ED-MaxDmg,ED-MaxDmg). Ví dụ: 40-15,39-25,22-13...')
-          .setRequired(false)),
+    .setName('dmgcal')
+    .setDescription('Tính dmg vũ khí với weapon picker')
+    .addStringOption(option =>
+      option.setName('item')
+            .setDescription('Chọn weapon')
+            .setRequired(true)
+            .setAutocomplete(true))
+    .addIntegerOption(option =>
+      option.setName('ed')
+            .setDescription('Enhanced Damage %')
+            .setRequired(true))
+    .addIntegerOption(option =>
+      option.setName('add_min')
+            .setDescription('Add Min Damage')
+            .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('add_max')
+            .setDescription('Add Max Damage')
+            .setRequired(false))
+    .addStringOption(option =>
+      option.setName('eth')
+            .setDescription('Ethereal weapon (+25% base damage)')
+            .setRequired(false)
+            .addChoices(
+              { name: 'Ethereal', value: 'true' },
+              { name: 'Non-Ethereal', value: 'false' }
+            ))
+    .addIntegerOption(option =>
+      option.setName('ed_lvl')
+            .setDescription('Enhanced Damage per Level %')
+            .setRequired(false))
+    .addIntegerOption(option =>
+      option.setName('max_lvl')
+            .setDescription('Max Damage per Level')
+            .setRequired(false))
+    .addStringOption(option =>
+      option.setName('jewel')
+            .setDescription('Jewel stats (format: ED-MaxDmg,ED-MaxDmg). Ví dụ: 40-15,39-25,22-13...')
+            .setRequired(false)),
   new SlashCommandBuilder()
-  .setName('botreload')
-  .setDescription('Reload data'),
+    .setName('botreload')
+    .setDescription('Reload data'),
+  new SlashCommandBuilder()
+    .setName('translate')
+    .setDescription('Dịch văn bản sang tiếng Việt sử dụng AI')
+    .addStringOption(option =>
+      option.setName('text')
+        .setDescription('Văn bản cần dịch')
+        .setRequired(true)
+        .setMaxLength(2000)),
 ].map(command => command.toJSON());
 
 // Hàm đăng ký slash commands
@@ -499,10 +507,10 @@ if (interaction.isAutocomplete()) {
   }
 
   if (interaction.isChatInputCommand()){
-    // console.log(`Lệnh Chat Input: ${commandName}`);
+    console.log(`Lệnh Chat Input: ${commandName}`);
   try {
     // Direct execution without timeout wrapper for debugging
-    // console.log(`Chuẩn bị thực thi switch cho: ${commandName}`);
+    console.log(`Chuẩn bị thực thi switch cho: ${commandName}`);
     switch (commandName) {
         case 'rw':
           await handleSlashRuneword(interaction);
@@ -553,6 +561,21 @@ if (interaction.isAutocomplete()) {
             await interaction.editReply('Lỗi reload: ' + err.message);
           }
           break;
+        case 'translate':
+                console.log('Bắt đầu xử lý translate...'); // THÊM LOG
+                try {
+                    // THỬ IMPORT TRỰC TIẾP
+                    const translateModule = require('./commands/translate');
+                    await translateModule.handleSlashTranslate(interaction);
+                    console.log('Xử lý translate thành công'); // LOG THÀNH CÔNG
+                } catch (importError) {
+                    console.error('Lỗi import translate module:', importError);
+                    await interaction.reply({
+                        content: '❌ Lỗi hệ thống khi xử lý dịch thuật.',
+                        flags: 1 << 6
+                    });
+                }
+                break;
         default:
          // logger.warn(M.interactions.unknownCommand({ name: commandName }));
           await interaction.reply({
