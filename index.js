@@ -74,10 +74,10 @@ app.use(express.json({ limit: '10mb' }));
 // Request timeout middleware
 app.use((req, res, next) => {
   res.setTimeout(30000, () => {
-    logger.warn(M.server.requestTimeout());
+    logger.warn(M.server.requestTimeout);
     res.status(408).json({
       status: 'error',
-      message: 'Request timeout',
+      message: M.server.requestTimeout,
       timestamp: new Date().toISOString()
     });
   });
@@ -96,10 +96,10 @@ app.get('/ping', (req, res) => {
       uptime: process.uptime()
     });
   } catch (error) {
-    logger.error('Health check error:', error);
+    logger.error(M.server.healthCheckError, error);
     res.status(503).json({
       status: 'error',
-      message: 'Service temporarily unavailable',
+      message: M.server.serviceUnavailable,
       timestamp: new Date().toISOString()
     });
   }
@@ -113,7 +113,7 @@ app.get('/health', (req, res) => {
 
     res.status(200).json({
       status: 'healthy',
-      message: 'Bot đang hoạt động bình thường',
+      message: M.bot.botHealthReady,
       bot: {
         status: botStatus,
         user: client.user ? client.user.tag : 'Unknown',
@@ -129,10 +129,10 @@ app.get('/health', (req, res) => {
       timestamp: new Date().toISOString()
     });
   } catch (error) {
-    logger.error('Detailed health check error:', error);
+    logger.error(M.server.detailedHealthCheckError, error);
     res.status(503).json({
       status: 'error',
-      message: 'Service temporarily unavailable',
+      message: M.server.serviceUnavailable,
       error: error.message,
       timestamp: new Date().toISOString()
     });
@@ -159,7 +159,7 @@ app.get('/', (req, res) => {
       </html>
     `);
   } catch (error) {
-    logger.error('Lỗi route gốc:', error);
+    logger.error(M.server.rootRouteError, error);
     res.status(500).send('Lỗi máy chủ nội bộ');
   }
 });
@@ -169,20 +169,20 @@ app.get('/test-github', async (req, res) => {
   try {
     const { githubFetcher } = require('./utils/github-data');
 
-    logger.debug('Testing GitHub connection...');
+    logger.debug(M.github.githubTestConection);
     const testResult = await githubFetcher.fetchFile('data/weapon.json');
 
     res.status(200).json({
       status: 'success',
-      message: 'GitHub connection successful',
+      message: M.github.githubConnectionSuccess,
       dataSize: Array.isArray(testResult) ? testResult.length : 'N/A',
       timestamp: new Date().toISOString()
     });
   } catch (error) {
-    logger.error('GitHub test error:', error);
+    logger.error(M.github.githubTestError, error);
     res.status(500).json({
       status: 'error',
-      message: 'GitHub connection failed',
+      message: M.github.githubConnectionFailed,
       error: error.message,
       timestamp: new Date().toISOString()
     });
@@ -303,9 +303,6 @@ const commands = [
   new SlashCommandBuilder()
     .setName('debug')
     .setDescription('Kiểm tra thông tin channel và bot'),
-  // new SlashCommandBuilder()
-  //   .setName('hr')
-  //   .setDescription('Tính tổng giá trị HR của các runes (private)'),
   new SlashCommandBuilder()
     .setName('setuphr')
     .setDescription('Tạo HR Calculator interface trong channel (cần quyền Manage Channels)'),
@@ -371,18 +368,14 @@ const commands = [
 // Hàm đăng ký slash commands
 async function registerSlashCommands() {
   try {
-    const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
-   // logger.info(M.interactions.registering());
-    
+    const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);    
     await rest.put(
       Routes.applicationCommands(process.env.CLIENT_ID),
       { body: commands }
     );
     
-  //  logger.info(M.interactions.registered());
     return true;
   } catch (error) {
-   // logger.error(M.interactions.registerError(), error);
     return false;
   }
 }
@@ -401,14 +394,6 @@ async function withTimeout(promise, timeoutMs = 10000) {
 client.on('interactionCreate', async interaction => {
     const { commandName } = interaction;
     
-    // Debug logging với thông tin chi tiết
-    // const interactionInfo = interaction.isCommand() ? `Lệnh: ${commandName}` :
-    //                        interaction.isButton() ? `Button: ${interaction.customId}` :
-    //                        interaction.isModalSubmit() ? `Modal: ${interaction.customId}` :
-    //                        interaction.isAutocomplete() ? `Autocomplete: ${interaction.commandName}` :
-    //                        `Type: ${interaction.type}`;
-
-    // console.log(`Nhận interaction: ${interaction.type} | ${interactionInfo} | Người dùng: ${interaction.user.tag}`);
     // Xử lý context menu message (dịch tin nhắn)
     if (interaction.isMessageContextMenuCommand()) {
         const { handleMessageContext } = require('./commands/contextTranslate');
@@ -418,20 +403,15 @@ client.on('interactionCreate', async interaction => {
 
     // Xử lý tương tác autocomplete
     if (interaction.isAutocomplete()) {
-        // console.log(`Autocomplete cho: ${interaction.commandName}`);
-
       try {
         const dataSource = await getAutocompleteData(interaction.commandName);
         if (!dataSource || dataSource.length === 0) {
-        // logger.debug(M.interactions.autocompleteNoSource({ name: interaction.commandName }));
           await interaction.respond([]);
           return;
         }
 
         await handleAutocomplete(interaction, dataSource);
-        // console.log(`Đã xử lý autocomplete cho: ${interaction.commandName}`);
       } catch (err) {
-      //  logger.error(M.interactions.autocompleteError({ name: interaction.commandName }), err);
         await interaction.respond([]);
       }
       return;
@@ -439,7 +419,6 @@ client.on('interactionCreate', async interaction => {
 
   // Xử lý Modal Submissions
   if (interaction.isModalSubmit()) {
-   // logger.debug(`Modal submit: ${interaction.customId}`);
 
     try {
       // Xử lý HR calculator modals (cả private và public)
@@ -455,15 +434,12 @@ client.on('interactionCreate', async interaction => {
           await handleHrModalSubmit(interaction);
           break;
         default:
-      //    logger.warn(M.interactions.unknownModal({ id: interaction.customId }));
           await interaction.reply({
             content: 'Modal không được hỗ trợ',
             flags: 1 << 6
           });
       }
     } catch (error) {
-    //  logger.error(`Lỗi xử lý modal ${interaction.customId}:`, error);
-
       if (!interaction.replied && !interaction.deferred) {
         await interaction.reply({
           content: 'Đã xảy ra lỗi khi xử lý modal',
@@ -510,7 +486,6 @@ client.on('interactionCreate', async interaction => {
         });
       }
   }catch (error) {
-    //  logger.error('Lỗi xử lý button:', error);
       if (!interaction.replied) {
         await interaction.followUp({
           content: 'Đã xảy ra lỗi khi xử lý yêu cầu',
@@ -522,10 +497,8 @@ client.on('interactionCreate', async interaction => {
   }
 
   if (interaction.isChatInputCommand()){
-    console.log(`Lệnh Chat Input: ${commandName}`);
   try {
     // Direct execution without timeout wrapper for debugging
-    console.log(`Chuẩn bị thực thi switch cho: ${commandName}`);
     switch (commandName) {
         case 'rw':
           await handleSlashRuneword(interaction);
@@ -551,9 +524,6 @@ client.on('interactionCreate', async interaction => {
         case 'dmgcal' :
           await handleDmgCalculator2(interaction);
           break;
-        // case 'hr':
-        //   await handleSlashHr(interaction);
-        //   break;
         case 'setuphr':
           const { handleSlashSetupHr } = require('./commands/hr');
           await handleSlashSetupHr(interaction);
@@ -577,14 +547,11 @@ client.on('interactionCreate', async interaction => {
           }
           break;
         case 'translate':
-                console.log('Bắt đầu xử lý translate...'); // THÊM LOG
                 try {
                     // THỬ IMPORT TRỰC TIẾP
                     const translateModule = require('./commands/translate');
                     await translateModule.handleSlashTranslate(interaction);
-                    console.log('Xử lý translate thành công'); // LOG THÀNH CÔNG
                 } catch (importError) {
-                    console.error('Lỗi import translate module:', importError);
                     await interaction.reply({
                         content: '❌ Lỗi hệ thống khi xử lý dịch thuật.',
                         flags: 1 << 6
@@ -592,17 +559,14 @@ client.on('interactionCreate', async interaction => {
                 }
                 break;
         default:
-         // logger.warn(M.interactions.unknownCommand({ name: commandName }));
           await interaction.reply({
             content: 'Lệnh không được hỗ trợ',
             flags: 1 << 6
           });
       }
 
-   // logger.debug(M.interactions.commandDone({ name: commandName }));
 		
   } catch (error) {
-    //logger.error(`Lỗi khi xử lý lệnh ${commandName}:`, error);
     
     try {
       // Kiểm tra nếu interaction chưa được reply
@@ -622,7 +586,6 @@ client.on('interactionCreate', async interaction => {
         });
       }
     } catch (replyError) {
-    //  logger.error('Lỗi khi gửi error message:', replyError);
     }
   }}
 });
@@ -643,7 +606,6 @@ async function getAutocompleteData(commandName) {
         return [];
     }
   } catch (error) {
-   // logger.error(M.interactions.autocompleteError({ name: commandName }), error.message);
     return [];
   }
 }
@@ -659,7 +621,6 @@ async function handleAutocomplete(interaction, dataSource) {
 
   // Kiểm tra nếu interaction đã được responded
   if (interaction.responded) {
-   // logger.debug(M.interactions.autocompleteRespondedSkip());
     return;
   }
 
@@ -677,14 +638,12 @@ async function handleAutocomplete(interaction, dataSource) {
     if (autocompleteCache.has(cacheKey)) {
       const cached = autocompleteCache.get(cacheKey);
       if (now - cached.timestamp < CACHE_DURATION) {
-      //  logger.debug(M.interactions.autocompleteDuplicateSkip({ key: cacheKey }));
         return;
       }
     }
 
     // Kiểm tra data source
     if (!dataSource || !Array.isArray(dataSource)) {
-     // logger.debug(M.interactions.autocompleteInvalidSource({ name: commandName }));
       await interaction.respond([]); // Trả về danh sách rỗng để tránh lỗi
       return;
     }
@@ -700,7 +659,6 @@ async function handleAutocomplete(interaction, dataSource) {
       .map(choice => ({ name: choice, value: choice }));
 
     // Log để debug
-    //console.log(`Autocomplete choices for ${commandName}:`, choices);
 
     // Cache result
     autocompleteCache.set(cacheKey, { timestamp: now, choices });
@@ -717,7 +675,6 @@ async function handleAutocomplete(interaction, dataSource) {
       await interaction.respond(choices);
     }
   } catch (error) {
-   // logger.error('Lỗi trong handleAutocomplete:', error);
     // Trả về danh sách rỗng để tránh crash
     if (!interaction.responded) {
       await interaction.respond([]);
@@ -742,13 +699,11 @@ client.on('messageCreate', async message => {
       // Xoá tin nhắn người dùng
       await message.delete().catch(err => {
         if (err.code !== 10008) throw err;
-       // logger.warn(M.moderation.spamDeletedWarn({ reason: err.message }));
       });
 
       // Gửi cảnh báo
       await sendWarning(message);
     } catch (err) {
-     // logger.error('Lỗi xóa tin nhắn spam:', err);
     }
     return;
   }
@@ -763,7 +718,6 @@ client.on('messageCreate', async message => {
       try {
         await message.delete().catch(err => {
           if (err.code !== 10008) throw err;
-       //   logger.warn(M.moderation.showDeletedWarn({ reason: err.message }));
         });
 
         const warning = await message.channel.send({
@@ -773,7 +727,6 @@ client.on('messageCreate', async message => {
 
         setTimeout(() => warning.delete().catch(() => {}), 5000);
       } catch (err) {
-       // logger.error('Lỗi xóa tin nhắn show:', err);
       }
     }
   }
@@ -795,25 +748,11 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         
         // Kiểm tra nếu người dùng tồn tại
         if (!user) {
-          //  logger.debug('Không tìm thấy người dùng với ID đã cung cấp!');
             return;
         }
 
         // Bỏ qua nếu người dùng là bot
         if (newState.member.user.bot) return;
-
-        // Lấy ID người dùng và thời gian hiện tại
-        // const userId = newState.member.id;
-        // const now = Date.now();
-
-        // Kiểm tra cooldown (5 giây để tránh spam)
-        // if (lastNotification.has(userId) && now - lastNotification.get(userId) < 5000) {
-        //     console.log(`Cooldown đang hoạt động cho user ${userId}, bỏ qua thông báo`);
-        //     return; // Bỏ qua nếu chưa đủ thời gian cooldown
-        // }
-
-        // // Cập nhật thời gian thông báo
-        // lastNotification.set(userId, now);
 
         // Lấy nickname (hoặc username nếu không có nickname) và username
         const displayName = newState.member.user.displayName;
@@ -823,9 +762,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
             const channelName = newState.channel.name;
             try {
                 await user.send(`**${displayName}** đã tham gia voice **${channelName}**`);
-            //    logger.debug(`${displayName} tham gia ${channelName}`);
             } catch (dmError) {
-             //   logger.error(`Lỗi gửi DM tham gia: ${dmError.message}`);
             }
         }
         // Người dùng rời bất kỳ kênh voice nào
@@ -833,17 +770,13 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
             const channelName = oldState.channel.name;
             try {
                 await user.send(`**${displayName}** đã rời voice **${channelName}**`);
-             //   logger.debug(`${displayName} rời ${channelName}`);
             } catch (dmError) {
-              //  logger.error(`Lỗi gửi DM rời: ${dmError.message}`);
             }
         }
         // Người dùng chuyển kênh (không gửi thông báo để tránh spam)
         else if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
-          //  logger.debug(`**${displayName}** From: ${oldState.channel.name}\n To: ${newState.channel.name}`);
         }
     } catch (error) {
-       // logger.error('Lỗi khi xử lý sự kiện voiceStateUpdate:', error.message);
     }
 });
 
@@ -942,7 +875,6 @@ async function initializeBot() {
 
     // Khởi tạo translation cache trước
     await translationCache.initialize();
-    logger.info('✅ Translation cache initialized');
 
     // Đăng nhập vào Discord
     const token = process.env.DISCORD_TOKEN;

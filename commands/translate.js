@@ -9,7 +9,6 @@ async function handleSlashTranslate(interaction) {
     
     const textToTranslate = interaction.options.getString('text');
 
-    console.log('📥 Text to translate:', textToTranslate);
 
     // Kiểm tra độ dài văn bản
     if (textToTranslate.length > 2000) {
@@ -21,9 +20,7 @@ async function handleSlashTranslate(interaction) {
 
     try {
         const translator = new GeminiTranslator();
-        console.log('Đang gọi Gemini API dịch thuật...');
         const translatedText = await translator.translateToVietnamese(textToTranslate);
-        console.log('Dịch thuật thành công');
 
         // Kiểm tra nếu bản dịch quá dài
         if (translatedText.length > 4096) {
@@ -64,9 +61,7 @@ async function handleSlashTranslate(interaction) {
             flags: 1<<6 // Đảm bảo chỉ hiển thị cho user
         });
 
-    } catch (error) {
-        console.error('Lỗi trong handleSlashTranslate:', error);
-        
+    } catch (error) {        
         let errorMessage = '**Lỗi dịch thuật:** ';
         
         if (error.message.includes('rate limit')) {

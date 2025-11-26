@@ -21,7 +21,6 @@ class ContextTranslateHandler {
     async handleMessageContext(interaction) {
         const { commandName, targetMessage, user } = interaction;
         
-        console.log(`🎯 Context Menu: ${commandName} từ ${user.tag}`);
         
         // Kiểm tra cooldown
         if (this.isUserInCooldown(user.id)) {
@@ -90,10 +89,8 @@ class ContextTranslateHandler {
                 flags: 1 << 6
             });
 
-            console.log(`✅ Context translation thành công cho ${user.tag}`);
 
         } catch (error) {
-            console.error('❌ Lỗi context menu translation:', error);
             
             let errorMessage = '❌ **Lỗi dịch thuật:** ';
             

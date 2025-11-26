@@ -1765,5 +1765,38 @@
 			"+15% Damage Taken Gained as Mana when Hit",
 			"+30% Better Chance of Getting Magic Item"
 		]
+	},
+	{
+		"name": "Echo - Sol Dol",
+		"types" :["Javelins", "Throws", "Quivers"],
+		"option" :[
+			"[20-40]% Chance to Pierce",
+			"[40-60]% Enhanced Damage",
+			"+9 to Minimum Damage",
+			"50% Bonus to Attack Rating",
+			"+2 Life After Each Kill"
+		]
+	},
+	{
+		"name": "Ancient's Foresight - Ral Thul",
+		"types" :["Quivers"],
+		"option" :[
+			"[10-20]% Enhanced Damage",
+			"+20 Mana",
+			"Regenerate Mana 20%",
+			"Cold Resist +[5-15]%",
+			"Fire Resist +[5-15]%"
+		]
+	},
+	{
+		"name": "Ancient's Scripture - Tal Ort",
+		"types" :["Shields"],
+		"option" :[
+			"[10-20]% Enhanced Damage",
+			"+20 Life",
+			"Heal Stanima Plus 20%",
+			"Lightning Resist +[5-15]%",
+			"Poison Resist +[5-15]%"
+		]
 	}
 ]

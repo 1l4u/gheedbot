@@ -6,9 +6,7 @@ class ReactionHandler {
     constructor() {
         try {
             this.translator = new GeminiTranslator();
-            console.log('✅ GeminiTranslator khởi tạo thành công');
         } catch (error) {
-            console.error('❌ Lỗi khởi tạo GeminiTranslator:', error);
             this.translator = {
                 async autoTranslate(text) {
                     return '❌ Lỗi hệ thống dịch thuật. Vui lòng thử lại sau.';
@@ -59,18 +57,15 @@ class ReactionHandler {
     }
 
     async handleReactionTranslate(reaction, user) {
-        console.log('🚀 Bắt đầu handleReactionTranslate');
         
         if (!['🇻🇳', '🇺🇸'].includes(reaction.emoji.name)) return;
         if (user.bot) return;
 
         if (this.isUserInCooldown(user.id)) {
-            console.log(`⏳ User ${user.username} đang trong cooldown`);
             return;
         }
 
         if (!this.canUserRequest(user.id)) {
-            console.log(`⚠️ User ${user.username} đạt giới hạn request`);
             return;
         }
 
@@ -78,23 +73,19 @@ class ReactionHandler {
             const message = reaction.message;
             
             if (!message.content || message.content.trim() === '') {
-                console.log('Message không có nội dung để dịch');
                 return;
             }
 
             if (message.content.length > 2000) {
-                console.log('Văn bản quá dài');
                 return;
             }
 
-            console.log(`📥 Reaction ${reaction.emoji.name} từ ${user.username}`);
 
             this.userCooldowns.set(user.id, Date.now());
 
             // Kiểm tra cache ngay lập tức
             const cachedTranslation = translationCache.get(message.content);
             if (cachedTranslation) {
-                console.log('✅ Phản hồi nhanh từ cache');
                 await this.sendEphemeralReply(message, user, cachedTranslation, true);
                 return;
             }
@@ -111,7 +102,6 @@ class ReactionHandler {
 
             await this.sendEphemeralReply(message, user, translatedText, false);
 
-            console.log('✅ Dịch reaction thành công');
 
         } catch (error) {
             console.error('❌ Lỗi trong handleReactionTranslate:', error);
@@ -134,7 +124,6 @@ class ReactionHandler {
                     flags: 1 << 6
                 });
             } catch (replyError) {
-                console.error('❌ Không thể gửi thông báo lỗi:', replyError);
             }
         }
     }
@@ -190,7 +179,6 @@ class ReactionHandler {
             }
 
         } catch (error) {
-            console.error('❌ Lỗi gửi ephemeral reply:', error);
         }
     }
 

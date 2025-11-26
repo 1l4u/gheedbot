@@ -47,7 +47,6 @@ class GeminiTranslator {
         try {
             await this.waitForRateLimit();
             
-            console.log('Đang lấy danh sách model khả dụng từ Gemini API...');
             const res = await axios.get(`${this.apiBase}/models?key=${this.apiKey}`);
             
             const models = res.data.models || [];
@@ -63,10 +62,8 @@ class GeminiTranslator {
                 sorted[0];
 
             this.model = preferred.name.replace('models/', '');
-            console.log(`Chọn model: ${this.model}`);
             return this.model;
         } catch (err) {
-            console.error('Không thể lấy danh sách model:', err.response?.data || err.message);
             this.model = 'gemini-2.5-flash';
             return this.model;
         }
@@ -83,14 +80,12 @@ class GeminiTranslator {
         // Kiểm tra cache trước
         const cachedTranslation = translationCache.get(text);
         if (cachedTranslation) {
-            console.log('✅ Sử dụng bản dịch từ cache');
             return cachedTranslation;
         }
 
         // Kiểm tra cache tương tự
         const similarTranslation = translationCache.findSimilar(text);
         if (similarTranslation) {
-            console.log('✅ Sử dụng bản dịch tương tự từ cache');
             return similarTranslation;
         }
 
@@ -112,7 +107,6 @@ class GeminiTranslator {
             const sourceLangName = targetLanguage === 'vi' ? 'tiếng Anh' : 'tiếng Việt'; // 🚨 SỬA: Đổi tên biến
             const targetLangName = targetLanguage === 'vi' ? 'tiếng Việt' : 'tiếng Anh'; // 🚨 SỬA: Đổi tên biến
 
-            console.log(`🌐 Dịch ${sourceLangName} → ${targetLangName} (${estimatedTokens} tokens):`, text.substring(0, 50) + '...');
 
             const response = await axios.post(
                 `${apiUrl}?key=${this.apiKey}`,
@@ -140,7 +134,6 @@ ${text}`
             const result = response.data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
             if (!result) throw new Error('Phản hồi không hợp lệ từ Gemini');
             
-            console.log('✅ Dịch thành công:', result.substring(0, 50) + '...');
 
             // Lưu vào cache
             const detectedSourceLang = await this.detectLanguage(text); // 🚨 SỬA: Đổi tên biến
@@ -154,7 +147,6 @@ ${text}`
             console.error('❌ Lỗi dịch:', error.response?.data || error.message);
 
             if (error.response?.status === 429) {
-                console.log('⚠️ Rate limit bị hit, chờ 60s...');
                 await new Promise(resolve => setTimeout(resolve, 60000));
                 return this.translateText(text, targetLanguage);
             }
@@ -172,7 +164,6 @@ ${text}`
         const detectedLang = await this.detectLanguage(text);
         const targetLang = detectedLang === 'vi' ? 'en' : 'vi';
         
-        console.log(`🔍 Phát hiện: ${detectedLang} → ${targetLang}`);
         return await this.translateText(text, targetLang);
     }
 
