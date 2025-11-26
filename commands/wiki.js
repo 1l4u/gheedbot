@@ -9,7 +9,6 @@ const { M } = require('../utils/log-messages');
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashWiki(interaction) {
-  logger.debug(M.commands.wikiCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -21,7 +20,6 @@ async function handleSlashWiki(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -31,7 +29,6 @@ async function handleSlashWiki(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      logger.debug('Không có tên được cung cấp trong interaction');
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên mục wiki'
       });
@@ -41,7 +38,6 @@ async function handleSlashWiki(interaction) {
     // Lấy dữ liệu wiki từ data manager
     const wiki = await dataManager.getWikis();
     if (!Array.isArray(wiki)) {
-      logger.error('Dữ liệu wiki không hợp lệ: không phải array');
       return await interaction.editReply({
         content: 'Dữ liệu wiki không hợp lệ'
       });
@@ -166,9 +162,7 @@ async function handleSlashWiki(interaction) {
       files: files
     });
 
-    logger.debug(`✅ Wiki: ${name}`);
   } catch (error) {
-    logger.error('Lỗi lệnh wiki:', error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm wiki'
     });

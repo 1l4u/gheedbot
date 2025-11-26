@@ -58,7 +58,6 @@ async function handleSlashSetupHr(interaction) {
     });
 
     if (!permissionCheck.allowed) {
-      logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
       return await interaction.editReply({ content: permissionCheck.reason });
     }
 
@@ -89,9 +88,7 @@ async function handleSlashSetupHr(interaction) {
     );
 
     await interaction.reply({ embeds: [embed], components: [row1, row2] });
-    logger.info(M.hr.setupDone({ channel: interaction.channel.name, user: interaction.user.tag }));
   } catch (error) {
-    logger.error('Lỗi setup HR interface:', error);
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({ content: 'Đã xảy ra lỗi khi setup HR interface', flags: 1 << 6 });
     }
@@ -133,7 +130,6 @@ async function handleSlashHr(interaction) {
 
     await interaction.reply({ embeds: [embed], components: [row1, row2], flags: 1 << 6 });
   } catch (error) {
-    logger.error('Lỗi hiển thị HR calculator:', error);
     if (!interaction.replied && !interaction.deferred) {
       await interaction.reply({ content: 'Đã xảy ra lỗi khi hiển thị HR calculator', flags: 1 << 6 });
     } else {
@@ -197,7 +193,6 @@ async function handleHrButton(interaction) {
       await interaction.reply({ content: '🔄 Đã reset tất cả dữ liệu HR!', flags: 1 << 6 });
     }
   } catch (error) {
-    logger.error('Lỗi xử lý HR button:', error);
     try {
       if (!interaction.replied && !interaction.deferred) {
         await interaction.reply({ content: `❌ Đã xảy ra lỗi khi xử lý button: ${error.message}`, flags: 1 << 6 });
@@ -244,7 +239,6 @@ async function handleHrModalSubmit(interaction) {
       if (quantity > 0) {
         userData[runeName] = quantity;
         hasValidData = true;
-        // logger.debug(M.hr.saveRune({ rune: runeName, qty: quantity}));
       } else if (userData[runeName]) {
         // Xóa rune nếu số lượng là 0
         delete userData[runeName];
@@ -269,10 +263,8 @@ async function handleHrModalSubmit(interaction) {
   console.log(`${interaction.user.tag}: ${summary}`); // Debug log
   await interaction.deferUpdate();
 } else {
-      logger.error('Lỗi xử lý HR modal:', error);
     }
   } catch (error) {
-    logger.error('Lỗi xử lý HR modal:', error);
     try {
       if (!interaction.replied && !interaction.deferred) {
         await interaction.reply({ content: `❌ Đã xảy ra lỗi khi lưu dữ liệu: ${error.message}`, flags: 1 << 6 });
@@ -280,7 +272,6 @@ async function handleHrModalSubmit(interaction) {
         await interaction.followUp({ content: `❌ Đã xảy ra lỗi khi lưu dữ liệu: ${error.message}`, flags: 1 << 6 });
       }
     } catch (replyError) {
-      logger.error('Lỗi khi gửi error message:', replyError);
     }
   }
 }
@@ -345,7 +336,6 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
 
     logger.info(M.hr.result({ user: interaction.user.tag, total: totalHr.toFixed(2) }));
   } catch (error) {
-    logger.error('❌ Lỗi tính HR:', error);
     try {
       if (interaction.deferred) {
         await interaction.editReply({ content: `❌ Lỗi khi tính toán HR: ${error.message}` });
@@ -353,7 +343,6 @@ async function calculateAndShowHR(interaction, userId, isPublic = false) {
         await interaction.reply({ content: `❌ Lỗi khi tính toán HR: ${error.message}`, flags: 1 << 6 });
       }
     } catch (replyError) {
-      logger.error('Lỗi khi gửi error message:', replyError);
     }
   }
 }

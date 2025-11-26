@@ -12,7 +12,6 @@ const { M } = require('../utils/log-messages');
  * @param {Client} client - Discord client
  */
 async function handleSlashDebug(interaction, client) {
-  logger.debug(M.commands.runewordCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -24,14 +23,12 @@ async function handleSlashDebug(interaction, client) {
   });
 
   if (!permissionCheck.allowed) {
-    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
   }
 
   try {
-    logger.debug('🔍 Starting debug response...');
     
     const channelId = interaction.channel.id;
     const guildId = interaction.guild?.id || 'DM';
@@ -67,9 +64,7 @@ async function handleSlashDebug(interaction, client) {
       embeds: [embed]
     });
 
-    logger.debug(M.debug.interactionDebugSuccess);
   } catch (error) {
-    logger.error(M.debug.commandError, error);
     await interaction.editReply({
       content: 'Lỗi khi thực hiện debug command'
     });

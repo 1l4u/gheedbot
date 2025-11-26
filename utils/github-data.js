@@ -27,7 +27,7 @@ class GitHubDataFetcher {
    */
   setRepository(owner, repo, branch = 'main') {
     this.config = { owner, repo, branch };
-    logger.info(M.github.repoConfigured({ owner, repo, branch }));
+    //logger.info(M.github.repoConfigured({ owner, repo, branch }));
   }
 
   /**
@@ -41,7 +41,6 @@ class GitHubDataFetcher {
 
     // Kiểm tra cache
     if (cached && (Date.now() - cached.timestamp) < this.cacheTimeout) {
-      logger.debug(M.github.usingCache({ file: filePath }));
       return cached.data;
     }
 
@@ -49,7 +48,6 @@ class GitHubDataFetcher {
 
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
-        logger.info(M.github.loadingAttempt({ file: filePath, attempt, retries }));
         const url = `${this.baseUrl}/${this.config.owner}/${this.config.repo}/${this.config.branch}/${filePath}`;
 
         const data = await this.httpGet(url);
@@ -64,7 +62,6 @@ class GitHubDataFetcher {
 
         // Validate data structure
         if (!Array.isArray(parsedData)) {
-          logger.warn(M.github.jsonNotArray({ file: filePath, type: typeof parsedData }));
         }
 
         // Lưu vào cache
@@ -73,17 +70,15 @@ class GitHubDataFetcher {
           timestamp: Date.now()
         });
 
-        logger.info(M.github.loaded({ file: filePath, bytes: data.length, items: Array.isArray(parsedData) ? parsedData.length : 'N/A' }));
         return parsedData;
 
       } catch (error) {
         lastError = error;
-        logger.error(M.github.loadError({ file: filePath, attempt, retries, msg: error.message }));
 
         // Nếu không phải lần thử cuối, đợi trước khi retry
         if (attempt < retries) {
           const delay = attempt * 2000; // 2s, 4s, 6s...
-          logger.info(M.github.retryWait({ ms: delay }));
+         // logger.info(M.github.retryWait({ ms: delay }));
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
@@ -91,7 +86,6 @@ class GitHubDataFetcher {
 
     // Tất cả attempts đều thất bại, thử fallback về cache cũ
     if (cached) {
-      logger.warn(M.github.allAttemptsFailedUseCache({ file: filePath }));
       return cached.data;
     }
 
@@ -120,7 +114,6 @@ class GitHubDataFetcher {
         let data = '';
 
         // Log response cho debugging
-        logger.debug(M.github.httpRequest({ code: response.statusCode, status: response.statusMessage, url }));
 
         response.on('data', (chunk) => {
           data += chunk;
@@ -145,7 +138,6 @@ class GitHubDataFetcher {
       });
 
       request.on('error', (error) => {
-        logger.error(M.github.requestError({ url, msg: error.message }));
         error.url = url;
         reject(error);
       });
@@ -170,10 +162,8 @@ class GitHubDataFetcher {
   clearCache(filePath) {
     if (filePath) {
       this.cache.delete(filePath);
-      logger.info(M.github.cacheClearedFile({ file: filePath }));
     } else {
       this.cache.clear();
-      logger.info(M.github.cacheClearedAll());
     }
   }
 
@@ -203,9 +193,7 @@ class GitHubDataFetcher {
     for (const file of files) {
       try {
         results[file] = await this.fetchFile(file);
-        logger.info(M.github.preloadSuccess({ file }));
       } catch (error) {
-        logger.error(M.github.preloadFailed({ file, msg: error.message }));
         results[file] = null;
       }
     }

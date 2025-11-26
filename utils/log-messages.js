@@ -32,6 +32,7 @@ const M = {
     healthCheckError: () => 'Health check error',
     detailedHealthCheckError: () => 'Detailed health check error',
     rootRouteError: () => 'Lỗi route gốc',
+    serviceUnavailable: () => 'Dịch vụ không khả dụng',
   },
 
   // Discord Bot lifecycle
@@ -49,6 +50,7 @@ const M = {
     reconnecting: () => 'Bot đang kết nối lại...',
     clientError: () => 'Lỗi Discord client',
     clientWarn: () => 'Discord client warning',
+    botHealthReady: () => 'Bot đang hoạt động bình thường',
   },
 
   // Slash commands and interactions
@@ -111,6 +113,10 @@ const M = {
     githubDataError: ({ file, msg }) => `Lỗi dữ liệu GitHub cho ${file}: ${msg}`,
     githubDataInvalid: ({ file, reason }) => `Dữ liệu GitHub không hợp lệ cho ${file}: ${reason}`,
     githubDataMissing: ({ file }) => `Không có dữ liệu GitHub cho ${file}`,
+    githubTestConection: () => 'Đang kiểm tra kết nối GitHub...',
+    githubTestError: ({ msg }) => `Lỗi kiểm tra kết nối GitHub: ${msg}`,
+    githubConnectionSuccess: () => 'Kết nối GitHub thành công',
+    githubConnectionFailed: () => 'Kết nối GitHub thất bại',
   },
 
   // Data Manager

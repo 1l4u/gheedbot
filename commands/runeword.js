@@ -9,7 +9,6 @@ const { M } = require('../utils/log-messages');
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashRuneword(interaction) {
-  logger.debug(M.commands.runewordCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -21,7 +20,6 @@ async function handleSlashRuneword(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -31,7 +29,6 @@ async function handleSlashRuneword(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      logger.debug(M.debug.interactionNameMissing);
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên runeword'
       });
@@ -41,7 +38,6 @@ async function handleSlashRuneword(interaction) {
     // Lấy dữ liệu runewords từ data manager
     const runewords = await dataManager.getRunewords();
     if (!Array.isArray(runewords)) {
-      logger.error(M.runeword.invalidData);
       return await interaction.editReply({
         content: 'Dữ liệu runeword không hợp lệ'
       });
@@ -159,9 +155,7 @@ async function handleSlashRuneword(interaction) {
       files: files
     });
 
-    logger.debug(M.runeword.runewordDetails`: ${name}`);
   } catch (error) {
-    logger.error(M.runeword.noData, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm runeword'
     });

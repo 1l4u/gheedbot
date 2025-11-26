@@ -9,7 +9,6 @@ const { M } = require('../utils/log-messages');
  * @param {Interaction} interaction - Discord interaction
  */
 async function handleSlashWeapon(interaction) {
-  logger.debug(M.commands.weaponCalled({ user: interaction.user.tag }));
 
   // Defer reply để tránh timeout
   await interaction.deferReply({ flags: 1 << 6 });
@@ -21,7 +20,6 @@ async function handleSlashWeapon(interaction) {
   });
 
   if (!permissionCheck.allowed) {
-    logger.warn(M.hr.setupDenied({ user: interaction.user.tag, reason: permissionCheck.reason }));
     return await interaction.editReply({
       content: permissionCheck.reason
     });
@@ -31,18 +29,15 @@ async function handleSlashWeapon(interaction) {
     // Lấy và kiểm tra giá trị name
     const nameOption = interaction.options.getString('name');
     if (!nameOption) {
-      logger.debug(M.debug.interactionNameMissing);
       return await interaction.editReply({
         content: 'Vui lòng cung cấp tên weapon'
       });
     }
     const name = nameOption.toLowerCase();
-    logger.debug(M.commands.weaponSearching({ name }));
 
     // Lấy dữ liệu weapons từ data manager
     const weapons = await dataManager.getWeapons();
     if (!Array.isArray(weapons)) {
-      logger.error(M.weapon.invalidData);
       return await interaction.editReply({
         content: 'Dữ liệu weapon không hợp lệ'
       });
@@ -116,7 +111,6 @@ async function handleSlashWeapon(interaction) {
       embed.setFooter({ text: footerInfo.join(' | ') });
     }
 
-    logger.debug(M.commands.weaponFound({ weapon: weapon.name, name }));
 
     // Gửi kết quả (chỉ 1 embed)
     await interaction.editReply({
@@ -124,7 +118,6 @@ async function handleSlashWeapon(interaction) {
     });
 
   } catch (error) {
-    logger.error(M.weapon.error, error);
     await interaction.editReply({
       content: 'Đã xảy ra lỗi khi tìm kiếm weapon'
     });
