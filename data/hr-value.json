@@ -8,7 +8,7 @@
   { "name": "Lo", "hr_rate": 1 },
   { "name": "Sur", "hr_rate": 1.5 },
   { "name": "Ber", "hr_rate": 3 },
-  { "name": "Jah", "hr_rate": 1.75 },
-  { "name": "Cham", "hr_rate": 1.75 },
-  { "name": "Zod", "hr_rate": 3.5 }
+  { "name": "Jah", "hr_rate": 2 },
+  { "name": "Cham", "hr_rate": 2 },
+  { "name": "Zod", "hr_rate": 4 }
 ]
