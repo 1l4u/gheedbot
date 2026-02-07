@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Diablo 2 Tools - made by Jah ITH Ber Discord Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-dungeon"></i> Project Diablo 2 Tools</h1>
+            <p class="subtitle">HR Calculator, Damage Calculator, Runewords & Wiki</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="hr-calculator">High Rune</button>
+            <button class="tab-btn" data-tab="damage-calculator">Damage</button>
+            <button class="tab-btn" data-tab="runeword-list">Runewords</button>
+            <button class="tab-btn" data-tab="wiki">PD2 Wiki</button>
+        </div>
+
+        <!-- HR Calculator Tab -->
+        <div id="hr-calculator" class="tab-content active">
+            <h2><i class="fas fa-calculator"></i> High Rune Calculator</h2>
+            
+            <div class="input-grid" id="hr-inputs">
+                <!-- HR inputs will be generated here -->
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 20px; margin-top: 20px;">
+                <div class="result-box" style="flex: 1">
+                    <h3>Total HR <span id="hr-total" class="hr-total">0</span></h3>
+                </div>
+                <button id="calculate-hr" class="btn" style="visibility: hidden;">
+                    <i class="fas fa-calculator"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Damage Calculator Tab -->
+        <div id="damage-calculator" class="tab-content">
+            <h2><i class="fas fa-sword"></i> Weapon Damage Calculator</h2>
+            <p>Search for a weapon and enter damage modifiers to calculate total damage.</p>
+            
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="weapon-search" placeholder="Type to search weapons...">
+                <div id="weapon-suggestions" class="weapon-suggestions"></div>
+            </div>
+            
+            <div id="weapon-info"></div>
+            
+            <div id="weapon-details" style="display: none;">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="enhanced-dmg">Enhanced Damage (%)</label>
+                        <input type="number" id="enhanced-dmg" value="0" min="0" max="1000" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="max-dmg">Maximum Damage (Add)</label>
+                        <input type="number" id="max-dmg" value="0" min="0" max="1000" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="min-dmg">Minimum Damage (Add)</label>
+                        <input type="number" id="min-dmg" value="0" min="0" max="1000" step="1">
+                    </div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ethereal">
+                    <label for="ethereal">Ethereal</label>
+                </div>
+                
+                <button id="calculate-damage" class="btn">
+                    <i class="fas fa-calculator"></i> Calculate Damage
+                </button>
+                
+                <div id="damage-result" class="result-box" style="margin-top: 20px; display: none;">
+                    <h3>Damage Calculation Results</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Stat</th>
+                                <th>Base Value</th>
+                                <th>With Modifiers</th>
+                            </tr>
+                        </thead>
+                        <tbody id="damage-result-body">
+                            <!-- Results will be populated here -->
+                        </tbody>
+                    </table>
+                    <div id="final-damage" class="damage-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Runeword List Tab -->
+        <div id="runeword-list" class="tab-content">
+            <h2><i class="fas fa-scroll"></i> Runewords</h2>
+            <p>Search and browse all available runewords.</p>
+            
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="runeword-search" placeholder="Search runewords by name, runes, or type...">
+            </div>
+            
+            <div class="item-list" id="runeword-list-container">
+                <!-- Runewords will be populated here -->
+            </div>
+        </div>
+
+        <!-- Wiki Tab -->
+        <div id="wiki" class="tab-content">
+            <h2><i class="fas fa-book"></i> Wiki</h2>
+            <p>Search and browse Project Diablo 2 wiki content.</p>
+            
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="wiki-search" placeholder="Search wiki...">
+            </div>
+            
+            <div class="item-list" id="wiki-list-container">
+                <!-- Wiki content will be populated here -->
+                <div class="item-row">
+                    <div class="item-name">Wiki Content Loading</div>
+                    <div class="item-details">The wiki content will appear here once you provide the wiki.json file.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Diablo 2 Tools &copy; 2026 | This is a fan-made tool for educational purposes.</p>
+            <p>Diablo II and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Biến toàn cục
+        let selectedWeapon = null;
+        let hrData = [];
+        let weaponData = [];
+        let runewordData = [];
+        let wikiData = [];
+        let currentDetailType = ''; // 'runeword' hoặc 'wiki'
+        let currentDetailId = null;
+        
+        // GitHub URLs
+        const HR_DATA_URL = 'https://gist.githubusercontent.com/1l4u/f70b3a7554ffcc9ee67e22c45e533e70/raw/5b205ca284c8b602ef709ef2198baf1e16683515/hr-value.json';
+        const WEAPON_DATA_URL = 'https://gist.githubusercontent.com/1l4u/f70b3a7554ffcc9ee67e22c45e533e70/raw/5b205ca284c8b602ef709ef2198baf1e16683515/weapon.json';
+        const RUNEWORD_DATA_URL = 'https://gist.githubusercontent.com/1l4u/f70b3a7554ffcc9ee67e22c45e533e70/raw/5b205ca284c8b602ef709ef2198baf1e16683515/runeword.json';
+        const WIKI_DATA_URL = 'https://gist.githubusercontent.com/1l4u/f70b3a7554ffcc9ee67e22c45e533e70/raw/5b205ca284c8b602ef709ef2198baf1e16683515/wiki.json';
+
+        // Khởi tạo ứng dụng khi trang được load
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Đang khởi tạo ứng dụng...');
+            
+            // Hiển thị loading message
+            showLoadingMessages();
+            
+            try {
+                // Load tất cả dữ liệu
+                await loadAllDataFromGitHub();
+                
+                // Khởi tạo các component
+                initTabs();
+                initHRCalculator();
+                initDamageCalculator();
+                initRunewordList();
+                initWiki();
+                
+                console.log('Ứng dụng đã khởi tạo thành công!');
+            } catch (error) {
+                console.error('Lỗi khi khởi tạo ứng dụng:', error);
+                showErrorMessages();
+            }
+        });
+
+        // Hiển thị thông báo đang tải
+        function showLoadingMessages() {
+            const hrInputs = document.getElementById('hr-inputs');
+            if (hrInputs) {
+                hrInputs.innerHTML = '<div style="color: var(--warning-color); padding: 20px; text-align: center;">Đang tải dữ liệu...</div>';
+            }
+            
+            const weaponInfo = document.getElementById('weapon-info');
+            if (weaponInfo) {
+                weaponInfo.innerHTML = '<div style="color: var(--warning-color); padding: 20px; text-align: center;">Đang tải dữ liệu...</div>';
+            }
+            
+            const runewordListContainer = document.getElementById('runeword-list-container');
+            if (runewordListContainer) {
+                runewordListContainer.innerHTML = '<div class="item-row"><div class="item-name">Đang tải dữ liệu...</div></div>';
+            }
+            
+            const wikiListContainer = document.getElementById('wiki-list-container');
+            if (wikiListContainer) {
+                wikiListContainer.innerHTML = '<div class="item-row"><div class="item-name">Đang tải dữ liệu...</div></div>';
+            }
+        }
+
+        // Hiển thị thông báo lỗi
+        function showErrorMessages() {
+            const containers = ['hr-inputs', 'weapon-info', 'runeword-list-container', 'wiki-list-container'];
+            containers.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = '<div style="color: var(--accent-color); padding: 20px; text-align: center;">Lỗi khi tải dữ liệu. Vui lòng thử lại sau.</div>';
+                }
+            });
+        }
+
+        // Hàm load tất cả dữ liệu từ GitHub
+        async function loadAllDataFromGitHub() {
+            console.log('Loading data from GitHub...');
+            
+            try {
+                // Load từng file một
+                console.log('1. Loading HR data...');
+                hrData = await loadJSONFromGitHub(HR_DATA_URL, 'HR');
+                
+                console.log('2. Loading Weapon data...');
+                weaponData = await loadJSONFromGitHub(WEAPON_DATA_URL, 'Weapon');
+                
+                console.log('3. Loading Runeword data...');
+                runewordData = await loadJSONFromGitHub(RUNEWORD_DATA_URL, 'Runeword');
+                
+                console.log('4. Loading Wiki data...');
+                try {
+                    const wikiResponse = await fetch(WIKI_DATA_URL + '?t=' + Date.now());
+                    if (wikiResponse.ok) {
+                        wikiData = await wikiResponse.json();
+                        console.log('Wiki data loaded:', wikiData.length || 'object', 'items');
+                        
+                        if (wikiData && !Array.isArray(wikiData)) {
+                            console.log('Converting wiki data to array...');
+                            wikiData = [wikiData];
+                        }
+                    } else {
+                        console.log('Wiki data not available');
+                        wikiData = [];
+                    }
+                } catch (wikiError) {
+                    console.log('Wiki data not available:', wikiError);
+                    wikiData = [];
+                }
+                
+                console.log('All data loaded successfully from GitHub');
+                console.log('Data counts:', {
+                    hr: hrData.length,
+                    weapons: weaponData.length,
+                    runewords: runewordData.length,
+                    wiki: wikiData.length
+                });
+                
+            } catch (error) {
+                console.error('Error loading data from GitHub:', error);
+                throw new Error('Failed to load data from GitHub: ' + error.message);
+            }
+        }
+
+        // Hàm load JSON từ GitHub
+        async function loadJSONFromGitHub(url, dataType) {
+            console.log(`Loading ${dataType} data from: ${url}`);
+            
+            try {
+                const response = await fetch(url + '?t=' + Date.now());
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log(`${dataType} data loaded:`, data.length || 'object', 'items');
+                
+                return data;
+            } catch (error) {
+                console.error(`Error loading ${dataType}:`, error);
+                throw error;
+            }
+        }
+
+        // Khởi tạo tab system
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        // Đảm bảo ẩn detail view khi chuyển tab
+                        content.classList.remove('split-view');
+                        // Xóa detail container nếu có
+                        const detailContainer = content.querySelector('.detail-container');
+                        if (detailContainer) {
+                            detailContainer.remove();
+                        }
+                        // Khôi phục layout gốc
+                        const listWrapper = content.querySelector('.list-wrapper');
+                        if (listWrapper) {
+                            const searchContainer = listWrapper.querySelector('.search-container');
+                            const listContainer = listWrapper.querySelector('.item-list');
+                            content.innerHTML = '';
+                            content.appendChild(searchContainer);
+                            content.appendChild(listContainer);
+                        }
+                    });
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Remove highlight từ tất cả items
+                    document.querySelectorAll('.item-row.selected').forEach(row => {
+                        row.classList.remove('selected');
+                    });
+                });
+            });
+        }
+
+        // Khởi tạo HR Calculator
+        function initHRCalculator() {
+            const hrInputsContainer = document.getElementById('hr-inputs');
+            hrInputsContainer.innerHTML = '';
+            
+            if (!hrData || hrData.length === 0) {
+                hrInputsContainer.innerHTML = '<div style="color: #ff6b6b; padding: 20px; text-align: center;">No HR data available</div>';
+                return;
+            }
+            
+            hrData.forEach(rune => {
+                const inputGroup = document.createElement('div');
+                inputGroup.className = 'input-group';
+                inputGroup.innerHTML = `
+                    <label for="hr-${rune.name}">${rune.name} (${rune.hr_rate} HR)</label>
+                    <input type="number" id="hr-${rune.name}" value="0" min="0" max="999" data-rate="${rune.hr_rate}">
+                `;
+                hrInputsContainer.appendChild(inputGroup);
+            });
+            
+            document.getElementById('calculate-hr').addEventListener('click', calculateHRTotal);
+            document.querySelectorAll('#hr-inputs input').forEach(input => {
+                input.addEventListener('input', calculateHRTotal);
+            });
+            
+            console.log('HR Calculator initialized with', hrData.length, 'runes');
+        }
+
+        // Tính tổng HR
+        function calculateHRTotal() {
+            let total = 0;
+            document.querySelectorAll('#hr-inputs input').forEach(input => {
+                const quantity = parseInt(input.value) || 0;
+                const rate = parseFloat(input.getAttribute('data-rate'));
+                total += quantity * rate;
+            });
+            document.getElementById('hr-total').textContent = total.toFixed(2);
+        }
+
+        // Khởi tạo Damage Calculator với search autocomplete
+        function initDamageCalculator() {
+            const weaponSearch = document.getElementById('weapon-search');
+            const weaponDetails = document.getElementById('weapon-details');
+            const damageResult = document.getElementById('damage-result');
+            
+            if (!weaponData || weaponData.length === 0) {
+                weaponSearch.placeholder = "No weapon data available";
+                weaponSearch.disabled = true;
+                return;
+            }
+            
+            // Tạo datalist cho autocomplete
+            const dataList = document.createElement('datalist');
+            dataList.id = 'weapon-options';
+            
+            weaponData.forEach(weapon => {
+                const option = document.createElement('option');
+                option.value = weapon.name;
+                option.setAttribute('data-weapon', JSON.stringify(weapon));
+                dataList.appendChild(option);
+            });
+            
+            document.body.appendChild(dataList);
+            weaponSearch.setAttribute('list', 'weapon-options');
+            
+            // Xử lý khi người dùng nhập
+            let searchTimeout;
+            weaponSearch.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                
+                if (this.value.trim() === '') {
+                    weaponDetails.style.display = 'none';
+                    damageResult.style.display = 'none';
+                    selectedWeapon = null;
+                    const suggestionsContainer = document.getElementById('weapon-suggestions');
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+                
+                searchTimeout = setTimeout(() => {
+                    const searchTerm = this.value.toLowerCase();
+                    const matchingWeapons = weaponData.filter(weapon => 
+                        weapon.name.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    if (matchingWeapons.length === 0) {
+                        showNoWeaponFound();
+                        return;
+                    }
+                    
+                    // Nếu có kết quả chính xác, chọn weapon đầu tiên
+                    const exactMatch = matchingWeapons.find(weapon => 
+                        weapon.name.toLowerCase() === searchTerm
+                    );
+                    
+                    if (exactMatch) {
+                        selectWeapon(exactMatch);
+                    } else {
+                        // Hiển thị suggestions
+                        showWeaponSuggestions(matchingWeapons);
+                    }
+                }, 300);
+            });
+            
+            // Xử lý khi người dùng chọn từ danh sách
+            weaponSearch.addEventListener('change', function() {
+                const selectedOption = Array.from(dataList.options).find(option => 
+                    option.value === this.value
+                );
+                
+                if (selectedOption) {
+                    const weapon = JSON.parse(selectedOption.getAttribute('data-weapon'));
+                    selectWeapon(weapon);
+                }
+            });
+            
+            // Xử lý tính toán damage
+            document.getElementById('calculate-damage').addEventListener('click', calculateDamage);
+            
+            console.log('Damage Calculator initialized with', weaponData.length, 'weapons');
+        }
+        
+        // Hiển thị danh sách gợi ý
+        function showWeaponSuggestions(weapons) {
+            const suggestionsContainer = document.getElementById('weapon-suggestions');
+            suggestionsContainer.innerHTML = '';
+            
+            if (weapons.length > 0) {
+                suggestionsContainer.style.display = 'block';
+                
+                weapons.slice(0, 5).forEach(weapon => {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'weapon-suggestion';
+                    suggestion.innerHTML = `
+                        <div class="weapon-name">${weapon.name}</div>
+                        <div class="weapon-stats">${weapon.min}-${weapon.max} Damage | Speed: ${weapon.speed}</div>
+                    `;
+                    
+                    suggestion.addEventListener('click', function() {
+                        document.getElementById('weapon-search').value = weapon.name;
+                        selectWeapon(weapon);
+                        suggestionsContainer.style.display = 'none';
+                    });
+                    
+                    suggestionsContainer.appendChild(suggestion);
+                });
+            }
+        }
+        
+        // Hiển thị không tìm thấy weapon
+        function showNoWeaponFound() {
+            const suggestionsContainer = document.getElementById('weapon-suggestions');
+            suggestionsContainer.innerHTML = '<div class="no-weapon-found">No weapon found. Try another search.</div>';
+            suggestionsContainer.style.display = 'block';
+            
+            const weaponDetails = document.getElementById('weapon-details');
+            weaponDetails.style.display = 'none';
+            selectedWeapon = null;
+        }
+        
+        // Chọn weapon
+        function selectWeapon(weapon) {
+            selectedWeapon = weapon;
+            const weaponDetails = document.getElementById('weapon-details');
+            const damageResult = document.getElementById('damage-result');
+            const suggestionsContainer = document.getElementById('weapon-suggestions');
+            
+            weaponDetails.style.display = 'block';
+            damageResult.style.display = 'none';
+            suggestionsContainer.style.display = 'none';
+            
+            // Cập nhật thông tin weapon hiển thị
+            const weaponInfoDiv = document.getElementById('weapon-info');
+            weaponInfoDiv.innerHTML = `
+                <div style="background: rgba(108, 99, 255, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid var(--secondary-color); margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="color: var(--energy-blue); margin: 0;">${weapon.name}</h3>
+                        <span style="color: var(--cyber-green); font-weight: bold;">${weapon.min}-${weapon.max} Damage</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; font-size: 0.9rem;">
+                        <div>
+                            <span style="color: #ccc;">Speed:</span>
+                            <span style="color: var(--accent-color); margin-left: 5px;">${weapon.speed}</span>
+                        </div>
+                        <div>
+                            <span style="color: #ccc;">Req. Str:</span>
+                            <span style="color: var(--warning-color); margin-left: 5px;">${weapon.reqstr}</span>
+                        </div>
+                        <div>
+                            <span style="color: #ccc;">Req. Dex:</span>
+                            <span style="color: var(--warning-color); margin-left: 5px;">${weapon.reqdex}</span>
+                        </div>
+                        <div>
+                            <span style="color: #ccc;">Level:</span>
+                            <span style="color: var(--success-color); margin-left: 5px;">${weapon.levelreq}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            console.log('Selected weapon:', weapon.name);
+        }
+
+        // Tính toán damage
+        function calculateDamage() {
+            if (!selectedWeapon) {
+                alert('Please select a weapon first!');
+                return;
+            }
+            
+            const enhancedDmg = parseInt(document.getElementById('enhanced-dmg').value) || 0;
+            const maxDmg = parseInt(document.getElementById('max-dmg').value) || 0;
+            const minDmg = parseInt(document.getElementById('min-dmg').value) || 0;
+            const isEthereal = document.getElementById('ethereal').checked;
+            
+            let baseMin = parseInt(selectedWeapon.min);
+            let baseMax = parseInt(selectedWeapon.max);
+            
+            if (isEthereal) {
+                baseMin = Math.floor(baseMin * 1.5);
+                baseMax = Math.floor(baseMax * 1.5);
+            }
+            
+            const enhancedMin = Math.floor(baseMin * (1 + enhancedDmg / 100));
+            const enhancedMax = Math.floor(baseMax * (1 + enhancedDmg / 100));
+            const finalMin = enhancedMin + minDmg;
+            const finalMax = enhancedMax + maxDmg;
+            
+            const damageResult = document.getElementById('damage-result');
+            const damageResultBody = document.getElementById('damage-result-body');
+            const finalDamageElement = document.getElementById('final-damage');
+            
+            damageResultBody.innerHTML = `
+                <tr>
+                    <td>Base Damage</td>
+                    <td>${selectedWeapon.min} - ${selectedWeapon.max}</td>
+                    <td>${baseMin} - ${baseMax} ${isEthereal ? '(Ethereal)' : ''}</td>
+                </tr>
+                <tr>
+                    <td>Enhanced Damage (${enhancedDmg}%)</td>
+                    <td>${baseMin} - ${baseMax}</td>
+                    <td>${enhancedMin} - ${enhancedMax}</td>
+                </tr>
+                <tr>
+                    <td>Added Damage</td>
+                    <td>+${minDmg} min / +${maxDmg} max</td>
+                    <td>${finalMin} - ${finalMax}</td>
+                </tr>
+            `;
+            
+            finalDamageElement.innerHTML = `<span style="color: var(--success-color);">${finalMin} - ${finalMax}</span>`;
+            damageResult.style.display = 'block';
+        }
+
+        // Khởi tạo Runeword List
+        function initRunewordList() {
+            const runewordListContainer = document.getElementById('runeword-list-container');
+            const searchInput = document.getElementById('runeword-search');
+            
+            if (!runewordData || runewordData.length === 0) {
+                runewordListContainer.innerHTML = '<div class="item-row"><div class="item-name">No runeword data available</div></div>';
+                return;
+            }
+            
+            displayRunewords(runewordData);
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                if (searchTerm.trim() === '') {
+                    displayRunewords(runewordData);
+                    return;
+                }
+                
+                const filteredRunewords = runewordData.filter(runeword => {
+                    if (runeword.name.toLowerCase().includes(searchTerm)) return true;
+                    if (runeword.types && runeword.types.some(type => type.toLowerCase().includes(searchTerm))) return true;
+                    if (runeword.option && runeword.option.some(opt => opt.toLowerCase().includes(searchTerm))) return true;
+                    return false;
+                });
+                
+                displayRunewords(filteredRunewords);
+            });
+            
+            console.log('Runeword List initialized with', runewordData.length, 'runewords');
+        }
+
+        // Hiển thị runewords với click handler
+        function displayRunewords(runewords) {
+            const runewordListContainer = document.getElementById('runeword-list-container');
+            runewordListContainer.innerHTML = '';
+            
+            if (runewords.length === 0) {
+                runewordListContainer.innerHTML = '<div class="item-row"><div class="item-name">No runewords found</div></div>';
+                return;
+            }
+            
+            // Sử dụng for loop để tránh closure issue
+            for (let i = 0; i < runewords.length; i++) {
+                const runeword = runewords[i];
+                const itemRow = document.createElement('div');
+                itemRow.className = 'item-row';
+                
+                let typesHtml = '';
+                if (runeword.types && Array.isArray(runeword.types)) {
+                    typesHtml = runeword.types.map(type => 
+                        `<span class="runeword-types">${type}</span>`
+                    ).join('');
+                }
+                
+                let optionsHtml = '';
+                if (runeword.option && Array.isArray(runeword.option)) {
+                    const maxOptions = 3;
+                    const optionsToShow = runeword.option.slice(0, maxOptions);
+                    optionsHtml = optionsToShow.map(opt => `<div>${opt}</div>`).join('');
+                    if (runeword.option.length > maxOptions) {
+                        optionsHtml += `<div>... and ${runeword.option.length - maxOptions} more</div>`;
+                    }
+                }
+                
+                itemRow.innerHTML = `
+                    <div class="item-name">${runeword.name}</div>
+                    <div class="item-details">
+                        <div style="margin-bottom: 8px;">${typesHtml}</div>
+                        <div style="margin-bottom: 5px;"><strong>Level:</strong> ${runeword.level || 'N/A'}</div>
+                        ${optionsHtml}
+                    </div>
+                `;
+                
+                // Sử dụng IIFE để giữ giá trị i và runeword
+                (function(index, rw) {
+                    itemRow.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        console.log('Clicked runeword:', index, rw.name);
+                        showDetailView('runeword', index, rw);
+                    });
+                })(i, runeword);
+                
+                runewordListContainer.appendChild(itemRow);
+            }
+        }
+
+        // Khởi tạo Wiki
+        function initWiki() {
+            const wikiListContainer = document.getElementById('wiki-list-container');
+            const searchInput = document.getElementById('wiki-search');
+            
+            if (!wikiData || wikiData.length === 0) {
+                wikiListContainer.innerHTML = '<div class="item-row"><div class="item-name">No wiki content available</div></div>';
+                return;
+            }
+            
+            displayWikiItems(wikiData);
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                if (searchTerm.trim() === '') {
+                    displayWikiItems(wikiData);
+                    return;
+                }
+                
+                const filteredWiki = wikiData.filter(wikiItem => {
+                    // Kiểm tra cấu trúc của wikiItem
+                    if (!wikiItem || typeof wikiItem !== 'object') return false;
+                    
+                    const name = wikiItem.name || '';
+                    const text = wikiItem.text || '';
+                    
+                    return name.toLowerCase().includes(searchTerm) || 
+                           text.toLowerCase().includes(searchTerm);
+                });
+                
+                displayWikiItems(filteredWiki);
+            });
+            
+            console.log('Wiki initialized with', wikiData.length, 'items');
+        }
+
+        // Hiển thị wiki items với click handler
+        function displayWikiItems(wikiItems) {
+            const wikiListContainer = document.getElementById('wiki-list-container');
+            wikiListContainer.innerHTML = '';
+            
+            if (wikiItems.length === 0) {
+                wikiListContainer.innerHTML = '<div class="item-row"><div class="item-name">No wiki content found</div></div>';
+                return;
+            }
+            
+            // Sử dụng for loop để tránh closure issue
+            for (let i = 0; i < wikiItems.length; i++) {
+                const wikiItem = wikiItems[i];
+                
+                // Kiểm tra cấu trúc của wikiItem
+                if (!wikiItem || typeof wikiItem !== 'object') {
+                    console.warn('Invalid wiki item at index', i, wikiItem);
+                    continue;
+                }
+                
+                const name = wikiItem.name || 'Untitled';
+                const text = wikiItem.text || '';
+                
+                const itemRow = document.createElement('div');
+                itemRow.className = 'item-row';
+                
+                itemRow.innerHTML = `
+                    <div class="item-name">${name}</div>
+                    <div class="item-details">${text.substring(0, 100)}${text.length > 100 ? '...' : ''}</div>
+                `;
+                
+                // Sử dụng IIFE để giữ giá trị i và wikiItem
+                (function(index, wiki) {
+                    itemRow.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        console.log('Clicked wiki item:', index, name);
+                        showDetailView('wiki', index, wiki);
+                    });
+                })(i, wikiItem);
+                
+                wikiListContainer.appendChild(itemRow);
+            }
+        }
+
+        // ===== DETAIL VIEW FUNCTIONS =====
+        
+        // Hiển thị chi tiết item
+        function showDetailView(type, index, item) {
+            console.log('showDetailView called:', type, index, item);
+            
+            currentDetailType = type;
+            currentDetailId = index;
+            
+            // Chỉ apply split view cho tab hiện tại
+            const activeTab = document.querySelector('.tab-content.active');
+            if (!activeTab) return;
+            
+            // Cập nhật UI để hiển thị layout split
+            if (!activeTab.classList.contains('split-view')) {
+                createSplitView(activeTab, type);
+            }
+            
+            // Hiển thị chi tiết
+            displayItemDetail(item, type);
+            
+            // Highlight item được chọn
+            highlightSelectedItem(type, index);
+        }
+        
+        // Tạo layout split view
+        function createSplitView(container, type) {
+            container.classList.add('split-view');
+            
+            // Lấy search container và list container từ tab hiện tại
+            const searchInput = container.querySelector('.search-input');
+            const searchContainer = searchInput ? searchInput.closest('.search-container') : null;
+            const listContainer = container.querySelector('.item-list');
+            
+            if (!searchContainer || !listContainer) {
+                console.error('Cannot find search or list container');
+                return;
+            }
+            
+            // Tạo wrapper cho list
+            const listWrapper = document.createElement('div');
+            listWrapper.className = 'list-wrapper';
+            
+            // Di chuyển search và list vào wrapper
+            searchContainer.parentNode.removeChild(searchContainer);
+            listContainer.parentNode.removeChild(listContainer);
+            
+            listWrapper.appendChild(searchContainer);
+            listWrapper.appendChild(listContainer);
+            
+            // Tạo detail container
+            const detailContainer = document.createElement('div');
+            detailContainer.id = `${type}-detail-container`;
+            detailContainer.className = 'detail-container';
+            detailContainer.innerHTML = `
+                <div class="detail-header">
+                    <h3>Details</h3>
+                    <button class="close-detail-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="detail-content" id="${type}-detail-content"></div>
+            `;
+            
+            // Thêm close button event
+            detailContainer.querySelector('.close-detail-btn').addEventListener('click', function() {
+                container.classList.remove('split-view');
+                detailContainer.remove();
+                
+                // Khôi phục layout gốc
+                searchContainer.parentNode.removeChild(searchContainer);
+                listContainer.parentNode.removeChild(listContainer);
+                
+                container.appendChild(searchContainer);
+                container.appendChild(listContainer);
+                
+                // Remove highlight
+                document.querySelectorAll('.item-row.selected').forEach(row => {
+                    row.classList.remove('selected');
+                });
+                
+                currentDetailType = '';
+                currentDetailId = null;
+            });
+            
+            // Clear container và thêm layout mới
+            container.innerHTML = '';
+            container.appendChild(listWrapper);
+            container.appendChild(detailContainer);
+        }
+        
+        // Hiển thị chi tiết item
+        function displayItemDetail(item, type) {
+            const detailContent = document.getElementById(`${type}-detail-content`);
+            if (!detailContent) return;
+            
+            if (type === 'runeword') {
+                // Format runeword detail
+                let typesHtml = '';
+                if (item.types && Array.isArray(item.types)) {
+                    typesHtml = item.types.map(type => 
+                        `<span class="runeword-types" style="margin-right: 8px; margin-bottom: 8px; display: inline-block;">${type}</span>`
+                    ).join('');
+                }
+
+                let optionsHtml = '';
+                if (item.option && Array.isArray(item.option)) {
+                    optionsHtml = item.option.map((opt, index) => 
+                        `<div style="margin-bottom: 8px; padding: 10px 15px; background-color: ${index % 2 === 0 ? '#2a2a2a' : '#333'}; border-radius: 6px; border-left: 4px solid ${index % 2 === 0 ? 'var(--secondary-color)' : 'var(--energy-blue)'}; transition: all 0.3s ease;">
+                            ${opt}
+                        </div>`
+                    ).join('');
+                }
+                
+                detailContent.innerHTML = `
+                    <h2 style="color: var(--accent-color); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--primary-color);">${item.name}</h2>
+                    <div style="margin-bottom: 25px;">
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: #ccc; display: block; margin-bottom: 5px;">Types:</strong>
+                            <div>${typesHtml}</div>
+                        </div>
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: #ccc;">Required Level:</strong>
+                            <span style="color: var(--success-color); font-weight: bold; margin-left: 10px;">${item.level || 'N/A'}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--secondary-color); margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid #444;">Properties:</h3>
+                        <div style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                            ${optionsHtml}
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'wiki') {
+                // Format wiki detail
+                const name = item.name || 'Untitled';
+                const text = item.text || '';
+                
+                detailContent.innerHTML = `
+                    <h2 style="color: var(--accent-color); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--primary-color);">${name}</h2>
+                    <div style="font-size: 1.1rem; line-height: 1.7; max-height: 450px; overflow-y: auto; padding-right: 10px;">
+                        ${text.replace(/\n/g, '<br><br>')}
+                    </div>
+                `;
+            }
+        }
+        
+        // Highlight item được chọn
+        function highlightSelectedItem(type, index) {
+            // Remove highlight từ tất cả items trong container hiện tại
+            const container = document.querySelector('.tab-content.active .item-list');
+            if (!container) return;
+            
+            const allItems = container.querySelectorAll('.item-row');
+            allItems.forEach(row => {
+                row.classList.remove('selected');
+            });
+            
+            // Add highlight cho item được chọn
+            if (allItems[index]) {
+                allItems[index].classList.add('selected');
+            }
+        }
+    </script>
+</body>
+</html>
